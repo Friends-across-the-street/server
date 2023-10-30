@@ -9,3 +9,15 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model Incumbent-Users {
+  id    Int     @default(autoincrement()) @id
+  email String  @unique
+  name  String 
+}
+
+model JobSeeker-Users {
+  id    Int     @default(autoincrement()) @id
+  email String  @unique
+  name  String
+}
