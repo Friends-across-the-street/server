@@ -10,13 +10,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Incumbent-Users {
+model incumbent_users {
   id    Int     @default(autoincrement()) @id
   email String  @unique
   name  String 
 }
 
-model JobSeeker-Users {
+model student_users {
   id    Int     @default(autoincrement()) @id
   email String  @unique
   name  String
