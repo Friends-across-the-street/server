@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { IncumbentUsersModule } from './incumbent-users/incumbent-users.module';
-import { JobSeekerUsersModule } from './job-seeker-users/job-seeker-users.module';
+import { StudentUsersModule } from './student_users/student_users.module';
+import { IncumbentUsersModule } from './incumbent_users/incumbent_users.module';
 
 @Module({
   imports: [
     IncumbentUsersModule,
-    JobSeekerUsersModule,
+    StudentUsersModule,
     ConfigModule.forRoot({
       envFilePath: [`${__dirname}/config/env/.${process.env.NODE_ENV}.env`],
       load: [], // not yet
