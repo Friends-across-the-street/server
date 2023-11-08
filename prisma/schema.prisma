@@ -10,14 +10,146 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+generator markdown {
+  provider = "prisma-markdown"
+  output   = "./ERD.md"
+  title    = "DongA"
+}
+
 model incumbent_users {
   id    Int     @default(autoincrement()) @id
   email String  @unique
-  name  String 
+  password String
+  name  String
+  age Int
+  gender String
+  image String
+  reported_num Int @default(0)
+  advice_count Int @default(0)
+  estimation_count Float @default(0.0)
+  major String
+  school String
+  job_description String
+  company_name String?
+  comapny_welfare String @default("0000000000")// TODO) category가 정확하게 정해진 후, flag개수 조정
+  company_location String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt 
+  posts posts[]
+  comments comments[]
+  hits_board hits_board[]
+  hits_comment hits_comment[]
+  reported_board reported_board[]
+  reported_comment reported_comment[]
 }
 
 model student_users {
   id    Int     @default(autoincrement()) @id
   email String  @unique
   name  String
+  age Int
+  gender String
+  image String
+  reported_num Int
+  total_grade Float
+  advice_count Int @default(0)
+  estimation_count Float @default(0.0)
+  major String
+  school String
+  wish_job_description String
+  wish_company_name String
+  wish_company_welfare String
+  wish_company_location String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt 
+  posts posts[]
+  comments comments[]
+  hits_board hits_board[]
+  hits_comment hits_comment[]
+  reported_board reported_board[]
+  reported_comment reported_comment[]
+}
+
+model posts {
+  id    Int     @default(autoincrement()) @id
+  title String
+  content String
+  view Int @default(0)
+  hit Int @default(0)
+  reported Int @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt 
+  incumbent_user incumbent_users @relation(fields: [incumbent_user_id], references: [id])
+  incumbent_user_id Int @default(0)
+  student_user student_users @relation(fields: [student_user_id], references: [id])
+  student_user_id Int @default(0)
+  comments comments[]
+  hits_board hits_board[]
+  reported_board reported_board[]
+}
+
+model comments {
+  id    Int     @default(autoincrement()) @id
+  content String
+  parent_comment_id Int @default(0)
+  view Int @default(0)
+  hit Int @default(0)
+  reported Int @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt 
+  incumbent_user incumbent_users @relation(fields: [incumbent_user_id], references: [id])
+  incumbent_user_id Int @default(0)
+  student_user student_users @relation(fields: [student_user_id], references: [id])
+  student_user_id Int @default(0)
+  post posts @relation(fields: [post_id], references: [id])
+  post_id Int
+  hits_comment hits_comment[]
+  reported_comment reported_comment[]
+}
+
+model hits_board {
+  id    Int     @default(autoincrement()) @id
+  incumbent_user incumbent_users @relation(fields: [incumbent_user_id], references: [id])
+  incumbent_user_id Int @default(0)
+  student_user student_users @relation(fields: [student_user_id], references: [id])
+  student_user_id Int @default(0)
+  post posts @relation(fields: [post_id], references: [id])
+  post_id Int
+  createdAt DateTime @default(now())
+}
+
+model reported_board {
+  id    Int     @default(autoincrement()) @id
+  reason String
+  incumbent_user incumbent_users @relation(fields: [incumbent_user_id], references: [id])
+  incumbent_user_id Int @default(0)
+  student_user student_users @relation(fields: [student_user_id], references: [id])
+  student_user_id Int @default(0)
+  post posts @relation(fields: [post_id], references: [id])
+  post_id Int
+  createdAt DateTime @default(now())
+}
+
+
+model hits_comment {
+  id    Int     @default(autoincrement()) @id
+  incumbent_user incumbent_users @relation(fields: [incumbent_user_id], references: [id])
+  incumbent_user_id Int @default(0)
+  student_user student_users @relation(fields: [student_user_id], references: [id])
+  student_user_id Int @default(0)
+  comment comments @relation(fields: [comment_id], references: [id])
+  comment_id Int
+  createdAt DateTime @default(now())
+}
+
+model reported_comment {
+  id    Int     @default(autoincrement()) @id
+  reason String
+  incumbent_user incumbent_users @relation(fields: [incumbent_user_id], references: [id])
+  incumbent_user_id Int @default(0)
+  student_user student_users @relation(fields: [student_user_id], references: [id])
+  student_user_id Int @default(0)
+  comment comments @relation(fields: [comment_id], references: [id])
+  comment_id Int
+  createdAt DateTime @default(now())
 }
