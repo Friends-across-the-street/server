@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { StudentUsersModule } from './student_users/student_users.module';
 import { IncumbentUsersModule } from './incumbent_users/incumbent_users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { IncumbentUsersModule } from './incumbent_users/incumbent_users.module';
       load: [], // not yet
       isGlobal: true,
     }),
+    AuthModule,
   ],
   controllers: [],
   providers: [],
