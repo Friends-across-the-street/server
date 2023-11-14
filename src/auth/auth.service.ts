@@ -22,6 +22,11 @@ export class AuthService {
     private prismaService: PrismaService,
   ) {}
 
+  async signup() {
+    //TODO 데이터셋이 확실히 정해졌을때 가입
+    return;
+  }
+
   async validateUser(email, password) {
     let user: any = await this.prismaService.incumbent_users.findFirst({
       where: { email, password },

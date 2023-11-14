@@ -14,7 +14,10 @@ export class AuthController {
   @Post('/login')
   async login(@Body() dto: UserLoginDto): Promise<string> {
     const { email, password } = dto;
-    const user = await this.authService.validateUser(email, password);
+    let user = await this.authService.validateUser(email, password);
+    if(!user){
+      user = await this.authService.signup();
+    }
     const token = await this.authService.createToken(user);
     return token;
   }
