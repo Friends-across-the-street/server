@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { StudentUsersModule } from './student_users/student_users.module';
 import { IncumbentUsersModule } from './incumbent_users/incumbent_users.module';
 import { AuthModule } from './auth/auth.module';
+import { PostsModule } from './posts/posts.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { AuthModule } from './auth/auth.module';
       isGlobal: true,
     }),
     AuthModule,
+    PostsModule,
   ],
   controllers: [],
   providers: [],
