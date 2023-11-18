@@ -80,10 +80,10 @@ model posts {
   reported Int @default(0)
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt 
-  incumbent_user incumbent_users @relation(fields: [incumbent_user_id], references: [id])
-  incumbent_user_id Int @default(0)
-  student_user student_users @relation(fields: [student_user_id], references: [id])
-  student_user_id Int @default(0)
+  incumbent_user incumbent_users? @relation(fields: [incumbent_user_id], references: [id])
+  incumbent_user_id Int?
+  student_user student_users? @relation(fields: [student_user_id], references: [id])
+  student_user_id Int?
   comments comments[]
   hits_board hits_board[]
   reported_board reported_board[]
@@ -98,10 +98,10 @@ model comments {
   reported Int @default(0)
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt 
-  incumbent_user incumbent_users @relation(fields: [incumbent_user_id], references: [id])
-  incumbent_user_id Int @default(0)
-  student_user student_users @relation(fields: [student_user_id], references: [id])
-  student_user_id Int @default(0)
+  incumbent_user incumbent_users? @relation(fields: [incumbent_user_id], references: [id])
+  incumbent_user_id Int? 
+  student_user student_users? @relation(fields: [student_user_id], references: [id])
+  student_user_id Int? 
   post posts @relation(fields: [post_id], references: [id])
   post_id Int
   hits_comment hits_comment[]
@@ -110,10 +110,10 @@ model comments {
 
 model hits_board {
   id    Int     @default(autoincrement()) @id
-  incumbent_user incumbent_users @relation(fields: [incumbent_user_id], references: [id])
-  incumbent_user_id Int @default(0)
+  incumbent_user incumbent_users? @relation(fields: [incumbent_user_id], references: [id])
+  incumbent_user_id Int 
   student_user student_users @relation(fields: [student_user_id], references: [id])
-  student_user_id Int @default(0)
+  student_user_id Int 
   post posts @relation(fields: [post_id], references: [id])
   post_id Int
   createdAt DateTime @default(now())
@@ -122,10 +122,10 @@ model hits_board {
 model reported_board {
   id    Int     @default(autoincrement()) @id
   reason String
-  incumbent_user incumbent_users @relation(fields: [incumbent_user_id], references: [id])
-  incumbent_user_id Int @default(0)
-  student_user student_users @relation(fields: [student_user_id], references: [id])
-  student_user_id Int @default(0)
+  incumbent_user incumbent_users? @relation(fields: [incumbent_user_id], references: [id])
+  incumbent_user_id Int? 
+  student_user student_users? @relation(fields: [student_user_id], references: [id])
+  student_user_id Int? 
   post posts @relation(fields: [post_id], references: [id])
   post_id Int
   createdAt DateTime @default(now())
@@ -134,10 +134,10 @@ model reported_board {
 
 model hits_comment {
   id    Int     @default(autoincrement()) @id
-  incumbent_user incumbent_users @relation(fields: [incumbent_user_id], references: [id])
-  incumbent_user_id Int @default(0)
-  student_user student_users @relation(fields: [student_user_id], references: [id])
-  student_user_id Int @default(0)
+  incumbent_user incumbent_users? @relation(fields: [incumbent_user_id], references: [id])
+  incumbent_user_id Int? 
+  student_user student_users? @relation(fields: [student_user_id], references: [id])
+  student_user_id Int? 
   comment comments @relation(fields: [comment_id], references: [id])
   comment_id Int
   createdAt DateTime @default(now())
@@ -146,10 +146,10 @@ model hits_comment {
 model reported_comment {
   id    Int     @default(autoincrement()) @id
   reason String
-  incumbent_user incumbent_users @relation(fields: [incumbent_user_id], references: [id])
-  incumbent_user_id Int @default(0)
-  student_user student_users @relation(fields: [student_user_id], references: [id])
-  student_user_id Int @default(0)
+  incumbent_user incumbent_users? @relation(fields: [incumbent_user_id], references: [id])
+  incumbent_user_id Int? 
+  student_user student_users? @relation(fields: [student_user_id], references: [id])
+  student_user_id Int? 
   comment comments @relation(fields: [comment_id], references: [id])
   comment_id Int
   createdAt DateTime @default(now())
