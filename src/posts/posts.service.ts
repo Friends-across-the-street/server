@@ -1,16 +1,20 @@
 import { Injectable } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class PostsService {
   constructor(private prismaService: PrismaService) {}
 
-  async createPost(title: string, content: string) {
+  async createPost(data: Prisma.postsCreateInput) {
     return await this.prismaService.posts.create({
-      data: {
-        title,
-        content,
-      },
+      data,
+    });
+  }
+
+  async getPost(postId: number) {
+    return await this.prismaService.posts.findFirst({
+      where: { id: postId },
     });
   }
 }
