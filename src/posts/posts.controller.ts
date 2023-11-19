@@ -8,12 +8,17 @@ export class PostsController {
 
   @Post()
   async createPost(@Body() dto: CreatePostDto): Promise<void> {
-    const { title, content } = dto;
+    const { title, content, incumbentUserId, studentUserId } = dto;
+
     await this.postsService.createPost({
       title: title,
       content: content,
-      // incumbent_user:
-      // student_user:
+      incumbent_user: incumbentUserId
+        ? { connect: { id: incumbentUserId } }
+        : null,
+      student_user: studentUserId //
+        ? { connect: { id: studentUserId } }
+        : null,
     });
   }
 

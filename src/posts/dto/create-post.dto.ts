@@ -8,4 +8,6 @@ export class CreatePostDto {
   @IsString()
   @MinLength(3)
   content: string;
+  incumbentUserId: number;
+  studentUserId: number;
 }
