@@ -9,11 +9,15 @@ import {
 } from 'class-validator';
 
 export class CreateUserDto {
-  
   @IsString()
   @IsEmail()
   @MaxLength(60)
   readonly email: string;
+
+  @IsString()
+  @MinLength(2)
+  @MaxLength(30)
+  readonly password: string;
 
   @Transform((params) => params.value.trim())
   @IsString()
@@ -26,8 +30,12 @@ export class CreateUserDto {
   @MaxLength(3)
   readonly age: number;
 
-  @IsString()
-  @MinLength(2)
-  @MaxLength(30)
-  readonly password: string;
+  readonly gender: string;
+  readonly image: string;
+  readonly major: string;
+  readonly school: string;
+  readonly job_description: string;
+  readonly company_name: string;
+  readonly company_welfare: string;
+  readonly company_location: string;
 }
