@@ -2,7 +2,7 @@ import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UserLoginDto } from './dto/login-user.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateIncumbentUserDto } from './dto/create-incumbent-user.dto';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -11,8 +11,10 @@ export class AuthController {
 
   @ApiOperation({ summary: '회원가입 처리' })
   @ApiResponse({ status: 200, description: '회원가입 성공' })
-  @Post('/signup')
-  async signup(@Body() dto: CreateUserDto) {}
+  @Post('/signup/incumbent')
+  async signupIncumbentUser(@Body() dto: CreateIncumbentUserDto) {
+    return await this.authService.signupIncumbentUser(dto);
+  }
 
   @ApiOperation({ summary: '로그인 처리' })
   @ApiResponse({ status: 200, description: '로그인 성공' })
