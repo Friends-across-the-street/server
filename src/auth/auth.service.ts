@@ -1,13 +1,16 @@
 import {
+  BadRequestException,
   Inject,
   Injectable,
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { ConfigType } from '@nestjs/config';
+import { ConfigService, ConfigType } from '@nestjs/config';
 import authConfig from 'src/config/authConfig';
 import * as jwt from 'jsonwebtoken';
+import * as bcrypt from 'bcrypt';
 import { PrismaService } from 'src/prisma.service';
+import { CreateIncumbentUserArgs } from './interface/create-user.interface';
 
 interface User {
   id: string;
@@ -19,12 +22,30 @@ interface User {
 export class AuthService {
   constructor(
     @Inject(authConfig.KEY) private config: ConfigType<typeof authConfig>,
+    private configService: ConfigService,
     private prismaService: PrismaService,
   ) {}
 
-  async signup() {
-    //TODO 데이터셋이 확실히 정해졌을때 가입
-    return;
+  async signupIncumbentUser(arg: CreateIncumbentUserArgs) {
+    const isExistEmail = await this.validateIncumbentUserEmail(arg.email);
+    if (isExistEmail) {
+      throw new BadRequestException('해당 이메일이 이미 존재');
+    }
+    const hashedPassword = await bcrypt.hash(
+      arg.password,
+      Number(this.configService.get('BCRYPT_SALT_ROUNDS')),
+    );
+    arg.password = hashedPassword;
+    const user = await this.prismaService.incumbent_users.create({
+      data: arg,
+    });
+    return user.id;
+  }
+
+  async validateIncumbentUserEmail(email: string) {
+    return await this.prismaService.incumbent_users.findFirst({
+      where: { email },
+    });
   }
 
   async validateUser(email, password) {
@@ -39,7 +60,6 @@ export class AuthService {
     if (!user) {
       throw new NotFoundException('유저가 존재하지 않음');
     }
-
     return user;
   }
 
