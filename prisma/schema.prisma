@@ -31,7 +31,7 @@ model incumbent_users {
   school String
   job_description String
   company_name String?
-  comapny_welfare String @default("0000000000")// TODO) category가 정확하게 정해진 후, flag개수 조정
+  company_welfare String @default("0000000000")// TODO) category가 정확하게 정해진 후, flag개수 조정
   company_location String?
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt 
