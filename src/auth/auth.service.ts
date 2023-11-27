@@ -10,7 +10,10 @@ import authConfig from 'src/config/authConfig';
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from 'src/prisma.service';
-import { CreateIncumbentUserArgs } from './interface/create-user.interface';
+import {
+  CreateIncumbentUserArgs,
+  CreateStudentUserArgs,
+} from './interface/create-user.interface';
 
 interface User {
   id: string;
@@ -42,8 +45,30 @@ export class AuthService {
     return user.id;
   }
 
+  async signupStudentUser(arg: CreateStudentUserArgs) {
+    const isExistEmail = await this.validateStudentUserEmail(arg.email);
+    if (isExistEmail) {
+      throw new BadRequestException('해당 이메일이 이미 존재');
+    }
+    const hashedPassword = await bcrypt.hash(
+      arg.password,
+      Number(this.configService.get('BCRYPT_SALT_ROUNDS')),
+    );
+    arg.password = hashedPassword;
+    const user = await this.prismaService.student_users.create({
+      data: arg,
+    });
+    return user.id;
+  }
+
   async validateIncumbentUserEmail(email: string) {
     return await this.prismaService.incumbent_users.findFirst({
+      where: { email },
+    });
+  }
+
+  async validateStudentUserEmail(email: string) {
+    return await this.prismaService.student_users.findFirst({
       where: { email },
     });
   }
