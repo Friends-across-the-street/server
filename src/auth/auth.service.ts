@@ -6,6 +6,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { ConfigService, ConfigType } from '@nestjs/config';
+import { Prisma } from '@prisma/client';
 import authConfig from 'src/config/authConfig';
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcrypt';
@@ -29,7 +30,7 @@ export class AuthService {
     private prismaService: PrismaService,
   ) {}
 
-  async signupIncumbentUser(arg: CreateIncumbentUserArgs) {
+  async signupIncumbentUser(arg: Prisma.incumbent_usersCreateInput) {
     const isExistEmail = await this.validateIncumbentUserEmail(arg.email);
     if (isExistEmail) {
       throw new BadRequestException('해당 이메일이 이미 존재');
@@ -45,7 +46,7 @@ export class AuthService {
     return user.id;
   }
 
-  async signupStudentUser(arg: CreateStudentUserArgs) {
+  async signupStudentUser(arg: Prisma.student_usersCreateInput) {
     const isExistEmail = await this.validateStudentUserEmail(arg.email);
     if (isExistEmail) {
       throw new BadRequestException('해당 이메일이 이미 존재');
