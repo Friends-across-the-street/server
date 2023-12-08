@@ -10,11 +10,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// generator markdown {
-//   provider = "prisma-markdown"
-//   output   = "./ERD.md"
-//   title    = "DongA"
-// }
+generator markdown {
+  provider = "prisma-markdown"
+  output   = "./ERD.md"
+  title    = "DongA"
+}
 
 model incumbent_users {
   id    Int     @default(autoincrement()) @id
@@ -93,7 +93,6 @@ model comments {
   id    Int     @default(autoincrement()) @id
   content String
   parent_comment_id Int @default(0)
-  view Int @default(0)
   hit Int @default(0)
   reported Int @default(0)
   createdAt DateTime @default(now())
