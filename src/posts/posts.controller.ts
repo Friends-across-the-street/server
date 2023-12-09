@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { PostsService } from './posts.service';
-import { CreatePostDto } from './\bdto/create-post.dto';
+import { CreatePostDto } from './dto/create-post.dto';
 
 @Controller('posts')
 export class PostsController {
@@ -11,14 +11,7 @@ export class PostsController {
     const { title, content, incumbentUserId, studentUserId } = dto;
 
     await this.postsService.createPost({
-      title: title,
-      content: content,
-      incumbent_user: incumbentUserId
-        ? { connect: { id: incumbentUserId } }
-        : null,
-      student_user: studentUserId //
-        ? { connect: { id: studentUserId } }
-        : null,
+      ...dto,
     });
   }
 
