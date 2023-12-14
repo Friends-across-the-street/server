@@ -1,5 +1,7 @@
 import {
   BadRequestException,
+  HttpException,
+  HttpStatus,
   Inject,
   Injectable,
   NotFoundException,
@@ -7,14 +9,10 @@ import {
 } from '@nestjs/common';
 import { ConfigService, ConfigType } from '@nestjs/config';
 import { Prisma } from '@prisma/client';
-import authConfig from 'src/config/authConfig';
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from 'src/prisma.service';
-import {
-  CreateIncumbentUserArgs,
-  CreateStudentUserArgs,
-} from './interface/create-user.interface';
+import authConfig from '../config/authConfig';
 
 interface User {
   id: string;
@@ -30,10 +28,25 @@ export class AuthService {
     private prismaService: PrismaService,
   ) {}
 
+  // TODO 회원가입시 반대쪽 유저 validation 추가
   async signupIncumbentUser(arg: Prisma.incumbent_usersCreateInput) {
     const isExistEmail = await this.validateIncumbentUserEmail(arg.email);
     if (isExistEmail) {
       throw new BadRequestException('해당 이메일이 이미 존재');
+    }
+    const isExistStudentUser = await this.validateStudentUserEmail(arg.email);
+    if (isExistStudentUser) {
+      throw new HttpException( //
+        {
+          message: '학생 이메일이 이미 존재',
+          error: 'Bad Request',
+          statusCode: 4001,
+        },
+        HttpStatus.BAD_REQUEST,
+        {
+          cause: '이메일 이미 존재',
+        },
+      );
     }
     const hashedPassword = await bcrypt.hash(
       arg.password,
@@ -51,6 +64,23 @@ export class AuthService {
     if (isExistEmail) {
       throw new BadRequestException('해당 이메일이 이미 존재');
     }
+    const isExistIncumbentEmail = await this.validateIncumbentUserEmail(
+      arg.email,
+    );
+    if (isExistIncumbentEmail) {
+      throw new HttpException( //
+        {
+          message: '현직자 이메일이 이미 존재',
+          error: 'Bad Request',
+          statusCode: 4001,
+        },
+        HttpStatus.BAD_REQUEST,
+        {
+          cause: '이메일 이미 존재',
+        },
+      );
+    }
+
     const hashedPassword = await bcrypt.hash(
       arg.password,
       Number(this.configService.get('BCRYPT_SALT_ROUNDS')),
@@ -62,13 +92,13 @@ export class AuthService {
     return user.id;
   }
 
-  async validateIncumbentUserEmail(email: string) {
+  private async validateIncumbentUserEmail(email: string) {
     return await this.prismaService.incumbent_users.findFirst({
       where: { email },
     });
   }
 
-  async validateStudentUserEmail(email: string) {
+  private async validateStudentUserEmail(email: string) {
     return await this.prismaService.student_users.findFirst({
       where: { email },
     });
@@ -76,15 +106,19 @@ export class AuthService {
 
   async validateUser(email, password) {
     let user: any = await this.prismaService.incumbent_users.findFirst({
-      where: { email, password },
+      where: { email },
     });
     if (!user) {
       user = await this.prismaService.student_users.findFirst({
-        where: { email, password },
+        where: { email },
       });
     }
     if (!user) {
       throw new NotFoundException('유저가 존재하지 않음');
+    }
+    const isValidPassword = await bcrypt.compare(password, user.password);
+    if (!isValidPassword) {
+      throw new UnauthorizedException('비밀번호 불일치');
     }
     return user;
   }
