@@ -37,9 +37,9 @@ model incumbent_users {
   updatedAt DateTime @default(now()) @updatedAt 
   posts posts[]
   comments comments[]
-  hits_board hits_board[]
-  hits_comment hits_comment[]
-  reported_board reported_board[]
+  recommend_post recommend_post[]
+  recommend_comment recommend_comment[]
+  reported_post reported_post[]
   reported_comment reported_comment[]
 }
 
@@ -65,9 +65,9 @@ model student_users {
   updatedAt DateTime @default(now()) @updatedAt 
   posts posts[]
   comments comments[]
-  hits_board hits_board[]
-  hits_comment hits_comment[]
-  reported_board reported_board[]
+  recommend_post recommend_post[]
+  recommend_comment recommend_comment[]
+  reported_post reported_post[]
   reported_comment reported_comment[]
 }
 
@@ -85,8 +85,8 @@ model posts {
   student_user student_users? @relation(fields: [student_user_id], references: [id])
   student_user_id Int?
   comments comments[]
-  hits_board hits_board[]
-  reported_board reported_board[]
+  recommend_post recommend_post[]
+  reported_post reported_post[]
 }
 
 model comments {
@@ -103,11 +103,11 @@ model comments {
   student_user_id Int? 
   post posts @relation(fields: [post_id], references: [id])
   post_id Int
-  hits_comment hits_comment[]
+  recommend_comment recommend_comment[]
   reported_comment reported_comment[]
 }
 
-model hits_board {
+model recommend_post {
   id    Int     @default(autoincrement()) @id
   incumbent_user incumbent_users? @relation(fields: [incumbent_user_id], references: [id])
   incumbent_user_id Int 
@@ -118,7 +118,7 @@ model hits_board {
   createdAt DateTime @default(now())
 }
 
-model reported_board {
+model reported_post {
   id    Int     @default(autoincrement()) @id
   reason String
   incumbent_user incumbent_users? @relation(fields: [incumbent_user_id], references: [id])
@@ -131,7 +131,7 @@ model reported_board {
 }
 
 
-model hits_comment {
+model recommend_comment {
   id    Int     @default(autoincrement()) @id
   incumbent_user incumbent_users? @relation(fields: [incumbent_user_id], references: [id])
   incumbent_user_id Int? 
