@@ -81,9 +81,9 @@ model posts {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt 
   incumbent_user incumbent_users? @relation(fields: [incumbent_user_id], references: [id])
-  incumbent_user_id Int?
+  incumbent_user_id Int? @map(name: "incumbent_user_id")
   student_user student_users? @relation(fields: [student_user_id], references: [id])
-  student_user_id Int?
+  student_user_id Int? @map(name: "student_user_id")
   comments comments[]
   recommend_post recommend_post[]
   reported_post reported_post[]
@@ -98,9 +98,9 @@ model comments {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt 
   incumbent_user incumbent_users? @relation(fields: [incumbent_user_id], references: [id])
-  incumbent_user_id Int? 
+  incumbent_user_id Int? @map(name: "incumbent_user_id")
   student_user student_users? @relation(fields: [student_user_id], references: [id])
-  student_user_id Int? 
+  student_user_id Int? @map(name: "student_user_id")
   post posts @relation(fields: [post_id], references: [id])
   post_id Int
   recommend_comment recommend_comment[]
@@ -110,9 +110,9 @@ model comments {
 model recommend_post {
   id    Int     @default(autoincrement()) @id
   incumbent_user incumbent_users? @relation(fields: [incumbent_user_id], references: [id])
-  incumbent_user_id Int 
-  student_user student_users @relation(fields: [student_user_id], references: [id])
-  student_user_id Int 
+  incumbent_user_id Int? @map(name: "incumbent_user_id")
+  student_user student_users? @relation(fields: [student_user_id], references: [id])
+  student_user_id Int? @map(name: "student_user_id")
   post posts @relation(fields: [post_id], references: [id])
   post_id Int
   createdAt DateTime @default(now())
@@ -122,9 +122,9 @@ model reported_post {
   id    Int     @default(autoincrement()) @id
   reason String
   incumbent_user incumbent_users? @relation(fields: [incumbent_user_id], references: [id])
-  incumbent_user_id Int? 
+  incumbent_user_id Int? @map(name: "incumbent_user_id")
   student_user student_users? @relation(fields: [student_user_id], references: [id])
-  student_user_id Int? 
+  student_user_id Int? @map(name: "student_user_id")
   post posts @relation(fields: [post_id], references: [id])
   post_id Int
   createdAt DateTime @default(now())
@@ -134,9 +134,9 @@ model reported_post {
 model recommend_comment {
   id    Int     @default(autoincrement()) @id
   incumbent_user incumbent_users? @relation(fields: [incumbent_user_id], references: [id])
-  incumbent_user_id Int? 
+  incumbent_user_id Int? @map(name: "incumbent_user_id")
   student_user student_users? @relation(fields: [student_user_id], references: [id])
-  student_user_id Int? 
+  student_user_id Int? @map(name: "student_user_id")
   comment comments @relation(fields: [comment_id], references: [id])
   comment_id Int
   createdAt DateTime @default(now())
@@ -146,9 +146,9 @@ model reported_comment {
   id    Int     @default(autoincrement()) @id
   reason String
   incumbent_user incumbent_users? @relation(fields: [incumbent_user_id], references: [id])
-  incumbent_user_id Int? 
+  incumbent_user_id Int? @map(name: "incumbent_user_id")
   student_user student_users? @relation(fields: [student_user_id], references: [id])
-  student_user_id Int? 
+  student_user_id Int? @map(name: "student_user_id")
   comment comments @relation(fields: [comment_id], references: [id])
   comment_id Int
   createdAt DateTime @default(now())
