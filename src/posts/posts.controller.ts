@@ -8,15 +8,13 @@ export class PostsController {
 
   @Post()
   async createPost(@Body() dto: CreatePostDto): Promise<void> {
-    const { title, content, incumbentUserId, studentUserId } = dto;
-
-    await this.postsService.createPost({
+    await this.postsService.create({
       ...dto,
     });
   }
 
   @Get('/:id')
   async getPost(@Param('id') postId: number) {
-    return await this.postsService.getPost(postId);
+    return await this.postsService.getById(postId);
   }
 }
