@@ -15,7 +15,7 @@ export class PostsController {
 
   @Get()
   async getAll(@Query('page') page: number, @Query('limit') limit: number) {
-    return await this.postsService.getAll(page, limit);
+    return await this.postsService.getPage(page, limit);
   }
 
   @Get('/:id')
