@@ -14,6 +14,16 @@ export class PostsService {
     });
   }
 
+  async getPage(page: number, limit: number) {
+    return await this.prismaService.posts.findMany({
+      skip: (page - 1) * limit,
+      take: limit,
+      orderBy: {
+        id: 'desc',
+      },
+    });
+  }
+
   async getById(postId: number) {
     return await this.prismaService.posts.findFirst({
       where: { id: postId },
