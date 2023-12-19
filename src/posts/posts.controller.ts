@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 
@@ -11,6 +11,11 @@ export class PostsController {
     await this.postsService.create({
       ...dto,
     });
+  }
+
+  @Get()
+  async getAll(@Query('page') page: number, @Query('limit') limit: number) {
+    return await this.postsService.getAll(page, limit);
   }
 
   @Get('/:id')
