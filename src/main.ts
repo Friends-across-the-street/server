@@ -14,10 +14,10 @@ async function bootstrap() {
   dotenv.config({
     path: path.resolve(
       process.env.NODE_ENV === 'prod'
-        ? './src/config/env/.prod.env'
+        ? './src/global/config/env/.prod.env'
         : process.env.NODE_ENV === 'dev'
-        ? './src/config/env/.dev.env'
-        : './src/config/env/.stage.env',
+        ? './src/global/config/env/.dev.env'
+        : './src/global/config/env/.stage.env',
     ),
   });
 
@@ -37,16 +37,6 @@ async function bootstrap() {
       transform: true,
     }),
   );
-
-  app.use((req, res, next) => {
-    // 모든 요청에 대한 로깅
-    console.log(
-      `${req.method} ${req.url} ${res.statusCode} - ${
-        res.getHeader('content-length') || 0
-      } bytes`,
-    );
-    next();
-  });
 
   // Swagger Config
   const swaggerConfig = new DocumentBuilder()

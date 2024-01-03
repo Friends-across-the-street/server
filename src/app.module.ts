@@ -4,14 +4,16 @@ import { StudentUsersModule } from './student_users/student_users.module';
 import { IncumbentUsersModule } from './incumbent_users/incumbent_users.module';
 import { AuthModule } from './auth/auth.module';
 import { PostsModule } from './posts/posts.module';
-import authConfig from './config/authConfig';
+import authConfig from './global/config/authConfig';
 
 @Module({
   imports: [
     IncumbentUsersModule,
     StudentUsersModule,
     ConfigModule.forRoot({
-      envFilePath: [`${__dirname}/config/env/.${process.env.NODE_ENV}.env`],
+      envFilePath: [
+        `${__dirname}/global/config/env/.${process.env.NODE_ENV}.env`,
+      ],
       load: [authConfig],
       isGlobal: true,
     }),

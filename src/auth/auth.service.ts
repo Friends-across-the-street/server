@@ -12,7 +12,7 @@ import { Prisma } from '@prisma/client';
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from 'src/prisma.service';
-import authConfig from '../config/authConfig';
+import authConfig from '../global/config/authConfig';
 
 interface User {
   id: string;
