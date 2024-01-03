@@ -71,14 +71,14 @@ erDiagram
     Int student_user_id FK "nullable"
     Int post_id FK
 }
-"hits_board" {
+"recommend_post" {
     Int id PK
-    Int incumbent_user_id FK
-    Int student_user_id FK
+    Int incumbent_user_id FK "nullable"
+    Int student_user_id FK "nullable"
     Int post_id FK
     DateTime createdAt
 }
-"reported_board" {
+"reported_post" {
     Int id PK
     String reason
     Int incumbent_user_id FK "nullable"
@@ -86,7 +86,7 @@ erDiagram
     Int post_id FK
     DateTime createdAt
 }
-"hits_comment" {
+"recommend_comment" {
     Int id PK
     Int incumbent_user_id FK "nullable"
     Int student_user_id FK "nullable"
@@ -106,15 +106,15 @@ erDiagram
 "comments" }o--|| "incumbent_users" : incumbent_user
 "comments" }o--|| "student_users" : student_user
 "comments" }|--|| "posts" : post
-"hits_board" }|--|| "incumbent_users" : incumbent_user
-"hits_board" }|--|| "student_users" : student_user
-"hits_board" }|--|| "posts" : post
-"reported_board" }o--|| "incumbent_users" : incumbent_user
-"reported_board" }o--|| "student_users" : student_user
-"reported_board" }|--|| "posts" : post
-"hits_comment" }o--|| "incumbent_users" : incumbent_user
-"hits_comment" }o--|| "student_users" : student_user
-"hits_comment" }|--|| "comments" : comment
+"recommend_post" }o--|| "incumbent_users" : incumbent_user
+"recommend_post" }o--|| "student_users" : student_user
+"recommend_post" }|--|| "posts" : post
+"reported_post" }o--|| "incumbent_users" : incumbent_user
+"reported_post" }o--|| "student_users" : student_user
+"reported_post" }|--|| "posts" : post
+"recommend_comment" }o--|| "incumbent_users" : incumbent_user
+"recommend_comment" }o--|| "student_users" : student_user
+"recommend_comment" }|--|| "comments" : comment
 "reported_comment" }o--|| "incumbent_users" : incumbent_user
 "reported_comment" }o--|| "student_users" : student_user
 "reported_comment" }|--|| "comments" : comment
@@ -193,7 +193,7 @@ erDiagram
   - `student_user_id`: 
   - `post_id`: 
 
-### `hits_board`
+### `recommend_post`
 
 **Properties**
   - `id`: 
@@ -202,7 +202,7 @@ erDiagram
   - `post_id`: 
   - `createdAt`: 
 
-### `reported_board`
+### `reported_post`
 
 **Properties**
   - `id`: 
@@ -212,7 +212,7 @@ erDiagram
   - `post_id`: 
   - `createdAt`: 
 
-### `hits_comment`
+### `recommend_comment`
 
 **Properties**
   - `id`: 
