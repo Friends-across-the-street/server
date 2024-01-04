@@ -9,8 +9,10 @@ import { ValidationPipe } from '@nestjs/common';
 import * as winston from 'winston';
 import * as path from 'path';
 import * as dotenv from 'dotenv';
+import { winstonLogger } from './global/winston.config';
 
 async function bootstrap() {
+  // Setting configuration
   dotenv.config({
     path: path.resolve(
       process.env.NODE_ENV === 'prod'
@@ -21,17 +23,9 @@ async function bootstrap() {
     ),
   });
 
-  const app = await NestFactory.create(AppModule, {
-    logger: WinstonModule.createLogger({
-      transports: [new winston.transports.Console()],
-      format: winston.format.combine(
-        winston.format.timestamp(),
-        winston.format.printf(({ timestamp, level, message }) => {
-          return `${timestamp} -[${level}]- ${message}`;
-        }),
-      ),
-    }),
-  });
+  const app = await NestFactory.create(AppModule, { logger: winstonLogger });
+
+  // Apply Validation Pipe
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
