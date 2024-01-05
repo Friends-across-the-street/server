@@ -22,8 +22,10 @@ export class AuthGuard implements CanActivate {
   private async validateRequest(request: RequestUser) {
     const jwtString = request.headers.authorization.split('Bearer ')[1];
     const payload = await this.authService.verify(jwtString);
+    const type = payload.company_name ? 'incumbent' : 'student';
     request.user = {
       ...payload,
+      type,
     };
     return true;
   }
