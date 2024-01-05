@@ -5,6 +5,7 @@ import { CreatePostArgs } from './interface/create-post.interface';
 import { IncumbentUser, StudentUser } from 'src/global/types/user.type';
 import { UserType } from 'src/auth/enum/user-type.enum';
 import { CustomException } from 'src/global/exception/custom.exception';
+import { UpdatePostArgs } from './interface/update-post.interface';
 
 @Injectable()
 export class PostsService {
@@ -43,5 +44,12 @@ export class PostsService {
       throw new CustomException('해당 게시글이 존재하지 않습니다.', 404);
     }
     return post;
+  }
+
+  async update(postId: number, dto: UpdatePostArgs) {
+    return await this.prismaService.posts.update({
+      where: { id: postId },
+      data: { ...dto },
+    });
   }
 }
