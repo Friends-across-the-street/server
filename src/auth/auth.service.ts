@@ -8,7 +8,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { ConfigService, ConfigType } from '@nestjs/config';
-import { Prisma } from '@prisma/client';
+import { Prisma, incumbent_users, student_users } from '@prisma/client';
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from 'src/prisma.service';
@@ -134,18 +134,8 @@ export class AuthService {
 
   async verify(jwtToken: string) {
     try {
-      const payload = jwt.verify(jwtToken, this.config.jwtSecret) as (
-        | jwt.JwtPayload
-        | string
-      ) &
-        User;
-
-      const { id, email } = payload;
-
-      return {
-        userId: id,
-        email,
-      };
+      const payload: any = jwt.verify(jwtToken, this.config.jwtSecret);
+      return payload;
     } catch (e) {
       throw new UnauthorizedException();
     }
