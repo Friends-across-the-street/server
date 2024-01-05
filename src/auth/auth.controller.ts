@@ -1,11 +1,11 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UserLoginDto } from './dto/login-user.dto';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateIncumbentUserDto } from './dto/create-incumbent-user.dto';
 import { CreateStudentUserDto } from './dto/create-student-user.dto';
 
-@ApiTags('auth')
+@ApiTags('AUTH')
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
@@ -29,6 +29,20 @@ export class AuthController {
   @ApiOperation({ summary: '로그인 처리' })
   @ApiResponse({ status: 200, description: '로그인 성공' })
   @ApiResponse({ status: 404, description: '로그인 정보 찾을 수 없음' })
+  @ApiBody({
+    description: 'Login credentials',
+    type: UserLoginDto,
+    examples: {
+      example1: {
+        description: 'Example 1',
+        value: { username: 'example_user', password: 'example_password' },
+      },
+      example2: {
+        description: 'Example 2',
+        value: { username: 'another_user', password: 'another_password' },
+      },
+    },
+  })
   @Post('/login')
   async login(@Body() dto: UserLoginDto): Promise<string> {
     const { email, password } = dto;

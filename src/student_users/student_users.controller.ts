@@ -2,7 +2,7 @@ import { Controller, Get, Param } from '@nestjs/common';
 import { StudentUsersService } from './student_users.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-@ApiTags('student-users')
+@ApiTags('STUDENT-USER')
 @Controller('student-users')
 export class StudentUsersController {
   constructor(private studentUsersService: StudentUsersService) {}

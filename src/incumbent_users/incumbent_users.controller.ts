@@ -2,7 +2,7 @@ import { Controller, Get, Param } from '@nestjs/common';
 import { IncumbentUsersService } from './incumbent_users.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-@ApiTags('incumbent-users')
+@ApiTags('INCUMBENT-USER')
 @Controller('incumbent-users')
 export class IncumbentUsersController {
   constructor(private incumbentUsersService: IncumbentUsersService) {}
