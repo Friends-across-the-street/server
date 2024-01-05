@@ -2,6 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
 import {
   IsEmail,
+  IsEnum,
   IsInt,
   IsNumber,
   IsString,
@@ -9,6 +10,7 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
+import { Gender } from '@prisma/client';
 
 export class CreateStudentUserDto {
   @Transform((params) => params.value.trim())
@@ -38,8 +40,8 @@ export class CreateStudentUserDto {
 
   @ApiProperty({ description: '성별' })
   @Transform((params) => params.value.trim())
-  @IsString()
-  readonly gender: string;
+  @IsEnum(Gender)
+  readonly gender: Gender;
 
   @Transform((params) => params.value.trim())
   @IsString()

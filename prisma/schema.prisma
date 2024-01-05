@@ -22,7 +22,7 @@ model incumbent_users {
   password String
   name  String
   age Int
-  gender String
+  gender Gender
   image String
   reported_num Int @default(0)
   advice_count Int @default(0)
@@ -49,7 +49,7 @@ model student_users {
   password String
   name  String
   age Int
-  gender String
+  gender Gender
   image String
   reported_num Int @default(0)
   total_grade Float
@@ -152,4 +152,9 @@ model reported_comment {
   comment comments @relation(fields: [comment_id], references: [id])
   comment_id Int @map(name: "comment_id")
   createdAt DateTime @default(now())
+}
+
+enum Gender {
+  male
+  female
 }

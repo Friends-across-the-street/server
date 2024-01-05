@@ -2,12 +2,14 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
 import {
   IsEmail,
+  IsEnum,
   IsInt,
   IsString,
   Matches,
   MaxLength,
   MinLength,
 } from 'class-validator';
+import { Gender } from '@prisma/client';
 
 export class CreateIncumbentUserDto {
   @Transform((params) => params.value.trim())
@@ -36,9 +38,9 @@ export class CreateIncumbentUserDto {
   readonly age: number;
 
   @Transform((params) => params.value.trim())
-  @IsString()
+  @IsEnum(Gender)
   @ApiProperty({ description: '성별' })
-  readonly gender: string;
+  readonly gender: Gender;
 
   @Transform((params) => params.value.trim())
   @IsString()

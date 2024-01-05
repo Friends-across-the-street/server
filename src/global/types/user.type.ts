@@ -1,4 +1,4 @@
-import { incumbent_users, student_users } from '@prisma/client';
+import { Gender, incumbent_users, student_users } from '@prisma/client';
 import { UserType } from 'src/auth/enum/user-type.enum';
 
 export class IncumbentUser implements incumbent_users {
@@ -7,7 +7,7 @@ export class IncumbentUser implements incumbent_users {
   readonly password: string;
   readonly name: string;
   readonly age: number;
-  readonly gender: string;
+  readonly gender: Gender;
   readonly image: string;
   readonly reported_num: number;
   readonly advice_count: number;
@@ -29,7 +29,7 @@ export class StudentUser implements student_users {
   readonly password: string;
   readonly name: string;
   readonly age: number;
-  readonly gender: string;
+  readonly gender: Gender;
   readonly image: string;
   readonly reported_num: number;
   readonly total_grade: number;
