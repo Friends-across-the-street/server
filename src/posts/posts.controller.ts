@@ -37,6 +37,7 @@ export class PostsController {
   }
 
   @Get('/:id')
+  @UseGuards(AuthGuard)
   async getPost(@Param('id') postId: number) {
     return await this.postsService.getById(postId);
   }
