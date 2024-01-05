@@ -25,7 +25,12 @@ export class AuthGuard implements CanActivate {
       throw new CustomException('헤더의 Auth 토큰이 존재하지 않습니다', 401);
     }
     const jwtString = request.headers.authorization.split('Bearer ')[1];
-    const payload = await this.authService.verify(jwtString);
+    let payload;
+    try {
+      payload = await this.authService.verify(jwtString);
+    } catch (e) {
+      throw new CustomException('토큰이 일치하지 않습니다.', 403);
+    }
     const type = payload.company_name ? 'incumbent' : 'student';
     request.user = {
       ...payload,

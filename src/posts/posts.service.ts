@@ -36,8 +36,12 @@ export class PostsService {
   }
 
   async getById(postId: number) {
-    return await this.prismaService.posts.findFirst({
+    const post = await this.prismaService.posts.findFirst({
       where: { id: postId },
     });
+    if (!post) {
+      throw new CustomException('해당 게시글이 존재하지 않습니다.', 404);
+    }
+    return post;
   }
 }
