@@ -30,16 +30,16 @@ export class AuthController {
   @ApiResponse({ status: 200, description: '로그인 성공' })
   @ApiResponse({ status: 404, description: '로그인 정보 찾을 수 없음' })
   @ApiBody({
-    description: 'Login credentials',
     type: UserLoginDto,
     examples: {
-      example1: {
-        description: 'Example 1',
-        value: { username: 'example_user', password: 'example_password' },
+      학생아이디: {
+        value: { email: 'student_test1@naver.com', password: 'student1' },
       },
-      example2: {
-        description: 'Example 2',
-        value: { username: 'another_user', password: 'another_password' },
+      현직자아이디: {
+        value: {
+          email: 'incumbent_test1@naver.com',
+          password: 'incumbent1',
+        },
       },
     },
   })
