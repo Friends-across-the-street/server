@@ -4,6 +4,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   Query,
   UseGuards,
 } from '@nestjs/common';
@@ -21,6 +22,7 @@ import {
   ApiSecurity,
   ApiTags,
 } from '@nestjs/swagger';
+import { UpdatePostDto } from './dto/update-post.dto';
 
 @ApiTags('POST')
 @Controller('posts')
@@ -72,5 +74,13 @@ export class PostsController {
   @UseGuards(AuthGuard)
   async getPost(@Param('id') postId: number) {
     return await this.postsService.getById(postId);
+  }
+
+  @ApiOperation({ summary: '게시글 수정' })
+  @ApiBearerAuth('access-token')
+  @Put('/:id')
+  @UseGuards(AuthGuard)
+  async update(@Param('id') postId: number, @Body() dto: UpdatePostDto) {
+    return await this.postsService.update(postId, dto);
   }
 }
