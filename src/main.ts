@@ -37,6 +37,10 @@ async function bootstrap() {
     .setTitle('DongA')
     .setDescription('DongA API description')
     .setVersion('1.0')
+    .addBearerAuth(
+      { type: 'http', scheme: 'bearer', bearerFormat: 'Token' },
+      'access-token',
+    )
     .build();
   const swaggerDocument = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('api', app, swaggerDocument);
