@@ -1,16 +1,34 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
+import { AuthGuard } from 'src/auth/auth.guard';
+import { RequestUser } from 'src/global/decorator/request-user.decorator';
+import { IncumbentUser, StudentUser } from 'src/global/types/user.type';
 
 @Controller('posts')
 export class PostsController {
   constructor(private postsService: PostsService) {}
 
   @Post()
-  async createPost(@Body() dto: CreatePostDto): Promise<void> {
-    await this.postsService.create({
-      ...dto,
-    });
+  @UseGuards(AuthGuard)
+  async createPost(
+    @RequestUser() user: IncumbentUser | StudentUser,
+    @Body() dto: CreatePostDto,
+  ): Promise<void> {
+    await this.postsService.create(
+      {
+        ...dto,
+      },
+      user,
+    );
   }
 
   @Get()
