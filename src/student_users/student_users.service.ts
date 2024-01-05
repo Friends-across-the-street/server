@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { CustomException } from 'src/global/exception/custom.exception';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
@@ -10,9 +11,8 @@ export class StudentUsersService {
       where: { id: userId },
     });
     if (!user) {
-      throw new NotFoundException('유저가 존재하지 않음');
+      throw new CustomException('유저가 존재하지 않음', 404);
     }
     return user;
   }
 }
-//
