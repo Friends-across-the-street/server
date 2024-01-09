@@ -13,6 +13,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Install Node.js using nvm
+        run: |
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+          nvm install 16.13.2
+
       - name: Install SSH key
         run: |
           mkdir -p ~/.ssh
@@ -23,4 +29,16 @@ jobs:
 
       - name: SSH into EC2 and pull changes
         run: |
-          ssh -i ~/.ssh/donga.pem ubuntu@ec2-15-165-122-45.ap-northeast-2.compute.amazonaws.com "cd ~/server && git restore . && git pull origin main && nvm use && npm i && npm run migrate:prod && pm2 restart 0"
+          ssh -i ~/.ssh/donga.pem ubuntu@ec2-15-165-122-45.ap-northeast-2.compute.amazonaws.com "cd ~/server && git restore . && git pull origin main"
+
+      - name: npm install
+        run: |
+          npm insatll
+
+      - name: prisma generate
+        run: |
+          npm run migrate:prod
+
+      - name: restart
+        run: |
+          pm2 restart 0
