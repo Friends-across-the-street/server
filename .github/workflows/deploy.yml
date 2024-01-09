@@ -1,0 +1,24 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install SSH key
+        run: |
+          echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > ~/.ssh/donga.pem
+          chmod 600 ~/.ssh/donga.pem
+          ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+
+      - name: SSH into EC2 and pull changes
+        run: |
+          ssh -i ~/.ssh/donga.pem ubuntu@ec2-15-165-122-45.ap-northeast-2.compute.amazonaws.com "cd /server && git pull origin main"
