@@ -19,10 +19,6 @@ jobs:
           [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
           nvm install 16.13.2
 
-      - name: Install pm2
-        run: |
-          npm install -g pm2
-
       - name: Install SSH key
         run: |
           mkdir -p ~/.ssh
@@ -43,6 +39,10 @@ jobs:
         run: |
           npm run migrate:prod
 
-      - name: pm2 restart
+      - name: create file
         run: |
-          pm2 restart 0
+          echo "// This is an empty TypeScript file" > src/empty-file.ts
+
+      - name: Sleep for 5 minutes
+        run: |
+          sleep 10
