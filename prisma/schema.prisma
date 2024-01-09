@@ -138,19 +138,19 @@ model comments {
 
 model recommend_posts {
   id    Int     @default(autoincrement()) @id
-  postId Int
+  post_id Int
   incumbent_id Int?
   student_id Int?
   created_date DateTime @default(now())
   // relation
   incumbent incumbents? @relation(fields: [incumbent_id], references: [id])
   students students? @relation(fields: [student_id], references: [id])
-  post posts @relation(fields: [postId], references: [id])
+  post posts @relation(fields: [post_id], references: [id])
 }
 
 model reported_posts {
   id    Int     @default(autoincrement()) @id
-  postId Int
+  post_id Int
   incumbent_id Int?
   student_id Int?
   reason String
@@ -158,7 +158,7 @@ model reported_posts {
   // relation
   incumbent incumbents? @relation(fields: [incumbent_id], references: [id])
   students students? @relation(fields: [student_id], references: [id])
-  post posts @relation(fields: [postId], references: [id])
+  post posts @relation(fields: [post_id], references: [id])
 }
 
 model recommend_comments {
