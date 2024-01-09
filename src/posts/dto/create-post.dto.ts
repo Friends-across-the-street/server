@@ -1,4 +1,4 @@
-import { IsEmail, IsString, MaxLength, MinLength } from 'class-validator';
+import { IsString, MaxLength, MinLength } from 'class-validator';
 import { CreatePostArgs } from '../interface/create-post.interface';
 import { ApiProperty } from '@nestjs/swagger';
 
