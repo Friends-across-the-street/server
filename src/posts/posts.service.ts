@@ -16,8 +16,8 @@ export class PostsService {
   async create(args: CreatePostArgs, user: IncumbentUser | StudentUser) {
     const userTypeById =
       user.type === UserType.INCUMBENT
-        ? { incumbentUserId: user.id }
-        : { studentUserId: user.id };
+        ? { incumbent_id: user.id }
+        : { student_id: user.id };
     const createdPost = await this.prismaService.posts.create({
       data: { ...args, ...userTypeById },
     });
@@ -30,10 +30,12 @@ export class PostsService {
   async getPage(page: number, limit: number) {
     const result = [];
     const postList = (await this.prismaService
-      .$queryRaw`SELECT p.id AS postId, p.title, p.content, p.view, p.hit, p.createdAt AS postCreateDate, p.updatedAt AS postUpdateDate, i.id AS incumbentId, i.name AS incumbentName, i.image AS incumbentImage, s.id AS studentId, s.name AS studentName, s.image AS studentImage, i.company_name AS incumbentCompanyName, i.job_description AS incumbentJobDescription, s.school AS studentSchool, s.major AS studentMajor
+      .$queryRaw`SELECT p.id AS postId, p.title, p.content, p.view, p.hit, p.created_date AS postCreateDate, p.updated_date AS postUpdateDate, i.id AS incumbentId, i.name AS incumbentName, ia.image AS incumbentImage, s.id AS studentId, s.name AS studentName, sa.image AS studentImage, ia.company_name AS incumbentCompanyName, ia.job_description AS incumbentJobDescription, sa.school AS studentSchool, sa.major AS studentMajor
     FROM posts AS p
-    LEFT JOIN incumbent_users AS i ON p.incumbent_user_id = i.id
-    LEFT JOIN student_users AS s ON p.student_user_id = s.id
+    LEFT JOIN incumbents AS i ON p.incumbent_id = i.id
+    LEFT JOIN incumbents_additional AS ia ON p.incumbent_id = ia.incumbent_id
+    LEFT JOIN students AS s ON p.student_id = s.id
+    LEFT JOIN students_additional AS sa ON p.student_id = sa.student_id
     ORDER BY postCreateDate DESC
     LIMIT ${limit} OFFSET ${(page - 1) * limit};`) as postInList[];
     for (const post of postList) {
