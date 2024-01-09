@@ -31,10 +31,8 @@ export class AuthGuard implements CanActivate {
     } catch (e) {
       throw new CustomException('토큰이 일치하지 않습니다.', 403);
     }
-    const type = payload.company_name ? 'incumbent' : 'student';
     request.user = {
       ...payload,
-      type,
     };
     return true;
   }
