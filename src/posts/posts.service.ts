@@ -21,7 +21,7 @@ export class PostsService {
     const createdPost = await this.prismaService.posts.create({
       data: { ...args, ...userTypeById },
     });
-    if (!createdPost.incumbentUserId && !createdPost.studentUserId) {
+    if (!createdPost.incumbent_id && !createdPost.student_id) {
       throw new CustomException('userId가 일치하지 않습니다.', 404);
     }
     return;
@@ -30,7 +30,7 @@ export class PostsService {
   async getPage(page: number, limit: number) {
     const result = [];
     const postList = (await this.prismaService
-      .$queryRaw`SELECT p.id AS postId, p.title, p.content, p.view, p.hit, p.createdAt AS postCreateDate, p.updatedAt AS postUpdateDate, i.id AS incumbentId, i.name AS incumbentName, i.image AS incumbentImage, s.id AS studentId, s.name AS studentName, s.image AS studentImage
+      .$queryRaw`SELECT p.id AS postId, p.title, p.content, p.view, p.hit, p.createdAt AS postCreateDate, p.updatedAt AS postUpdateDate, i.id AS incumbentId, i.name AS incumbentName, i.image AS incumbentImage, s.id AS studentId, s.name AS studentName, s.image AS studentImage, i.company_name AS incumbentCompanyName, i.job_description AS incumbentJobDescription, s.school AS studentSchool, s.major AS studentMajor
     FROM posts AS p
     LEFT JOIN incumbent_users AS i ON p.incumbent_user_id = i.id
     LEFT JOIN student_users AS s ON p.student_user_id = s.id
@@ -42,6 +42,10 @@ export class PostsService {
       const name = type === 'student' ? post.studentName : post.incumbentName;
       const image =
         type === 'student' ? post.studentImage : post.incumbentImage;
+      const additionalInfo =
+        type === 'student'
+          ? post.studentSchool + ' ' + post.studentMajor
+          : post.incumbentCompanyName + ' ' + post.incumbentJobDescription;
       const refinedPost = {
         id: post.postId,
         title: post.title,
@@ -55,6 +59,7 @@ export class PostsService {
           id,
           name,
           image,
+          additionalInfo,
         },
       };
       result.push(refinedPost);

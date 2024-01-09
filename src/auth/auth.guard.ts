@@ -2,11 +2,11 @@ import { Request } from 'express';
 import { Observable } from 'rxjs';
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { AuthService } from 'src/auth/auth.service';
-import { incumbent_users, student_users } from '@prisma/client';
+import { incumbents, students } from '@prisma/client';
 import { CustomException } from 'src/global/exception/custom.exception';
 
 interface RequestUser extends Request {
-  user: incumbent_users | student_users;
+  user: incumbents | students;
 }
 
 @Injectable()

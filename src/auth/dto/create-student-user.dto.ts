@@ -42,43 +42,4 @@ export class CreateStudentUserDto {
   @Transform((params) => params.value.trim())
   @IsEnum(Gender)
   readonly gender: Gender;
-
-  @Transform((params) => params.value.trim())
-  @IsString()
-  @ApiProperty({ description: '사용자 이미지 url' })
-  readonly image: string;
-
-  @IsNumber()
-  @ApiProperty({ description: '평점 / 학점' })
-  readonly total_grade: number;
-
-  @Transform((params) => params.value.trim())
-  @IsString()
-  @ApiProperty({ description: '현재 전공' })
-  readonly major: string;
-
-  @Transform((params) => params.value.trim())
-  @IsString()
-  @ApiProperty({ description: '현재 재학(졸업) 학교' })
-  readonly school: string;
-
-  @Transform((params) => params.value.trim())
-  @IsString()
-  @ApiProperty({ description: '희망 직무 분야' })
-  readonly wish_job_description: string;
-
-  @Transform((params) => params.value.trim())
-  @IsString()
-  @ApiProperty({ description: '희망 회사 이름' })
-  readonly wish_company_name: string;
-
-  @Transform((params) => params.value.trim())
-  @IsString()
-  @ApiProperty({ description: '희망 회사 복지' })
-  readonly wish_company_welfare: string;
-
-  @Transform((params) => params.value.trim())
-  @IsString()
-  @ApiProperty({ description: '희망 회사 위치' })
-  readonly wish_company_location: string;
 }

@@ -19,7 +19,6 @@ import {
   ApiParam,
   ApiQuery,
   ApiResponse,
-  ApiSecurity,
   ApiTags,
 } from '@nestjs/swagger';
 import { UpdatePostDto } from './dto/update-post.dto';

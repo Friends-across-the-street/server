@@ -21,7 +21,7 @@ export class AuthService {
     private prismaService: PrismaService,
   ) {}
 
-  async signupIncumbentUser(arg: Prisma.incumbent_usersCreateInput) {
+  async signupIncumbentUser(arg: Prisma.incumbentsCreateInput) {
     const isExistIncumbentEmail = await this.validateIncumbentUserEmail(
       arg.email,
     );
@@ -37,13 +37,13 @@ export class AuthService {
       Number(this.configService.get('BCRYPT_SALT_ROUNDS')),
     );
     arg.password = hashedPassword;
-    const user = await this.prismaService.incumbent_users.create({
+    const user = await this.prismaService.incumbents.create({
       data: arg,
     });
     return user.id;
   }
 
-  async signupStudentUser(arg: Prisma.student_usersCreateInput) {
+  async signupStudentUser(arg: Prisma.studentsCreateInput) {
     const isExistIncumbentEmail = await this.validateIncumbentUserEmail(
       arg.email,
     );
@@ -59,30 +59,30 @@ export class AuthService {
       Number(this.configService.get('BCRYPT_SALT_ROUNDS')),
     );
     arg.password = hashedPassword;
-    const user = await this.prismaService.student_users.create({
+    const user = await this.prismaService.students.create({
       data: arg,
     });
     return user.id;
   }
 
   private async validateIncumbentUserEmail(email: string) {
-    return await this.prismaService.incumbent_users.findFirst({
+    return await this.prismaService.incumbents.findFirst({
       where: { email },
     });
   }
 
   private async validateStudentUserEmail(email: string) {
-    return await this.prismaService.student_users.findFirst({
+    return await this.prismaService.students.findFirst({
       where: { email },
     });
   }
 
   async validateUser(email, password) {
-    let user: any = await this.prismaService.incumbent_users.findFirst({
+    let user: any = await this.prismaService.incumbents.findFirst({
       where: { email },
     });
     if (!user) {
-      user = await this.prismaService.student_users.findFirst({
+      user = await this.prismaService.students.findFirst({
         where: { email },
       });
     }

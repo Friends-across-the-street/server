@@ -9,7 +9,7 @@ export class ReportsService {
 
   @UseGuards(AuthGuard)
   async reportPost(args: ReportPostArgs) {
-    return await this.prismaService.reported_post.create({
+    return await this.prismaService.reported_posts.create({
       data: args,
     });
   }

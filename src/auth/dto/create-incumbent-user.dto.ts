@@ -41,39 +41,4 @@ export class CreateIncumbentUserDto {
   @IsEnum(Gender)
   @ApiProperty({ description: '성별' })
   readonly gender: Gender;
-
-  @Transform((params) => params.value.trim())
-  @IsString()
-  @ApiProperty({ description: '사용자 이미지 url' })
-  readonly image: string;
-
-  @Transform((params) => params.value.trim())
-  @IsString()
-  @ApiProperty({ description: '전공' })
-  readonly major: string;
-
-  @Transform((params) => params.value.trim())
-  @IsString()
-  @ApiProperty({ description: '출신 학교' })
-  readonly school: string;
-
-  @Transform((params) => params.value.trim())
-  @IsString()
-  @ApiProperty({ description: '현재 세부 직업 정보' })
-  readonly job_description: string;
-
-  @Transform((params) => params.value.trim())
-  @IsString()
-  @ApiProperty({ description: '현재 회사 이름' })
-  readonly company_name: string;
-
-  @Transform((params) => params.value.trim())
-  @IsString()
-  @ApiProperty({ description: '현재 회사 복지' })
-  readonly company_welfare: string;
-
-  @Transform((params) => params.value.trim())
-  @IsString()
-  @ApiProperty({ description: '현재 회사 위치' })
-  readonly company_location: string;
 }

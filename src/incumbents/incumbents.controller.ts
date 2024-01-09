@@ -1,5 +1,5 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { IncumbentUsersService } from './incumbent_users.service';
+import { IncumbentUsersService } from './incumbents.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('INCUMBENT-USER')

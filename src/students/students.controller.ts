@@ -1,5 +1,5 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { StudentUsersService } from './student_users.service';
+import { StudentUsersService } from './students.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('STUDENT-USER')

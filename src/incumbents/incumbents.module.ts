@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { IncumbentUsersService } from './incumbent_users.service';
-import { IncumbentUsersController } from './incumbent_users.controller';
+import { IncumbentUsersService } from './incumbents.service';
+import { IncumbentUsersController } from './incumbents.controller';
 import { PrismaService } from 'src/prisma.service';
 
 @Module({

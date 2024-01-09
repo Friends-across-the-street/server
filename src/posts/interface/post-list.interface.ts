@@ -9,6 +9,10 @@ export interface postInList {
   readonly incumbentId: number;
   readonly incumbentName: string;
   readonly incumbentImage: string;
+  readonly incumbentCompanyName: string;
+  readonly incumbentJobDescription: string;
+  readonly studentSchool: string;
+  readonly studentMajor: string;
   readonly studentId: number;
   readonly studentName: string;
   readonly studentImage: string;

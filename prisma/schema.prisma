@@ -10,148 +10,180 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// generator markdown {
-//   provider = "prisma-markdown"
-//   output   = "../ERD.md"
-//   title    = "DongA"
-// }
+generator markdown {
+  provider = "prisma-markdown"
+  output   = "../ERD.md"
+  title    = "DongA"
+}
 
-model incumbent_users {
+model incumbents {
   id    Int     @default(autoincrement()) @id
   email String  @unique
   password String
   name  String
   age Int
   gender Gender
-  image String
+  created_date DateTime @default(now())
+  // relation
+  incumbent_additional incumbents_additional?
+  posts posts[]
+  comments comments[]
+  recommend_posts recommend_posts[]
+  recommend_comments recommend_comments[]
+  reported_posts reported_posts[]
+  reported_comments reported_comments[]
+}
+
+model incumbents_additional {
+  id    Int     @default(autoincrement()) @id
+  incumbent_id Int @unique
+  image String?
+  school String?
+  job_description String?
   reported_num Int @default(0)
   advice_count Int @default(0)
   estimation_count Float @default(5.0)
-  major String
-  school String
-  job_description String
+  major String?
   company_name String?
   company_welfare String @default("0000000000")// TODO) category가 정확하게 정해진 후, flag개수 조정
   company_location String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt 
-  posts posts[]
-  comments comments[]
-  recommend_post recommend_post[]
-  recommend_comment recommend_comment[]
-  reported_post reported_post[]
-  reported_comment reported_comment[]
+  updated_date DateTime @default(now()) @updatedAt 
+  // relation
+  incumbents incumbents @relation(fields: [incumbent_id], references: [id])
 }
 
-model student_users {
+model students {
   id    Int     @default(autoincrement()) @id
   email String  @unique
   password String
   name  String
   age Int
   gender Gender
-  image String
-  reported_num Int @default(0)
-  total_grade Float
-  advice_count Int @default(0)
-  estimation_count Float @default(5.0)
-  major String
-  school String
-  wish_job_description String
-  wish_company_name String
-  wish_company_welfare String
-  wish_company_location String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt 
+  created_date DateTime @default(now())
+  // relation
+  student_additional students_additional?
   posts posts[]
   comments comments[]
-  recommend_post recommend_post[]
-  recommend_comment recommend_comment[]
-  reported_post reported_post[]
-  reported_comment reported_comment[]
+  recommend_posts recommend_posts[]
+  recommend_comments recommend_comments[]
+  reported_posts reported_posts[]
+  reported_comments reported_comments[]
+}
+
+model students_additional {
+  id    Int     @default(autoincrement()) @id
+  student_id Int @unique
+  image String?
+  major String?
+  school String?
+  reported_num Int @default(0)
+  total_grade Float?
+  advice_count Int @default(0)
+  estimation_count Float @default(5.0)
+  wish_job_description String?
+  wish_company_name String?
+  wish_company_welfare String?
+  wish_company_location String?
+  updated_date DateTime @default(now()) @updatedAt 
+  // relation
+  students students @relation(fields: [student_id], references: [id])
+}
+
+model category{
+  id    Int     @default(autoincrement()) @id
+  name String
+  // relation
+  posts posts[]
 }
 
 model posts {
   id    Int     @default(autoincrement()) @id
+  incumbent_id Int?
+  student_id Int?
+  categoryId Int?
   title String
   content String
   view Int @default(0)
   hit Int @default(0)
   reported Int @default(0)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt 
-  incumbent_user incumbent_users? @relation(fields: [incumbentUserId], references: [id])
-  incumbentUserId Int? @map(name: "incumbent_user_id")
-  student_user student_users? @relation(fields: [studentUserId], references: [id])
-  studentUserId Int? @map(name: "student_user_id")
+  created_date DateTime @default(now())
+  updated_date DateTime @default(now()) @updatedAt 
+  // relation
+  categories category? @relation(fields: [categoryId], references: [id])
+  incumbents incumbents? @relation(fields: [incumbent_id], references: [id])
+  students students? @relation(fields: [student_id], references: [id])
   comments comments[]
-  recommend_post recommend_post[]
-  reported_post reported_post[]
+  recommend_posts recommend_posts[]
+  reported_posts reported_posts[]
 }
 
 model comments {
   id    Int     @default(autoincrement()) @id
+  post_id Int
+  incumbent_id Int?
+  student_id Int?
   content String
   parent_comment_id Int @default(0)
   hit Int @default(0)
   reported Int @default(0)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt 
-  incumbent_user incumbent_users? @relation(fields: [incumbentUserId], references: [id])
-  incumbentUserId Int? @map(name: "incumbent_user_id")
-  student_user student_users? @relation(fields: [studentUserId], references: [id])
-  studentUserId Int? @map(name: "student_user_id")
+  created_date DateTime @default(now())
+  updated_date DateTime @default(now()) @updatedAt 
+  // relation
+  incumbents incumbents? @relation(fields: [incumbent_id], references: [id])
+  students students? @relation(fields: [student_id], references: [id])
   post posts @relation(fields: [post_id], references: [id])
-  post_id Int @map(name: "post_id")
-  recommend_comment recommend_comment[]
-  reported_comment reported_comment[]
+  recommend_comments recommend_comments[]
+  reported_comments reported_comments[]
 }
 
-model recommend_post {
+model recommend_posts {
   id    Int     @default(autoincrement()) @id
-  incumbent_user incumbent_users? @relation(fields: [incumbentUserId], references: [id])
-  incumbentUserId Int? @map(name: "incumbent_user_id")
-  student_user student_users? @relation(fields: [studentUserId], references: [id])
-  studentUserId Int? @map(name: "student_user_id")
+  postId Int
+  incumbent_id Int?
+  student_id Int?
+  created_date DateTime @default(now())
+  // relation
+  incumbent incumbents? @relation(fields: [incumbent_id], references: [id])
+  students students? @relation(fields: [student_id], references: [id])
   post posts @relation(fields: [postId], references: [id])
-  postId Int @map(name: "post_id")
-  createdAt DateTime @default(now())
 }
 
-model reported_post {
+model reported_posts {
   id    Int     @default(autoincrement()) @id
+  postId Int
+  incumbent_id Int?
+  student_id Int?
   reason String
-  incumbent_user incumbent_users? @relation(fields: [incumbentUserId], references: [id])
-  incumbentUserId Int? @map(name: "incumbent_user_id")
-  student_user student_users? @relation(fields: [studentUserId], references: [id])
-  studentUserId Int? @map(name: "student_user_id")
+  created_date DateTime @default(now())
+  // relation
+  incumbent incumbents? @relation(fields: [incumbent_id], references: [id])
+  students students? @relation(fields: [student_id], references: [id])
   post posts @relation(fields: [postId], references: [id])
-  postId Int @map(name: "post_id")
-  createdAt DateTime @default(now())
 }
 
-
-model recommend_comment {
+model recommend_comments {
   id    Int     @default(autoincrement()) @id
-  incumbent_user incumbent_users? @relation(fields: [incumbentUserId], references: [id])
-  incumbentUserId Int? @map(name: "incumbent_user_id")
-  student_user student_users? @relation(fields: [studentUserId], references: [id])
-  studentUserId Int? @map(name: "student_user_id")
+  comment_id Int
+  incumbent_id Int?
+  student_id Int?
+  created_date DateTime @default(now())
+  // relation
+  incumbents incumbents? @relation(fields: [incumbent_id], references: [id])
+  students students? @relation(fields: [student_id], references: [id])
   comment comments @relation(fields: [comment_id], references: [id])
-  comment_id Int @map(name: "comment_id")
-  createdAt DateTime @default(now())
 }
 
-model reported_comment {
+model reported_comments {
   id    Int     @default(autoincrement()) @id
+  comment_id Int
+  incumbent_id Int?
+  student_id Int?
   reason String
-  incumbent_user incumbent_users? @relation(fields: [incumbentUserId], references: [id])
-  incumbentUserId Int? @map(name: "incumbent_user_id")
-  student_user student_users? @relation(fields: [studentUserId], references: [id])
-  studentUserId Int? @map(name: "student_user_id")
+  created_date DateTime @default(now())
+  // relation
+  incumbents incumbents? @relation(fields: [incumbent_id], references: [id])
+  students students? @relation(fields: [student_id], references: [id])
   comment comments @relation(fields: [comment_id], references: [id])
-  comment_id Int @map(name: "comment_id")
-  createdAt DateTime @default(now())
 }
 
 enum Gender {

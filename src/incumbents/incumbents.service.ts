@@ -1,13 +1,13 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CustomException } from 'src/global/exception/custom.exception';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
-export class StudentUsersService {
+export class IncumbentUsersService {
   constructor(private prismaService: PrismaService) {}
 
   async findById(userId: number) {
-    const user = await this.prismaService.incumbent_users.findFirst({
+    const user = await this.prismaService.incumbents.findFirst({
       where: { id: userId },
     });
     if (!user) {
