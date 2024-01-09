@@ -23,4 +23,4 @@ jobs:
 
       - name: SSH into EC2 and pull changes
         run: |
-          ssh -i ~/.ssh/donga.pem ubuntu@ec2-15-165-122-45.ap-northeast-2.compute.amazonaws.com "cd /server && git pull origin main"
+          ssh -i ~/.ssh/donga.pem ubuntu@ec2-15-165-122-45.ap-northeast-2.compute.amazonaws.com "cd ~/server && git pull origin main"
