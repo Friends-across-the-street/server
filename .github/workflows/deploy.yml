@@ -50,7 +50,3 @@ jobs:
       - name: Sleep for 5 minutes
         run: |
           sleep 10
-
-      - name: remove files
-        run: |
-          rm -rf src/restart
