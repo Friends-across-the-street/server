@@ -7,10 +7,10 @@ import { ReportPostArgs } from './interface/report.interface';
 export class ReportsService {
   constructor(private prismaService: PrismaService) {}
 
-  @UseGuards(AuthGuard)
-  async reportPost(args: ReportPostArgs) {
-    return await this.prismaService.reported_posts.create({
-      data: args,
-    });
-  }
+  // @UseGuards(AuthGuard)
+  // async reportPost(args: ReportPostArgs) {
+  //   return await this.prismaService.reported_posts.create({
+  //     data: args,
+  //   });
+  // }
 }

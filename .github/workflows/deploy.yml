@@ -39,6 +39,14 @@ jobs:
         run: |
           npm run migrate:prod
 
-      - name: restart
+      - name: mkdir directory because pm2 restart option
         run: |
-          npm run restart:pm2
+          mkdir src/restart
+
+      - name: create file
+        run: |
+          echo "// This is an empty TypeScript file" > src/restart/empty-file.ts
+
+      - name: remove files
+        run: |
+          rm -rf src/restart
