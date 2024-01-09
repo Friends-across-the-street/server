@@ -15,6 +15,7 @@ jobs:
 
       - name: Install SSH key
         run: |
+          mkdir -p ~/.ssh
           echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > ~/.ssh/donga.pem
           chmod 600 ~/.ssh/donga.pem
           ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
