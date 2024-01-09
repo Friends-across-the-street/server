@@ -12,7 +12,7 @@ erDiagram
     String password
     String name
     Int age
-    String gender
+    Gender gender
     String image
     Int reported_num
     Int advice_count
@@ -32,7 +32,7 @@ erDiagram
     String password
     String name
     Int age
-    String gender
+    Gender gender
     String image
     Int reported_num
     Float total_grade

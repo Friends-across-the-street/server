@@ -10,11 +10,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-generator markdown {
-  provider = "prisma-markdown"
-  output   = "../ERD.md"
-  title    = "DongA"
-}
+// generator markdown {
+//   provider = "prisma-markdown"
+//   output   = "../ERD.md"
+//   title    = "DongA"
+// }
 
 model incumbent_users {
   id    Int     @default(autoincrement()) @id
