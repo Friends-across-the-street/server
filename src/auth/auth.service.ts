@@ -1,16 +1,18 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ConfigService, ConfigType } from '@nestjs/config';
-import { Prisma } from '@prisma/client';
+import { Prisma, incumbents, students } from '@prisma/client';
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from 'src/prisma.service';
 import authConfig from '../global/config/authConfig';
 import { CustomException } from 'src/global/exception/custom.exception';
+import { UserType } from './enum/user-type.enum';
 
 interface User {
-  id: string;
+  id: number;
   name: string;
   email: string;
+  userType: UserType.INCUMBENT | UserType.STUDENT;
 }
 
 @Injectable()
@@ -78,9 +80,14 @@ export class AuthService {
   }
 
   async validateUser(email, password) {
-    let user: any = await this.prismaService.incumbents.findFirst({
-      where: { email },
-    });
+    let userType: UserType;
+    let user: incumbents | students =
+      await this.prismaService.incumbents.findFirst({
+        where: { email },
+      });
+    user !== null
+      ? (userType = UserType.INCUMBENT)
+      : (userType = UserType.STUDENT);
     if (!user) {
       user = await this.prismaService.students.findFirst({
         where: { email },
@@ -93,22 +100,24 @@ export class AuthService {
     if (!isValidPassword) {
       throw new CustomException('비밀번호 불일치', 401);
     }
-    return user;
+    return { ...user, userType };
   }
 
   async createToken(user: User) {
-    const payload = { ...user };
+    const { id, email, userType } = user;
+    const payload = { id, email, userType };
     return jwt.sign(payload, this.config.jwtSecret, {
       expiresIn: '1d',
-      audience: 'example.com',
-      issuer: 'example.com',
+      audience: 'dongajul.best',
+      issuer: 'dongajul.best',
     });
   }
 
   async verify(jwtToken: string) {
     try {
       const payload: any = jwt.verify(jwtToken, this.config.jwtSecret);
-      return payload;
+      const { id, email, userType } = payload;
+      return { id, email, userType };
     } catch (e) {
       throw new CustomException('JWT인증 실패', 400);
     }
