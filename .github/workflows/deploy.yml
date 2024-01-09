@@ -19,6 +19,10 @@ jobs:
           [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
           nvm install 16.13.2
 
+      - name: Install pm2
+        run: |
+          npm install -g pm2
+
       - name: Install SSH key
         run: |
           mkdir -p ~/.ssh
@@ -27,26 +31,18 @@ jobs:
           ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
           ssh-keyscan -t rsa ec2-15-165-122-45.ap-northeast-2.compute.amazonaws.com >> ~/.ssh/known_hosts
 
-      - name: SSH into EC2 and pull changes
+      - name: SSH into EC2 and pull changes ssh 접속 + git pull
         run: |
           ssh -i ~/.ssh/donga.pem ubuntu@ec2-15-165-122-45.ap-northeast-2.compute.amazonaws.com "cd ~/server && git restore . && git pull origin main"
 
-      - name: npm install
+      - name: npm install 버전 동기화
         run: |
           npm install
 
-      - name: prisma generate
+      - name: prisma generate ORM 동기화
         run: |
           npm run migrate:prod
 
-      - name: mkdir directory because pm2 restart option
+      - name: pm2 restart
         run: |
-          mkdir src/restart
-
-      - name: create file
-        run: |
-          echo "// This is an empty TypeScript file" > src/restart/empty-file.ts
-
-      - name: Sleep for 5 minutes
-        run: |
-          sleep 10
+          pm2 restart 0
