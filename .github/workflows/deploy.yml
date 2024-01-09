@@ -41,4 +41,4 @@ jobs:
 
       - name: restart
         run: |
-          pm2 restart 0
+          rm -rf ERD.md
