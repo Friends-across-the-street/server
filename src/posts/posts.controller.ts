@@ -12,7 +12,10 @@ import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { RequestUser } from 'src/global/decorator/request-user.decorator';
-import { IncumbentUser, StudentUser } from 'src/global/types/user.type';
+import {
+  IncumbentDataInAuthGuard,
+  StudentDataInAuthGuard,
+} from 'src/global/types/user.type';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -40,7 +43,7 @@ export class PostsController {
   @Post()
   @UseGuards(AuthGuard)
   async createPost(
-    @RequestUser() user: IncumbentUser | StudentUser,
+    @RequestUser() user: IncumbentDataInAuthGuard | StudentDataInAuthGuard,
     @Body() dto: CreatePostDto,
   ): Promise<void> {
     await this.postsService.create(

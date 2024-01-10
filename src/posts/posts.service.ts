@@ -2,7 +2,10 @@ import { Injectable, UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { PrismaService } from 'src/prisma.service';
 import { CreatePostArgs } from './interface/create-post.interface';
-import { IncumbentUser, StudentUser } from 'src/global/types/user.type';
+import {
+  IncumbentDataInAuthGuard,
+  StudentDataInAuthGuard,
+} from 'src/global/types/user.type';
 import { UserType } from 'src/auth/enum/user-type.enum';
 import { CustomException } from 'src/global/exception/custom.exception';
 import { UpdatePostArgs } from './interface/update-post.interface';
@@ -13,7 +16,10 @@ export class PostsService {
   constructor(private prismaService: PrismaService) {}
 
   @UseGuards(AuthGuard)
-  async create(args: CreatePostArgs, user: IncumbentUser | StudentUser) {
+  async create(
+    args: CreatePostArgs,
+    user: IncumbentDataInAuthGuard | StudentDataInAuthGuard,
+  ) {
     const userTypeById =
       user.type === UserType.INCUMBENT
         ? { incumbent_id: user.id }
