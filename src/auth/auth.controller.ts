@@ -50,4 +50,4 @@ export class AuthController {
     const token = await this.authService.createToken(user);
     return token;
   }
-} // TODO 삭제
+}

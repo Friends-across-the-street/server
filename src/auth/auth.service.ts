@@ -12,7 +12,7 @@ interface User {
   id: number;
   name: string;
   email: string;
-  userType: UserType.INCUMBENT | UserType.STUDENT;
+  type: UserType.INCUMBENT | UserType.STUDENT;
 }
 
 @Injectable()
@@ -80,14 +80,12 @@ export class AuthService {
   }
 
   async validateUser(email, password) {
-    let userType: UserType;
+    let type: UserType;
     let user: incumbents | students =
       await this.prismaService.incumbents.findFirst({
         where: { email },
       });
-    user !== null
-      ? (userType = UserType.INCUMBENT)
-      : (userType = UserType.STUDENT);
+    user !== null ? (type = UserType.INCUMBENT) : (type = UserType.STUDENT);
     if (!user) {
       user = await this.prismaService.students.findFirst({
         where: { email },
@@ -100,12 +98,12 @@ export class AuthService {
     if (!isValidPassword) {
       throw new CustomException('비밀번호 불일치', 401);
     }
-    return { ...user, userType };
+    return { ...user, type };
   }
 
   async createToken(user: User) {
-    const { id, email, userType } = user;
-    const payload = { id, email, userType };
+    const { id, email, type } = user;
+    const payload = { id, email, type };
     return jwt.sign(payload, this.config.jwtSecret, {
       expiresIn: '1d',
       audience: 'dongajul.best',
@@ -116,8 +114,8 @@ export class AuthService {
   async verify(jwtToken: string) {
     try {
       const payload: any = jwt.verify(jwtToken, this.config.jwtSecret);
-      const { id, email, userType } = payload;
-      return { id, email, userType };
+      const { id, email, type } = payload;
+      return { id, email, type };
     } catch (e) {
       throw new CustomException('JWT인증 실패', 400);
     }

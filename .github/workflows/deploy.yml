@@ -38,11 +38,3 @@ jobs:
       - name: prisma generate ORM 동기화
         run: |
           npm run migrate:prod
-
-      - name: create file
-        run: |
-          echo "// This is an empty TypeScript file" > src/empty-file.ts
-
-      - name: Sleep for 5 minutes
-        run: |
-          sleep 10
