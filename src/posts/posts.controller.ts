@@ -25,11 +25,16 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { ReportsService } from 'src/reports/reports.service';
+import { ReportPostDto } from './dto/report-post.dto';
 
 @ApiTags('POST')
 @Controller('posts')
 export class PostsController {
-  constructor(private postsService: PostsService) {}
+  constructor(
+    private postsService: PostsService,
+    private reportService: ReportsService,
+  ) {}
 
   @ApiOperation({ summary: '게시글 생성' })
   @ApiResponse({ status: 201, description: '게시글 생성 성공' })
@@ -69,7 +74,7 @@ export class PostsController {
 
   @ApiOperation({ summary: '게시글 상세 조회(단일 조회)' })
   @ApiResponse({ status: 200, description: '게시글 조회 성공' })
-  @ApiResponse({ status: 204, description: '게시글 찾을 수 없음' })
+  @ApiResponse({ status: 404, description: '게시글 찾을 수 없음' })
   @ApiParam({ name: 'id', type: Number, description: '페이지 ID' })
   @ApiBearerAuth('access-token')
   @Get('/:id')
@@ -84,5 +89,28 @@ export class PostsController {
   @UseGuards(AuthGuard)
   async update(@Param('id') postId: number, @Body() dto: UpdatePostDto) {
     return await this.postsService.update(postId, dto);
+  }
+
+  @ApiOperation({ summary: '게시글 신고' })
+  @ApiResponse({ status: 200, description: '게시글 조회 성공' })
+  @ApiResponse({
+    status: 401,
+    description: '헤더의 Auth 토큰이 존재하지 않습니다',
+  })
+  @ApiResponse({ status: 403, description: '토큰이 일치하지 않습니다.' })
+  @ApiResponse({
+    status: 404,
+    description: '유저가 존재하지 않습니다. or 게시글이 존재하지 않습니다.',
+  })
+  @ApiBearerAuth('access-token')
+  @ApiParam({ name: 'postId', type: Number, description: '페이지 ID' })
+  @Post('/report/:postId')
+  @UseGuards(AuthGuard)
+  async report(
+    @Param('postId') postId: number,
+    @Body() dto: ReportPostDto,
+    @RequestUser() user: IncumbentDataInAuthGuard | StudentDataInAuthGuard,
+  ) {
+    return await this.reportService.reportPost({ postId, ...dto }, user);
   }
 }
