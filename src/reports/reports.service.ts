@@ -18,10 +18,10 @@ export class ReportsService {
     args: ReportPostArgs,
     user: IncumbentDataInAuthGuard | StudentDataInAuthGuard,
   ) {
-    const isExist = await this.prismaService.posts.findFirst({
+    const post = await this.prismaService.posts.findFirst({
       where: { id: args.postId },
     });
-    if (!isExist) {
+    if (!post) {
       throw new CustomException('게시글이 존재하지 않습니다.', 404);
     }
     const userTypeById =
@@ -34,5 +34,11 @@ export class ReportsService {
     if (!createdReport.incumbent_id && !createdReport.student_id) {
       throw new CustomException('유저가 존재하지 않습니다.', 404);
     }
+    await this.prismaService.posts.update({
+      where: { id: args.postId },
+      data: { reported: Number(post.reported) + 1 },
+    });
   }
+
+  // TODD 댓글 신고 API
 }
