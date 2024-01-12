@@ -46,17 +46,23 @@ export class PostsController {
     description: '헤더의 Auth정보가 존재하지 않습니다.',
   })
   @ApiResponse({ status: 403, description: '토큰이 유효하지 않습니다.' })
-  @ApiResponse({ status: 404, description: 'userId가 일치하지 않습니다.' })
+  @ApiResponse({
+    status: 404,
+    description: 'userId가 일치하지 않습니다. or 카테고리 ID 미전송',
+  })
+  @ApiParam({ name: 'categoryId', type: Number, description: '카테고리 ID' })
   @ApiBearerAuth('access-token')
-  @Post()
+  @Post('/:categoryId')
   @UseGuards(AuthGuard)
   async createPost(
     @RefineUserById() user: RefineUserData,
+    @Param('categoryId') categoryId: number,
     @Body() dto: CreatePostDto,
   ): Promise<void> {
     await this.postsService.create({
       ...dto,
       ...user,
+      categoryId,
     });
   }
 
