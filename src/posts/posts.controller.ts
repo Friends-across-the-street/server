@@ -13,8 +13,8 @@ import { CreatePostDto } from './dto/create-post.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { RequestUser } from 'src/global/decorator/request-user.decorator';
 import {
-  IncumbentDataInAuthGuard,
-  StudentDataInAuthGuard,
+  RefineUserData,
+  UserDataInAuthGuard,
 } from 'src/global/types/user.type';
 import {
   ApiBearerAuth,
@@ -27,6 +27,7 @@ import {
 import { UpdatePostDto } from './dto/update-post.dto';
 import { ReportsService } from 'src/reports/reports.service';
 import { ReportPostDto } from './dto/report-post.dto';
+import { RefineUserById } from 'src/global/decorator/refined-user.decorator';
 
 @ApiTags('POST')
 @Controller('posts')
@@ -48,15 +49,13 @@ export class PostsController {
   @Post()
   @UseGuards(AuthGuard)
   async createPost(
-    @RequestUser() user: IncumbentDataInAuthGuard | StudentDataInAuthGuard,
+    @RefineUserById() user: RefineUserData,
     @Body() dto: CreatePostDto,
   ): Promise<void> {
-    await this.postsService.create(
-      {
-        ...dto,
-      },
-      user,
-    );
+    await this.postsService.create({
+      ...dto,
+      ...user,
+    });
   }
 
   @ApiOperation({ summary: '게시글 전체 조회(페이지네이션)' })
@@ -109,8 +108,17 @@ export class PostsController {
   async report(
     @Param('postId') postId: number,
     @Body() dto: ReportPostDto,
-    @RequestUser() user: IncumbentDataInAuthGuard | StudentDataInAuthGuard,
+    @RequestUser() user: UserDataInAuthGuard,
   ) {
     return await this.reportService.reportPost({ postId, ...dto }, user);
   }
+
+  // @Post('/recommend/:postId')
+  // @UseGuards(AuthGuard)
+  // async recommend(
+  //   @Param('postId') postId: number,
+  //   @RequestUser() user: UserDataInAuthGuard,
+  // ) {
+  //   return await this.reportService.reportPost({ postId }, user);
+  // }
 }

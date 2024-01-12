@@ -2,35 +2,23 @@ import { Injectable, UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { PrismaService } from 'src/prisma.service';
 import { CreatePostArgs } from './interface/create-post.interface';
-import {
-  IncumbentDataInAuthGuard,
-  StudentDataInAuthGuard,
-} from 'src/global/types/user.type';
-import { UserType } from 'src/auth/enum/user-type.enum';
 import { CustomException } from 'src/global/exception/custom.exception';
-import { UpdatePostArgs } from './interface/update-post.interface';
 import { postInList } from './interface/post-list.interface';
+import { Prisma } from '@prisma/client';
+import { UserType } from 'src/auth/enum/user-type.enum';
 
 @Injectable()
 export class PostsService {
   constructor(private prismaService: PrismaService) {}
 
   @UseGuards(AuthGuard)
-  async create(
-    args: CreatePostArgs,
-    user: IncumbentDataInAuthGuard | StudentDataInAuthGuard,
-  ) {
-    const userTypeById =
-      user.type === UserType.INCUMBENT
-        ? { incumbent_id: user.id }
-        : { student_id: user.id };
+  async create(args: CreatePostArgs) {
     const createdPost = await this.prismaService.posts.create({
-      data: { ...args, ...userTypeById },
+      data: { ...args },
     });
     if (!createdPost.incumbent_id && !createdPost.student_id) {
       throw new CustomException('userId가 일치하지 않습니다.', 404);
     }
-    return;
   }
 
   async getPage(page: number, limit: number) {
@@ -44,14 +32,16 @@ export class PostsService {
     LEFT JOIN students_additional AS sa ON p.student_id = sa.student_id
     ORDER BY postCreateDate DESC
     LIMIT ${limit} OFFSET ${(page - 1) * limit};`) as postInList[];
-    for (const post of postList) {
-      const type = post.incumbentId === null ? 'student' : 'incumbent';
-      const id = type === 'student' ? post.studentId : post.incumbentId;
-      const name = type === 'student' ? post.studentName : post.incumbentName;
+    postList.forEach((post: postInList) => {
+      const type: UserType =
+        post.incumbentId === null ? UserType.STUDENT : UserType.INCUMBENT;
+      const id = type === UserType.STUDENT ? post.studentId : post.incumbentId;
+      const name =
+        type === UserType.STUDENT ? post.studentName : post.incumbentName;
       const image =
-        type === 'student' ? post.studentImage : post.incumbentImage;
+        type === UserType.STUDENT ? post.studentImage : post.incumbentImage;
       const additionalInfo =
-        type === 'student'
+        type === UserType.STUDENT
           ? post.studentSchool + ' ' + post.studentMajor
           : post.incumbentCompanyName + ' ' + post.incumbentJobDescription;
       const refinedPost = {
@@ -71,7 +61,8 @@ export class PostsService {
         },
       };
       result.push(refinedPost);
-    }
+    });
+
     return result;
   }
 
@@ -85,10 +76,13 @@ export class PostsService {
     return post;
   }
 
-  async update(postId: number, dto: UpdatePostArgs) {
+  // 01073518114
+
+  async update(postId: number, dto: Prisma.postsUpdateInput) {
+    await this.getById(postId);
     return await this.prismaService.posts.update({
-      where: { id: postId },
       data: { ...dto },
+      where: { id: postId },
     });
   }
 }
