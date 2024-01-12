@@ -24,6 +24,7 @@ import { UpdatePostDto } from './dto/update-post.dto';
 import { ReportsService } from 'src/reports/reports.service';
 import { ReportPostDto } from './dto/report-post.dto';
 import { RefineUserById } from 'src/global/decorator/refined-user.decorator';
+import { RecommendsService } from 'src/recommends/recommends.service';
 
 @ApiTags('POST')
 @Controller('posts')
@@ -31,6 +32,7 @@ export class PostsController {
   constructor(
     private postsService: PostsService,
     private reportService: ReportsService,
+    private recommendService: RecommendsService,
   ) {}
 
   @ApiOperation({ summary: '게시글 생성' })
@@ -109,12 +111,12 @@ export class PostsController {
     return await this.reportService.reportPost({ postId, ...dto, ...user });
   }
 
-  // @Post('/recommend/:postId')
-  // @UseGuards(AuthGuard)
-  // async recommend(
-  //   @Param('postId') postId: number,
-  //   @RequestUser() user: UserDataInAuthGuard,
-  // ) {
-  //   return await this.reportService.reportPost({ postId }, user);
-  // }
+  @Post('/recommend/:postId')
+  @UseGuards(AuthGuard)
+  async recommend(
+    @Param('postId') postId: number,
+    @RefineUserById() user: RefineUserData,
+  ) {
+    return await this.recommendService.recommendPost({ postId, ...user });
+  }
 }

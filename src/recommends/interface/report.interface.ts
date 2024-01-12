@@ -1,4 +1,5 @@
-export interface ReportPostArgs {
+export interface RecommendPostArgs {
   readonly postId: number;
-  readonly reason: string;
+  readonly incumbentId?: number;
+  readonly studentId?: number;
 }

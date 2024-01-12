@@ -1,11 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { Gender } from '@prisma/client';
+import { AuthService } from 'src/auth/auth.service';
+import { CreateIncumbentUserDto } from 'src/auth/dto/create-incumbent-user.dto';
 import { CustomException } from 'src/global/exception/custom.exception';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class IncumbentService {
-  constructor(private prismaService: PrismaService) {}
+  constructor(
+    private prismaService: PrismaService,
+    private authService: AuthService,
+  ) {}
 
   async findById(userId: number) {
     const user = await this.prismaService.incumbents.findFirst({
@@ -22,16 +27,14 @@ export class IncumbentService {
       where: { email: 'incumbent_test1@naver.com' },
     });
     if (!incumbent) {
-      const create = {
+      const create: CreateIncumbentUserDto = {
         email: 'incumbent_test1@naver.com',
         password: 'incumbent1',
         name: 'test3',
         age: 15,
         gender: Gender.male,
       };
-      const createdIncumbent = await this.prismaService.incumbents.create({
-        data: { ...create },
-      });
+      await this.authService.signupIncumbentUser(create);
     }
   }
 }
