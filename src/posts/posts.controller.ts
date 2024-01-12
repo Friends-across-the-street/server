@@ -118,6 +118,19 @@ export class PostsController {
     return await this.reportService.reportPost({ postId, ...dto, ...user });
   }
 
+  @ApiOperation({ summary: '게시글 추천' })
+  @ApiResponse({ status: 201, description: '게시글 추천/삭제(토글 방식) 성공' })
+  @ApiResponse({
+    status: 401,
+    description: '헤더의 Auth 토큰이 존재하지 않습니다',
+  })
+  @ApiResponse({ status: 403, description: '토큰이 일치하지 않습니다.' })
+  @ApiResponse({
+    status: 404,
+    description: '유저가 존재하지 않습니다. or 게시글이 존재하지 않습니다.',
+  })
+  @ApiBearerAuth('access-token')
+  @ApiParam({ name: 'postId', type: Number, description: '페이지 ID' })
   @Post('/recommend/:postId')
   @UseGuards(AuthGuard)
   async recommend(
