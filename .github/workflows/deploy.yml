@@ -34,7 +34,3 @@ jobs:
       - name: npm install 버전 동기화
         run: |
           npm install
-
-      - name: prisma generate ORM 동기화
-        run: |
-          npm run migrate:prod
