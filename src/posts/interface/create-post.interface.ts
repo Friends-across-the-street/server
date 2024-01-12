@@ -3,4 +3,5 @@ export interface CreatePostArgs {
   readonly content: string;
   readonly incumbentId?: number;
   readonly studentId?: number;
+  readonly categoryId: number;
 }
