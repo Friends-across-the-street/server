@@ -6,6 +6,8 @@ import { CustomException } from 'src/global/exception/custom.exception';
 import { postInList } from './interface/post-list.interface';
 import { Prisma } from '@prisma/client';
 import { UserType } from 'src/auth/enum/user-type.enum';
+import { UserDataInAuthGuard } from 'src/global/types/user.type';
+import { RecommendsService } from 'src/recommends/recommends.service';
 
 @Injectable()
 export class PostsService {
@@ -66,8 +68,8 @@ export class PostsService {
         view: post.view,
         recommend: post.recommend,
         category: post.categoryName,
-        createdAt: post.postCreateDate,
-        updatedAt: post.postUpdateDate,
+        createdDate: post.postCreateDate,
+        updatedDate: post.postUpdateDate,
         user: {
           type,
           id,
@@ -82,14 +84,42 @@ export class PostsService {
     return result;
   }
 
-  async getById(postId: number) {
+  async getById(postId: number, user?: UserDataInAuthGuard) {
     const post = await this.prismaService.posts.findFirst({
       where: { id: postId },
     });
     if (!post) {
       throw new CustomException('해당 게시글이 존재하지 않습니다.', 404);
     }
-    return post;
+
+    let checkMyPost: boolean = false;
+    const postType =
+      post.incumbentId === null ? UserType.STUDENT : UserType.INCUMBENT;
+    if (
+      user.type === postType &&
+      (post.incumbentId === user.id || post.studentId === user.id)
+    ) {
+      checkMyPost = true;
+    }
+
+    // TODO 쿼리문 하나로 조회할 순 없나?
+    let checkRecommend: boolean = false;
+    const orCondition =
+      postType === UserType.STUDENT
+        ? { studentId: user.id }
+        : { incumbentId: user.id };
+    const isExist = await this.prismaService.recommend_posts.findFirst({
+      where: {
+        AND: {
+          postId: post.id,
+          ...orCondition,
+        },
+      },
+    });
+    if (isExist) {
+      checkRecommend = true;
+    }
+    return { ...post, isMine: checkMyPost, isRecommend: checkRecommend };
   }
 
   async update(postId: number, dto: Prisma.postsUpdateInput) {
