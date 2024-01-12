@@ -105,7 +105,7 @@ export class PostsService {
     // TODO 쿼리문 하나로 조회할 순 없나?
     let checkRecommend: boolean = false;
     const orCondition =
-      postType === UserType.STUDENT
+      user.type === UserType.STUDENT
         ? { studentId: user.id }
         : { incumbentId: user.id };
     const isExist = await this.prismaService.recommend_posts.findFirst({
