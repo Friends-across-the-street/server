@@ -25,7 +25,7 @@ export class PostsService {
     const result = [];
 
     const postList = (await this.prismaService
-      .$queryRaw`SELECT p.id AS postId, p.title, p.content, p.view, p.hit, p.created_date AS postCreateDate, p.updated_date AS postUpdateDate, i.id AS incumbentId, i.name AS incumbentName, ia.image AS incumbentImage, s.id AS studentId, s.name AS studentName, sa.image AS studentImage, ia.company_name AS incumbentCompanyName, ia.job_description AS incumbentJobDescription, sa.school AS studentSchool, sa.major AS studentMajor, c.name AS categoryName
+      .$queryRaw`SELECT p.id AS postId, p.title, p.content, p.view, p.recommend, p.created_date AS postCreateDate, p.updated_date AS postUpdateDate, i.id AS incumbentId, i.name AS incumbentName, ia.image AS incumbentImage, s.id AS studentId, s.name AS studentName, sa.image AS studentImage, ia.company_name AS incumbentCompanyName, ia.job_description AS incumbentJobDescription, sa.school AS studentSchool, sa.major AS studentMajor, c.name AS categoryName
     FROM posts AS p
     LEFT JOIN incumbents AS i ON p.incumbent_id = i.id
     LEFT JOIN incumbents_additional AS ia ON p.incumbent_id = ia.incumbent_id
@@ -64,7 +64,7 @@ export class PostsService {
         title: post.title,
         content: post.content,
         view: post.view,
-        hit: post.hit,
+        recommend: post.recommend,
         category: post.categoryName,
         createdAt: post.postCreateDate,
         updatedAt: post.postUpdateDate,

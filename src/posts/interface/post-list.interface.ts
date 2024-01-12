@@ -3,7 +3,7 @@ export interface postInList {
   readonly title: string;
   readonly content: string;
   readonly view: number;
-  readonly hit: number;
+  readonly recommend: number;
   readonly postCreateDate: Date;
   readonly postUpdateDate: Date;
   readonly incumbentId: number;
