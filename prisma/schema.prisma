@@ -15,7 +15,7 @@ datasource db {
 //   output   = "../ERD.md"
 //   title    = "DongA"
 // }
-//
+
 model incumbents {
   id    Int     @default(autoincrement()) @id
   email String  @unique
