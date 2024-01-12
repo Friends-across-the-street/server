@@ -11,7 +11,10 @@ import {
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
-import { RefineUserData } from 'src/global/types/user.type';
+import {
+  RefineUserData,
+  UserDataInAuthGuard,
+} from 'src/global/types/user.type';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -25,6 +28,7 @@ import { ReportsService } from 'src/reports/reports.service';
 import { ReportPostDto } from './dto/report-post.dto';
 import { RefineUserById } from 'src/global/decorator/refined-user.decorator';
 import { RecommendsService } from 'src/recommends/recommends.service';
+import { RequestUser } from 'src/global/decorator/request-user.decorator';
 
 @ApiTags('POST')
 @Controller('posts')
@@ -76,8 +80,11 @@ export class PostsController {
   @ApiBearerAuth('access-token')
   @Get('/:id')
   @UseGuards(AuthGuard)
-  async getPost(@Param('id') postId: number) {
-    return await this.postsService.getById(postId);
+  async getPost(
+    @Param('id') postId: number,
+    @RequestUser() user: UserDataInAuthGuard,
+  ) {
+    return await this.postsService.getById(postId, user);
   }
 
   @ApiOperation({ summary: '게시글 수정' })
