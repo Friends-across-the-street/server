@@ -34,6 +34,6 @@ export class AuthGuard implements CanActivate {
     request.user = {
       ...payload,
     };
-    return true;
+    return true; //
   }
 }
