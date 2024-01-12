@@ -23,14 +23,14 @@ export class RecommendsService {
         ? { incumbent_id: user.id }
         : { student_id: user.id };
     const createdrecommend = await this.prismaService.recommend_posts.create({
-      data: { post_id: postId, ...userTypeById },
+      data: { postId, ...userTypeById },
     });
-    if (!createdrecommend.incumbent_id && !createdrecommend.student_id) {
+    if (!createdrecommend.incumbentId && !createdrecommend.studentId) {
       throw new CustomException('유저가 존재하지 않습니다.', 404);
     }
     await this.prismaService.posts.update({
       where: { id: postId },
-      data: { hit: Number(post.hit) + 1 },
+      data: { recommend: Number(post.recommend) + 1 },
     });
   }
 }

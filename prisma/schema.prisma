@@ -23,12 +23,12 @@ model incumbents {
   name  String
   age Int
   gender Gender
-  created_date DateTime @default(now())
+  createdDate DateTime @default(now()) @map("created_date")
   // relation
   incumbent_additional incumbents_additional?
   posts posts[]
   comments comments[]
-  recommend_posts recommend_posts[]
+  recommend_posts recommend_posts[] 
   recommend_comments recommend_comments[]
   reported_posts reported_posts[]
   reported_comments reported_comments[]
@@ -36,20 +36,20 @@ model incumbents {
 
 model incumbents_additional {
   id    Int     @default(autoincrement()) @id
-  incumbent_id Int @unique
+  incumbentId Int @unique @map("incumbent_id")
   image String?
   school String?
-  job_description String?
-  reported_num Int @default(0)
-  advice_count Int @default(0)
-  estimation_count Float @default(5.0)
+  jobDescription String? @map("job_description")
+  reportedNum Int @default(0) @map("reported_num")
+  adviceCount Int @default(0) @map("advice_count")
+  estimationCount Float @default(5.0) @map("estimation_count")
   major String?
-  company_name String?
-  company_welfare String @default("0000000000")// TODO) category가 정확하게 정해진 후, flag개수 조정
-  company_location String?
-  updated_date DateTime @default(now()) @updatedAt 
+  companyName String? @map("company_name")
+  companyWelfare String @default("0000000000") @map("company_welfare")// TODO) category가 정확하게 정해진 후, flag개수 조정
+  companyLocation String? @map("company_location")
+  updatedDate DateTime @default(now()) @updatedAt @map("updated_date")
   // relation
-  incumbents incumbents @relation(fields: [incumbent_id], references: [id])
+  incumbents incumbents @relation(fields: [incumbentId], references: [id])
 }
 
 model students {
@@ -59,7 +59,7 @@ model students {
   name  String
   age Int
   gender Gender
-  created_date DateTime @default(now())
+  createdDate DateTime @default(now()) @map("created_date")
   // relation
   student_additional students_additional?
   posts posts[]
@@ -72,21 +72,21 @@ model students {
 
 model students_additional {
   id    Int     @default(autoincrement()) @id
-  student_id Int @unique
+  studentId Int @unique @map("student_id")
   image String?
   major String?
   school String?
-  reported_num Int @default(0)
-  total_grade Float?
-  advice_count Int @default(0)
-  estimation_count Float @default(5.0)
-  wish_job_description String?
-  wish_company_name String?
-  wish_company_welfare String?
-  wish_company_location String?
-  updated_date DateTime @default(now()) @updatedAt 
+  reportedNum Int @default(0) @map("reported_num")
+  totalGrade Float? @map("total_grade")
+  adviceCount Int @default(0) @map("advice_count")
+  estimationCount Float @default(5.0) @map("estimationCount")
+  wishJobDescription String? @map("wish_job_description")
+  wishCompanyName String? @map("wish_company_name")
+  wishCompanyWelfare String? @map("wish_company_welfare")
+  wishCompanyLocation String? @map("wish_company_location")
+  updatedDate DateTime @default(now()) @updatedAt @map("updated_date")
   // relation
-  students students @relation(fields: [student_id], references: [id])
+  students students @relation(fields: [studentId], references: [id])
 }
 
 model category{
@@ -98,20 +98,20 @@ model category{
 
 model posts {
   id    Int     @default(autoincrement()) @id
-  incumbent_id Int?
-  student_id Int?
-  category_id Int?
+  incumbentId Int? @map("incumbent_id")
+  studentId Int? @map("student_id")
+  categoryId Int? @map("category_id")
   title String
   content String
   view Int @default(0)
-  hit Int @default(0)
+  recommend Int @default(0)
   reported Int @default(0)
-  created_date DateTime @default(now())
-  updated_date DateTime @default(now()) @updatedAt 
+  createdDate DateTime @default(now()) @map("created_date")
+  updatedDate DateTime @default(now()) @updatedAt @map("updated_date")
   // relation
-  categories category? @relation(fields: [category_id], references: [id])
-  incumbents incumbents? @relation(fields: [incumbent_id], references: [id])
-  students students? @relation(fields: [student_id], references: [id])
+  categories category? @relation(fields: [categoryId], references: [id])
+  incumbents incumbents? @relation(fields: [incumbentId], references: [id])
+  students students? @relation(fields: [studentId], references: [id])
   comments comments[]
   recommend_posts recommend_posts[]
   reported_posts reported_posts[]
@@ -119,71 +119,71 @@ model posts {
 
 model comments {
   id    Int     @default(autoincrement()) @id
-  post_id Int
-  incumbent_id Int?
-  student_id Int?
+  postId Int @map("post_id")
+  incumbentId Int? @map("incumbent_id")
+  studentId Int? @map("student_id")
   content String
-  parent_comment_id Int @default(0)
+  parentCommentId Int @default(0) @map("parent_comment_id")
   hit Int @default(0)
   reported Int @default(0)
-  created_date DateTime @default(now())
-  updated_date DateTime @default(now()) @updatedAt 
+  createdDate DateTime @default(now()) @map("created_date")
+  updatedDate DateTime @default(now()) @updatedAt @map("updated_date")
   // relation
-  incumbents incumbents? @relation(fields: [incumbent_id], references: [id])
-  students students? @relation(fields: [student_id], references: [id])
-  post posts @relation(fields: [post_id], references: [id])
+  incumbents incumbents? @relation(fields: [incumbentId], references: [id])
+  students students? @relation(fields: [studentId], references: [id])
+  post posts @relation(fields: [postId], references: [id])
   recommend_comments recommend_comments[]
   reported_comments reported_comments[]
 }
 
 model recommend_posts {
   id    Int     @default(autoincrement()) @id
-  post_id Int
-  incumbent_id Int?
-  student_id Int?
-  created_date DateTime @default(now())
+  postId Int @map("post_id")
+  incumbentId Int? @map("incumbent_id")
+  studentId Int? @map("student_id")
+  createdDate DateTime @default(now()) @map("created_date")
   // relation
-  incumbent incumbents? @relation(fields: [incumbent_id], references: [id])
-  students students? @relation(fields: [student_id], references: [id])
-  post posts @relation(fields: [post_id], references: [id])
+  incumbents incumbents? @relation(fields: [incumbentId], references: [id])
+  students students? @relation(fields: [studentId], references: [id])
+  post posts @relation(fields: [postId], references: [id])
 }
 
 model reported_posts {
   id    Int     @default(autoincrement()) @id
-  post_id Int
-  incumbent_id Int?
-  student_id Int?
+  postId Int @map("post_id")
+  incumbentId Int? @map("incumbent_id")
+  studentId Int? @map("student_id")
   reason String
-  created_date DateTime @default(now())
+  createdDate DateTime @default(now()) @map("created_date")
   // relation
-  incumbent incumbents? @relation(fields: [incumbent_id], references: [id])
-  students students? @relation(fields: [student_id], references: [id])
-  post posts @relation(fields: [post_id], references: [id])
+  incumbents incumbents? @relation(fields: [incumbentId], references: [id])
+  students students? @relation(fields: [studentId], references: [id])
+  post posts @relation(fields: [postId], references: [id])
 }
 
 model recommend_comments {
   id    Int     @default(autoincrement()) @id
-  comment_id Int
-  incumbent_id Int?
-  student_id Int?
-  created_date DateTime @default(now())
+  commendId Int @map("comment_id")
+  incumbentId Int? @map("incumbent_id")
+  studentId Int? @map("student_id")
+  createdDate DateTime @default(now()) @map("created_date")
   // relation
-  incumbents incumbents? @relation(fields: [incumbent_id], references: [id])
-  students students? @relation(fields: [student_id], references: [id])
-  comment comments @relation(fields: [comment_id], references: [id])
+  comment comments @relation(fields: [commendId], references: [id])
+  incumbents incumbents? @relation(fields: [incumbentId], references: [id])
+  students students? @relation(fields: [studentId], references: [id])
 }
 
 model reported_comments {
   id    Int     @default(autoincrement()) @id
-  comment_id Int
-  incumbent_id Int?
-  student_id Int?
+  commendId Int @map("comment_id")
+  incumbentId Int? @map("incumbent_id")
+  studentId Int? @map("student_id")
   reason String
-  created_date DateTime @default(now())
+  createdDate DateTime @default(now()) @map("created_date")
   // relation
-  incumbents incumbents? @relation(fields: [incumbent_id], references: [id])
-  students students? @relation(fields: [student_id], references: [id])
-  comment comments @relation(fields: [comment_id], references: [id])
+  comment comments @relation(fields: [commendId], references: [id])
+  incumbents incumbents? @relation(fields: [incumbentId], references: [id])
+  students students? @relation(fields: [studentId], references: [id])
 }
 
 enum Gender {

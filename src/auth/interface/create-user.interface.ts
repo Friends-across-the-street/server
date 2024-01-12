@@ -7,10 +7,10 @@ export interface CreateIncumbentUserArgs {
   image: string;
   major: string;
   school: string;
-  job_description: string;
-  company_name: string;
-  company_welfare: string;
-  company_location: string;
+  jobDescription: string;
+  companyName: string;
+  companyWelfare: string;
+  companyLocation: string;
 }
 
 export interface CreateStudentUserArgs {
@@ -20,11 +20,11 @@ export interface CreateStudentUserArgs {
   age: number;
   gender: string;
   image: string;
-  total_grade: number;
+  totalGrade: number;
   major: string;
   school: string;
-  wish_job_description: string;
-  wish_company_name: string;
-  wish_company_welfare: string;
-  wish_company_location: string;
+  wishJobDescription: string;
+  wishCompanyName: string;
+  wishCompanyWelfare: string;
+  wishCompanyLocation: string;
 }

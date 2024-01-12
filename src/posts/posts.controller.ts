@@ -11,11 +11,7 @@ import {
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
-import { RequestUser } from 'src/global/decorator/request-user.decorator';
-import {
-  RefineUserData,
-  UserDataInAuthGuard,
-} from 'src/global/types/user.type';
+import { RefineUserData } from 'src/global/types/user.type';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -108,9 +104,9 @@ export class PostsController {
   async report(
     @Param('postId') postId: number,
     @Body() dto: ReportPostDto,
-    @RequestUser() user: UserDataInAuthGuard,
+    @RefineUserById() user: RefineUserData,
   ) {
-    return await this.reportService.reportPost({ postId, ...dto }, user);
+    return await this.reportService.reportPost({ postId, ...dto, ...user });
   }
 
   // @Post('/recommend/:postId')

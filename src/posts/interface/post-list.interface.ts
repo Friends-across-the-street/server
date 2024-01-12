@@ -16,4 +16,5 @@ export interface postInList {
   readonly studentId: number;
   readonly studentName: string;
   readonly studentImage: string;
+  readonly categoryName: string;
 }

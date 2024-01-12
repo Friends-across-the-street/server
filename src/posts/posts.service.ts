@@ -16,22 +16,25 @@ export class PostsService {
     const createdPost = await this.prismaService.posts.create({
       data: { ...args },
     });
-    if (!createdPost.incumbent_id && !createdPost.student_id) {
+    if (!createdPost.incumbentId && !createdPost.studentId) {
       throw new CustomException('userId가 일치하지 않습니다.', 404);
     }
   }
 
   async getPage(page: number, limit: number) {
     const result = [];
+
     const postList = (await this.prismaService
-      .$queryRaw`SELECT p.id AS postId, p.title, p.content, p.view, p.hit, p.created_date AS postCreateDate, p.updated_date AS postUpdateDate, i.id AS incumbentId, i.name AS incumbentName, ia.image AS incumbentImage, s.id AS studentId, s.name AS studentName, sa.image AS studentImage, ia.company_name AS incumbentCompanyName, ia.job_description AS incumbentJobDescription, sa.school AS studentSchool, sa.major AS studentMajor
+      .$queryRaw`SELECT p.id AS postId, p.title, p.content, p.view, p.hit, p.created_date AS postCreateDate, p.updated_date AS postUpdateDate, i.id AS incumbentId, i.name AS incumbentName, ia.image AS incumbentImage, s.id AS studentId, s.name AS studentName, sa.image AS studentImage, ia.company_name AS incumbentCompanyName, ia.job_description AS incumbentJobDescription, sa.school AS studentSchool, sa.major AS studentMajor, c.name AS categoryName
     FROM posts AS p
     LEFT JOIN incumbents AS i ON p.incumbent_id = i.id
     LEFT JOIN incumbents_additional AS ia ON p.incumbent_id = ia.incumbent_id
     LEFT JOIN students AS s ON p.student_id = s.id
     LEFT JOIN students_additional AS sa ON p.student_id = sa.student_id
+    LEFT JOIN category AS c ON p.category_id = c.id
     ORDER BY postCreateDate DESC
     LIMIT ${limit} OFFSET ${(page - 1) * limit};`) as postInList[];
+
     postList.forEach((post: postInList) => {
       const type: UserType =
         post.incumbentId === null ? UserType.STUDENT : UserType.INCUMBENT;
@@ -40,16 +43,29 @@ export class PostsService {
         type === UserType.STUDENT ? post.studentName : post.incumbentName;
       const image =
         type === UserType.STUDENT ? post.studentImage : post.incumbentImage;
-      const additionalInfo =
+      const additionalInfoSup =
         type === UserType.STUDENT
-          ? post.studentSchool + ' ' + post.studentMajor
-          : post.incumbentCompanyName + ' ' + post.incumbentJobDescription;
+          ? post.studentSchool
+          : post.incumbentCompanyName;
+      const additionalInfoSub =
+        type === UserType.STUDENT
+          ? post.studentMajor
+          : post.incumbentJobDescription;
+      let additionalInfo;
+      if (!additionalInfoSup) {
+        additionalInfo = null;
+      } else if (!additionalInfoSub) {
+        additionalInfo = additionalInfoSup;
+      } else {
+        additionalInfo = additionalInfoSup + ' ' + additionalInfoSub;
+      }
       const refinedPost = {
         id: post.postId,
         title: post.title,
         content: post.content,
         view: post.view,
         hit: post.hit,
+        category: post.categoryName,
         createdAt: post.postCreateDate,
         updatedAt: post.postUpdateDate,
         user: {
@@ -86,20 +102,20 @@ export class PostsService {
 
   async createMockData() {
     const existStudentPost = await this.prismaService.posts.findFirst({
-      where: { student_id: 1, title: '더미데이터' },
+      where: { AND: { studentId: 1, title: '더미데이터' } },
     });
     const post = { title: '더미데이터', content: '더미데이터' };
     if (!existStudentPost) {
       await this.prismaService.posts.create({
-        data: { ...post, student_id: 1, category_id: 1 },
+        data: { ...post, incumbentId: null, studentId: 1, categoryId: 1 },
       });
     }
     const existIncumbentPost = await this.prismaService.posts.findFirst({
-      where: { incumbent_id: 1, title: '더미데이터' },
+      where: { incumbentId: 1, title: '더미데이터' },
     });
     if (!existIncumbentPost) {
       await this.prismaService.posts.create({
-        data: { ...post, incumbent_id: 1, category_id: 1 },
+        data: { ...post, incumbentId: 1, categoryId: 1 },
       });
     }
   }

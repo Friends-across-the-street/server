@@ -7,8 +7,8 @@ export const RefineUserById = createParamDecorator(
     const { id, email, type } = request.user;
     let typeById;
     type === UserType.INCUMBENT
-      ? (typeById = { incumbent_id: id })
-      : (typeById = { student_id: id });
+      ? (typeById = { incumbentId: id })
+      : (typeById = { studentId: id });
     return typeById;
   },
 );

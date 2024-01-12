@@ -10,9 +10,9 @@ export class UserDataInAuthGuard {
 }
 
 /**
- * AuthGuard를 거쳐 incumbent_id or student_id로 반환
+ * AuthGuard를 거쳐 incumbentId or studentId로 반환
  */
 export class RefineUserData {
-  readonly incumbent_id?: number;
-  readonly student_id?: number;
+  readonly incumbentId?: number;
+  readonly studentId?: number;
 }
