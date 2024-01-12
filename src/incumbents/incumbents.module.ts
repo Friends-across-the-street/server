@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
-import { IncumbentUsersService } from './incumbents.service';
-import { IncumbentUsersController } from './incumbents.controller';
+import { IncumbentService } from './incumbents.service';
+import { IncumbentController } from './incumbents.controller';
 import { PrismaService } from 'src/prisma.service';
 
 @Module({
-  controllers: [IncumbentUsersController],
-  providers: [IncumbentUsersService, PrismaService],
+  controllers: [IncumbentController],
+  providers: [IncumbentService, PrismaService],
+  exports: [IncumbentService],
 })
-export class IncumbentUsersModule {}
+export class IncumbentModule {}
