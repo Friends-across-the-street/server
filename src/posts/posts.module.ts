@@ -10,5 +10,6 @@ import { RecommendsModule } from 'src/recommends/recommends.module';
   imports: [AuthModule, RecommendsModule, ReportsModule],
   controllers: [PostsController],
   providers: [PostsService, PrismaService],
+  exports: [PostsService],
 })
 export class PostsModule {}

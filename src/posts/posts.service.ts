@@ -76,13 +76,31 @@ export class PostsService {
     return post;
   }
 
-  // 01073518114
-
   async update(postId: number, dto: Prisma.postsUpdateInput) {
     await this.getById(postId);
     return await this.prismaService.posts.update({
       data: { ...dto },
       where: { id: postId },
     });
+  }
+
+  async createMockData() {
+    const existStudentPost = await this.prismaService.posts.findFirst({
+      where: { student_id: 1, title: '더미데이터' },
+    });
+    const post = { title: '더미데이터', content: '더미데이터' };
+    if (!existStudentPost) {
+      await this.prismaService.posts.create({
+        data: { ...post, student_id: 1, category_id: 1 },
+      });
+    }
+    const existIncumbentPost = await this.prismaService.posts.findFirst({
+      where: { incumbent_id: 1, title: '더미데이터' },
+    });
+    if (!existIncumbentPost) {
+      await this.prismaService.posts.create({
+        data: { ...post, incumbent_id: 1, category_id: 1 },
+      });
+    }
   }
 }
