@@ -5,6 +5,10 @@ import { PrismaService } from 'src/prisma.service';
 export class CategoryService {
   constructor(private prismaService: PrismaService) {}
 
+  async findAll() {
+    return await this.prismaService.category.findMany();
+  }
+
   async createMockData() {
     const categories = await this.prismaService.category.findMany();
     if (categories.length === 0) {
