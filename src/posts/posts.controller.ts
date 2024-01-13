@@ -74,9 +74,31 @@ export class PostsController {
     type: Number,
     description: '페이지당 보이는 개수',
   })
-  @Get()
+  @Get('/')
   async getAll(@Query('page') page: number, @Query('limit') limit: number) {
     return await this.postsService.getPage(page, limit);
+  }
+
+  @ApiOperation({ summary: '게시글 전체 조회(페이지네이션)' })
+  @ApiResponse({ status: 200, description: '게시글 조회 성공' })
+  @ApiQuery({ name: 'page', type: Number, description: '페이지 쪽수' })
+  @ApiQuery({
+    name: 'limit',
+    type: Number,
+    description: '페이지당 보이는 개수',
+  })
+  @ApiParam({
+    name: 'categoryId',
+    type: Number,
+    description: '카테고리 ID',
+  })
+  @Get('/:categoryId')
+  async getAllByCategory(
+    @Query('page') page: number,
+    @Query('limit') limit: number,
+    @Param('categoryId') categoryId: number,
+  ) {
+    return await this.postsService.getPageByCategory(page, limit, categoryId);
   }
 
   @ApiOperation({ summary: '게시글 상세 조회(단일 조회)' })
@@ -84,7 +106,7 @@ export class PostsController {
   @ApiResponse({ status: 404, description: '게시글 찾을 수 없음' })
   @ApiParam({ name: 'id', type: Number, description: '페이지 ID' })
   @ApiBearerAuth('access-token')
-  @Get('/:id')
+  @Get('/detail/:id')
   @UseGuards(AuthGuard)
   async getPost(
     @Param('id') postId: number,
