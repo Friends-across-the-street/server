@@ -119,8 +119,12 @@ export class PostsController {
   @ApiBearerAuth('access-token')
   @Put('/:id')
   @UseGuards(AuthGuard)
-  async update(@Param('id') postId: number, @Body() dto: UpdatePostDto) {
-    return await this.postsService.update(postId, dto);
+  async update(
+    @Param('id') postId: number,
+    @Body() dto: UpdatePostDto,
+    @RequestUser() user: UserDataInAuthGuard,
+  ) {
+    return await this.postsService.update(postId, dto, user);
   }
 
   @ApiOperation({ summary: '게시글 신고' })

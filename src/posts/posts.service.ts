@@ -144,7 +144,7 @@ export class PostsService {
     return result;
   }
 
-  async getById(postId: number, user?: UserDataInAuthGuard) {
+  async getById(postId: number, user: UserDataInAuthGuard) {
     const post = await this.prismaService.posts.findFirst({
       where: { id: postId },
     });
@@ -182,8 +182,15 @@ export class PostsService {
     return { ...post, isMine: checkMyPost, isRecommend: checkRecommend };
   }
 
-  async update(postId: number, dto: Prisma.postsUpdateInput) {
-    await this.getById(postId);
+  async update(
+    postId: number,
+    dto: Prisma.postsUpdateInput,
+    user: UserDataInAuthGuard,
+  ) {
+    const post = await this.getById(postId, user);
+    if (post.isMine === false) {
+      throw new CustomException('게시글의 소유자가 아닙니다.', 403);
+    }
     return await this.prismaService.posts.update({
       data: { ...dto },
       where: { id: postId },
