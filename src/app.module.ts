@@ -10,6 +10,7 @@ import { CustomExceptionFilter } from './global/custom-exception.filter';
 import { TransformInterceptor } from './global/interceptor/transform.interceptor';
 import { InitializeService } from './initialize.service';
 import { CategoryModule } from './category/category.module';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -26,7 +27,7 @@ import { CategoryModule } from './category/category.module';
     PostsModule,
     CategoryModule,
   ],
-  controllers: [],
+  controllers: [AppController],
   providers: [
     InitializeService,
     { provide: APP_FILTER, useClass: CustomExceptionFilter },
