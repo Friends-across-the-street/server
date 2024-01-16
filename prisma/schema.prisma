@@ -123,7 +123,7 @@ model comments {
   incumbentId Int? @map("incumbent_id")
   studentId Int? @map("student_id")
   content String
-  parentCommentId Int @default(0) @map("parent_comment_id")
+  parentCommentId Int? @default(0) @map("parent_comment_id")
   hit Int @default(0)
   reported Int @default(0)
   createdDate DateTime @default(now()) @map("created_date")
@@ -132,6 +132,8 @@ model comments {
   incumbents incumbents? @relation(fields: [incumbentId], references: [id])
   students students? @relation(fields: [studentId], references: [id])
   post posts @relation(fields: [postId], references: [id])
+  parent  comments? @relation("reply", fields: [parentCommentId], references: [id])
+  replies comments[] @relation("reply")
   recommend_comments recommend_comments[]
   reported_comments reported_comments[]
 }
