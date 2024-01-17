@@ -29,6 +29,8 @@ import { ReportPostDto } from './dto/report-post.dto';
 import { RefineUserById } from 'src/global/decorator/refined-user.decorator';
 import { RecommendsService } from 'src/recommends/recommends.service';
 import { RequestUser } from 'src/global/decorator/request-user.decorator';
+import { CommentService } from 'src/comment/comment.service';
+import { CreateCommentDto } from './dto/create-comment.dto';
 
 @ApiTags('POST')
 @Controller('posts')
@@ -37,6 +39,7 @@ export class PostsController {
     private postsService: PostsService,
     private reportService: ReportsService,
     private recommendService: RecommendsService,
+    private commentService: CommentService,
   ) {}
 
   @ApiOperation({ summary: '게시글 생성' })
@@ -170,5 +173,15 @@ export class PostsController {
     @RefineUserById() user: RefineUserData,
   ) {
     return await this.recommendService.recommendPost({ postId, ...user });
+  }
+
+  @Post('/comment/:postId')
+  @UseGuards(AuthGuard)
+  async createComment(
+    @Param('postId') postId: number,
+    @RefineUserById() user: RefineUserData,
+    @Body() dto: CreateCommentDto,
+  ) {
+    return await this.commentService.create({ postId, ...user, ...dto });
   }
 }
