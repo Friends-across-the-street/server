@@ -11,6 +11,7 @@ import { TransformInterceptor } from './global/interceptor/transform.interceptor
 import { InitializeService } from './initialize.service';
 import { CategoryModule } from './category/category.module';
 import { AppController } from './app.controller';
+import { PrismaService } from './prisma.service';
 
 @Module({
   imports: [
@@ -29,9 +30,10 @@ import { AppController } from './app.controller';
   ],
   controllers: [AppController],
   providers: [
-    InitializeService,
     { provide: APP_FILTER, useClass: CustomExceptionFilter },
     { provide: APP_INTERCEPTOR, useClass: TransformInterceptor },
+    PrismaService,
+    InitializeService,
   ],
 })
 export class AppModule {}
