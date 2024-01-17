@@ -175,6 +175,19 @@ export class PostsController {
     return await this.recommendService.recommendPost({ postId, ...user });
   }
 
+  @ApiOperation({ summary: '댓글 작성' })
+  @ApiResponse({ status: 201, description: '댓글 생성 성공' })
+  @ApiResponse({
+    status: 401,
+    description: '헤더의 Auth정보가 존재하지 않습니다.',
+  })
+  @ApiResponse({ status: 403, description: '토큰이 유효하지 않습니다.' })
+  @ApiResponse({
+    status: 404,
+    description: 'userId가 일치하지 않습니다. or postId 미전송',
+  })
+  @ApiParam({ name: 'postId', type: Number, description: '게시글 ID' })
+  @ApiBearerAuth('access-token')
   @Post('/comment/:postId')
   @UseGuards(AuthGuard)
   async createComment(
