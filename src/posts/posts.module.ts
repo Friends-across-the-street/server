@@ -5,9 +5,10 @@ import { PrismaService } from 'src/prisma.service';
 import { AuthModule } from 'src/auth/auth.module';
 import { ReportsModule } from 'src/reports/reports.module';
 import { RecommendsModule } from 'src/recommends/recommends.module';
+import { CommentModule } from 'src/comment/comment.module';
 
 @Module({
-  imports: [AuthModule, RecommendsModule, ReportsModule],
+  imports: [AuthModule, RecommendsModule, ReportsModule, CommentModule],
   controllers: [PostsController],
   providers: [PostsService, PrismaService],
   exports: [PostsService],
