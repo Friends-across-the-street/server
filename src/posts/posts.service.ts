@@ -198,6 +198,7 @@ export class PostsService {
   }
 
   async createMockData() {
+    // 게시글 삽입
     const existStudentPost = await this.prismaService.posts.findFirst({
       where: { AND: { studentId: 1, title: '더미데이터' } },
     });
@@ -213,6 +214,25 @@ export class PostsService {
     if (!existIncumbentPost) {
       await this.prismaService.posts.create({
         data: { ...post, incumbentId: 1, categoryId: 1 },
+      });
+    }
+
+    // 댓글 삽입
+    const comment = { studentId: 1, postId: 1, content: '더미데이터' };
+    const existStudentComment = await this.prismaService.comments.findFirst({
+      where: { AND: comment },
+    });
+    if (!existStudentComment) {
+      await this.prismaService.comments.create({
+        data: { ...comment, incumbentId: null },
+      });
+    }
+    const existIncumbentComment = await this.prismaService.comments.findFirst({
+      where: { incumbentId: 1, postId: 1, content: '더미데이터' },
+    });
+    if (!existIncumbentComment) {
+      await this.prismaService.comments.create({
+        data: { ...comment, studentId: null, incumbentId: 1 },
       });
     }
   }
