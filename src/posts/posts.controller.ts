@@ -31,6 +31,7 @@ import { RecommendsService } from 'src/recommends/recommends.service';
 import { RequestUser } from 'src/global/decorator/request-user.decorator';
 import { CommentService } from 'src/comment/comment.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
+import { UpdateCommentDto } from './dto/update-comment.dto';
 
 @ApiTags('POST')
 @Controller('posts')
@@ -196,5 +197,19 @@ export class PostsController {
     @Body() dto: CreateCommentDto,
   ) {
     return await this.commentService.create({ postId, ...user, ...dto });
+  }
+
+  @Put('/comment/:commentId')
+  @UseGuards(AuthGuard)
+  async updateComment(
+    @Param('commentId') commentId: number,
+    @RequestUser() user: UserDataInAuthGuard,
+    @Body() dto: UpdateCommentDto,
+  ) {
+    return await this.commentService.update({
+      commentId,
+      user,
+      ...dto,
+    });
   }
 }
