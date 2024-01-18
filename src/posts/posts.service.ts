@@ -7,6 +7,7 @@ import { postInList } from './interface/post-list.interface';
 import { Prisma } from '@prisma/client';
 import { UserType } from 'src/auth/enum/user-type.enum';
 import { UserDataInAuthGuard } from 'src/global/types/user.type';
+import { onePostIncludeComments } from './interface/one-post.interface';
 
 @Injectable()
 export class PostsService {
@@ -145,12 +146,29 @@ export class PostsService {
   }
 
   async getById(postId: number, user: UserDataInAuthGuard) {
-    const post = await this.prismaService.posts.findFirst({
-      where: { id: postId },
-    });
-    if (!post) {
+    const onePostIncludedComment = (await this.prismaService
+      .$queryRaw`SELECT p.id AS postId, p.incumbent_id AS postIncumbentId, p.student_id AS postStudentId, p.title AS postTitle, p.content AS postContent, p.view AS postView, p.recommend AS postRecommend, p.reported AS postReported, p.created_date AS postCreatedDate, p.updated_date AS postUpdatedDate, c.id AS commentId, c.incumbent_id AS commentIncumbentId, c.student_id AS commentStudentId, c.content AS commentCotent, c.parent_comment_id AS parentCommentId, c.recommend AS commentRecommend, c.created_date AS commentCreatedDate, c.updated_date AS commentUpdatedDate
+    FROM posts AS p
+    LEFT JOIN comments AS c ON p.id = c.post_id
+    WHERE p.id = ${postId}
+    ORDER BY (parentCommentId IS NULL) DESC, parentCommentId ASC;`) as onePostIncludeComments[];
+
+    if (!onePostIncludedComment.length) {
       throw new CustomException('해당 게시글이 존재하지 않습니다.', 404);
     }
+
+    const post = {
+      id: onePostIncludedComment[0].postId,
+      incumbentId: onePostIncludedComment[0].postIncumbentId ?? null,
+      studentId: onePostIncludedComment[0].postStudentId ?? null,
+      title: onePostIncludedComment[0].postTitle,
+      content: onePostIncludedComment[0].postContent,
+      view: onePostIncludedComment[0].postView,
+      recommned: onePostIncludedComment[0].postRecommend,
+      reported: onePostIncludedComment[0].postReported,
+      createdDate: onePostIncludedComment[0].postCreatedDate,
+      updatedDate: onePostIncludedComment[0].postUpdatedDate,
+    };
 
     let checkMyPost: boolean = false;
     const postType =
@@ -162,7 +180,6 @@ export class PostsService {
       checkMyPost = true;
     }
 
-    // TODO 쿼리문 하나로 조회할 순 없나?
     let checkRecommend: boolean = false;
     const orCondition =
       user.type === UserType.STUDENT
@@ -179,7 +196,29 @@ export class PostsService {
     if (isExist) {
       checkRecommend = true;
     }
-    return { ...post, isMine: checkMyPost, isRecommend: checkRecommend };
+
+    const comments = [];
+    onePostIncludedComment.some((item) => {
+      if (!item.commentId) {
+        return true; // 댓글이 없으므로 종료
+      }
+      comments.push({
+        id: item.commentId,
+        content: item.commentContent,
+        recommend: item.commentRecommend,
+        parentCommentId: item.parentCommentId ?? null,
+        incumbentId: item.commentIncumbentId ?? null,
+        studendId: item.commentStudentId ?? null,
+        createdDate: item.commentCreatedDate,
+        updatedDate: item.commentUpdatedDate,
+      });
+    });
+    return {
+      ...post,
+      isMine: checkMyPost,
+      isRecommend: checkRecommend,
+      comments,
+    };
   }
 
   async update(
