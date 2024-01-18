@@ -124,7 +124,7 @@ model comments {
   studentId Int? @map("student_id")
   content String
   parentCommentId Int? @map("parent_comment_id")
-  hit Int @default(0)
+  recommend Int @default(0)
   reported Int @default(0)
   createdDate DateTime @default(now()) @map("created_date")
   updatedDate DateTime @default(now()) @updatedAt @map("updated_date")
