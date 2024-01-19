@@ -32,4 +32,21 @@ export class CommentService {
       where: { id: comment.id },
     });
   }
+
+  async delete(commentId: number, user: UserDataInAuthGuard) {
+    const comment = await this.prismaService.comments.findFirst({
+      where: { id: commentId },
+    });
+    const commentType =
+      comment.incumbentId === null ? UserType.STUDENT : UserType.INCUMBENT;
+    if (
+      user.type !== commentType ||
+      (comment.incumbentId !== user.id && comment.studentId !== user.id)
+    ) {
+      throw new CustomException('댓글의 소유자가 아닙니다.', 403);
+    }
+    await this.prismaService.comments.delete({
+      where: { id: comment.id },
+    });
+  }
 }
