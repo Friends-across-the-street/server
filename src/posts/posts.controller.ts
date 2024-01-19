@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -211,5 +212,14 @@ export class PostsController {
       user,
       ...dto,
     });
+  }
+
+  @Delete('/comment/:commentId')
+  @UseGuards(AuthGuard)
+  async deleteComment(
+    @Param('commentId') commentId: number,
+    @RequestUser() user: UserDataInAuthGuard,
+  ) {
+    return await this.commentService.delete(commentId, user);
   }
 }
