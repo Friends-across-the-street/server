@@ -200,6 +200,19 @@ export class PostsController {
     return await this.commentService.create({ postId, ...user, ...dto });
   }
 
+  @ApiOperation({ summary: '댓글 수정' })
+  @ApiResponse({ status: 200, description: '댓글 수정 성공' })
+  @ApiResponse({
+    status: 401,
+    description: '헤더의 Auth정보가 존재하지 않습니다.',
+  })
+  @ApiResponse({ status: 403, description: '토큰이 유효하지 않습니다.' })
+  @ApiResponse({
+    status: 404,
+    description: 'userId가 일치하지 않습니다. or commentId 미전송',
+  })
+  @ApiParam({ name: 'commendId', type: Number, description: '댓글 ID' })
+  @ApiBearerAuth('access-token')
   @Put('/comment/:commentId')
   @UseGuards(AuthGuard)
   async updateComment(
@@ -214,6 +227,18 @@ export class PostsController {
     });
   }
 
+  @ApiOperation({ summary: '댓글 삭제' })
+  @ApiResponse({ status: 200, description: '댓글 삭제 성공' })
+  @ApiResponse({
+    status: 401,
+    description: '헤더의 Auth정보가 존재하지 않습니다.',
+  })
+  @ApiResponse({ status: 403, description: '토큰이 유효하지 않습니다.' })
+  @ApiResponse({
+    status: 404,
+    description: 'userId가 일치하지 않습니다. or commentId 미전송',
+  })
+  @ApiParam({ name: 'commendId', type: Number, description: '댓글 ID' })
   @Delete('/comment/:commentId')
   @UseGuards(AuthGuard)
   async deleteComment(
