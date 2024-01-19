@@ -239,6 +239,7 @@ export class PostsController {
     description: 'userId가 일치하지 않습니다. or commentId 미전송',
   })
   @ApiParam({ name: 'commendId', type: Number, description: '댓글 ID' })
+  @ApiBearerAuth('access-token')
   @Delete('/comment/:commentId')
   @UseGuards(AuthGuard)
   async deleteComment(
