@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { Gender } from '@prisma/client';
+import { Gender, Prisma } from '@prisma/client';
 import { AuthService } from 'src/auth/auth.service';
 import { CreateIncumbentUserDto } from 'src/auth/dto/create-incumbent-user.dto';
 import { CustomException } from 'src/global/exception/custom.exception';
 import { PrismaService } from 'src/prisma.service';
+import { AddAddtionalDto } from './dto/add-addtional.dto';
 
 @Injectable()
 export class IncumbentService {
@@ -20,6 +21,15 @@ export class IncumbentService {
       throw new CustomException('유저가 존재하지 않음', 404);
     }
     return user;
+  }
+
+  async addAdditional(userId: number, args: AddAddtionalDto) {
+    {
+      // TODO 테스트 더 해보기
+      await this.prismaService.incumbents_additional.create({
+        data: { ...args, incumbentId: userId },
+      });
+    }
   }
 
   async createMockData() {
