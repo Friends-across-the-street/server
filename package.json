@@ -20,7 +20,9 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "migrate:dev": "dotenv -e ./src/global/config/env/.dev.env -- npx prisma migrate dev",
-    "dbpush:dev": "dotenv -e ./src/global/config/env/.dev.env -- npx prisma db push"
+    "mysql:push": "dotenv -e ./src/global/config/env/.dev.env -- npx prisma db push",
+    "generate:mongo": "dotenv -e ./src/global/config/env/.dev.env -- npx prisma generate --schema=./prisma/mongo-schema.prisma",
+    "generate:mysql": "dotenv -e ./src/global/config/env/.dev.env -- npx prisma generate --schema=./prisma/mysql-schema.prisma"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
