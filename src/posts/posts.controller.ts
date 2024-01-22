@@ -34,7 +34,6 @@ import { CommentService } from 'src/comment/comment.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 
-@ApiTags('POST')
 @Controller('posts')
 export class PostsController {
   constructor(
@@ -56,6 +55,7 @@ export class PostsController {
     description: 'userId가 일치하지 않습니다. or 카테고리 ID 미전송',
   })
   @ApiParam({ name: 'categoryId', type: Number, description: '카테고리 ID' })
+  @ApiTags('POST')
   @ApiBearerAuth('access-token')
   @Post('/:categoryId')
   @UseGuards(AuthGuard)
@@ -79,6 +79,7 @@ export class PostsController {
     type: Number,
     description: '페이지당 보이는 개수',
   })
+  @ApiTags('POST')
   @Get('/')
   async getAll(@Query('page') page: number, @Query('limit') limit: number) {
     return await this.postsService.getPage(page, limit);
@@ -97,6 +98,7 @@ export class PostsController {
     type: Number,
     description: '카테고리 ID',
   })
+  @ApiTags('POST')
   @Get('/:categoryId')
   async getAllByCategory(
     @Query('page') page: number,
@@ -111,6 +113,7 @@ export class PostsController {
   @ApiResponse({ status: 404, description: '게시글 찾을 수 없음' })
   @ApiParam({ name: 'id', type: Number, description: '페이지 ID' })
   @ApiBearerAuth('access-token')
+  @ApiTags('POST')
   @Get('/detail/:id')
   @UseGuards(AuthGuard)
   async getPost(
@@ -122,6 +125,7 @@ export class PostsController {
 
   @ApiOperation({ summary: '게시글 수정' })
   @ApiBearerAuth('access-token')
+  @ApiTags('POST')
   @Put('/:id')
   @UseGuards(AuthGuard)
   async update(
@@ -145,6 +149,7 @@ export class PostsController {
   })
   @ApiBearerAuth('access-token')
   @ApiParam({ name: 'postId', type: Number, description: '페이지 ID' })
+  @ApiTags('POST')
   @Post('/report/:postId')
   @UseGuards(AuthGuard)
   async report(
@@ -168,6 +173,7 @@ export class PostsController {
   })
   @ApiBearerAuth('access-token')
   @ApiParam({ name: 'postId', type: Number, description: '페이지 ID' })
+  @ApiTags('POST')
   @Post('/recommend/:postId')
   @UseGuards(AuthGuard)
   async recommend(
@@ -190,6 +196,7 @@ export class PostsController {
   })
   @ApiParam({ name: 'postId', type: Number, description: '게시글 ID' })
   @ApiBearerAuth('access-token')
+  @ApiTags('COMMENT')
   @Post('/comment/:postId')
   @UseGuards(AuthGuard)
   async createComment(
@@ -213,6 +220,7 @@ export class PostsController {
   })
   @ApiParam({ name: 'commendId', type: Number, description: '댓글 ID' })
   @ApiBearerAuth('access-token')
+  @ApiTags('COMMENT')
   @Put('/comment/:commentId')
   @UseGuards(AuthGuard)
   async updateComment(
@@ -240,6 +248,7 @@ export class PostsController {
   })
   @ApiParam({ name: 'commendId', type: Number, description: '댓글 ID' })
   @ApiBearerAuth('access-token')
+  @ApiTags('COMMENT')
   @Delete('/comment/:commentId')
   @UseGuards(AuthGuard)
   async deleteComment(
