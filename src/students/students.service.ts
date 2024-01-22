@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Gender } from '@prisma/client';
+import { Gender } from '../../prisma/generated/mysql';
 import { AuthService } from 'src/auth/auth.service';
 import { CreateStudentUserDto } from 'src/auth/dto/create-student-user.dto';
 import { CustomException } from 'src/global/exception/custom.exception';

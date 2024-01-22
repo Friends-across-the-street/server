@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ConfigService, ConfigType } from '@nestjs/config';
-import { Prisma, incumbents, students } from '@prisma/client';
+import { Prisma, incumbents, students } from '../../prisma/generated/mysql';
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from 'src/prisma.service';

@@ -4,7 +4,7 @@ import { PrismaService } from 'src/prisma.service';
 import { CreatePostArgs } from './interface/create-post.interface';
 import { CustomException } from 'src/global/exception/custom.exception';
 import { postInList } from './interface/post-list.interface';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '../../prisma/generated/mysql';
 import { UserType } from 'src/auth/enum/user-type.enum';
 import { UserDataInAuthGuard } from 'src/global/types/user.type';
 import { onePostIncludeComments } from './interface/one-post.interface';

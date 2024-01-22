@@ -9,7 +9,7 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { Gender } from '@prisma/client';
+import { Gender } from '../../../prisma/generated/mysql';
 
 export class CreateIncumbentUserDto {
   @Transform((params) => params.value.trim())
