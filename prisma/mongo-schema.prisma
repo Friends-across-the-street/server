@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  output   = "./generated/mongodb"
 }
 
 datasource db {
@@ -10,9 +11,15 @@ datasource db {
 model chat {
   id  String @id @default(auto()) @map("_id") @db.ObjectId
   senderId Int @map("sender_id")
-  receiver_id Int @map("receiver_id")
+  receiverId Int @map("receiver_id")
+  senderType UserType @map("sender_type")
   message String
   read Boolean
   createdDate DateTime @default(now()) @map("created_date")
   updatedDate DateTime @default(now()) @updatedAt @map("updated_date")
+}
+
+enum UserType {
+  incumbent
+  student
 }
