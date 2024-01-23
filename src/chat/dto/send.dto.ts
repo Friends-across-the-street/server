@@ -1,4 +1,4 @@
-import { UserType } from '@prisma/client';
+import { UserType } from '../../../prisma/generated/mongodb';
 import {
   IsBoolean,
   IsEnum,
