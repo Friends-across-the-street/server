@@ -164,7 +164,7 @@ export class PostsService {
       title: onePostIncludedComment[0].postTitle,
       content: onePostIncludedComment[0].postContent,
       view: onePostIncludedComment[0].postView,
-      recommned: onePostIncludedComment[0].postRecommend,
+      recommend: onePostIncludedComment[0].postRecommend,
       createdDate: onePostIncludedComment[0].postCreatedDate,
       updatedDate: onePostIncludedComment[0].postUpdatedDate,
     };
