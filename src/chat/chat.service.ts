@@ -6,7 +6,7 @@ import { MongoPrismaService } from 'src/mongo-prisma.service';
 export class ChatService {
   constructor(private mongoPrsimaService: MongoPrismaService) {}
 
-  async send(dto: SendChatDto) {
+  async send(id: number, dto: SendChatDto) {
     return await this.mongoPrsimaService.chat.create({ data: { ...dto } });
   }
 }
