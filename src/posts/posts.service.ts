@@ -147,7 +147,7 @@ export class PostsService {
 
   async getById(postId: number, user: UserDataInAuthGuard) {
     const onePostIncludedComment = (await this.prismaService
-      .$queryRaw`SELECT p.id AS postId, p.incumbent_id AS postIncumbentId, p.student_id AS postStudentId, p.title AS postTitle, p.content AS postContent, p.view AS postView, p.recommend AS postRecommend, p.reported AS postReported, p.created_date AS postCreatedDate, p.updated_date AS postUpdatedDate, c.id AS commentId, c.incumbent_id AS commentIncumbentId, c.student_id AS commentStudentId, c.content AS commentCotent, c.parent_comment_id AS parentCommentId, c.recommend AS commentRecommend, c.created_date AS commentCreatedDate, c.updated_date AS commentUpdatedDate
+      .$queryRaw`SELECT p.id AS postId, p.incumbent_id AS postIncumbentId, p.student_id AS postStudentId, p.title AS postTitle, p.content AS postContent, p.view AS postView, p.recommend AS postRecommend, p.created_date AS postCreatedDate, p.updated_date AS postUpdatedDate, c.id AS commentId, c.incumbent_id AS commentIncumbentId, c.student_id AS commentStudentId, c.content AS commentContent, c.parent_comment_id AS parentCommentId, c.recommend AS commentRecommend, c.created_date AS commentCreatedDate, c.updated_date AS commentUpdatedDate
     FROM posts AS p
     LEFT JOIN comments AS c ON p.id = c.post_id
     WHERE p.id = ${postId}
@@ -165,7 +165,6 @@ export class PostsService {
       content: onePostIncludedComment[0].postContent,
       view: onePostIncludedComment[0].postView,
       recommned: onePostIncludedComment[0].postRecommend,
-      reported: onePostIncludedComment[0].postReported,
       createdDate: onePostIncludedComment[0].postCreatedDate,
       updatedDate: onePostIncludedComment[0].postUpdatedDate,
     };
