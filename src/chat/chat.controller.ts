@@ -1,10 +1,10 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { ChatsService } from './chats.service';
+import { ChatService } from './chat.service';
 import { SendChatDto } from './dto/send.dto';
 
-@Controller('chats')
-export class ChatsController {
-  constructor(private chatService: ChatsService) {}
+@Controller('chat')
+export class ChatController {
+  constructor(private chatService: ChatService) {}
 
   @Post()
   async send(@Body() dto: SendChatDto) {
