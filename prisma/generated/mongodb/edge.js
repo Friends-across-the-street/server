@@ -144,7 +144,6 @@ const config = {
     "db"
   ],
   "activeProvider": "mongodb",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -154,8 +153,7 @@ const config = {
     }
   },
   "inlineSchema": "Z2VuZXJhdG9yIGNsaWVudCB7CiAgcHJvdmlkZXIgPSAicHJpc21hLWNsaWVudC1qcyIKICBvdXRwdXQgICA9ICIuL2dlbmVyYXRlZC9tb25nb2RiIgp9CgpkYXRhc291cmNlIGRiIHsKICBwcm92aWRlciA9ICJtb25nb2RiIgogIHVybCAgICAgID0gZW52KCJNT05HT0RCX1VSTCIpCn0KCm1vZGVsIGNoYXQgewogIGlkICBTdHJpbmcgQGlkIEBkZWZhdWx0KGF1dG8oKSkgQG1hcCgiX2lkIikgQGRiLk9iamVjdElkCiAgc2VuZGVySWQgSW50IEBtYXAoInNlbmRlcl9pZCIpCiAgcmVjZWl2ZXJJZCBJbnQgQG1hcCgicmVjZWl2ZXJfaWQiKQogIHNlbmRlclR5cGUgVXNlclR5cGUgQG1hcCgic2VuZGVyX3R5cGUiKQogIG1lc3NhZ2UgU3RyaW5nCiAgcmVhZCBCb29sZWFuCiAgY3JlYXRlZERhdGUgRGF0ZVRpbWUgQGRlZmF1bHQobm93KCkpIEBtYXAoImNyZWF0ZWRfZGF0ZSIpCiAgdXBkYXRlZERhdGUgRGF0ZVRpbWUgQGRlZmF1bHQobm93KCkpIEB1cGRhdGVkQXQgQG1hcCgidXBkYXRlZF9kYXRlIikKfQoKZW51bSBVc2VyVHlwZSB7CiAgaW5jdW1iZW50CiAgc3R1ZGVudAp9",
-  "inlineSchemaHash": "fc65c6fb8aee088e4414a58bf94e3f3d768010c56472ce01a19306b9af477204",
-  "noEngine": false
+  "inlineSchemaHash": "fc65c6fb8aee088e4414a58bf94e3f3d768010c56472ce01a19306b9af477204"
 }
 config.dirname = '/'
 
