@@ -19,8 +19,9 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "migrate:dev": "dotenv -e ./src/global/config/env/.dev.env -- npx prisma migrate dev",
-    "mysql:push": "dotenv -e ./src/global/config/env/.dev.env -- npx prisma db push",
+    "migrate:dev": "dotenv -e ./src/global/config/env/.dev.env -- npx prisma migrate dev --schema=./prisma/schema.prisma",
+    "dbpush:mysql": "dotenv -e ./src/global/config/env/.dev.env -- npx prisma db push --schema=./prisma/schema.prisma",
+    "dbpush:mongo": "dotenv -e ./src/global/config/env/.dev.env -- npx prisma db push --schema=./prisma/mongo-schema.prisma",
     "generate:mongo": "dotenv -e ./src/global/config/env/.dev.env -- npx prisma generate --schema=./prisma/mongo-schema.prisma",
     "generate:mysql": "dotenv -e ./src/global/config/env/.dev.env -- npx prisma generate --schema=./prisma/mysql-schema.prisma"
   },
