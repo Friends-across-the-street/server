@@ -207,7 +207,7 @@ export class PostsService {
         recommend: item.commentRecommend,
         parentCommentId: item.parentCommentId ?? null,
         incumbentId: item.commentIncumbentId ?? null,
-        studendId: item.commentStudentId ?? null,
+        studentId: item.commentStudentId ?? null,
         createdDate: item.commentCreatedDate,
         updatedDate: item.commentUpdatedDate,
       });
@@ -254,6 +254,12 @@ export class PostsService {
         data: { ...post, incumbentId: 1, categoryId: 1 },
       });
     }
+
+    // 팀장(백엔드, 기획자, 데브옵스?) 1
+    // 기획자 1
+    // 디자이너 1
+    // 프론트 1
+    // 백엔드 2
 
     // 댓글 삽입
     const comment = { studentId: 1, postId: 1, content: '더미데이터' };
