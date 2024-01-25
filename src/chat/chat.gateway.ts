@@ -7,6 +7,3 @@ export class ChatGateway {
     return 'Hello world!';
   }
 }
-
-// 1. Nestjs에서 인터페이스와 클래스의 활용
-// 2. 동아줄에서
