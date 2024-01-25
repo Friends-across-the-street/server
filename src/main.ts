@@ -5,6 +5,7 @@ import { ValidationPipe } from '@nestjs/common';
 import * as path from 'path';
 import * as dotenv from 'dotenv';
 import { winstonLogger } from './global/winston.config';
+import { SocketIoAdapter } from './global/adapter/socket.adapter';
 
 async function bootstrap() {
   // Setting configuration
@@ -19,6 +20,9 @@ async function bootstrap() {
   });
 
   const app = await NestFactory.create(AppModule, { logger: winstonLogger });
+
+  // Apply Socket.io Adapter
+  app.useWebSocketAdapter(new SocketIoAdapter(app));
 
   // Apply Validation Pipe
   app.useGlobalPipes(
