@@ -13,6 +13,7 @@ import { CategoryModule } from './category/category.module';
 import { AppController } from './app.controller';
 import { PrismaService } from './prisma.service';
 import { ChatModule } from './chat/chat.module';
+import { EventsModule } from './events/events.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { ChatModule } from './chat/chat.module';
     PostsModule,
     CategoryModule,
     ChatModule,
+    EventsModule,
   ],
   controllers: [AppController],
   providers: [
