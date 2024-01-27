@@ -1,5 +1,8 @@
+// chat.gateway.ts
+
 import {
   ConnectedSocket,
+  MessageBody,
   OnGatewayConnection,
   OnGatewayDisconnect,
   OnGatewayInit,
@@ -8,23 +11,51 @@ import {
   WebSocketServer,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
+import { onlineMap } from './onlingMap';
+
+interface ChatMessage {
+  senderId: number;
+  receiverId: number;
+  message: string;
+}
 
 @WebSocketGateway()
 export class EventsGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
-  @WebSocketServer() public server: Server;
+  @WebSocketServer() server: Server;
 
-  afterInit(server: Server) {
-    console.log('websocket server init');
+  afterInit(server: Server): any {
+    console.log('WebSocket initialized');
   }
 
-  handleConnection(@ConnectedSocket() socket: Socket) {}
+  handleConnection(@ConnectedSocket() socket: Socket): any {
+    console.log(socket.client.request.url);
+    const namespace = '/';
 
-  handleDisconnect(client: any) {}
+    if (!onlineMap[namespace]) {
+      onlineMap[namespace] = {};
+    }
+    onlineMap[namespace][socket.id] = null;
+  }
 
-  @SubscribeMessage('chat')
-  handleMessage(client: any, payload: any): string {
-    return 'Hello world!';
+  handleDisconnect(@ConnectedSocket() socket: Socket): any {
+    Object.keys(onlineMap).forEach((namespace) => {
+      delete onlineMap[namespace][socket.id];
+    });
+  }
+
+  @SubscribeMessage('chatToServer')
+  handleChatEvent(
+    @MessageBody() message: ChatMessage,
+    @ConnectedSocket() socket: Socket,
+  ): void {
+    const receiverSocketId = Object.keys(onlineMap['/']).find(
+      (id) => onlineMap['/'][id] === message.receiverId,
+    );
+
+    if (receiverSocketId) {
+      this.server.to(receiverSocketId).emit('chatToClient', message);
+    }
   }
 }
