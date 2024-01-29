@@ -12,11 +12,12 @@ import {
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { onlineMap } from './onlingMap';
+import { CustomException } from 'src/global/exception/custom.exception';
 
 interface ChatMessage {
   senderId: number;
   receiverId: number;
-  message: string;
+  text: string;
 }
 
 @WebSocketGateway()
@@ -30,13 +31,15 @@ export class EventsGateway
   }
 
   handleConnection(@ConnectedSocket() socket: Socket): any {
-    console.log(socket.client.request.url);
     const namespace = '/';
+    const urlParams = new URLSearchParams(socket.client.request.url);
+    const onlineUserId = urlParams.get('/socket.io/?user');
 
     if (!onlineMap[namespace]) {
       onlineMap[namespace] = {};
     }
-    onlineMap[namespace][socket.id] = null;
+    onlineMap[namespace][socket.id] = onlineUserId;
+    console.log(onlineMap);
   }
 
   handleDisconnect(@ConnectedSocket() socket: Socket): any {
@@ -47,15 +50,24 @@ export class EventsGateway
 
   @SubscribeMessage('chatToServer')
   handleChatEvent(
-    @MessageBody() message: ChatMessage,
+    @MessageBody() message: string,
     @ConnectedSocket() socket: Socket,
   ): void {
-    const receiverSocketId = Object.keys(onlineMap['/']).find(
-      (id) => onlineMap['/'][id] === message.receiverId,
-    );
+    const refinedMessage: ChatMessage = JSON.parse(message);
+    if (refinedMessage.senderId !== Number(socket.handshake.query.user)) {
+      throw new CustomException('채팅 보낼 권한이 없습니다.', 403);
+    }
+
+    const receiverSocketId = Object.keys(onlineMap['/']).find((id) => {
+      return Number(onlineMap['/'][id]) === refinedMessage.receiverId;
+    });
 
     if (receiverSocketId) {
-      this.server.to(receiverSocketId).emit('chatToClient', message);
+      this.server
+        .to(receiverSocketId)
+        .emit('chatToServer', refinedMessage.text);
+    } else {
+      throw new CustomException('채팅 상대가 온라인이 아닙니다.', 404);
     }
   }
 }
