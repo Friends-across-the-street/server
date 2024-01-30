@@ -7,7 +7,12 @@ import { postInList } from './interface/post-list.interface';
 import { Prisma } from '../../prisma/generated/mysql';
 import { UserType } from 'src/auth/enum/user-type.enum';
 import { UserDataInAuthGuard } from 'src/global/types/user.type';
-import { onePostIncludeComments } from './interface/one-post.interface';
+import {
+  commentsInPostForQuery,
+  onePostForQuery,
+  refinedCommentsInPost,
+  refinedOnePost,
+} from './interface/one-post.interface';
 
 @Injectable()
 export class PostsService {
@@ -146,35 +151,25 @@ export class PostsService {
   }
 
   async getById(postId: number, user: UserDataInAuthGuard) {
-    const onePostIncludedComment = (await this.prismaService
-      .$queryRaw`SELECT p.id AS postId, p.incumbent_id AS postIncumbentId, p.student_id AS postStudentId, p.title AS postTitle, p.content AS postContent, p.view AS postView, p.recommend AS postRecommend, p.created_date AS postCreatedDate, p.updated_date AS postUpdatedDate, c.id AS commentId, c.incumbent_id AS commentIncumbentId, c.student_id AS commentStudentId, c.content AS commentContent, c.parent_comment_id AS parentCommentId, c.recommend AS commentRecommend, c.created_date AS commentCreatedDate, c.updated_date AS commentUpdatedDate
+    const post: onePostForQuery[] = await this.prismaService.$queryRaw`
+    SELECT p.id AS id, p.incumbent_id AS incumbentId, p.student_id AS studentId, p.title AS title, p.content AS content, p.view AS view, p.recommend AS recommend, p.created_date AS createdDate, p.updated_date AS updatedDate, IFNULL(i.name, s.name) AS name, IFNULL(ia.image, sa.image) AS image
     FROM posts AS p
-    LEFT JOIN comments AS c ON p.id = c.post_id
-    WHERE p.id = ${postId}
-    ORDER BY (parentCommentId IS NULL) DESC, parentCommentId ASC;`) as onePostIncludeComments[];
+    LEFT JOIN incumbents AS i ON p.incumbent_id = i.id
+    LEFT JOIN incumbents_additional AS ia ON i.id = ia.incumbent_id
+    LEFT JOIN students AS s ON p.student_id = s.id
+    LEFT JOIN students_additional AS sa ON s.id = sa.student_id
+    WHERE p.id = ${postId}`;
 
-    if (!onePostIncludedComment.length) {
+    if (!post) {
       throw new CustomException('해당 게시글이 존재하지 않습니다.', 404);
     }
 
-    const post = {
-      id: onePostIncludedComment[0].postId,
-      incumbentId: onePostIncludedComment[0].postIncumbentId ?? null,
-      studentId: onePostIncludedComment[0].postStudentId ?? null,
-      title: onePostIncludedComment[0].postTitle,
-      content: onePostIncludedComment[0].postContent,
-      view: onePostIncludedComment[0].postView,
-      recommend: onePostIncludedComment[0].postRecommend,
-      createdDate: onePostIncludedComment[0].postCreatedDate,
-      updatedDate: onePostIncludedComment[0].postUpdatedDate,
-    };
-
     let checkMyPost: boolean = false;
     const postType =
-      post.incumbentId === null ? UserType.STUDENT : UserType.INCUMBENT;
+      post[0].incumbentId === null ? UserType.STUDENT : UserType.INCUMBENT;
     if (
       user.type === postType &&
-      (post.incumbentId === user.id || post.studentId === user.id)
+      (post[0].incumbentId === user.id || post[0].studentId === user.id)
     ) {
       checkMyPost = true;
     }
@@ -187,7 +182,7 @@ export class PostsService {
     const isExist = await this.prismaService.recommend_posts.findFirst({
       where: {
         AND: {
-          postId: post.id,
+          postId: post[0].id,
           ...orCondition,
         },
       },
@@ -196,27 +191,73 @@ export class PostsService {
       checkRecommend = true;
     }
 
-    const comments = [];
-    onePostIncludedComment.some((item) => {
-      if (!item.commentId) {
-        return true; // 댓글이 없으므로 종료
-      }
-      comments.push({
-        id: item.commentId,
-        content: item.commentContent,
-        recommend: item.commentRecommend,
-        parentCommentId: item.parentCommentId ?? null,
-        incumbentId: item.commentIncumbentId ?? null,
-        studentId: item.commentStudentId ?? null,
-        createdDate: item.commentCreatedDate,
-        updatedDate: item.commentUpdatedDate,
-      });
-    });
-    return {
-      ...post,
+    const refinedPost: refinedOnePost = {
+      id: post[0].id,
+      user: {
+        incumbentId: post[0].incumbentId || null,
+        studentId: post[0].studentId || null,
+        name: post[0].name,
+        image: post[0].image || null,
+      },
+      title: post[0].title,
+      content: post[0].content,
+      view: post[0].view,
+      recommend: post[0].recommend,
+      reported: post[0].reported,
+      createdDate: post[0].createdDate,
+      updatedDate: post[0].updatedDate,
       isMine: checkMyPost,
       isRecommend: checkRecommend,
-      comments,
+    };
+
+    console.log(refinedPost);
+
+    const comments: commentsInPostForQuery[] = await this.prismaService
+      .$queryRaw`
+    SELECT c.id AS id, c.incumbent_id AS incumbentId, c.student_id AS studentId, recommend, parent_comment_id AS parentCommentId, c.created_date AS createdDate, c.updated_date AS updatedDate, IFNULL(i.name, s.name) AS name, IFNULL(ia.image, sa.image) AS image
+    FROM comments AS c
+    LEFT JOIN incumbents AS i ON c.incumbent_id = i.id
+    LEFT JOIN incumbents_additional AS ia ON i.id = ia.incumbent_id
+    LEFT JOIN students AS s ON c.student_id = s.id
+    LEFT JOIN students_additional AS sa ON s.id = sa.student_id
+    WHERE post_id = ${postId}
+    ORDER BY (parent_comment_id IS NULL) DESC, parent_comment_id ASC;`;
+
+    const refinedComments = [];
+
+    comments.forEach((comment) => {
+      let checkMine: boolean = false;
+      const commentType =
+        comment.incumbentId === null ? UserType.STUDENT : UserType.INCUMBENT;
+      if (
+        user.type === commentType &&
+        (comment.incumbentId === user.id || comment.studentId === user.id)
+      ) {
+        checkMine = true;
+      }
+
+      const pushedData: refinedCommentsInPost = {
+        id: comment.id,
+        user: {
+          incumbentId: comment.incumbentId || null,
+          studentId: comment.studentId || null,
+          name: comment.name,
+          image: comment.image || null,
+        },
+        content: comment.content,
+        parentCommentId: comment.parentCommentId || null,
+        recommend: comment.recommend,
+        createdDate: comment.createdDate,
+        updatedDate: comment.updatedDate,
+        isMine: checkMine,
+      };
+
+      refinedComments.push(pushedData);
+    });
+
+    return {
+      ...refinedPost,
+      comments: refinedComments,
     };
   }
 
@@ -226,9 +267,9 @@ export class PostsService {
     user: UserDataInAuthGuard,
   ) {
     const post = await this.getById(postId, user);
-    if (post.isMine === false) {
-      throw new CustomException('게시글의 소유자가 아닙니다.', 403);
-    }
+    // if (post.isMine === false) {
+    //   throw new CustomException('게시글의 소유자가 아닙니다.', 403);
+    // }
     return await this.prismaService.posts.update({
       data: { ...dto },
       where: { id: postId },
