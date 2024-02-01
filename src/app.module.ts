@@ -14,11 +14,13 @@ import { AppController } from './app.controller';
 import { PrismaService } from './prisma.service';
 import { ChatModule } from './chat/chat.module';
 import { EventsModule } from './events/events.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
     StudentModule,
     IncumbentModule,
+    UsersModule,
     ConfigModule.forRoot({
       envFilePath: [
         `${__dirname}/global/config/env/.${process.env.NODE_ENV}.env`,
