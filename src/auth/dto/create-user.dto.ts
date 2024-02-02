@@ -4,15 +4,14 @@ import {
   IsEmail,
   IsEnum,
   IsInt,
-  IsNumber,
   IsString,
   Matches,
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { Gender } from '../../../prisma/generated/mysql';
+import { Gender, userType } from '../../../prisma/generated/mysql';
 
-export class CreateStudentUserDto {
+export class CreateUserDto {
   @Transform((params) => params.value.trim())
   @IsString()
   @IsEmail()
@@ -38,8 +37,12 @@ export class CreateStudentUserDto {
   @ApiProperty({ description: '나이' })
   readonly age: number;
 
-  @ApiProperty({ description: '성별' })
   @Transform((params) => params.value.trim())
   @IsEnum(Gender)
+  @ApiProperty({ description: '성별' })
   readonly gender: Gender;
+
+  @IsEnum(userType)
+  @ApiProperty({ description: '유저 타입 (Incumbent / student)' })
+  readonly type: userType;
 }
