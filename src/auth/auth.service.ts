@@ -1,19 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ConfigService, ConfigType } from '@nestjs/config';
-import { Prisma, incumbents, students } from '../../prisma/generated/mysql';
+import { Prisma, userType } from '../../prisma/generated/mysql';
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from 'src/prisma.service';
 import authConfig from '../global/config/authConfig';
 import { CustomException } from 'src/global/exception/custom.exception';
-import { UserType } from './enum/user-type.enum';
-
-interface User {
-  id: number;
-  name: string;
-  email: string;
-  type: UserType.INCUMBENT | UserType.STUDENT;
-}
+import { User, UserAddedPassword } from './interface/validate-user.interface';
 
 @Injectable()
 export class AuthService {
@@ -23,74 +16,51 @@ export class AuthService {
     private prismaService: PrismaService,
   ) {}
 
-  async signupIncumbentUser(arg: Prisma.incumbentsCreateInput) {
-    const isExistIncumbentEmail = await this.validateIncumbentUserEmail(
-      arg.email,
-    );
-    if (isExistIncumbentEmail) {
+  async signup(arg: Prisma.usersCreateInput) {
+    const user = await this.validateUserEmail(arg.email);
+    if (user) {
       throw new CustomException('현직자 이메일이 이미 존재', 400);
-    }
-    const isExistStudentUser = await this.validateStudentUserEmail(arg.email);
-    if (isExistStudentUser) {
-      throw new CustomException('학생 이메일이 이미 존재', 400);
     }
     const hashedPassword = await bcrypt.hash(
       arg.password,
       Number(this.configService.get('BCRYPT_SALT_ROUNDS')),
     );
     arg.password = hashedPassword;
-    const user = await this.prismaService.incumbents.create({
+    const createdUser = await this.prismaService.users.create({
       data: arg,
     });
+    switch (arg.type) {
+      case userType.incumbent:
+        await this.prismaService.incumbentsAdditional.create({
+          data: {
+            userId: createdUser.id,
+          },
+        });
+        break;
+      case userType.student:
+        await this.prismaService.studentsAdditional.create({
+          data: {
+            userId: createdUser.id,
+          },
+        });
+        break;
+    }
+
     return user.id;
   }
 
-  async signupStudentUser(arg: Prisma.studentsCreateInput) {
-    const isExistIncumbentEmail = await this.validateIncumbentUserEmail(
-      arg.email,
-    );
-    if (isExistIncumbentEmail) {
-      throw new CustomException('현직자 이메일이 이미 존재', 400);
-    }
-    const isExistStudentUser = await this.validateStudentUserEmail(arg.email);
-    if (isExistStudentUser) {
-      throw new CustomException('학생 이메일이 이미 존재', 400);
-    }
-    const hashedPassword = await bcrypt.hash(
-      arg.password,
-      Number(this.configService.get('BCRYPT_SALT_ROUNDS')),
-    );
-    arg.password = hashedPassword;
-    const user = await this.prismaService.students.create({
-      data: arg,
-    });
-    return user.id;
-  }
-
-  private async validateIncumbentUserEmail(email: string) {
-    return await this.prismaService.incumbents.findFirst({
-      where: { email },
-    });
-  }
-
-  private async validateStudentUserEmail(email: string) {
-    return await this.prismaService.students.findFirst({
+  private async validateUserEmail(email: string) {
+    return await this.prismaService.users.findFirst({
       where: { email },
     });
   }
 
   async validateUser(email, password) {
-    let type: UserType;
-    let user: incumbents | students =
-      await this.prismaService.incumbents.findFirst({
-        where: { email },
-      });
-    user !== null ? (type = UserType.INCUMBENT) : (type = UserType.STUDENT);
-    if (!user) {
-      user = await this.prismaService.students.findFirst({
-        where: { email },
-      });
-    }
+    let user: UserAddedPassword = await this.prismaService.users.findFirst({
+      select: { id: true, name: true, email: true, type: true, password: true },
+      where: { email },
+    });
+
     if (!user) {
       throw new CustomException('유저가 존재하지 않음', 404);
     }
@@ -98,7 +68,8 @@ export class AuthService {
     if (!isValidPassword) {
       throw new CustomException('비밀번호 불일치', 401);
     }
-    return { ...user, type };
+    delete user.password;
+    return { ...user };
   }
 
   async createToken(user: User) {

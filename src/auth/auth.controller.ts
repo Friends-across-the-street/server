@@ -2,28 +2,19 @@ import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UserLoginDto } from './dto/login-user.dto';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CreateIncumbentUserDto } from './dto/create-incumbent-user.dto';
-import { CreateStudentUserDto } from './dto/create-student-user.dto';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @ApiTags('AUTH')
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @ApiOperation({ summary: '현직자 회원가입 처리' })
+  @ApiOperation({ summary: '회원가입 처리' })
   @ApiResponse({ status: 200, description: '회원가입(현직자) 성공' })
   @ApiResponse({ status: 404, description: '현직자 정보(이메일) 찾을 수 없음' })
-  @Post('/signup/incumbent')
-  async signupIncumbentUser(@Body() dto: CreateIncumbentUserDto) {
-    return await this.authService.signupIncumbentUser(dto);
-  }
-
-  @ApiOperation({ summary: '학생 회원가입 처리' })
-  @ApiResponse({ status: 200, description: '회원가입(학생) 성공' })
-  @ApiResponse({ status: 404, description: '학생 정보(이메일) 찾을 수 없음' })
-  @Post('/signup/student')
-  async signupStudentUser(@Body() dto: CreateStudentUserDto) {
-    return await this.authService.signupStudentUser(dto);
+  @Post('/signup')
+  async signupUser(@Body() dto: CreateUserDto) {
+    return await this.authService.signup(dto);
   }
 
   @ApiOperation({ summary: '로그인 처리' })
