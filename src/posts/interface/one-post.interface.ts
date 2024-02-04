@@ -66,11 +66,7 @@ export interface refinedCommentsInPost {
     readonly name: string;
     readonly image?: string;
     readonly type: userType;
-
-    readonly companyName: string;
-    readonly jobDescription: string;
-    readonly school: string;
-    readonly major: string;
+    readonly additionalInfo: string;
   };
   readonly content: string;
   readonly parentCommentId?: number;
