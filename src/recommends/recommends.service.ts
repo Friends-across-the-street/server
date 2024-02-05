@@ -16,35 +16,33 @@ export class RecommendsService {
     if (!post) {
       throw new CustomException('게시글이 존재하지 않습니다.', 404);
     }
-    const orCondition =
-      dto.incumbentId === null
-        ? { studentId: dto.studentId }
-        : { incumbentId: dto.incumbentId };
-    const isExist = await this.prismaService.recommend_posts.findFirst({
+
+    const isExist = await this.prismaService.recommendPosts.findFirst({
       where: {
-        AND: {
-          postId: post.id,
-          ...orCondition,
-        },
+        postId: dto.postId,
+        userId: dto.user.id,
       },
     });
 
-    let changeRecommned: -1 | 1;
+    let changedRecommnedNum: -1 | 1;
     if (!isExist) {
-      await this.prismaService.recommend_posts.create({
-        data: { ...dto },
+      await this.prismaService.recommendPosts.create({
+        data: {
+          postId: dto.postId,
+          userId: dto.user.id,
+        },
       });
-      changeRecommned = 1;
+      changedRecommnedNum = 1;
     } else {
-      await this.prismaService.recommend_posts.delete({
+      await this.prismaService.recommendPosts.delete({
         where: { id: isExist.id },
       });
-      changeRecommned = -1;
+      changedRecommnedNum = -1;
     }
 
     await this.prismaService.posts.update({
       where: { id: dto.postId },
-      data: { recommend: Number(post.recommend) + changeRecommned },
+      data: { recommend: Number(post.recommend) + changedRecommnedNum },
     });
   }
 }

@@ -16,10 +16,10 @@ export class ReportsService {
     if (!post) {
       throw new CustomException('게시글이 존재하지 않습니다.', 404);
     }
-    const createdReport = await this.prismaService.reported_posts.create({
-      data: { ...args },
+    const createdReport = await this.prismaService.reportedPosts.create({
+      data: { postId: args.postId, userId: args.user.id, reason: args.reason },
     });
-    if (!createdReport.incumbentId && !createdReport.studentId) {
+    if (!createdReport.userId) {
       throw new CustomException('유저가 존재하지 않습니다.', 404);
     }
     await this.prismaService.posts.update({
