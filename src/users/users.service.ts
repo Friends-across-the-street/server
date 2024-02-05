@@ -1,44 +1,64 @@
 import { Injectable } from '@nestjs/common';
-import { Gender } from 'prisma/generated/mysql';
+import { UserType } from '@prisma/client';
+import { Gender, userType } from 'prisma/generated/mysql';
 import { AuthService } from 'src/auth/auth.service';
-import { CreateIncumbentUserDto } from 'src/auth/dto/create-incumbent-user.dto';
-import { CreateStudentUserDto } from 'src/auth/dto/create-student-user.dto';
+import { CreateUserDto } from 'src/auth/dto/create-user.dto';
+import { CustomException } from 'src/global/exception/custom.exception';
 import { PrismaService } from 'src/prisma.service';
+import { UsersRepository } from './users.repository';
 
 @Injectable()
 export class UsersService {
   constructor(
     private readonly prismaService: PrismaService,
     private readonly authService: AuthService,
+    private readonly usersReopsitory: UsersRepository,
   ) {}
 
+  async findById(userId: number, type: UserType) {
+    let user;
+    switch (type) {
+      case UserType.incumbent:
+        user = await this.usersReopsitory.findIncumbentById(userId);
+        break;
+      case UserType.student:
+        user = await this.usersReopsitory.findStudentById(userId);
+        break;
+    }
+    if (!user) {
+      throw new CustomException('유저가 존재하지 않음', 404);
+    }
+    return user;
+  }
+
   async createMockData() {
-    const incumbent = await this.prismaService.incumbents.findFirst({
+    const incumbent = await this.prismaService.users.findFirst({
       where: { email: 'incumbent_test1@naver.com' },
     });
     if (!incumbent) {
-      const create: CreateIncumbentUserDto = {
+      const create: CreateUserDto = {
         email: 'incumbent_test1@naver.com',
         password: 'incumbent1',
-        name: 'test3',
-        age: 15,
+        name: '나는야 현직자 이상훈',
+        age: 25,
         gender: Gender.male,
+        type: userType.incumbent,
       };
-      await this.authService.signupIncumbentUser(create);
+      await this.authService.signup(create);
     }
-
-    const student = await this.prismaService.students.findFirst({
+    const student = await this.prismaService.users.findFirst({
       where: { email: 'student_test1@naver.com' },
     });
     if (!student) {
-      const create: CreateStudentUserDto = {
+      const create: CreateUserDto = {
         email: 'student_test1@naver.com',
         password: 'student1',
-        name: 'test3',
+        name: '나는야 인천대 공진성',
         age: 20,
         gender: Gender.female,
+        type: userType.student,
       };
-      await this.authService.signupStudentUser(create);
+      await this.authService.signup(create);
     }
   }
 }
