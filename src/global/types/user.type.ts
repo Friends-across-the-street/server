@@ -8,11 +8,3 @@ export class UserDataInAuthGuard {
   readonly email: string;
   readonly type: userType;
 }
-
-/**
- * AuthGuard를 거쳐 incumbentId or studentId로 반환
- */
-export class RefineUserData {
-  readonly incumbentId?: number;
-  readonly studentId?: number;
-}
