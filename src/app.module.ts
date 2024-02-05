@@ -1,7 +1,5 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { StudentModule } from './students/students.module';
-import { IncumbentModule } from './incumbents/incumbents.module';
 import { AuthModule } from './auth/auth.module';
 import { PostsModule } from './posts/posts.module';
 import authConfig from './global/config/authConfig';
@@ -18,9 +16,6 @@ import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
-    StudentModule,
-    IncumbentModule,
-    UsersModule,
     ConfigModule.forRoot({
       envFilePath: [
         `${__dirname}/global/config/env/.${process.env.NODE_ENV}.env`,
@@ -28,6 +23,7 @@ import { UsersModule } from './users/users.module';
       load: [authConfig],
       isGlobal: true,
     }),
+    UsersModule,
     AuthModule,
     PostsModule,
     CategoryModule,
