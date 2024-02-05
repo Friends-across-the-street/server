@@ -30,9 +30,9 @@ import { ReportPostDto } from './dto/report-post.dto';
 import { RefineUserById } from 'src/global/decorator/refined-user.decorator';
 import { RecommendsService } from 'src/recommends/recommends.service';
 import { RequestUser } from 'src/global/decorator/request-user.decorator';
-import { CommentService } from 'src/comment/comment.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
+import { CommentService } from './comment/comment.service';
 
 @Controller('posts')
 export class PostsController {
@@ -141,9 +141,9 @@ export class PostsController {
   async report(
     @Param('postId') postId: number,
     @Body() dto: ReportPostDto,
-    @RefineUserById() user: RefineUserData,
+    @RefineUserById() user: UserDataInAuthGuard,
   ) {
-    return await this.reportService.reportPost({ postId, ...dto, ...user });
+    return await this.reportService.reportPost({ postId, ...dto, user });
   }
 
   @ApiOperation({ summary: '게시글 추천' })
@@ -164,9 +164,9 @@ export class PostsController {
   @UseGuards(AuthGuard)
   async recommend(
     @Param('postId') postId: number,
-    @RefineUserById() user: RefineUserData,
+    @RefineUserById() user: UserDataInAuthGuard,
   ) {
-    return await this.recommendService.recommendPost({ postId, ...user });
+    return await this.recommendService.recommendPost({ postId, user });
   }
 
   @ApiOperation({ summary: '댓글 작성' })

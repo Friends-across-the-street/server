@@ -2,7 +2,7 @@ import { Injectable, UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { CustomException } from 'src/global/exception/custom.exception';
 import { PrismaService } from 'src/prisma.service';
-import { RecommendPostArgs } from './interface/report.interface';
+import { RecommendPostArgs } from './interface/recommend.interface';
 
 @Injectable()
 export class RecommendsService {

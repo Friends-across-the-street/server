@@ -1,7 +1,6 @@
 import { UserDataInAuthGuard } from 'src/global/types/user.type';
 
-export interface ReportPostArgs {
+export interface RecommendPostArgs {
   readonly postId: number;
-  readonly reason: string;
   readonly user: UserDataInAuthGuard;
 }
