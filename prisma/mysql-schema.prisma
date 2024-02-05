@@ -127,7 +127,7 @@ model comments {
 model recommendPosts {
   id    Int     @default(autoincrement()) @id
   postId Int @map("post_id")
-  userId Int? @map("user_id")
+  userId Int @map("user_id")
   createdDate DateTime @default(now()) @map("created_date")
   // relation
   users users? @relation(fields: [userId], references: [id])
@@ -138,7 +138,7 @@ model recommendPosts {
 model reportedPosts {
   id    Int     @default(autoincrement()) @id
   postId Int @map("post_id")
-  userId Int? @map("user_id")
+  userId Int @map("user_id")
   reason String
   createdDate DateTime @default(now()) @map("created_date")
   // relation
@@ -150,7 +150,7 @@ model reportedPosts {
 model recommendComments {
   id    Int     @default(autoincrement()) @id
   commendId Int @map("comment_id")
-  userId Int? @map("user_id")
+  userId Int @map("user_id")
   createdDate DateTime @default(now()) @map("created_date")
   // relation
   comment comments @relation(fields: [commendId], references: [id])
@@ -161,7 +161,7 @@ model recommendComments {
 model reportedComments {
   id    Int     @default(autoincrement()) @id
   commendId Int @map("comment_id")
-  userId Int? @map("user_id")
+  userId Int @map("user_id")
   reason String
   createdDate DateTime @default(now()) @map("created_date")
   // relation
