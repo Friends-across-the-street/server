@@ -1,8 +1,6 @@
 import { UserDataInAuthGuard } from 'src/global/types/user.type';
 
-export interface CreateCommentArgs {
+export interface RecommendPostArgs {
   readonly postId: number;
-  readonly content: string;
-  readonly parentCommentId?: number;
   readonly user: UserDataInAuthGuard;
 }

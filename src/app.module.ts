@@ -1,7 +1,5 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { StudentModule } from './students/students.module';
-import { IncumbentModule } from './incumbents/incumbents.module';
 import { AuthModule } from './auth/auth.module';
 import { PostsModule } from './posts/posts.module';
 import authConfig from './global/config/authConfig';
@@ -14,11 +12,10 @@ import { AppController } from './app.controller';
 import { PrismaService } from './prisma.service';
 import { ChatModule } from './chat/chat.module';
 import { EventsModule } from './events/events.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
-    StudentModule,
-    IncumbentModule,
     ConfigModule.forRoot({
       envFilePath: [
         `${__dirname}/global/config/env/.${process.env.NODE_ENV}.env`,
@@ -26,6 +23,7 @@ import { EventsModule } from './events/events.module';
       load: [authConfig],
       isGlobal: true,
     }),
+    UsersModule,
     AuthModule,
     PostsModule,
     CategoryModule,
