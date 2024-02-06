@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { UserType } from '@prisma/client';
 import { Gender, userType } from 'prisma/generated/mysql';
 import { AuthService } from 'src/auth/auth.service';
 import { CreateUserDto } from 'src/auth/dto/create-user.dto';
@@ -15,13 +14,13 @@ export class UsersService {
     private readonly usersReopsitory: UsersRepository,
   ) {}
 
-  async findById(userId: number, type: UserType) {
+  async findById(userId: number, type: userType) {
     let user;
     switch (type) {
-      case UserType.incumbent:
+      case userType.incumbent:
         user = await this.usersReopsitory.findIncumbentById(userId);
         break;
-      case UserType.student:
+      case userType.student:
         user = await this.usersReopsitory.findStudentById(userId);
         break;
     }
