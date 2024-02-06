@@ -20,21 +20,27 @@ export class PostsService {
   @UseGuards(AuthGuard)
   async create(args: CreatePostArgs) {
     return await this.prismaService.posts.create({
-      data: { ...args },
+      data: {
+        title: args.title,
+        content: args.content,
+        userId: args.user.id,
+        categoryId: args.categoryId,
+      },
     });
   }
 
   async getPage(page: number, limit: number, categoryId?: number) {
     const result = [];
-    let queryStr = `SELECT p.id AS postId, p.title, p.content, p.view, p.recommend, p.created_date AS postCreateDate, p.updated_date AS postUpdateDate, u.id AS userId, u.name AS username, u.image, u.type AS userType, i.company_name AS companyName, i.job_description AS jobDescription, s.major, s.school, c.name AS categoryName
+    let queryStr = `SELECT p.id AS postId, p.title, p.content, p.view, p.recommend, p.created_date AS postCreateDate, p.updated_date AS postUpdateDate, u.id AS userId, u.name AS username, u.image, u.type AS userType, i.company_name AS companyName, i.job_description AS jobDescription, s.major, s.school
     FROM posts AS p
-    LEFT JOIN user AS u ON p.user_id = u.id
+    LEFT JOIN users AS u ON p.user_id = u.id
     LEFT JOIN incumbents_additional AS i ON u.id = i.user_id
     LEFT JOIN students_additional AS s ON u.id = s.user_id
     `;
 
     if (categoryId) {
-      queryStr += `WHERE c.id =${categoryId}`;
+      queryStr += `LEFT JOIN category AS c ON c.id = p.category_id
+      WHERE c.id =${categoryId}`;
     }
 
     queryStr += `
@@ -87,11 +93,13 @@ export class PostsService {
   }
 
   async getDetailOnePost(postId: number, user: UserDataInAuthGuard) {
-    const post: onePostForQuery = await this.prismaService.$queryRaw`
+    const postList: onePostForQuery[] = await this.prismaService.$queryRaw`
     SELECT p.id AS id, p.title AS title, p.content AS content, p.view AS view, p.recommend AS recommend, p.created_date AS createdDate, p.updated_date AS updatedDate, p.user_id AS postUserId, u.name, u.image, u.type AS userType
     FROM posts AS p
     LEFT JOIN users AS u ON p.user_id = u.id
     WHERE p.id = ${postId}`;
+
+    const post = postList.pop();
 
     if (!post) {
       throw new CustomException('해당 게시글이 존재하지 않습니다.', 404);
@@ -145,7 +153,7 @@ export class PostsService {
   private async findCommentsByPostId(postId: number, userId: number) {
     const comments: commentsInPostForQuery[] = await this.prismaService
       .$queryRaw`
-    SELECT c.id AS id, c.content, c.recommend, c.parent_comment_id AS parentCommentId, c.created_date AS createdDate, c.updated_date AS updatedDate, c.user_id AS commentUserId, u.name AS username, u.type AS userType, i.company_name AS companyName, i.job_description AS jobDescription, s.major, s.school,
+    SELECT c.id AS id, c.content, c.recommend, c.parent_comment_id AS parentCommentId, c.created_date AS createdDate, c.updated_date AS updatedDate, c.user_id AS commentUserId, u.name AS username, u.type AS userType, i.company_name AS companyName, i.job_description AS jobDescription, s.major, s.school
     FROM comments AS c
     LEFT JOIN users AS u ON c.user_id = u.id
     LEFT JOIN incumbents_additional AS i ON u.id = i.user_id
@@ -208,6 +216,9 @@ export class PostsService {
       where: { id: postId },
       include: { users: true },
     });
+    if (!post) {
+      throw new CustomException('게시글이 존재하지 않습니다.', 404);
+    }
     if (post.userId !== user.id) {
       throw new CustomException('게시글의 소유자가 아닙니다.', 403);
     }
