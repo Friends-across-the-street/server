@@ -1,7 +1,8 @@
+import { UserDataInAuthGuard } from 'src/global/types/user.type';
+
 export interface CreatePostArgs {
   readonly title: string;
   readonly content: string;
-  readonly incumbentId?: number;
-  readonly studentId?: number;
+  readonly user: UserDataInAuthGuard;
   readonly categoryId: number;
 }

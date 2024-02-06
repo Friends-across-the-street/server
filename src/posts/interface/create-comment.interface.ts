@@ -1,7 +1,8 @@
+import { UserDataInAuthGuard } from 'src/global/types/user.type';
+
 export interface CreateCommentArgs {
   readonly postId: number;
   readonly content: string;
   readonly parentCommentId?: number;
-  readonly incumbentId?: number;
-  readonly studentId?: number;
+  readonly user: UserDataInAuthGuard;
 }
