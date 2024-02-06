@@ -10,7 +10,7 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @ApiOperation({ summary: '회원가입 처리' })
-  @ApiResponse({ status: 200, description: '회원가입(현직자) 성공' })
+  @ApiResponse({ status: 201, description: '회원가입(현직자) 성공' })
   @ApiResponse({ status: 404, description: '현직자 정보(이메일) 찾을 수 없음' })
   @Post('/signup')
   async signupUser(@Body() dto: CreateUserDto) {

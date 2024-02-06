@@ -46,7 +46,7 @@ export class AuthService {
         break;
     }
 
-    return user.id;
+    return { userId: createdUser.id };
   }
 
   private async validateUserEmail(email: string) {
