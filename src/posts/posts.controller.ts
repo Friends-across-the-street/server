@@ -26,8 +26,6 @@ import { ReportsService } from 'src/reports/reports.service';
 import { ReportPostDto } from './dto/report-post.dto';
 import { RecommendsService } from 'src/recommends/recommends.service';
 import { RequestUser } from 'src/global/decorator/request-user.decorator';
-import { CreateCommentDto } from './dto/create-comment.dto';
-import { UpdateCommentDto } from './dto/update-comment.dto';
 import { CommentService } from './comment/comment.service';
 
 @Controller('posts')
@@ -186,80 +184,5 @@ export class PostsController {
     @RequestUser() user: UserDataInAuthGuard,
   ) {
     return await this.recommendService.recommendPost({ postId, user });
-  }
-
-  @ApiOperation({ summary: '댓글 작성' })
-  @ApiResponse({ status: 201, description: '댓글 생성 성공' })
-  @ApiResponse({
-    status: 401,
-    description: '헤더의 Auth정보가 존재하지 않습니다.',
-  })
-  @ApiResponse({ status: 403, description: '토큰이 유효하지 않습니다.' })
-  @ApiResponse({
-    status: 404,
-    description: 'userId가 일치하지 않습니다. or postId 미전송',
-  })
-  @ApiParam({ name: 'postId', type: Number, description: '게시글 ID' })
-  @ApiBearerAuth('access-token')
-  @ApiTags('COMMENT')
-  @Post('/comment/:postId')
-  @UseGuards(AuthGuard)
-  async createComment(
-    @Param('postId') postId: number,
-    @RequestUser() user: UserDataInAuthGuard,
-    @Body() dto: CreateCommentDto,
-  ) {
-    return await this.commentService.create({ postId, user, ...dto });
-  }
-
-  @ApiOperation({ summary: '댓글 수정' })
-  @ApiResponse({ status: 200, description: '댓글 수정 성공' })
-  @ApiResponse({
-    status: 401,
-    description: '헤더의 Auth정보가 존재하지 않습니다.',
-  })
-  @ApiResponse({ status: 403, description: '토큰이 유효하지 않습니다.' })
-  @ApiResponse({
-    status: 404,
-    description: 'userId가 일치하지 않습니다. or commentId 미전송',
-  })
-  @ApiParam({ name: 'commendId', type: Number, description: '댓글 ID' })
-  @ApiBearerAuth('access-token')
-  @ApiTags('COMMENT')
-  @Put('/comment/:commentId')
-  @UseGuards(AuthGuard)
-  async updateComment(
-    @Param('commentId') commentId: number,
-    @RequestUser() user: UserDataInAuthGuard,
-    @Body() dto: UpdateCommentDto,
-  ) {
-    return await this.commentService.update({
-      commentId,
-      user,
-      ...dto,
-    });
-  }
-
-  @ApiOperation({ summary: '댓글 삭제' })
-  @ApiResponse({ status: 200, description: '댓글 삭제 성공' })
-  @ApiResponse({
-    status: 401,
-    description: '헤더의 Auth정보가 존재하지 않습니다.',
-  })
-  @ApiResponse({ status: 403, description: '토큰이 유효하지 않습니다.' })
-  @ApiResponse({
-    status: 404,
-    description: 'userId가 일치하지 않습니다. or commentId 미전송',
-  })
-  @ApiParam({ name: 'commendId', type: Number, description: '댓글 ID' })
-  @ApiBearerAuth('access-token')
-  @ApiTags('COMMENT')
-  @Delete('/comment/:commentId')
-  @UseGuards(AuthGuard)
-  async deleteComment(
-    @Param('commentId') commentId: number,
-    @RequestUser() user: UserDataInAuthGuard,
-  ) {
-    return await this.commentService.delete(commentId, user);
   }
 }
