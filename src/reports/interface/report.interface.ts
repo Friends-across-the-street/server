@@ -5,3 +5,15 @@ export interface ReportPostArgs {
   readonly reason: string;
   readonly user: UserDataInAuthGuard;
 }
+
+export interface ReportCommentArgs {
+  readonly commentId: number;
+  readonly reason: string;
+  readonly user: UserDataInAuthGuard;
+}
+
+export interface ReportUserArgs {
+  readonly targetUserId: number;
+  readonly reason: string;
+  readonly reportingUser: UserDataInAuthGuard;
+}
