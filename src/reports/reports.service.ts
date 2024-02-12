@@ -1,7 +1,10 @@
 import { Injectable, UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { PrismaService } from 'src/prisma.service';
-import { ReportPostArgs } from './interface/report.interface';
+import {
+  ReportCommentArgs,
+  ReportPostArgs,
+} from './interface/report.interface';
 import { CustomException } from 'src/global/exception/custom.exception';
 import { ReportsRepository } from './reports.repository';
 
@@ -28,6 +31,27 @@ export class ReportsService {
     await this.prismaService.posts.update({
       where: { id: args.postId },
       data: { reported: Number(post.reported) + 1 },
+    });
+  }
+
+  @UseGuards(AuthGuard)
+  async reportComment(args: ReportCommentArgs) {
+    const comment = await this.prismaService.comments.findFirst({
+      where: { id: args.commentId },
+    });
+
+    if (!comment) {
+      throw new CustomException('댓글이 존재하지 않습니다.', 404);
+    }
+
+    await this.reportsRepository.reportComment(
+      args.commentId,
+      args.reason,
+      args.user,
+    );
+    await this.prismaService.comments.update({
+      where: { id: args.commentId },
+      data: { reported: Number(comment.reported) + 1 },
     });
   }
 }
