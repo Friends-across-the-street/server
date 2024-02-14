@@ -38,6 +38,7 @@ model users{
   recommend_comments recommendComments[]
   reported_posts reportedPosts[]
   reported_comments reportedComments[]
+  reported_users reportedUsers[]
 }
 
 model incumbentsAdditional {
@@ -168,6 +169,17 @@ model reportedComments {
   comment comments @relation(fields: [commentId], references: [id])
   users users? @relation(fields: [userId], references: [id])
 	@@map("reported_comments")
+}
+
+model reportedUsers {
+  id    Int     @default(autoincrement()) @id
+  targetUserId Int @map("target_user_id")
+  reportingUserId Int @map("reporting_user_id")
+  reason String
+  createdDate DateTime @default(now()) @map("created_date")
+  // relation
+  users users? @relation(fields: [targetUserId], references: [id])
+	@@map("reported_users")
 }
 
 enum Gender {

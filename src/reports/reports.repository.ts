@@ -30,5 +30,17 @@ export class ReportsRepository {
     });
   }
 
-  async reportUser() {}
+  async reportUser(
+    targetUserId: number,
+    reportingUser: UserDataInAuthGuard,
+    reason: string,
+  ) {
+    await this.prismaService.reportedUsers.create({
+      data: {
+        targetUserId,
+        reportingUserId: reportingUser.id,
+        reason,
+      },
+    });
+  }
 }
