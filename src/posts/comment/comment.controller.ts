@@ -49,7 +49,7 @@ export class CommentsController {
   @ApiTags('COMMENT')
   @Post('/:postId')
   @UseGuards(AuthGuard)
-  async createComment(
+  async create(
     @Param('postId') postId: number,
     @RequestUser() user: UserDataInAuthGuard,
     @Body() dto: CreateCommentDto,
@@ -73,7 +73,7 @@ export class CommentsController {
   @ApiTags('COMMENT')
   @Put('/:commentId')
   @UseGuards(AuthGuard)
-  async updateComment(
+  async update(
     @Param('commentId') commentId: number,
     @RequestUser() user: UserDataInAuthGuard,
     @Body() dto: UpdateCommentDto,
@@ -101,7 +101,7 @@ export class CommentsController {
   @ApiTags('COMMENT')
   @Delete('/:commentId')
   @UseGuards(AuthGuard)
-  async deleteComment(
+  async delete(
     @Param('commentId') commentId: number,
     @RequestUser() user: UserDataInAuthGuard,
   ) {
