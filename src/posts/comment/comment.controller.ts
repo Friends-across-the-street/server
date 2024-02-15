@@ -23,6 +23,7 @@ import { RequestUser } from 'src/global/decorator/request-user.decorator';
 import { CommentService } from './comment.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
+import { ReportCommentDto } from './dto/report-comment.dto';
 
 @Controller('comments')
 export class CommentsController {
@@ -106,5 +107,15 @@ export class CommentsController {
     @RequestUser() user: UserDataInAuthGuard,
   ) {
     return await this.commentService.delete(commentId, user);
+  }
+
+  @Post('/report/:commentId')
+  @UseGuards(AuthGuard)
+  async report(
+    @Param('commentId') commentId: number,
+    @Body() dto: ReportCommentDto,
+    @RequestUser() user: UserDataInAuthGuard,
+  ) {
+    return await this.reportService.reportComment({ commentId, ...dto, user });
   }
 }
