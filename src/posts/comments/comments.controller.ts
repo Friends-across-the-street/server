@@ -13,7 +13,6 @@ import {
   ApiBearerAuth,
   ApiOperation,
   ApiParam,
-  ApiQuery,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -25,6 +24,7 @@ import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 import { ReportCommentDto } from './dto/report-comment.dto';
 
+@ApiTags('COMMENT')
 @Controller('comments')
 export class CommentsController {
   constructor(
@@ -47,7 +47,6 @@ export class CommentsController {
   })
   @ApiParam({ name: 'postId', type: Number, description: '게시글 ID' })
   @ApiBearerAuth('access-token')
-  @ApiTags('COMMENT')
   @Post('/:postId')
   @UseGuards(AuthGuard)
   async create(
@@ -71,7 +70,6 @@ export class CommentsController {
   })
   @ApiParam({ name: 'commendId', type: Number, description: '댓글 ID' })
   @ApiBearerAuth('access-token')
-  @ApiTags('COMMENT')
   @Put('/:commentId')
   @UseGuards(AuthGuard)
   async update(
@@ -99,7 +97,6 @@ export class CommentsController {
   })
   @ApiParam({ name: 'commendId', type: Number, description: '댓글 ID' })
   @ApiBearerAuth('access-token')
-  @ApiTags('COMMENT')
   @Delete('/:commentId')
   @UseGuards(AuthGuard)
   async delete(
@@ -109,6 +106,19 @@ export class CommentsController {
     return await this.commentService.delete(commentId, user);
   }
 
+  @ApiOperation({ summary: '댓글 신고' })
+  @ApiResponse({ status: 200, description: '댓글 신고 성공' })
+  @ApiResponse({
+    status: 401,
+    description: '헤더의 Auth 토큰이 존재하지 않습니다',
+  })
+  @ApiResponse({ status: 403, description: '토큰이 일치하지 않습니다.' })
+  @ApiResponse({
+    status: 404,
+    description: '유저가 존재하지 않습니다. or 댓글이 존재하지 않습니다.',
+  })
+  @ApiBearerAuth('access-token')
+  @ApiParam({ name: 'commentId', type: Number, description: '댓글 ID' })
   @Post('/report/:commentId')
   @UseGuards(AuthGuard)
   async report(
