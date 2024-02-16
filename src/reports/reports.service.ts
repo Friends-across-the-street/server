@@ -3,6 +3,7 @@ import { PrismaService } from 'src/prisma.service';
 import {
   ReportCommentArgs,
   ReportPostArgs,
+  ReportUserArgs,
 } from './interface/report.interface';
 import { CustomException } from 'src/global/exception/custom.exception';
 import { ReportsRepository } from './reports.repository';
@@ -50,5 +51,21 @@ export class ReportsService {
       where: { id: args.commentId },
       data: { reported: Number(comment.reported) + 1 },
     });
+  }
+
+  async reportUser(args: ReportUserArgs) {
+    const targetUser = await this.prismaService.users.findFirst({
+      where: { id: args.targetUserId },
+    });
+
+    if (!targetUser) {
+      throw new CustomException('신고 대상의 유저가 존재하지 않습니다.', 404);
+    }
+
+    await this.reportsRepository.reportUser(
+      args.targetUserId,
+      args.reportingUser,
+      args.reason,
+    );
   }
 }
