@@ -26,7 +26,7 @@ import { ReportsService } from 'src/reports/reports.service';
 import { ReportPostDto } from './dto/report-post.dto';
 import { RecommendsService } from 'src/recommends/recommends.service';
 import { RequestUser } from 'src/global/decorator/request-user.decorator';
-import { CommentService } from './comment/comment.service';
+import { CommentService } from './comments/comments.service';
 
 @Controller('posts')
 export class PostsController {
