@@ -1,5 +1,4 @@
-import { Injectable, UseGuards } from '@nestjs/common';
-import { AuthGuard } from 'src/auth/auth.guard';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import {
   ReportCommentArgs,
@@ -15,7 +14,6 @@ export class ReportsService {
     private readonly reportsRepository: ReportsRepository,
   ) {}
 
-  @UseGuards(AuthGuard)
   async reportPost(args: ReportPostArgs) {
     const post = await this.prismaService.posts.findFirst({
       where: { id: args.postId },
@@ -34,7 +32,6 @@ export class ReportsService {
     });
   }
 
-  @UseGuards(AuthGuard)
   async reportComment(args: ReportCommentArgs) {
     const comment = await this.prismaService.comments.findFirst({
       where: { id: args.commentId },

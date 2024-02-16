@@ -1,5 +1,4 @@
-import { Injectable, UseGuards } from '@nestjs/common';
-import { AuthGuard } from 'src/auth/auth.guard';
+import { Injectable } from '@nestjs/common';
 import { CustomException } from 'src/global/exception/custom.exception';
 import { PrismaService } from 'src/prisma.service';
 import { RecommendPostArgs } from './interface/recommend.interface';
@@ -8,7 +7,6 @@ import { RecommendPostArgs } from './interface/recommend.interface';
 export class RecommendsService {
   constructor(private prismaService: PrismaService) {}
 
-  @UseGuards(AuthGuard)
   async recommendPost(dto: RecommendPostArgs) {
     const post = await this.prismaService.posts.findFirst({
       where: { id: dto.postId },

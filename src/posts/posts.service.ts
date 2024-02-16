@@ -1,5 +1,4 @@
-import { Injectable, UseGuards } from '@nestjs/common';
-import { AuthGuard } from 'src/auth/auth.guard';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { CreatePostArgs } from './interface/create-post.interface';
 import { CustomException } from 'src/global/exception/custom.exception';
@@ -17,7 +16,6 @@ import {
 export class PostsService {
   constructor(private prismaService: PrismaService) {}
 
-  @UseGuards(AuthGuard)
   async create(args: CreatePostArgs) {
     return await this.prismaService.posts.create({
       data: {
