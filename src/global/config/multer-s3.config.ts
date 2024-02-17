@@ -3,7 +3,6 @@ import { S3Client } from '@aws-sdk/client-s3';
 import { MulterOptions } from '@nestjs/platform-express/multer/interfaces/multer-options.interface';
 import * as multerS3 from 'multer-s3';
 import * as mime from 'mime-types';
-import { Request } from 'express';
 import { CustomException } from '../exception/custom.exception';
 import { UserDataInAuthGuard } from '../types/user.type';
 
@@ -66,7 +65,7 @@ export const multerS3Config = (configService: ConfigService): MulterOptions => {
       },
     }),
     limits: {
-      fileSize: 1024 * 1024 * 50, // 50 MB
+      fileSize: 1024 * 1024 * 100, // 100 MB
       files: 1,
     },
     fileFilter(req, file, callback) {
