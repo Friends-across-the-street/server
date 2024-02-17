@@ -77,6 +77,12 @@ export const multerS3Config = (configService: ConfigService): MulterOptions => {
         'image/gif',
         'image/heic',
         'image/heif',
+        'application/pdf',
+        'application/zip',
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'application/x-hwp',
+        'text/html',
       ];
 
       if (allowedMimeTypes.includes(file.mimetype)) {
