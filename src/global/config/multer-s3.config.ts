@@ -6,6 +6,32 @@ import * as mime from 'mime-types';
 import { CustomException } from '../exception/custom.exception';
 import { UserDataInAuthGuard } from '../types/user.type';
 
+const allowedMimeOfImage = [
+  'image/jpeg',
+  'image/jpg',
+  'image/png',
+  'image/gif',
+  'image/heic',
+  'image/heif',
+];
+
+const allowedMimeOfPortfolio = [
+  'application/pdf',
+  'application/zip',
+  'application/msword',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  'application/x-hwp',
+  'text/html',
+];
+
+const allowedMimeOfChat = []; // TODO 채팅시스템 구현 후, 파일 전송 가능 확장자 정의
+
+const allowedAllMime = [
+  ...allowedMimeOfImage,
+  ...allowedMimeOfPortfolio,
+  ...allowedMimeOfChat,
+];
+
 export const multerS3Config = (configService: ConfigService): MulterOptions => {
   const s3 = new S3Client({
     region: process.env.AWS_RIGION,
@@ -31,15 +57,30 @@ export const multerS3Config = (configService: ConfigService): MulterOptions => {
         const uploadType = pathParam[1]; // users / chats
         const uploadDetailType = pathParam[3]; // image / portfolio
         const id = pathParam[4]; // userId / chatId
-
         let savedPath: string = '';
         let uploadedName: string = '';
         switch (uploadType) {
           case 'users':
             if (uploadDetailType === 'image') {
+              if (!allowedMimeOfImage.includes(file.mimetype)) {
+                cb(
+                  new CustomException(
+                    '이미지에 적합한 확장자가 아닙니다.',
+                    400,
+                  ),
+                );
+              }
               savedPath = 'users/' + user.type + ' - ID: ' + id;
               uploadedName = 'image';
-            } else {
+            } else if (uploadDetailType === 'portfolio') {
+              if (!allowedMimeOfPortfolio.includes(file.mimetype)) {
+                cb(
+                  new CustomException(
+                    '포트폴리오에 적합한 확장자가 아닙니다.',
+                    400,
+                  ),
+                );
+              }
               savedPath = 'users/' + user.type + ' - ID: ' + id;
               uploadedName = 'portfolio';
             }
@@ -69,22 +110,7 @@ export const multerS3Config = (configService: ConfigService): MulterOptions => {
       files: 1,
     },
     fileFilter(req, file, callback) {
-      const allowedMimeTypes = [
-        'image/jpeg',
-        'image/jpg',
-        'image/png',
-        'image/gif',
-        'image/heic',
-        'image/heif',
-        'application/pdf',
-        'application/zip',
-        'application/msword',
-        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-        'application/x-hwp',
-        'text/html',
-      ];
-
-      if (allowedMimeTypes.includes(file.mimetype)) {
+      if (allowedAllMime.includes(file.mimetype)) {
         callback(null, true); // 허용
       } else {
         callback(
