@@ -5,6 +5,7 @@ import * as multerS3 from 'multer-s3';
 import * as mime from 'mime-types';
 import { Request } from 'express';
 import { CustomException } from '../exception/custom.exception';
+import { UserDataInAuthGuard } from '../types/user.type';
 
 export const multerS3Config = (configService: ConfigService): MulterOptions => {
   const s3 = new S3Client({
@@ -21,24 +22,36 @@ export const multerS3Config = (configService: ConfigService): MulterOptions => {
       bucket: process.env.S3_BUCKET_NAME,
       acl: 'public-read',
       contentType: multerS3.AUTO_CONTENT_TYPE,
-      key: function (req: Request, file, cb) {
+      key: function (req: any, file, cb) {
+        const user: UserDataInAuthGuard = req.user;
+        if (!user) {
+          cb(new CustomException('로그인에 실패하였습니다.', 403));
+        }
+
         const pathParam = req.path.split('/');
+        const uploadType = pathParam[1]; // users / chats
+        const uploadDetailType = pathParam[3]; // image / portfolio
+        const id = pathParam[4]; // userId / chatId
+
         let savedPath: string = '';
         let uploadedName: string = '';
-        // pathParam[3] -> users / chats
-        // pathParam[4] -> upload
-        // switch (pathParam[3]) {
-        //   case 'users':
-        //     savedPath = 'users' + '/ID: ' + pathParam[5];
-        //     uploadedName = 'userImage';
-        //     break;
-        //   case 'chats':
-        //     savedPath = 'stores' + '/ID: ' + pathParam[5]
-        //     uploadedName = 'chatFiles';
-        //     break;
-        //   default:
-        //     cb(new CustomException('잘못된 접근입니다.', 400));
-        // }
+        switch (uploadType) {
+          case 'users':
+            if (uploadDetailType === 'image') {
+              savedPath = 'users/' + user.type + ' - ID: ' + id;
+              uploadedName = 'image';
+            } else {
+              savedPath = 'users/' + user.type + ' - ID: ' + id;
+              uploadedName = 'portfolio';
+            }
+            break;
+          case 'chats': // TODO 채팅에서 파일 업로드 적용 후 변경
+            savedPath = 'chats/' + 'ID: ' + id;
+            uploadedName = 'chatFiles';
+            break;
+          default:
+            cb(new CustomException('잘못된 접근입니다.', 400));
+        }
         const currentDate = new Date();
         const formattedDate = currentDate
           .toISOString()

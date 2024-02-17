@@ -79,7 +79,6 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @UseInterceptors(FileInterceptor('image'))
   async uploadImage(@UploadedFile() file: Express.MulterS3.File) {
-    // console.log(file);
     if (file.location === undefined) {
       throw new CustomException('파일이 저장에 실패했습니다.', 400);
     }
