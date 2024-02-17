@@ -5,7 +5,9 @@ import {
   Param,
   Post,
   Query,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { userType } from 'prisma/generated/mysql';
@@ -22,6 +24,8 @@ import { UserDataInAuthGuard } from 'src/global/types/user.type';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { ReportUserDto } from './dto/report.dto';
 import { ReportsService } from 'src/reports/reports.service';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { CustomException } from 'src/global/exception/custom.exception';
 
 @ApiTags('USER')
 @Controller('users')
@@ -69,5 +73,16 @@ export class UsersController {
       reason: dto.reason,
       reportingUser: user,
     });
+  }
+
+  @Post('upload/image/:userId')
+  @UseGuards(AuthGuard)
+  @UseInterceptors(FileInterceptor('image'))
+  async uploadImage(@UploadedFile() file: Express.MulterS3.File) {
+    // console.log(file);
+    if (file.location === undefined) {
+      throw new CustomException('파일이 저장에 실패했습니다.', 400);
+    }
+    return file.location;
   }
 }
