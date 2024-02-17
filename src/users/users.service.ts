@@ -32,7 +32,7 @@ export class UsersService {
   }
 
   async uploadImage(user: UserDataInAuthGuard, file: Express.MulterS3.File) {
-    if (file.location === undefined) {
+    if (file === undefined || file.location === undefined) {
       throw new CustomException('파일 저장에 실패했습니다.', 400);
     }
     return await this.prismaService.users.update({
