@@ -5,6 +5,7 @@ import { CreateUserDto } from 'src/auth/dto/create-user.dto';
 import { CustomException } from 'src/global/exception/custom.exception';
 import { PrismaService } from 'src/prisma.service';
 import { UsersRepository } from './users.repository';
+import { UserDataInAuthGuard } from 'src/global/types/user.type';
 
 @Injectable()
 export class UsersService {
@@ -28,6 +29,18 @@ export class UsersService {
       throw new CustomException('유저가 존재하지 않음', 404);
     }
     return user;
+  }
+
+  async uploadImage(user: UserDataInAuthGuard, file: Express.MulterS3.File) {
+    if (file === undefined || file.location === undefined) {
+      throw new CustomException('파일 저장에 실패했습니다.', 400);
+    }
+    return await this.prismaService.users.update({
+      where: { id: user.id },
+      data: {
+        image: file.location,
+      },
+    });
   }
 
   async createMockData() {

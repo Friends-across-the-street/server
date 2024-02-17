@@ -5,12 +5,17 @@ import {
   Param,
   Post,
   Query,
+  Request,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { userType } from 'prisma/generated/mysql';
 import {
   ApiBearerAuth,
+  ApiBody,
+  ApiConsumes,
   ApiOperation,
   ApiParam,
   ApiQuery,
@@ -22,6 +27,8 @@ import { UserDataInAuthGuard } from 'src/global/types/user.type';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { ReportUserDto } from './dto/report.dto';
 import { ReportsService } from 'src/reports/reports.service';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { MulterUserGuard } from 'src/global/guard/multer-user.guard';
 
 @ApiTags('USER')
 @Controller('users')
@@ -69,5 +76,50 @@ export class UsersController {
       reason: dto.reason,
       reportingUser: user,
     });
+  }
+
+  @ApiOperation({ summary: '유저 이미지 업로드' })
+  @ApiResponse({ status: 201, description: '유저 이미지 업로드 성공' })
+  @ApiResponse({
+    status: 400,
+    description:
+      '걸맞지 않는 확장자 및 이미지 업로드 실패(엔드포인트 잘못 작성도 포함)',
+  })
+  @ApiResponse({
+    status: 401,
+    description: '헤더의 Auth 토큰이 존재하지 않습니다',
+  })
+  @ApiResponse({
+    status: 403,
+    description:
+      '토큰이 일치하지 않습니다.(Param에 작성된 userId와 현재 갖고있는 토큰의 로그인된 유저 Id가 다를 경우도 포함)',
+  })
+  @ApiResponse({
+    status: 404,
+    description: '해당 유저가 존재하지 않습니다.',
+  })
+  @ApiBearerAuth('access-token')
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        image: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
+  @ApiParam({ name: 'userId', type: Number, description: '유저 ID' })
+  @Post('upload/image/:userId')
+  @UseGuards(AuthGuard, MulterUserGuard)
+  @UseInterceptors(FileInterceptor('image'))
+  async uploadImage(
+    @UploadedFile() file: Express.MulterS3.File,
+    @Request() req,
+  ) {
+    await this.usersService.uploadImage(req.user, file);
+    return file.location;
   }
 }
