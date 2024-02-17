@@ -5,6 +5,7 @@ import {
   Param,
   Post,
   Query,
+  Request,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -25,7 +26,7 @@ import { AuthGuard } from 'src/auth/auth.guard';
 import { ReportUserDto } from './dto/report.dto';
 import { ReportsService } from 'src/reports/reports.service';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { CustomException } from 'src/global/exception/custom.exception';
+import { MulterUserGuard } from 'src/global/guard/multer-user.guard';
 
 @ApiTags('USER')
 @Controller('users')
@@ -76,12 +77,13 @@ export class UsersController {
   }
 
   @Post('upload/image/:userId')
-  @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard, MulterUserGuard)
   @UseInterceptors(FileInterceptor('image'))
-  async uploadImage(@UploadedFile() file: Express.MulterS3.File) {
-    if (file.location === undefined) {
-      throw new CustomException('파일이 저장에 실패했습니다.', 400);
-    }
+  async uploadImage(
+    @UploadedFile() file: Express.MulterS3.File,
+    @Request() req,
+  ) {
+    await this.usersService.uploadImage(req.user, file);
     return file.location;
   }
 }
