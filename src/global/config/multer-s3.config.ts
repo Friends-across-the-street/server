@@ -56,7 +56,6 @@ export const multerS3Config = (configService: ConfigService): MulterOptions => {
         const pathParam = req.path.split('/');
         const uploadType = pathParam[1]; // users / chats
         const uploadDetailType = pathParam[3]; // image / portfolio
-        const id = pathParam[4]; // userId / chatId
         let savedPath: string = '';
         let uploadedName: string = '';
         switch (uploadType) {
@@ -70,7 +69,7 @@ export const multerS3Config = (configService: ConfigService): MulterOptions => {
                   ),
                 );
               }
-              savedPath = 'users/' + user.type + ' - ID: ' + id;
+              savedPath = 'users/' + user.type + ' - ID: ' + req.user.id;
               uploadedName = 'image';
             } else if (uploadDetailType === 'portfolio') {
               if (!allowedMimeOfPortfolio.includes(file.mimetype)) {
@@ -81,12 +80,12 @@ export const multerS3Config = (configService: ConfigService): MulterOptions => {
                   ),
                 );
               }
-              savedPath = 'users/' + user.type + ' - ID: ' + id;
+              savedPath = 'users/' + user.type + ' - ID: ' + req.user.id;
               uploadedName = 'portfolio';
             }
             break;
           case 'chats': // TODO 채팅에서 파일 업로드 적용 후 변경
-            savedPath = 'chats/' + 'ID: ' + id;
+            savedPath = 'chats/' + 'ID: ' + req.user.id;
             uploadedName = 'chatFiles';
             break;
           default:

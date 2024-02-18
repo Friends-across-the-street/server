@@ -111,8 +111,7 @@ export class UsersController {
       },
     },
   })
-  @ApiParam({ name: 'userId', type: Number, description: '유저 ID' })
-  @Post('upload/image/:userId')
+  @Post('upload/image')
   @UseGuards(AuthGuard, MulterUserGuard)
   @UseInterceptors(FileInterceptor('image'))
   async uploadImage(
