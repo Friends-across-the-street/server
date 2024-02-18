@@ -3,8 +3,8 @@ import { S3Client } from '@aws-sdk/client-s3';
 import { MulterOptions } from '@nestjs/platform-express/multer/interfaces/multer-options.interface';
 import * as multerS3 from 'multer-s3';
 import * as mime from 'mime-types';
-import { CustomException } from '../exception/custom.exception';
-import { UserDataInAuthGuard } from '../types/user.type';
+import { CustomException } from 'src/global/exception/custom.exception';
+import { UserDataInAuthGuard } from 'src/global/types/user.type';
 
 const allowedMimeOfImage = [
   'image/jpeg',
