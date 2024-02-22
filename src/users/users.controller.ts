@@ -29,6 +29,7 @@ import { ReportUserDto } from './dto/report.dto';
 import { ReportsService } from 'src/reports/reports.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { MulterUserGuard } from 'src/global/guard/multer-user.guard';
+import { AddAdditionalInfoForIncumbentDto } from './dto/add-additional-info-incumbent.dto';
 
 @ApiTags('USER')
 @Controller('users')
@@ -76,6 +77,16 @@ export class UsersController {
       reason: dto.reason,
       reportingUser: user,
     });
+  }
+
+  @Post()
+  @UseGuards(AuthGuard)
+  async addAddtionalInfo(
+    @Param('userId') userId: number,
+    @Body() dto: AddAdditionalInfoForIncumbentDto,
+    @RequestUser() user: UserDataInAuthGuard,
+  ) {
+    return await this.usersService.addAdditionalInfo(userId, dto, user);
   }
 
   @ApiOperation({ summary: '유저 이미지 업로드' })
