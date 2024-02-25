@@ -182,6 +182,20 @@ model reportedUsers {
 	@@map("reported_users")
 }
 
+model company {
+  id    Int     @default(autoincrement()) @id
+  name String
+  address String
+  longitude Float
+  latitude Float
+  scale String
+  kind String
+  group Int
+  job String
+}
+
+// univ_kind	univ_loc	univ_name	univ_main_branch	major	univ_day_night	field	education
+
 enum Gender {
   male
   female
