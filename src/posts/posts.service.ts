@@ -142,6 +142,11 @@ export class PostsService {
 
     const comments = await this.findCommentsByPostId(postId, user.id);
 
+    if (!checkMyPost) {
+      // 본인외의 사람이 게시글을 조회했을때만 조회수 증가
+      await this.incrementPostView(post.id);
+    }
+
     return {
       ...refinedPost,
       comments,
@@ -213,6 +218,21 @@ export class PostsService {
     return await this.prismaService.posts.update({
       data: { ...dto },
       where: { id: postId },
+    });
+  }
+
+  private async incrementPostView(postId: number) {
+    const post = await this.prismaService.posts.findFirst({
+      where: { id: postId },
+      select: { view: true },
+    });
+    return await this.prismaService.posts.update({
+      data: {
+        view: Number(post.view) + 1,
+      },
+      where: {
+        id: postId,
+      },
     });
   }
 
