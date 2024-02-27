@@ -92,9 +92,11 @@ export class PostsService {
 
   async getDetailOnePost(postId: number, user: UserDataInAuthGuard) {
     const postList: onePostForQuery[] = await this.prismaService.$queryRaw`
-    SELECT p.id AS id, p.title AS title, p.content AS content, p.view AS view, p.recommend AS recommend, p.created_date AS createdDate, p.updated_date AS updatedDate, p.user_id AS postUserId, u.name, u.image, u.type AS userType
+    SELECT p.id AS id, p.title AS title, p.content AS content, p.view AS view, p.recommend AS recommend, p.created_date AS createdDate, p.updated_date AS updatedDate, p.user_id AS postUserId, u.name, u.image, u.type AS userType, i.company_name AS companyName, i.job_description AS jobDescription, s.major AS major, s.school AS school
     FROM posts AS p
     LEFT JOIN users AS u ON p.user_id = u.id
+    LEFT JOIN incumbents_additional AS i ON u.id = i.user_id
+    LEFT JOIN students_additional AS s ON u.id = s.user_id
     WHERE p.id = ${postId}`;
 
     const post = postList.pop();
@@ -121,13 +123,30 @@ export class PostsService {
       checkRecommend = true;
     }
 
+    // type id username image additionalInfo
+    const type: userType = post.userType;
+    const additionalInfoSup =
+      type === userType.student ? post.school : post.companyName;
+    const additionalInfoSub =
+      type === userType.student ? post.major : post.jobDescription;
+
+    let additionalInfo;
+    if (!additionalInfoSup) {
+      additionalInfo = null;
+    } else if (!additionalInfoSub) {
+      additionalInfo = additionalInfoSup;
+    } else {
+      additionalInfo = additionalInfoSup + ' ' + additionalInfoSub;
+    }
+
     const refinedPost: refinedOnePost = {
       id: post.id,
       user: {
-        userId: post.userId,
-        name: post.name,
+        id: post.postUserId,
+        username: post.name,
         image: post.image || null,
         type: post.userType,
+        additionalInfo,
       },
       title: post.title,
       content: post.content,
@@ -151,7 +170,7 @@ export class PostsService {
   private async findCommentsByPostId(postId: number, userId: number) {
     const comments: commentsInPostForQuery[] = await this.prismaService
       .$queryRaw`
-    SELECT c.id AS id, c.content, c.recommend, c.parent_comment_id AS parentCommentId, c.created_date AS createdDate, c.updated_date AS updatedDate, c.user_id AS commentUserId, u.name AS username, u.type AS userType, i.company_name AS companyName, i.job_description AS jobDescription, s.major, s.school
+    SELECT c.id AS id, c.content, c.recommend, c.parent_comment_id AS parentCommentId, c.created_date AS createdDate, c.updated_date AS updatedDate, c.user_id AS commentUserId, u.name AS username, u.image AS image, u.type AS userType, i.company_name AS companyName, i.job_description AS jobDescription, s.major AS major, s.school AS school
     FROM comments AS c
     LEFT JOIN users AS u ON c.user_id = u.id
     LEFT JOIN incumbents_additional AS i ON u.id = i.user_id
@@ -186,8 +205,8 @@ export class PostsService {
         id: comment.id,
         content: comment.content,
         user: {
-          userId: comment.userId,
-          name: comment.name,
+          id: comment.commentUserId,
+          name: comment.username,
           image: comment.image || null,
           type: comment.userType,
           additionalInfo,
