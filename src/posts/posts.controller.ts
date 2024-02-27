@@ -139,6 +139,32 @@ export class PostsController {
     return await this.postsService.update(postId, dto, user);
   }
 
+  @ApiOperation({ summary: '게시글 삭제' })
+  @ApiTags('POST')
+  @ApiBearerAuth('access-token')
+  @ApiResponse({ status: 200, description: '게시글 삭제 성공' })
+  @ApiResponse({
+    status: 401,
+    description: '헤더의 Auth 토큰이 존재하지 않습니다',
+  })
+  @ApiResponse({
+    status: 403,
+    description: '토큰이 일치하지 않습니다. or 게시글의 소유자가 아닙니다.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: '유저가 존재하지 않습니다. or 게시글이 존재하지 않습니다.',
+  })
+  @ApiParam({ name: 'id', type: Number, description: '게시글 ID' })
+  @Delete('/:id')
+  @UseGuards(AuthGuard)
+  async delete(
+    @Param('id') postId: number,
+    @RequestUser() user: UserDataInAuthGuard,
+  ) {
+    return await this.postsService.delete(postId, user);
+  }
+
   @ApiOperation({ summary: '게시글 신고' })
   @ApiResponse({ status: 200, description: '게시글 신고 성공' })
   @ApiResponse({
