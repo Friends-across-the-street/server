@@ -15,16 +15,26 @@ export interface onePostForQuery {
   readonly name: string;
   readonly image: string;
   readonly userType: userType;
+  readonly companyName?: string;
+  readonly jobDescription?: string;
+  readonly major?: string;
+  readonly school?: string;
 }
 
 /** 게시글 리턴값 */
 export interface refinedOnePost {
   readonly id: number;
   readonly user: {
-    readonly userId?: number;
-    readonly name: string;
+    readonly id?: number;
+    readonly username: string;
     readonly image?: string;
     readonly type: userType;
+    readonly additionalInfo: {
+      companyName?: string;
+      jobDescription?: string;
+      major?: string;
+      school?: string;
+    };
   };
   readonly title: string;
   readonly content: string;
@@ -43,7 +53,7 @@ export interface commentsInPostForQuery {
   readonly commentUserId: number;
   readonly userId: number;
   readonly userType: userType;
-  readonly name: string;
+  readonly username: string;
   readonly image: string;
 
   readonly companyName: string;
@@ -62,11 +72,16 @@ export interface commentsInPostForQuery {
 export interface refinedCommentsInPost {
   readonly id: number;
   readonly user: {
-    readonly userId?: number;
+    readonly id?: number;
     readonly name: string;
     readonly image?: string;
     readonly type: userType;
-    readonly additionalInfo: string;
+    readonly additionalInfo: {
+      companyName?: string;
+      jobDescription?: string;
+      major?: string;
+      school?: string;
+    };
   };
   readonly content: string;
   readonly parentCommentId?: number;
