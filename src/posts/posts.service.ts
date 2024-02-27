@@ -106,7 +106,7 @@ export class PostsService {
     }
 
     let checkMyPost: boolean = false;
-    if (post.postUserId === post.userId) {
+    if (post.postUserId === user.id) {
       checkMyPost = true;
     }
 
