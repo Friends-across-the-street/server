@@ -73,6 +73,7 @@ export class PostsController {
   })
   @ApiQuery({
     name: 'categoryId',
+    required: false,
     type: Number,
     description: '카테고리 ID(안 보낼시 전체 게시글 조회)',
   })
