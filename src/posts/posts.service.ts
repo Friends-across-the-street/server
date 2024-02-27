@@ -54,19 +54,6 @@ export class PostsService {
       const id = post.userId;
       const username = post.username;
       const image = post.image;
-      const additionalInfoSup =
-        type === userType.student ? post.school : post.companyName;
-      const additionalInfoSub =
-        type === userType.student ? post.major : post.jobDescription;
-
-      let additionalInfo;
-      if (!additionalInfoSup) {
-        additionalInfo = null;
-      } else if (!additionalInfoSub) {
-        additionalInfo = additionalInfoSup;
-      } else {
-        additionalInfo = additionalInfoSup + ' ' + additionalInfoSub;
-      }
 
       const refinedPost = {
         id: post.postId,
@@ -81,7 +68,12 @@ export class PostsService {
           id,
           username,
           image,
-          additionalInfo,
+          additionalInfo: {
+            companyName: post.companyName || null,
+            jobDescription: post.jobDescription || null,
+            major: post.major || null,
+            school: post.school || null,
+          },
         },
       };
       result.push(refinedPost);
@@ -123,22 +115,6 @@ export class PostsService {
       checkRecommend = true;
     }
 
-    // type id username image additionalInfo
-    const type: userType = post.userType;
-    const additionalInfoSup =
-      type === userType.student ? post.school : post.companyName;
-    const additionalInfoSub =
-      type === userType.student ? post.major : post.jobDescription;
-
-    let additionalInfo;
-    if (!additionalInfoSup) {
-      additionalInfo = null;
-    } else if (!additionalInfoSub) {
-      additionalInfo = additionalInfoSup;
-    } else {
-      additionalInfo = additionalInfoSup + ' ' + additionalInfoSub;
-    }
-
     const refinedPost: refinedOnePost = {
       id: post.id,
       user: {
@@ -146,7 +122,12 @@ export class PostsService {
         username: post.name,
         image: post.image || null,
         type: post.userType,
-        additionalInfo,
+        additionalInfo: {
+          companyName: post.companyName || null,
+          jobDescription: post.jobDescription || null,
+          major: post.major || null,
+          school: post.school || null,
+        },
       },
       title: post.title,
       content: post.content,
@@ -186,21 +167,6 @@ export class PostsService {
         checkMine = true;
       }
 
-      const type: userType = comment.userType;
-      const additionalInfoSup =
-        type === userType.student ? comment.school : comment.companyName;
-      const additionalInfoSub =
-        type === userType.student ? comment.major : comment.jobDescription;
-
-      let additionalInfo;
-      if (!additionalInfoSup) {
-        additionalInfo = null;
-      } else if (!additionalInfoSub) {
-        additionalInfo = additionalInfoSup;
-      } else {
-        additionalInfo = additionalInfoSup + ' ' + additionalInfoSub;
-      }
-
       const pushedData: refinedCommentsInPost = {
         id: comment.id,
         content: comment.content,
@@ -209,7 +175,12 @@ export class PostsService {
           name: comment.username,
           image: comment.image || null,
           type: comment.userType,
-          additionalInfo,
+          additionalInfo: {
+            companyName: comment.companyName || null,
+            jobDescription: comment.jobDescription || null,
+            major: comment.major || null,
+            school: comment.school || null,
+          },
         },
         parentCommentId: comment.parentCommentId || null,
         recommend: comment.recommend,
