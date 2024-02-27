@@ -55,7 +55,7 @@ model incumbentsAdditional {
   companyLocation String? @map("company_location")
   updatedDate DateTime @default(now()) @updatedAt @map("updated_date")
   // relation
-  users users @relation(fields: [userId], references: [id])
+  users users @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("incumbents_additional")
 }
@@ -75,7 +75,7 @@ model studentsAdditional {
   wishCompanyLocation String? @map("wish_company_location")
   updatedDate DateTime @default(now()) @updatedAt @map("updated_date")
   // relation
-  users users @relation(fields: [userId], references: [id])
+  users users @relation(fields: [userId], references: [id], onDelete: Cascade)
   
 	@@map("students_additional")
 }
@@ -99,8 +99,8 @@ model posts {
   createdDate DateTime @default(now()) @map("created_date")
   updatedDate DateTime @default(now()) @updatedAt @map("updated_date")
   // relation
-  categories category? @relation(fields: [categoryId], references: [id])
-  users users? @relation(fields: [userId], references: [id])
+  categories category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  users users? @relation(fields: [userId], references: [id], onDelete: SetNull)
   comments comments[]
   recommend_posts recommendPosts[]
   reported_posts reportedPosts[]
@@ -117,9 +117,9 @@ model comments {
   createdDate DateTime @default(now()) @map("created_date")
   updatedDate DateTime @default(now()) @updatedAt @map("updated_date")
   // relation
-  users users? @relation(fields: [userId], references: [id])
-  post posts @relation(fields: [postId], references: [id])
-  parent  comments? @relation("reply", fields: [parentCommentId], references: [id])
+  users users? @relation(fields: [userId], references: [id], onDelete: SetNull)
+  post posts @relation(fields: [postId], references: [id], onDelete: Cascade)
+  parent  comments? @relation("reply", fields: [parentCommentId], references: [id], onDelete: Cascade)
   replies comments[] @relation("reply")
   recommend_comments recommendComments[]
   reported_comments reportedComments[]
@@ -131,8 +131,8 @@ model recommendPosts {
   userId Int @map("user_id")
   createdDate DateTime @default(now()) @map("created_date")
   // relation
-  users users? @relation(fields: [userId], references: [id])
-  post posts @relation(fields: [postId], references: [id])
+  users users? @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post posts @relation(fields: [postId], references: [id], onDelete: Cascade)
 	@@map("recommend_posts")
 }
 
@@ -143,8 +143,8 @@ model reportedPosts {
   reason String
   createdDate DateTime @default(now()) @map("created_date")
   // relation
-  users users? @relation(fields: [userId], references: [id])
-  post posts @relation(fields: [postId], references: [id])
+  users users? @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post posts @relation(fields: [postId], references: [id], onDelete: Cascade)
 	@@map("reported_posts")
 }
 
@@ -154,8 +154,8 @@ model recommendComments {
   userId Int @map("user_id")
   createdDate DateTime @default(now()) @map("created_date")
   // relation
-  comment comments @relation(fields: [commendId], references: [id])
-  users users? @relation(fields: [userId], references: [id])
+  comment comments @relation(fields: [commendId], references: [id], onDelete: Cascade)
+  users users? @relation(fields: [userId], references: [id], onDelete: Cascade)
 	@@map("recommend_comments")
 }
 
@@ -166,8 +166,8 @@ model reportedComments {
   reason String
   createdDate DateTime @default(now()) @map("created_date")
   // relation
-  comment comments @relation(fields: [commentId], references: [id])
-  users users? @relation(fields: [userId], references: [id])
+  comment comments @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  users users? @relation(fields: [userId], references: [id], onDelete: Cascade)
 	@@map("reported_comments")
 }
 
@@ -178,7 +178,7 @@ model reportedUsers {
   reason String
   createdDate DateTime @default(now()) @map("created_date")
   // relation
-  users users? @relation(fields: [targetUserId], references: [id])
+  users users? @relation(fields: [targetUserId], references: [id], onDelete: Cascade)
 	@@map("reported_users")
 }
 

@@ -221,6 +221,21 @@ export class PostsService {
     });
   }
 
+  async delete(postId: number, user: UserDataInAuthGuard) {
+    const post = await this.prismaService.posts.findFirst({
+      where: { id: postId },
+      include: { users: true },
+      // select: { userId: true },
+    });
+    if (!post) {
+      throw new CustomException('게시글이 존재하지 않습니다.', 404);
+    }
+    if (post.userId !== user.id) {
+      throw new CustomException('게시글의 소유자가 아닙니다.', 403);
+    }
+    return await this.prismaService.posts.delete({ where: { id: postId } });
+  }
+
   private async incrementPostView(postId: number) {
     const post = await this.prismaService.posts.findFirst({
       where: { id: postId },
