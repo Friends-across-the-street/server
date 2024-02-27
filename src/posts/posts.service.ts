@@ -113,7 +113,7 @@ export class PostsService {
       where: {
         AND: {
           postId: post.id,
-          userId: post.userId,
+          userId: user.id,
         },
       },
     });

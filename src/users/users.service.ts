@@ -43,6 +43,8 @@ export class UsersService {
     });
   }
 
+  async addAdditionalInfo(userId: number, dto, user) {}
+
   async createMockData() {
     const incumbent = await this.prismaService.users.findFirst({
       where: { email: 'incumbent_test1@naver.com' },
