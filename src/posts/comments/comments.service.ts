@@ -49,8 +49,9 @@ export class CommentService {
       throw new CustomException('댓글의 소유자가 아닙니다.', 403);
     }
 
-    await this.prismaService.comments.delete({
+    await this.prismaService.comments.update({
       where: { id: comment.id },
+      data: { isDelete: true },
     });
   }
 }
