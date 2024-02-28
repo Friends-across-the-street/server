@@ -55,6 +55,7 @@ export interface commentsInPostForQuery {
   readonly userType: userType;
   readonly username: string;
   readonly image: string;
+  readonly isDelete: boolean;
 
   readonly companyName: string;
   readonly jobDescription: string;
@@ -89,4 +90,9 @@ export interface refinedCommentsInPost {
   readonly createdDate: Date;
   readonly updatedDate: Date;
   readonly isMine: boolean;
+}
+
+/** 삭제된 댓글 리턴값 */
+export interface removedCommentsInPost {
+  readonly id: number;
 }
