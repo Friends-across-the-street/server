@@ -10,6 +10,7 @@ import {
   onePostForQuery,
   refinedCommentsInPost,
   refinedOnePost,
+  removedCommentsInPost,
 } from './interface/one-post.interface';
 
 @Injectable()
@@ -156,7 +157,7 @@ export class PostsService {
   private async findCommentsByPostId(postId: number, userId: number) {
     const comments: commentsInPostForQuery[] = await this.prismaService
       .$queryRaw`
-    SELECT c.id AS id, c.content, c.recommend, c.parent_comment_id AS parentCommentId, c.created_date AS createdDate, c.updated_date AS updatedDate, c.user_id AS commentUserId, u.name AS username, u.image AS image, u.type AS userType, i.company_name AS companyName, i.job_description AS jobDescription, s.major AS major, s.school AS school
+    SELECT c.id AS id, c.content, c.recommend, c.parent_comment_id AS parentCommentId, c.created_date AS createdDate, c.updated_date AS updatedDate, c.user_id AS commentUserId, c.is_delete AS isDelete, u.name AS username, u.image AS image, u.type AS userType, i.company_name AS companyName, i.job_description AS jobDescription, s.major AS major, s.school AS school
     FROM comments AS c
     LEFT JOIN users AS u ON c.user_id = u.id
     LEFT JOIN incumbents_additional AS i ON u.id = i.user_id
@@ -167,6 +168,12 @@ export class PostsService {
     const refinedComments = [];
 
     comments.forEach((comment) => {
+      if (comment.isDelete) {
+        const removedData: removedCommentsInPost = { id: comment.id };
+        refinedComments.push(removedData);
+        return;
+      }
+
       let checkMine: boolean = false;
       if (comment.commentUserId === userId) {
         checkMine = true;
