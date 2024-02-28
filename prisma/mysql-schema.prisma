@@ -116,10 +116,11 @@ model comments {
   reported Int @default(0)
   createdDate DateTime @default(now()) @map("created_date")
   updatedDate DateTime @default(now()) @updatedAt @map("updated_date")
+  isDelete Boolean @default(false) @map("is_delete")
   // relation
-  users users? @relation(fields: [userId], references: [id], onDelete: SetNull)
+  users users? @relation(fields: [userId], references: [id], onDelete: Cascade)
   post posts @relation(fields: [postId], references: [id], onDelete: Cascade)
-  parent  comments? @relation("reply", fields: [parentCommentId], references: [id], onDelete: Cascade)
+  parent  comments? @relation("reply", fields: [parentCommentId], references: [id], onDelete: SetNull)
   replies comments[] @relation("reply")
   recommend_comments recommendComments[]
   reported_comments reportedComments[]
