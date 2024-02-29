@@ -65,6 +65,7 @@ model studentsAdditional {
   userId Int @unique @map("user_id")
   major String?
   school String?
+  univLoc String @map("univ_loc")
   reportedNum Int @default(0) @map("reported_num")
   totalGrade Float? @map("total_grade")
   adviceCount Int @default(0) @map("advice_count")
@@ -79,6 +80,8 @@ model studentsAdditional {
   
 	@@map("students_additional")
 }
+
+// univ_main_branch	major	univ_day_night	field	education
 
 model category{
   id    Int     @default(autoincrement()) @id
@@ -195,7 +198,7 @@ model company {
   job String
 }
 
-// univ_kind	univ_loc	univ_name	univ_main_branch	major	univ_day_night	field	education
+// univ_kind	univ_loc	univ_name	
 
 enum Gender {
   male
