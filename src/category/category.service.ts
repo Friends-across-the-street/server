@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
+import { CreateCategoryArgs } from './interface/create.interface';
 
 @Injectable()
 export class CategoryService {
@@ -7,6 +8,14 @@ export class CategoryService {
 
   async findAll() {
     return await this.prismaService.category.findMany();
+  }
+
+  async create(args: CreateCategoryArgs) {
+    return await this.prismaService.category.create({
+      data: {
+        name: args.name,
+      },
+    });
   }
 
   async createMockData() {
