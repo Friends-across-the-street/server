@@ -51,7 +51,7 @@ model incumbentsAdditional {
   adviceCount Int @default(0) @map("advice_count")
   estimationCount Float @default(5.0) @map("estimation_count")
   companyName String? @map("company_name")
-  companyWelfare String @default("0000000000") @map("company_welfare")// TODO) category가 정확하게 정해진 후, flag개수 조정
+  companyWelfare String? @default("0000000000") @map("company_welfare")// TODO) category가 정확하게 정해진 후, flag개수 조정
   companyLocation String? @map("company_location")
   updatedDate DateTime @default(now()) @updatedAt @map("updated_date")
   // relation
@@ -65,7 +65,7 @@ model studentsAdditional {
   userId Int @unique @map("user_id")
   major String?
   school String?
-  univLoc String @map("univ_loc")
+  univLoc String? @map("univ_loc")
   reportedNum Int @default(0) @map("reported_num")
   totalGrade Float? @map("total_grade")
   adviceCount Int @default(0) @map("advice_count")
