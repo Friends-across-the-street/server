@@ -39,6 +39,24 @@ export class UsersController {
     private readonly reportsService: ReportsService,
   ) {}
 
+  @ApiOperation({ summary: '유저 상세 정보 등록' })
+  @ApiResponse({ status: 200, description: '유저 상세 정보 등록 성공' })
+  @ApiResponse({ status: 403, description: '토큰이 일치하지 않습니다.' })
+  @ApiResponse({ status: 404, description: '유저 정보 없음' })
+  @UseGuards(AuthGuard)
+  @Post('/additional/:id')
+  async addAdditionalInfo(
+    @Param('id') userId: number,
+    @Body() additionalInfo,
+    user: UserDataInAuthGuard,
+  ) {
+    return await this.usersService.addAdditionalInfo(
+      userId,
+      additionalInfo,
+      user,
+    );
+  }
+
   @ApiOperation({ summary: '유저 정보 조회' })
   @ApiResponse({ status: 200, description: '정보 조회 성공' })
   @ApiResponse({ status: 404, description: '유저 정보 없음' })
