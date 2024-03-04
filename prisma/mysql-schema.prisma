@@ -44,25 +44,24 @@ model users{
 model incumbentsAdditional {
   id    Int     @default(autoincrement()) @id
   userId Int @unique @map("user_id")
+  companyId Int @map("company_id")
   jobDescription String? @map("job_description")
   major String?
   school String?
   reportedNum Int @default(0) @map("reported_num")
   adviceCount Int @default(0) @map("advice_count")
   estimationCount Float @default(5.0) @map("estimation_count")
-  companyName String? @map("company_name")
-  companyWelfare String? @default("0000000000") @map("company_welfare")// TODO) category가 정확하게 정해진 후, flag개수 조정
-  companyLocation String? @map("company_location")
   updatedDate DateTime @default(now()) @updatedAt @map("updated_date")
   // relation
   users users @relation(fields: [userId], references: [id], onDelete: Cascade)
-
+  company company @relation(fields: [companyId], references: [id])
   @@map("incumbents_additional")
 }
 
 model studentsAdditional {
   id    Int     @default(autoincrement()) @id
   userId Int @unique @map("user_id")
+  wishCompanyId Int @map("wish_company_id")
   major String?
   school String?
   univLoc String? @map("univ_loc")
@@ -70,14 +69,10 @@ model studentsAdditional {
   totalGrade Float? @map("total_grade")
   adviceCount Int @default(0) @map("advice_count")
   estimationCount Float @default(5.0) @map("estimationCount")
-  wishJobDescription String? @map("wish_job_description")
-  wishCompanyName String? @map("wish_company_name")
-  wishCompanyWelfare String? @map("wish_company_welfare")
-  wishCompanyLocation String? @map("wish_company_location")
   updatedDate DateTime @default(now()) @updatedAt @map("updated_date")
   // relation
   users users @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
+  wishCompany company @relation(fields: [wishCompanyId], references: [id])
 	@@map("students_additional")
 }
 
@@ -196,6 +191,9 @@ model company {
   kind String
   group Int
   job String
+
+  incumebent incumbentsAdditional[]
+  student studentsAdditional[]
 }
 
 // univ_kind	univ_loc	univ_name	
