@@ -1,7 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, MaxLength, MinLength } from 'class-validator';
+import {
+  AddAdditionalInfoForIncumbentArgs,
+  AddAdditionalInfoForStudentArgs,
+} from '../interface/add-additional-info.interface';
 
-export class AddAdditionalInfoForIncumbentDto {
+export class AddAdditionalInfoForIncumbentDto
+  implements AddAdditionalInfoForIncumbentArgs
+{
   @IsString()
   @MinLength(2)
   @MaxLength(50)
@@ -39,3 +45,6 @@ export class AddAdditionalInfoForIncumbentDto {
   @ApiProperty({ description: '회사 위치', type: String })
   companyLocation: string;
 }
+
+export class AddAdditionalInfoForStudentDto
+  implements AddAdditionalInfoForStudentArgs {}

@@ -29,7 +29,7 @@ import { ReportUserDto } from './dto/report.dto';
 import { ReportsService } from 'src/reports/reports.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { MulterUserGuard } from 'src/global/guard/multer-user.guard';
-import { AddAdditionalInfoForIncumbentDto } from './dto/add-additional-info-incumbent.dto';
+import { AddAdditionalInfoForIncumbentDto } from './dto/add-additional-info.dto';
 
 @ApiTags('USER')
 @Controller('users')
