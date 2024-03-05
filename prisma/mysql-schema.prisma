@@ -196,6 +196,18 @@ model company {
   student studentsAdditional[]
 }
 
+model school {
+  id  Int @default(autoincrement()) @id
+  name String
+  branch String
+}
+
+model major {
+  id  Int @default(autoincrement()) @id
+  name String
+  dayAndNight dayAndNight
+}
+
 // univ_kind	univ_loc	univ_name	
 
 enum Gender {
@@ -207,4 +219,9 @@ enum userType {
   incumbent
   student
   admin
+}
+
+enum dayAndNight {
+  day
+  night
 }
