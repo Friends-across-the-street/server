@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, MaxLength, MinLength } from 'class-validator';
+import { IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
 import {
   AddAdditionalInfoForIncumbentArgs,
   AddAdditionalInfoForStudentArgs,
@@ -32,11 +32,11 @@ export class AddAdditionalInfoForIncumbentDto
   @ApiProperty({ description: '회사 이름', type: String })
   companyName: string;
 
-  @IsString()
+  @IsOptional()
   @MinLength(2)
   @MaxLength(50)
   @ApiProperty({ description: '회사 복지', type: String })
-  companyWelfare: string;
+  companyWelfare?: string;
 
   // TODO 위치 세분화 필요
   @IsString()
