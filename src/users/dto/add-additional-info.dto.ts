@@ -11,7 +11,7 @@ export class AddAdditionalInfoForIncumbentDto
   @IsString()
   @MinLength(2)
   @MaxLength(50)
-  @ApiProperty({ description: '신고 이유', type: String })
+  @ApiProperty({ description: '세부 업무', type: String })
   jobDescription: string;
 
   @IsString()
