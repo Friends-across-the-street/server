@@ -13,12 +13,7 @@ export class UsersRepository {
         email: true,
         name: true,
         image: true,
-        incumbent_additional: {
-          select: {
-            companyName: true,
-            jobDescription: true,
-          },
-        },
+        // TODO additional data 가져오기
       },
     });
   }
@@ -31,12 +26,7 @@ export class UsersRepository {
         email: true,
         name: true,
         image: true,
-        student_additional: {
-          select: {
-            school: true,
-            major: true,
-          },
-        },
+        // TODO additional data 가져오기
       },
     });
   }
