@@ -11,11 +11,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// generator markdown {
-//   provider = "prisma-markdown"
-//   output   = "../ERD.md"
-//   title    = "DongA"
-// }
+generator markdown {
+  provider = "prisma-markdown"
+  output   = "../ERD.md"
+  title    = "DongA"
+}
 
 model users{
   id Int @default(autoincrement()) @id
@@ -45,9 +45,11 @@ model incumbentsAdditional {
   id    Int     @default(autoincrement()) @id
   userId Int @unique @map("user_id")
   companyId Int @map("company_id")
-  jobDescription String? @map("job_description")
-  major String?
-  school String?
+  schoolId Int @map("school_id")
+  majorId Int @map("major_id")
+  bigJobId Int @map("big_job_id")
+  midJobId Int @map("mid_job_id")
+
   reportedNum Int @default(0) @map("reported_num")
   adviceCount Int @default(0) @map("advice_count")
   estimationCount Float @default(5.0) @map("estimation_count")
@@ -55,6 +57,10 @@ model incumbentsAdditional {
   // relation
   users users @relation(fields: [userId], references: [id], onDelete: Cascade)
   company company @relation(fields: [companyId], references: [id])
+  school school @relation(fields: [schoolId], references: [id])
+  major major @relation(fields: [majorId], references: [id]) 
+  bigJobKind bigJobKind @relation(fields: [bigJobId], references: [id])
+  midJobKind midJobKind @relation(fields: [midJobId], references: [id])
   @@map("incumbents_additional")
 }
 
@@ -62,9 +68,11 @@ model studentsAdditional {
   id    Int     @default(autoincrement()) @id
   userId Int @unique @map("user_id")
   wishCompanyId Int @map("wish_company_id")
-  major String?
-  school String?
-  univLoc String? @map("univ_loc")
+  schoolId Int @map("school_id")
+  majorId Int @map("major_id")
+  wishBigJobId Int @map("wish_big_job_id")
+  wishMidJobId Int @map("wish_mid_job_id")
+
   reportedNum Int @default(0) @map("reported_num")
   totalGrade Float? @map("total_grade")
   adviceCount Int @default(0) @map("advice_count")
@@ -73,10 +81,12 @@ model studentsAdditional {
   // relation
   users users @relation(fields: [userId], references: [id], onDelete: Cascade)
   wishCompany company @relation(fields: [wishCompanyId], references: [id])
+  school school @relation(fields: [schoolId], references: [id])
+  major major @relation(fields: [majorId], references: [id]) 
+  bigJobKind bigJobKind @relation(fields: [wishBigJobId], references: [id])
+  midJobKind midJobKind @relation(fields: [wishMidJobId], references: [id])
 	@@map("students_additional")
 }
-
-// univ_main_branch	major	univ_day_night	field	education
 
 model category{
   id    Int     @default(autoincrement()) @id
@@ -200,15 +210,41 @@ model school {
   id  Int @default(autoincrement()) @id
   name String
   branch String
+
+  major major[]
+  incumebent incumbentsAdditional[]
+  student studentsAdditional[]
 }
 
 model major {
   id  Int @default(autoincrement()) @id
+  schoolId Int
   name String
   dayAndNight dayAndNight
+
+  school school @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  incumebent incumbentsAdditional[]
+  student studentsAdditional[]
 }
 
-// univ_kind	univ_loc	univ_name	
+model bigJobKind {
+  id  Int @default(autoincrement()) @id
+  name String
+
+  midJobKind midJobKind[]
+  incumebent incumbentsAdditional[]
+  student studentsAdditional[]
+}
+
+model midJobKind {
+  id  Int @default(autoincrement()) @id
+  bigJobKindId Int
+  name String
+
+  bigJobKind bigJobKind @relation(fields: [bigJobKindId], references: [id], onDelete: Cascade)
+  incumebent incumbentsAdditional[]
+  student studentsAdditional[]
+}
 
 enum Gender {
   male
