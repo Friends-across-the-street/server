@@ -44,11 +44,11 @@ model users{
 model incumbentsAdditional {
   id    Int     @default(autoincrement()) @id
   userId Int @unique @map("user_id")
-  companyId Int @map("company_id")
-  schoolId Int @map("school_id")
-  majorId Int @map("major_id")
-  bigJobId Int @map("big_job_id")
-  midJobId Int @map("mid_job_id")
+  companyId Int? @map("company_id")
+  schoolId Int? @map("school_id")
+  majorId Int? @map("major_id")
+  bigJobId Int? @map("big_job_id")
+  midJobId Int? @map("mid_job_id")
 
   reportedNum Int @default(0) @map("reported_num")
   adviceCount Int @default(0) @map("advice_count")
@@ -56,22 +56,22 @@ model incumbentsAdditional {
   updatedDate DateTime @default(now()) @updatedAt @map("updated_date")
   // relation
   users users @relation(fields: [userId], references: [id], onDelete: Cascade)
-  company company @relation(fields: [companyId], references: [id])
-  school school @relation(fields: [schoolId], references: [id])
-  major major @relation(fields: [majorId], references: [id]) 
-  bigJobKind bigJobKind @relation(fields: [bigJobId], references: [id])
-  midJobKind midJobKind @relation(fields: [midJobId], references: [id])
+  company company? @relation(fields: [companyId], references: [id])
+  school school? @relation(fields: [schoolId], references: [id])
+  major major? @relation(fields: [majorId], references: [id]) 
+  bigJobKind bigJobKind? @relation(fields: [bigJobId], references: [id])
+  midJobKind midJobKind? @relation(fields: [midJobId], references: [id])
   @@map("incumbents_additional")
 }
 
 model studentsAdditional {
   id    Int     @default(autoincrement()) @id
   userId Int @unique @map("user_id")
-  wishCompanyId Int @map("wish_company_id")
-  schoolId Int @map("school_id")
-  majorId Int @map("major_id")
-  wishBigJobId Int @map("wish_big_job_id")
-  wishMidJobId Int @map("wish_mid_job_id")
+  wishCompanyId Int? @map("wish_company_id")
+  schoolId Int? @map("school_id")
+  majorId Int? @map("major_id")
+  wishBigJobId Int? @map("wish_big_job_id")
+  wishMidJobId Int? @map("wish_mid_job_id")
 
   reportedNum Int @default(0) @map("reported_num")
   totalGrade Float? @map("total_grade")
@@ -80,11 +80,11 @@ model studentsAdditional {
   updatedDate DateTime @default(now()) @updatedAt @map("updated_date")
   // relation
   users users @relation(fields: [userId], references: [id], onDelete: Cascade)
-  wishCompany company @relation(fields: [wishCompanyId], references: [id])
-  school school @relation(fields: [schoolId], references: [id])
-  major major @relation(fields: [majorId], references: [id]) 
-  bigJobKind bigJobKind @relation(fields: [wishBigJobId], references: [id])
-  midJobKind midJobKind @relation(fields: [wishMidJobId], references: [id])
+  wishCompany company? @relation(fields: [wishCompanyId], references: [id])
+  school school? @relation(fields: [schoolId], references: [id])
+  major major? @relation(fields: [majorId], references: [id]) 
+  bigJobKind bigJobKind? @relation(fields: [wishBigJobId], references: [id])
+  midJobKind midJobKind? @relation(fields: [wishMidJobId], references: [id])
 	@@map("students_additional")
 }
 
