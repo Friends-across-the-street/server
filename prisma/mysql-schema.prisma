@@ -49,6 +49,7 @@ model incumbentsAdditional {
   majorId Int? @map("major_id")
   bigJobId Int? @map("big_job_id")
   midJobId Int? @map("mid_job_id")
+  smallJobId Int? @map("small_job_id")
 
   reportedNum Int @default(0) @map("reported_num")
   adviceCount Int @default(0) @map("advice_count")
@@ -61,6 +62,7 @@ model incumbentsAdditional {
   major major? @relation(fields: [majorId], references: [id]) 
   bigJobKind bigJobKind? @relation(fields: [bigJobId], references: [id])
   midJobKind midJobKind? @relation(fields: [midJobId], references: [id])
+  smallJobKind smallJobKind? @relation(fields: [smallJobId], references: [id])
   @@map("incumbents_additional")
 }
 
@@ -72,6 +74,7 @@ model studentsAdditional {
   majorId Int? @map("major_id")
   wishBigJobId Int? @map("wish_big_job_id")
   wishMidJobId Int? @map("wish_mid_job_id")
+  wishsmallJobId Int? @map("wish_small_job_id")
 
   reportedNum Int @default(0) @map("reported_num")
   totalGrade Float? @map("total_grade")
@@ -85,6 +88,7 @@ model studentsAdditional {
   major major? @relation(fields: [majorId], references: [id]) 
   bigJobKind bigJobKind? @relation(fields: [wishBigJobId], references: [id])
   midJobKind midJobKind? @relation(fields: [wishMidJobId], references: [id])
+  smallJobKind smallJobKind? @relation(fields: [wishsmallJobId], references: [id])
 	@@map("students_additional")
 }
 
@@ -200,7 +204,6 @@ model company {
   scale String
   kind String
   group Int
-  job String
 
   incumebent incumbentsAdditional[]
   student studentsAdditional[]
@@ -242,6 +245,17 @@ model midJobKind {
   name String
 
   bigJobKind bigJobKind @relation(fields: [bigJobKindId], references: [id], onDelete: Cascade)
+  smallJobKind smallJobKind[]
+  incumebent incumbentsAdditional[]
+  student studentsAdditional[]
+}
+
+model smallJobKind {
+  id  Int @default(autoincrement()) @id
+  midJobKindId Int
+  name String
+
+  midJobKind midJobKind @relation(fields: [midJobKindId], references: [id], onDelete: Cascade)
   incumebent incumbentsAdditional[]
   student studentsAdditional[]
 }
