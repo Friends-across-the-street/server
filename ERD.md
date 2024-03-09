@@ -6,53 +6,43 @@
 ## default
 ```mermaid
 erDiagram
-"incumbents" {
+"users" {
     Int id PK
     String email UK
     String password
     String name
     Int age
     Gender gender
+    String image "nullable"
+    userType type
     DateTime created_date
+    DateTime updated_date
 }
 "incumbents_additional" {
     Int id PK
-    Int incumbent_id FK
-    String image "nullable"
-    String school "nullable"
-    String job_description "nullable"
+    Int user_id FK
+    Int company_id FK "nullable"
+    Int school_id FK "nullable"
+    Int major_id FK "nullable"
+    Int big_job_id FK "nullable"
+    Int mid_job_id FK "nullable"
     Int reported_num
     Int advice_count
     Float estimation_count
-    String major "nullable"
-    String company_name "nullable"
-    String company_welfare
-    String company_location "nullable"
     DateTime updated_date
-}
-"students" {
-    Int id PK
-    String email UK
-    String password
-    String name
-    Int age
-    Gender gender
-    DateTime created_date
 }
 "students_additional" {
     Int id PK
-    Int student_id FK
-    String image "nullable"
-    String major "nullable"
-    String school "nullable"
+    Int user_id FK
+    Int wish_company_id FK "nullable"
+    Int school_id FK "nullable"
+    Int major_id FK "nullable"
+    Int wish_big_job_id FK "nullable"
+    Int wish_mid_job_id FK "nullable"
     Int reported_num
     Float total_grade "nullable"
     Int advice_count
     Float estimationCount
-    String wish_job_description "nullable"
-    String wish_company_name "nullable"
-    String wish_company_welfare "nullable"
-    String wish_company_location "nullable"
     DateTime updated_date
 }
 "category" {
@@ -61,8 +51,7 @@ erDiagram
 }
 "posts" {
     Int id PK
-    Int incumbent_id FK "nullable"
-    Int student_id FK "nullable"
+    Int user_id FK "nullable"
     Int category_id FK "nullable"
     String title
     String content
@@ -75,68 +64,110 @@ erDiagram
 "comments" {
     Int id PK
     Int post_id FK
-    Int incumbent_id FK "nullable"
-    Int student_id FK "nullable"
+    Int user_id FK "nullable"
     String content
-    Int parent_comment_id
-    Int hit
+    Int parent_comment_id FK "nullable"
+    Int recommend
     Int reported
     DateTime created_date
     DateTime updated_date
+    Boolean is_delete
 }
 "recommend_posts" {
     Int id PK
     Int post_id FK
-    Int incumbent_id FK "nullable"
-    Int student_id FK "nullable"
+    Int user_id FK
     DateTime created_date
 }
 "reported_posts" {
     Int id PK
     Int post_id FK
-    Int incumbent_id FK "nullable"
-    Int student_id FK "nullable"
+    Int user_id FK
     String reason
     DateTime created_date
 }
 "recommend_comments" {
     Int id PK
     Int comment_id FK
-    Int incumbent_id FK "nullable"
-    Int student_id FK "nullable"
+    Int user_id FK
     DateTime created_date
 }
 "reported_comments" {
     Int id PK
     Int comment_id FK
-    Int incumbent_id FK "nullable"
-    Int student_id FK "nullable"
+    Int user_id FK
     String reason
     DateTime created_date
 }
-"incumbents_additional" |o--|| "incumbents" : incumbents
-"students_additional" |o--|| "students" : students
+"reported_users" {
+    Int id PK
+    Int target_user_id FK
+    Int reporting_user_id
+    String reason
+    DateTime created_date
+}
+"company" {
+    Int id PK
+    String name
+    String address
+    Float longitude
+    Float latitude
+    String scale
+    String kind
+    Int group
+    String job
+}
+"school" {
+    Int id PK
+    String name
+    String branch
+}
+"major" {
+    Int id PK
+    Int schoolId FK
+    String name
+    dayAndNight dayAndNight
+}
+"bigJobKind" {
+    Int id PK
+    String name
+}
+"midJobKind" {
+    Int id PK
+    Int bigJobKindId FK
+    String name
+}
+"incumbents_additional" |o--|| "users" : users
+"incumbents_additional" }o--|| "company" : company
+"incumbents_additional" }o--|| "school" : school
+"incumbents_additional" }o--|| "major" : major
+"incumbents_additional" }o--|| "bigJobKind" : bigJobKind
+"incumbents_additional" }o--|| "midJobKind" : midJobKind
+"students_additional" |o--|| "users" : users
+"students_additional" }o--|| "company" : wishCompany
+"students_additional" }o--|| "school" : school
+"students_additional" }o--|| "major" : major
+"students_additional" }o--|| "bigJobKind" : bigJobKind
+"students_additional" }o--|| "midJobKind" : midJobKind
 "posts" }o--|| "category" : categories
-"posts" }o--|| "incumbents" : incumbents
-"posts" }o--|| "students" : students
-"comments" }o--|| "incumbents" : incumbents
-"comments" }o--|| "students" : students
+"posts" }o--|| "users" : users
+"comments" }o--|| "users" : users
 "comments" }|--|| "posts" : post
-"recommend_posts" }o--|| "incumbents" : incumbents
-"recommend_posts" }o--|| "students" : students
+"comments" }o--o| "comments" : parent
+"recommend_posts" }|--|| "users" : users
 "recommend_posts" }|--|| "posts" : post
-"reported_posts" }o--|| "incumbents" : incumbents
-"reported_posts" }o--|| "students" : students
+"reported_posts" }|--|| "users" : users
 "reported_posts" }|--|| "posts" : post
 "recommend_comments" }|--|| "comments" : comment
-"recommend_comments" }o--|| "incumbents" : incumbents
-"recommend_comments" }o--|| "students" : students
+"recommend_comments" }|--|| "users" : users
 "reported_comments" }|--|| "comments" : comment
-"reported_comments" }o--|| "incumbents" : incumbents
-"reported_comments" }o--|| "students" : students
+"reported_comments" }|--|| "users" : users
+"reported_users" }|--|| "users" : users
+"major" }|--|| "school" : school
+"midJobKind" }|--|| "bigJobKind" : bigJobKind
 ```
 
-### `incumbents`
+### `users`
 
 **Properties**
   - `id`: 
@@ -145,52 +176,40 @@ erDiagram
   - `name`: 
   - `age`: 
   - `gender`: 
+  - `image`: 
+  - `type`: 
   - `created_date`: 
+  - `updated_date`: 
 
 ### `incumbents_additional`
 
 **Properties**
   - `id`: 
-  - `incumbent_id`: 
-  - `image`: 
-  - `school`: 
-  - `job_description`: 
+  - `user_id`: 
+  - `company_id`: 
+  - `school_id`: 
+  - `major_id`: 
+  - `big_job_id`: 
+  - `mid_job_id`: 
   - `reported_num`: 
   - `advice_count`: 
   - `estimation_count`: 
-  - `major`: 
-  - `company_name`: 
-  - `company_welfare`: 
-  - `company_location`: 
   - `updated_date`: 
-
-### `students`
-
-**Properties**
-  - `id`: 
-  - `email`: 
-  - `password`: 
-  - `name`: 
-  - `age`: 
-  - `gender`: 
-  - `created_date`: 
 
 ### `students_additional`
 
 **Properties**
   - `id`: 
-  - `student_id`: 
-  - `image`: 
-  - `major`: 
-  - `school`: 
+  - `user_id`: 
+  - `wish_company_id`: 
+  - `school_id`: 
+  - `major_id`: 
+  - `wish_big_job_id`: 
+  - `wish_mid_job_id`: 
   - `reported_num`: 
   - `total_grade`: 
   - `advice_count`: 
   - `estimationCount`: 
-  - `wish_job_description`: 
-  - `wish_company_name`: 
-  - `wish_company_welfare`: 
-  - `wish_company_location`: 
   - `updated_date`: 
 
 ### `category`
@@ -203,8 +222,7 @@ erDiagram
 
 **Properties**
   - `id`: 
-  - `incumbent_id`: 
-  - `student_id`: 
+  - `user_id`: 
   - `category_id`: 
   - `title`: 
   - `content`: 
@@ -219,22 +237,21 @@ erDiagram
 **Properties**
   - `id`: 
   - `post_id`: 
-  - `incumbent_id`: 
-  - `student_id`: 
+  - `user_id`: 
   - `content`: 
   - `parent_comment_id`: 
-  - `hit`: 
+  - `recommend`: 
   - `reported`: 
   - `created_date`: 
   - `updated_date`: 
+  - `is_delete`: 
 
 ### `recommend_posts`
 
 **Properties**
   - `id`: 
   - `post_id`: 
-  - `incumbent_id`: 
-  - `student_id`: 
+  - `user_id`: 
   - `created_date`: 
 
 ### `reported_posts`
@@ -242,8 +259,7 @@ erDiagram
 **Properties**
   - `id`: 
   - `post_id`: 
-  - `incumbent_id`: 
-  - `student_id`: 
+  - `user_id`: 
   - `reason`: 
   - `created_date`: 
 
@@ -252,8 +268,7 @@ erDiagram
 **Properties**
   - `id`: 
   - `comment_id`: 
-  - `incumbent_id`: 
-  - `student_id`: 
+  - `user_id`: 
   - `created_date`: 
 
 ### `reported_comments`
@@ -261,7 +276,56 @@ erDiagram
 **Properties**
   - `id`: 
   - `comment_id`: 
-  - `incumbent_id`: 
-  - `student_id`: 
+  - `user_id`: 
   - `reason`: 
   - `created_date`: 
+
+### `reported_users`
+
+**Properties**
+  - `id`: 
+  - `target_user_id`: 
+  - `reporting_user_id`: 
+  - `reason`: 
+  - `created_date`: 
+
+### `company`
+
+**Properties**
+  - `id`: 
+  - `name`: 
+  - `address`: 
+  - `longitude`: 
+  - `latitude`: 
+  - `scale`: 
+  - `kind`: 
+  - `group`: 
+  - `job`: 
+
+### `school`
+
+**Properties**
+  - `id`: 
+  - `name`: 
+  - `branch`: 
+
+### `major`
+
+**Properties**
+  - `id`: 
+  - `schoolId`: 
+  - `name`: 
+  - `dayAndNight`: 
+
+### `bigJobKind`
+
+**Properties**
+  - `id`: 
+  - `name`: 
+
+### `midJobKind`
+
+**Properties**
+  - `id`: 
+  - `bigJobKindId`: 
+  - `name`: 
