@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
+import { AddAdditionalInfoArgs } from './interface/add-additional-info.interface';
 
 @Injectable()
 export class UsersRepository {
@@ -27,6 +28,40 @@ export class UsersRepository {
         name: true,
         image: true,
         // TODO additional data 가져오기
+      },
+    });
+  }
+
+  async addAdditionalInfoForIncumbent(
+    userId: number,
+    args: AddAdditionalInfoArgs,
+  ) {
+    return await this.prismaService.incumbentsAdditional.update({
+      where: { userId },
+      data: {
+        schoolId: args.schoolId,
+        majorId: args.majorId,
+        companyId: args.companyId,
+        bigJobId: args.bigJobKindId,
+        midJobId: args.midJobKindId,
+        smallJobId: args.smallJobKindId,
+      },
+    });
+  }
+
+  async addAdditionalInfoForStudent(
+    userId: number,
+    args: AddAdditionalInfoArgs,
+  ) {
+    return await this.prismaService.studentsAdditional.update({
+      where: { userId },
+      data: {
+        schoolId: args.schoolId,
+        majorId: args.majorId,
+        wishCompanyId: args.companyId,
+        wishBigJobId: args.bigJobKindId,
+        wishMidJobId: args.midJobKindId,
+        wishSmallJobId: args.smallJobKindId,
       },
     });
   }

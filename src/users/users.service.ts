@@ -6,6 +6,7 @@ import { CustomException } from 'src/global/exception/custom.exception';
 import { PrismaService } from 'src/prisma.service';
 import { UsersRepository } from './users.repository';
 import { UserDataInAuthGuard } from 'src/global/types/user.type';
+import { AddAdditionalInfoArgs } from './interface/add-additional-info.interface';
 
 @Injectable()
 export class UsersService {
@@ -43,9 +44,37 @@ export class UsersService {
     });
   }
 
-  async addAdditionalInfo(userId: number, dto, user) {}
+  async addAdditionalInfo(
+    userId: number,
+    args: AddAdditionalInfoArgs,
+    user: UserDataInAuthGuard,
+  ): Promise<void> {
+    if (user.id !== userId) {
+      throw new CustomException('권한이 존재하지 않습니다.', 403);
+    }
+
+    switch (user.type) {
+      case userType.incumbent:
+        await this.usersReopsitory.addAdditionalInfoForIncumbent(userId, args);
+        break;
+      case userType.student:
+        await this.usersReopsitory.addAdditionalInfoForStudent(userId, args);
+        break;
+    }
+
+    return;
+  }
 
   async createMockData() {
+    const additionalInfo: AddAdditionalInfoArgs = {
+      schoolId: 1,
+      majorId: 1,
+      companyId: 1,
+      bigJobKindId: 1,
+      midJobKindId: 1,
+      smallJobKindId: 1,
+    };
+
     const incumbent = await this.prismaService.users.findFirst({
       where: { email: 'incumbent_test1@naver.com' },
     });
@@ -58,7 +87,12 @@ export class UsersService {
         gender: Gender.male,
         type: userType.incumbent,
       };
+
       await this.authService.signup(create);
+      await this.usersReopsitory.addAdditionalInfoForIncumbent(
+        incumbent.id,
+        additionalInfo,
+      );
     }
     const student = await this.prismaService.users.findFirst({
       where: { email: 'student_test1@naver.com' },
@@ -72,7 +106,12 @@ export class UsersService {
         gender: Gender.female,
         type: userType.student,
       };
+
       await this.authService.signup(create);
+      await this.usersReopsitory.addAdditionalInfoForStudent(
+        incumbent.id,
+        additionalInfo,
+      );
     }
   }
 }
