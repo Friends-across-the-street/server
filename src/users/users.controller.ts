@@ -97,7 +97,7 @@ export class UsersController {
     });
   }
 
-  @Post()
+  @Post('/additional-info/:userId')
   @UseGuards(AuthGuard)
   async addAddtionalInfo(
     @Param('userId') userId: number,
