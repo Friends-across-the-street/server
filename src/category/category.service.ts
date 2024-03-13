@@ -21,6 +21,7 @@ export class CategoryService {
   async createMockData() {
     const categories = await this.prismaService.category.findMany();
     if (categories.length === 0) {
+      console.log('Insert Tag Mock Data');
       await this.prismaService.category.createMany({
         data: [
           { name: '질문 게시판' },

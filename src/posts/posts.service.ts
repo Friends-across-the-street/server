@@ -265,6 +265,7 @@ export class PostsService {
     });
     const post = { title: '더미데이터', content: '더미데이터' };
     if (!existStudentPost) {
+      console.log('Insert Post Mock Data');
       await this.prismaService.posts.create({
         data: { ...post, userId: 1, categoryId: 1 },
       });
