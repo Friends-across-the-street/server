@@ -14,7 +14,7 @@ export class UsersInsertMockService {
     private readonly usersReopsitory: UsersRepository,
   ) {}
 
-  async createMockData() {
+  async createUsersMockData() {
     const additionalInfo: AddAdditionalInfoArgs = {
       schoolId: 1,
       majorId: 1,
