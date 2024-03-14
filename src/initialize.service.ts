@@ -14,9 +14,9 @@ export class InitializeService implements OnModuleInit {
 
   async onModuleInit() {
     if (process.env.NODE_ENV === 'dev') {
-      await this.categoryService.createMockData();
-      await this.usersInsertMockService.createUsersMockData();
-      await this.postsService.createMockData();
+      // await this.categoryService.createMockData();
+      // await this.usersInsertMockService.createUsersMockData();
+      // await this.postsService.createMockData();
     }
   }
 }
