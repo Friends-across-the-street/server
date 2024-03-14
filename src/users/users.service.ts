@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { Gender, userType } from 'prisma/generated/mysql';
+import { userType } from 'prisma/generated/mysql';
 import { AuthService } from 'src/auth/auth.service';
-import { CreateUserDto } from 'src/auth/dto/create-user.dto';
 import { CustomException } from 'src/global/exception/custom.exception';
 import { PrismaService } from 'src/prisma.service';
 import { UsersRepository } from './users.repository';
 import { UserDataInAuthGuard } from 'src/global/types/user.type';
+import { AddAdditionalInfoArgs } from './interface/add-additional-info.interface';
 
 @Injectable()
 export class UsersService {
@@ -43,36 +43,24 @@ export class UsersService {
     });
   }
 
-  async addAdditionalInfo(userId: number, dto, user) {}
+  async addAdditionalInfo(
+    userId: number,
+    args: AddAdditionalInfoArgs,
+    user: UserDataInAuthGuard,
+  ): Promise<void> {
+    if (user.id !== userId) {
+      throw new CustomException('권한이 존재하지 않습니다.', 403);
+    }
 
-  async createMockData() {
-    const incumbent = await this.prismaService.users.findFirst({
-      where: { email: 'incumbent_test1@naver.com' },
-    });
-    if (!incumbent) {
-      const create: CreateUserDto = {
-        email: 'incumbent_test1@naver.com',
-        password: 'incumbent1',
-        name: '나는야 현직자 이상훈',
-        age: 25,
-        gender: Gender.male,
-        type: userType.incumbent,
-      };
-      await this.authService.signup(create);
+    switch (user.type) {
+      case userType.incumbent:
+        await this.usersReopsitory.addAdditionalInfoForIncumbent(userId, args);
+        break;
+      case userType.student:
+        await this.usersReopsitory.addAdditionalInfoForStudent(userId, args);
+        break;
     }
-    const student = await this.prismaService.users.findFirst({
-      where: { email: 'student_test1@naver.com' },
-    });
-    if (!student) {
-      const create: CreateUserDto = {
-        email: 'student_test1@naver.com',
-        password: 'student1',
-        name: '나는야 인천대 공진성',
-        age: 20,
-        gender: Gender.female,
-        type: userType.student,
-      };
-      await this.authService.signup(create);
-    }
+
+    return;
   }
 }
