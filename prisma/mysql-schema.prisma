@@ -202,7 +202,6 @@ model company {
   longitude Float
   latitude Float
   scale String
-  kind String
   group Int
 
   incumebent incumbentsAdditional[]
@@ -223,7 +222,7 @@ model major {
   id  Int @default(autoincrement()) @id
   schoolId Int
   name String
-  dayAndNight dayAndNight
+  dayAndNight String
 
   school school @relation(fields: [schoolId], references: [id], onDelete: Cascade)
   incumebent incumbentsAdditional[]
@@ -269,9 +268,4 @@ enum userType {
   incumbent
   student
   admin
-}
-
-enum dayAndNight {
-  day
-  night
 }
