@@ -30,11 +30,11 @@ export class PostsService {
 
   async getPage(page: number, limit: number, categoryId?: number) {
     const result = [];
-    let queryStr = `SELECT p.id AS postId, p.title, p.content, p.view, p.recommend, p.created_date AS postCreateDate, p.updated_date AS postUpdateDate, u.id AS userId, u.name AS username, u.image, u.type AS userType, c.name AS companyName, sm.name AS jobDescription, sc.name AS school, m.name AS major
+    let queryStr = `SELECT p.id AS postId, p.title, p.content, p.view, p.recommend, p.created_date AS postCreateDate, p.updated_date AS postUpdateDate, u.id AS userId, u.name AS username, u.image, u.type AS userType, co.name AS companyName, sm.name AS jobDescription, sc.name AS school, m.name AS major
     FROM posts AS p
     LEFT JOIN users AS u ON p.user_id = u.id
     LEFT JOIN incumbents_additional AS i ON u.id = i.user_id
-    LEFT JOIN company AS c ON i.company_id = c.id
+    LEFT JOIN company AS co ON i.company_id = co.id
     LEFT JOIN smallJobKind AS sm ON i.small_job_id = sm.id
     LEFT JOIN students_additional AS s ON u.id = s.user_id
     LEFT JOIN school AS sc ON s.school_id = sc.id
@@ -89,16 +89,16 @@ export class PostsService {
 
   async getDetailOnePost(postId: number, user: UserDataInAuthGuard) {
     const postList: onePostForQuery[] = await this.prismaService.$queryRaw`
-    SELECT p.id AS id, p.title AS title, p.content AS content, p.view AS view, p.recommend AS recommend, p.created_date AS createdDate, p.updated_date AS updatedDate, p.user_id AS postUserId, u.name, u.image, u.type AS userType, c.name AS companyName, sm.name AS jobDescription, sc.name AS school, m.name AS major
+    SELECT p.id AS id, p.title AS title, p.content AS content, p.view AS view, p.recommend AS recommend, p.created_date AS createdDate, p.updated_date AS updatedDate, p.user_id AS postUserId, u.name, u.image, u.type AS userType, co.name AS companyName, sm.name AS jobDescription, sc.name AS school, m.name AS major
     FROM posts AS p
     LEFT JOIN users AS u ON p.user_id = u.id
     LEFT JOIN incumbents_additional AS i ON u.id = i.user_id
-    LEFT JOIN company AS c ON i.company_id = c.id
+    LEFT JOIN company AS co ON i.company_id = co.id
     LEFT JOIN smallJobKind AS sm ON i.small_job_id = sm.id
     LEFT JOIN students_additional AS s ON u.id = s.user_id
     LEFT JOIN school AS sc ON s.school_id = sc.id
     LEFT JOIN major AS m ON s.major_id = m.id
-    WHERE p.id = ${postId}`;
+    WHERE p.id = ${postId};`;
 
     const post = postList.pop();
 
@@ -169,7 +169,7 @@ export class PostsService {
     FROM comments AS c
     LEFT JOIN users AS u ON c.user_id = u.id
     LEFT JOIN incumbents_additional AS i ON u.id = i.user_id
-    LEFT JOIN company AS co ON i.company_id = c.id
+    LEFT JOIN company AS co ON i.company_id = co.id
     LEFT JOIN smallJobKind AS sm ON i.small_job_id = sm.id
     LEFT JOIN students_additional AS s ON u.id = s.user_id
     LEFT JOIN school AS sc ON s.school_id = sc.id
@@ -273,45 +273,41 @@ export class PostsService {
   async createMockData() {
     // 게시글 삽입
     const existStudentPost = await this.prismaService.posts.findFirst({
-      where: { AND: { userId: 1, title: '더미데이터' } },
+      where: { title: '제목1' },
     });
-    const post = { title: '더미데이터', content: '더미데이터' };
     if (!existStudentPost) {
       console.log('Insert Post Mock Data');
-      await this.prismaService.posts.create({
-        data: { ...post, userId: 1, categoryId: 1 },
-      });
-    }
-
-    const post2 = { title: '더미데이터2', content: '더미데이터2' };
-    const existIncumbentPost = await this.prismaService.posts.findFirst({
-      where: { userId: 11, title: '더미데이터2' },
-    });
-    if (!existIncumbentPost) {
-      await this.prismaService.posts.create({
-        data: { ...post2, userId: 11, categoryId: 2 },
-      });
+      for (let i = 0; i < 15; i++) {
+        const title = '제목' + String(i + 1);
+        const content = '내용' + String(i + 1);
+        // user 20개
+        const randUserId = Math.floor(Math.random() * 20) + 1;
+        const randCategoryId = Math.floor(Math.random() * 3) + 1;
+        console.log(randUserId, randCategoryId);
+        await this.prismaService.posts.create({
+          data: {
+            title,
+            content,
+            userId: randUserId,
+            categoryId: randCategoryId,
+          },
+        });
+      }
     }
 
     // 댓글 삽입
-    const comment = { userId: 15, postId: 1, content: '더미데이터' };
     const existStudentComment = await this.prismaService.comments.findFirst({
-      where: { AND: comment },
+      where: { content: '댓글1' },
     });
     if (!existStudentComment) {
-      await this.prismaService.comments.create({
-        data: { ...comment },
-      });
-    }
-
-    const comment2 = { userId: 5, postId: 1, content: '더미데이터' };
-    const existIncumbentComment = await this.prismaService.comments.findFirst({
-      where: { AND: comment2 },
-    });
-    if (!existIncumbentComment) {
-      await this.prismaService.comments.create({
-        data: { ...comment2 },
-      });
+      for (let i = 0; i < 25; i++) {
+        const content = '댓글' + String(i + 1);
+        const randUserId = Math.floor(Math.random() * 20) + 1;
+        const randPostId = Math.floor(Math.random() * 15) + 1;
+        await this.prismaService.comments.create({
+          data: { userId: randUserId, postId: randPostId, content },
+        });
+      }
     }
   }
 }
