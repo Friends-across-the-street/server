@@ -178,13 +178,16 @@ export class UsersInsertMockService {
       },
     ];
 
-    const isBigKindExist = await this.prismaService.bigJobKind.findFirst({
-      where: { name: 'Banking/financial industry' },
+    let isBigKindExist = await this.prismaService.bigJobKind.findUnique({
+      where: { id: 1 },
     });
     if (!isBigKindExist) {
       console.log('Insert Big-Job-Kind Mock Data');
-      await this.prismaService.bigJobKind.createMany({
+      const data = await this.prismaService.bigJobKind.createMany({
         data: dummyBigKind,
+      });
+      isBigKindExist = await this.prismaService.bigJobKind.findUnique({
+        where: { id: 1 },
       });
     }
 
@@ -215,13 +218,16 @@ export class UsersInsertMockService {
       },
     ];
 
-    const isMidKindExist = await this.prismaService.midJobKind.findFirst({
-      where: { name: 'Other finance' },
+    let isMidKindExist = await this.prismaService.midJobKind.findUnique({
+      where: { id: 1 },
     });
     if (!isMidKindExist) {
       console.log('Insert Mid-Job-Kind Mock Data');
       await this.prismaService.midJobKind.createMany({
         data: dummyMidKind,
+      });
+      isMidKindExist = await this.prismaService.midJobKind.findUnique({
+        where: { id: 1 },
       });
     }
 
@@ -412,9 +418,10 @@ export class UsersInsertMockService {
           gender,
           type,
         };
+
         await this.authService.signup(create);
         await this.usersReopsitory.addAdditionalInfoForIncumbent(
-          incumbent.id,
+          i + 1,
           additionalInfoArr[i],
         );
       }
@@ -441,8 +448,8 @@ export class UsersInsertMockService {
           type,
         };
         await this.authService.signup(create);
-        await this.usersReopsitory.addAdditionalInfoForIncumbent(
-          incumbent.id,
+        await this.usersReopsitory.addAdditionalInfoForStudent(
+          i + 11,
           additionalInfoArr[additionalInfoArr.length - i - 1],
         );
       }
