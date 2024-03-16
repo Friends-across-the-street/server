@@ -273,16 +273,16 @@ export class PostsService {
 
     const post2 = { title: '더미데이터2', content: '더미데이터2' };
     const existIncumbentPost = await this.prismaService.posts.findFirst({
-      where: { userId: 2, title: '더미데이터2' },
+      where: { userId: 11, title: '더미데이터2' },
     });
     if (!existIncumbentPost) {
       await this.prismaService.posts.create({
-        data: { ...post2, userId: 2, categoryId: 2 },
+        data: { ...post2, userId: 11, categoryId: 2 },
       });
     }
 
     // 댓글 삽입
-    const comment = { userId: 1, postId: 1, content: '더미데이터' };
+    const comment = { userId: 15, postId: 1, content: '더미데이터' };
     const existStudentComment = await this.prismaService.comments.findFirst({
       where: { AND: comment },
     });
@@ -292,13 +292,13 @@ export class PostsService {
       });
     }
 
-    const comment2 = { userId: 1, postId: 1, content: '더미데이터' };
+    const comment2 = { userId: 5, postId: 1, content: '더미데이터' };
     const existIncumbentComment = await this.prismaService.comments.findFirst({
       where: { AND: comment2 },
     });
     if (!existIncumbentComment) {
       await this.prismaService.comments.create({
-        data: { ...comment },
+        data: { ...comment2 },
       });
     }
   }
