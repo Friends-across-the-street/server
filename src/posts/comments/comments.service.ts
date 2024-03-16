@@ -11,7 +11,7 @@ export class CommentService {
 
   async create(args: CreateCommentArgs) {
     const isExist = await this.prismaService.comments.findFirst({
-      where: { id: args.parentCommentId },
+      where: { AND: { id: args.parentCommentId, postId: args.postId } },
     });
 
     if (!isExist) {
