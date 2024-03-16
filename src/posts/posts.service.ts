@@ -30,11 +30,15 @@ export class PostsService {
 
   async getPage(page: number, limit: number, categoryId?: number) {
     const result = [];
-    let queryStr = `SELECT p.id AS postId, p.title, p.content, p.view, p.recommend, p.created_date AS postCreateDate, p.updated_date AS postUpdateDate, u.id AS userId, u.name AS username, u.image, u.type AS userType, i.company_name AS companyName, i.job_description AS jobDescription, s.major, s.school
+    let queryStr = `SELECT p.id AS postId, p.title, p.content, p.view, p.recommend, p.created_date AS postCreateDate, p.updated_date AS postUpdateDate, u.id AS userId, u.name AS username, u.image, u.type AS userType, c.name AS companyName, sm.name AS jobDescription, sc.name AS school, m.name AS major
     FROM posts AS p
     LEFT JOIN users AS u ON p.user_id = u.id
     LEFT JOIN incumbents_additional AS i ON u.id = i.user_id
+    LEFT JOIN company AS c ON i.company_id = c.id
+    LEFT JOIN smallJobKind AS sm ON i.small_job_id = sm.id
     LEFT JOIN students_additional AS s ON u.id = s.user_id
+    LEFT JOIN school AS sc ON s.school_id = sc.id
+    LEFT JOIN major AS m ON s.major_id = m.id
     `;
 
     if (categoryId) {
@@ -85,11 +89,15 @@ export class PostsService {
 
   async getDetailOnePost(postId: number, user: UserDataInAuthGuard) {
     const postList: onePostForQuery[] = await this.prismaService.$queryRaw`
-    SELECT p.id AS id, p.title AS title, p.content AS content, p.view AS view, p.recommend AS recommend, p.created_date AS createdDate, p.updated_date AS updatedDate, p.user_id AS postUserId, u.name, u.image, u.type AS userType, i.company_name AS companyName, i.job_description AS jobDescription, s.major AS major, s.school AS school
+    SELECT p.id AS id, p.title AS title, p.content AS content, p.view AS view, p.recommend AS recommend, p.created_date AS createdDate, p.updated_date AS updatedDate, p.user_id AS postUserId, u.name, u.image, u.type AS userType, c.name AS companyName, sm.name AS jobDescription, sc.name AS school, m.name AS major
     FROM posts AS p
     LEFT JOIN users AS u ON p.user_id = u.id
     LEFT JOIN incumbents_additional AS i ON u.id = i.user_id
+    LEFT JOIN company AS c ON i.company_id = c.id
+    LEFT JOIN smallJobKind AS sm ON i.small_job_id = sm.id
     LEFT JOIN students_additional AS s ON u.id = s.user_id
+    LEFT JOIN school AS sc ON s.school_id = sc.id
+    LEFT JOIN major AS m ON s.major_id = m.id
     WHERE p.id = ${postId}`;
 
     const post = postList.pop();
@@ -157,11 +165,15 @@ export class PostsService {
   private async findCommentsByPostId(postId: number, userId: number) {
     const comments: commentsInPostForQuery[] = await this.prismaService
       .$queryRaw`
-    SELECT c.id AS id, c.content, c.recommend, c.parent_comment_id AS parentCommentId, c.created_date AS createdDate, c.updated_date AS updatedDate, c.user_id AS commentUserId, c.is_delete AS isDelete, u.name AS username, u.image AS image, u.type AS userType, i.company_name AS companyName, i.job_description AS jobDescription, s.major AS major, s.school AS school
+    SELECT c.id AS id, c.content, c.recommend, c.parent_comment_id AS parentCommentId, c.created_date AS createdDate, c.updated_date AS updatedDate, c.user_id AS commentUserId, c.is_delete AS isDelete, u.name AS username, u.image AS image, u.type AS userType, co.name AS companyName, sm.name AS jobDescription, sc.name AS school, m.name AS major
     FROM comments AS c
     LEFT JOIN users AS u ON c.user_id = u.id
     LEFT JOIN incumbents_additional AS i ON u.id = i.user_id
+    LEFT JOIN company AS co ON i.company_id = c.id
+    LEFT JOIN smallJobKind AS sm ON i.small_job_id = sm.id
     LEFT JOIN students_additional AS s ON u.id = s.user_id
+    LEFT JOIN school AS sc ON s.school_id = sc.id
+    LEFT JOIN major AS m ON s.major_id = m.id
     WHERE post_id = ${postId}
     ORDER BY (parent_comment_id IS NULL) DESC, parent_comment_id ASC;`;
 
