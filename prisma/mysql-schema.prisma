@@ -86,9 +86,9 @@ model studentsAdditional {
   wishCompany company? @relation(fields: [wishCompanyId], references: [id])
   school school? @relation(fields: [schoolId], references: [id])
   major major? @relation(fields: [majorId], references: [id]) 
-  bigJobKind bigJobKind? @relation(fields: [wishBigJobId], references: [id])
-  midJobKind midJobKind? @relation(fields: [wishMidJobId], references: [id])
-  smallJobKind smallJobKind? @relation(fields: [wishSmallJobId], references: [id])
+  wishBigJobKind bigJobKind? @relation(fields: [wishBigJobId], references: [id])
+  wishMidJobKind midJobKind? @relation(fields: [wishMidJobId], references: [id])
+  wishSmallJobKind smallJobKind? @relation(fields: [wishSmallJobId], references: [id])
 	@@map("students_additional")
 }
 
