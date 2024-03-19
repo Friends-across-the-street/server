@@ -32,6 +32,34 @@ export class UsersRepository {
     });
   }
 
+  async getMyProfileForIncumbent(userId: number) {
+    return await this.prismaService.incumbentsAdditional.findFirst({
+      where: { userId },
+      select: {
+        adviceCount: true,
+        estimationCount: true,
+        company: { select: { name: true } },
+        school: { select: { name: true, branch: true } },
+        major: { select: { name: true, dayAndNight: true } },
+        smallJobKind: { select: { name: true } },
+      },
+    });
+  }
+
+  async getMyProfileForStudent(userId: number) {
+    return await this.prismaService.studentsAdditional.findFirst({
+      where: { userId },
+      select: {
+        totalGrade: true,
+        estimationCount: true,
+        wishCompany: { select: { name: true } },
+        school: { select: { name: true, branch: true } },
+        major: { select: { name: true, dayAndNight: true } },
+        wishSmallJobKind: { select: { name: true } },
+      },
+    });
+  }
+
   async addAdditionalInfoForIncumbent(
     userId: number,
     args: AddAdditionalInfoArgs,

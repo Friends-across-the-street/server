@@ -31,6 +31,41 @@ export class UsersService {
     return user;
   }
 
+  async getMyProfile(user: UserDataInAuthGuard) {
+    let additionalData, companyName, smallJobKindName;
+    const userData = await this.prismaService.users.findFirst({
+      where: { id: user.id },
+      select: { email: true, name: true, age: true, gender: true, image: true },
+    });
+    switch (user.type) {
+      case userType.incumbent:
+        additionalData = await this.usersReopsitory.getMyProfileForIncumbent(
+          user.id,
+        );
+        companyName = additionalData.company.name;
+        smallJobKindName = additionalData.smallJobKind.name;
+        break;
+      case userType.student:
+        additionalData = await this.usersReopsitory.getMyProfileForStudent(
+          user.id,
+        );
+        companyName = additionalData.wishCompany.name;
+        smallJobKindName = additionalData.wishSmallJobKind.name;
+        delete additionalData.wishCompany;
+        delete additionalData.wishSmallJobKind;
+        break;
+    }
+
+    return {
+      ...userData,
+      additionalInfo: {
+        ...additionalData,
+        company: companyName,
+        smallJobKind: smallJobKindName,
+      },
+    };
+  }
+
   async uploadImage(user: UserDataInAuthGuard, file: Express.MulterS3.File) {
     if (file === undefined || file.location === undefined) {
       throw new CustomException('파일 저장에 실패했습니다.', 400);
