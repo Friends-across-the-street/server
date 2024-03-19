@@ -57,6 +57,21 @@ export class UsersController {
     );
   }
 
+  @ApiOperation({ summary: '내 정보 조회' })
+  @ApiResponse({ status: 200, description: '정보 조회 성공' })
+  @ApiResponse({
+    status: 401,
+    description: '헤더의 Auth정보가 존재하지 않습니다.',
+  })
+  @ApiResponse({ status: 403, description: '토큰이 유효하지 않습니다.' })
+  @ApiResponse({ status: 404, description: '유저 정보 없음' })
+  @ApiBearerAuth('access-token')
+  @UseGuards(AuthGuard)
+  @Get('/mypage')
+  async getMyProfile(@RequestUser() user: UserDataInAuthGuard) {
+    return await this.usersService.getMyProfile(user);
+  }
+
   @ApiOperation({ summary: '유저 정보 조회' })
   @ApiResponse({ status: 200, description: '정보 조회 성공' })
   @ApiResponse({ status: 404, description: '유저 정보 없음' })
