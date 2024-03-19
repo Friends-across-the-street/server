@@ -48,7 +48,6 @@ export class PostsController {
     status: 404,
     description: 'userId가 일치하지 않습니다. or 카테고리 ID 미전송',
   })
-  @ApiParam({ name: 'categoryId', type: Number, description: '카테고리 ID' })
   @ApiTags('POST')
   @ApiBearerAuth('access-token')
   @Post('/')
