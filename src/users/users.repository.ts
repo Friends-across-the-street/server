@@ -7,27 +7,37 @@ export class UsersRepository {
   constructor(private readonly prismaService: PrismaService) {}
 
   async findIncumbentById(userId: number) {
-    return await this.prismaService.users.findFirst({
-      where: { id: userId },
+    return await this.prismaService.incumbentsAdditional.findFirst({
+      where: { userId },
       select: {
-        id: true,
-        email: true,
-        name: true,
-        image: true,
-        // TODO additional data 가져오기
+        company: {
+          select: {
+            name: true,
+          },
+        },
+        smallJobKind: {
+          select: {
+            name: true,
+          },
+        },
       },
     });
   }
 
   async findStudentById(userId: number) {
-    return await this.prismaService.users.findFirst({
-      where: { id: userId },
+    return await this.prismaService.studentsAdditional.findFirst({
+      where: { userId },
       select: {
-        id: true,
-        email: true,
-        name: true,
-        image: true,
-        // TODO additional data 가져오기
+        school: {
+          select: {
+            name: true,
+          },
+        },
+        major: {
+          select: {
+            name: true,
+          },
+        },
       },
     });
   }
