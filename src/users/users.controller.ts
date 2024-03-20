@@ -47,7 +47,7 @@ export class UsersController {
   @Post('/additional/:id')
   async addAdditionalInfo(
     @Param('id') userId: number,
-    @Body() additionalInfo,
+    @Body() additionalInfo: AddAdditionalInfo,
     user: UserDataInAuthGuard,
   ) {
     return await this.usersService.addAdditionalInfo(
@@ -110,16 +110,6 @@ export class UsersController {
       reason: dto.reason,
       reportingUser: user,
     });
-  }
-
-  @Post('/additional-info/:userId')
-  @UseGuards(AuthGuard)
-  async addAddtionalInfo(
-    @Param('userId') userId: number,
-    @Body() dto: AddAdditionalInfo,
-    @RequestUser() user: UserDataInAuthGuard,
-  ) {
-    return await this.usersService.addAdditionalInfo(userId, dto, user);
   }
 
   @ApiOperation({ summary: '유저 이미지 업로드' })
