@@ -15,20 +15,43 @@ export class UsersService {
     private readonly usersReopsitory: UsersRepository,
   ) {}
 
-  async findById(userId: number, type: userType) {
-    let user;
-    switch (type) {
-      case userType.incumbent:
-        user = await this.usersReopsitory.findIncumbentById(userId);
-        break;
-      case userType.student:
-        user = await this.usersReopsitory.findStudentById(userId);
-        break;
-    }
+  async findById(userId: number) {
+    const user = await this.prismaService.users.findFirst({
+      where: { id: userId },
+      select: {
+        email: true,
+        name: true,
+        age: true,
+        gender: true,
+        image: true,
+        type: true,
+      },
+    });
     if (!user) {
       throw new CustomException('유저가 존재하지 않음', 404);
     }
-    return user;
+
+    let additionalData, companyName, smallJobKindName, schoolName, majorName;
+    switch (user.type) {
+      case userType.incumbent:
+        additionalData = await this.usersReopsitory.findIncumbentById(userId);
+        companyName = additionalData.company.name;
+        smallJobKindName = additionalData.smallJobKind.name;
+        break;
+      case userType.student:
+        additionalData = await this.usersReopsitory.findStudentById(userId);
+        schoolName = additionalData.school.name;
+        majorName = additionalData.major.name;
+        break;
+    }
+
+    return {
+      ...user,
+      company: companyName ?? null,
+      smallJobKind: smallJobKindName ?? null,
+      school: schoolName ?? null,
+      major: majorName ?? null,
+    };
   }
 
   async getMyProfile(user: UserDataInAuthGuard) {
