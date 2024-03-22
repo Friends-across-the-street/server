@@ -9,7 +9,7 @@ export interface postInList {
   readonly postCreateDate: Date;
   readonly postUpdateDate: Date;
   readonly userId: number;
-  readonly username: string;
+  readonly name: string;
   readonly image: string;
   readonly userType: userType;
 

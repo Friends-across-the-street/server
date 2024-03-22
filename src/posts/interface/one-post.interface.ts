@@ -26,7 +26,7 @@ export interface refinedOnePost {
   readonly id: number;
   readonly user: {
     readonly id?: number;
-    readonly username: string;
+    readonly name: string;
     readonly image?: string;
     readonly type: userType;
     readonly additionalInfo: {
@@ -53,7 +53,7 @@ export interface commentsInPostForQuery {
   readonly commentUserId: number;
   readonly userId: number;
   readonly userType: userType;
-  readonly username: string;
+  readonly name: string;
   readonly image: string;
   readonly isDelete: boolean;
 

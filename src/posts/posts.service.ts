@@ -30,7 +30,7 @@ export class PostsService {
 
   async getPage(page: number, limit: number, categoryId?: number) {
     const result = [];
-    let queryStr = `SELECT p.id AS postId, p.title, p.content, p.view, p.recommend, p.created_date AS postCreateDate, p.updated_date AS postUpdateDate, u.id AS userId, u.name AS username, u.image, u.type AS userType, co.name AS companyName, sm.name AS jobDescription, sc.name AS school, m.name AS major
+    let queryStr = `SELECT p.id AS postId, p.title, p.content, p.view, p.recommend, p.created_date AS postCreateDate, p.updated_date AS postUpdateDate, u.id AS userId, u.name AS name, u.image, u.type AS userType, co.name AS companyName, sm.name AS jobDescription, sc.name AS school, m.name AS major
     FROM posts AS p
     LEFT JOIN users AS u ON p.user_id = u.id
     LEFT JOIN incumbents_additional AS i ON u.id = i.user_id
@@ -57,7 +57,7 @@ export class PostsService {
     postList.forEach((post: postInList) => {
       const type: userType = post.userType;
       const id = post.userId;
-      const username = post.username;
+      const name = post.name;
       const image = post.image;
 
       const refinedPost = {
@@ -71,7 +71,7 @@ export class PostsService {
         user: {
           type,
           id,
-          username,
+          name,
           image,
           additionalInfo: {
             companyName: post.companyName || null,
@@ -128,7 +128,7 @@ export class PostsService {
       id: post.id,
       user: {
         id: post.postUserId,
-        username: post.name,
+        name: post.name,
         image: post.image || null,
         type: post.userType,
         additionalInfo: {
@@ -165,7 +165,7 @@ export class PostsService {
   private async findCommentsByPostId(postId: number, userId: number) {
     const comments: commentsInPostForQuery[] = await this.prismaService
       .$queryRaw`
-    SELECT c.id AS id, c.content, c.recommend, c.parent_comment_id AS parentCommentId, c.created_date AS createdDate, c.updated_date AS updatedDate, c.user_id AS commentUserId, c.is_delete AS isDelete, u.name AS username, u.image AS image, u.type AS userType, co.name AS companyName, sm.name AS jobDescription, sc.name AS school, m.name AS major
+    SELECT c.id AS id, c.content, c.recommend, c.parent_comment_id AS parentCommentId, c.created_date AS createdDate, c.updated_date AS updatedDate, c.user_id AS commentUserId, c.is_delete AS isDelete, u.name AS name, u.image AS image, u.type AS userType, co.name AS companyName, sm.name AS jobDescription, sc.name AS school, m.name AS major
     FROM comments AS c
     LEFT JOIN users AS u ON c.user_id = u.id
     LEFT JOIN incumbents_additional AS i ON u.id = i.user_id
@@ -196,7 +196,7 @@ export class PostsService {
         content: comment.content,
         user: {
           id: comment.commentUserId,
-          name: comment.username,
+          name: comment.name,
           image: comment.image || null,
           type: comment.userType,
           additionalInfo: {
