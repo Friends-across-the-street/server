@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { ValidationPipe } from '@nestjs/common';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 import * as path from 'path';
 import * as dotenv from 'dotenv';
 import { winstonLogger } from './global/winston.config';
@@ -20,6 +20,10 @@ async function bootstrap() {
   });
 
   const app = await NestFactory.create(AppModule, { logger: winstonLogger });
+
+  // Versioning
+  app.setGlobalPrefix('api');
+  app.enableVersioning({ type: VersioningType.URI, defaultVersion: '1' });
 
   // Apply Socket.io Adapter
   app.useWebSocketAdapter(new SocketIoAdapter(app));
