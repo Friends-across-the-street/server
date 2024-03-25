@@ -51,6 +51,7 @@ model incumbentsAdditional {
   midJobId Int? @map("mid_job_id")
   smallJobId Int? @map("small_job_id")
 
+  shortSpec String? @map("short_spec")
   reportedNum Int @default(0) @map("reported_num")
   adviceCount Int @default(0) @map("advice_count")
   estimationCount Float @default(5.0) @map("estimation_count")
