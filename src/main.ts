@@ -22,7 +22,6 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, { logger: winstonLogger });
 
   // Versioning
-  app.setGlobalPrefix('api');
   app.enableVersioning({ type: VersioningType.URI, defaultVersion: '1' });
 
   // Apply Socket.io Adapter
