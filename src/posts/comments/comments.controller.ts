@@ -128,4 +128,31 @@ export class CommentsController {
   ) {
     return await this.reportService.reportComment({ commentId, ...dto, user });
   }
+
+  @ApiOperation({ summary: '댓글 추천' })
+  @ApiResponse({ status: 201, description: '댓글 추천 성공' })
+  @ApiResponse({
+    status: 401,
+    description: '헤더의 Auth 토큰이 존재하지 않습니다',
+  })
+  @ApiResponse({ status: 403, description: '토큰이 일치하지 않습니다.' })
+  @ApiResponse({
+    status: 404,
+    description: '유저가 존재하지 않습니다. or 댓글이 존재하지 않습니다.',
+  })
+  @ApiBearerAuth('access-token')
+  @ApiParam({
+    name: 'commentId',
+    type: Number,
+    description: '댓글 ID',
+    required: true,
+  })
+  @Post('/recommend/:commentId')
+  @UseGuards(AuthGuard)
+  async recommend(
+    @Param('commentId') commentId: number,
+    @RequestUser() user: UserDataInAuthGuard,
+  ) {
+    return await this.recommendService.recommendComment({ commentId, user });
+  }
 }

@@ -163,11 +163,11 @@ model reportedPosts {
 
 model recommendComments {
   id    Int     @default(autoincrement()) @id
-  commendId Int @map("comment_id")
+  commentId Int @map("comment_id")
   userId Int @map("user_id")
   createdDate DateTime @default(now()) @map("created_date")
   // relation
-  comment comments @relation(fields: [commendId], references: [id], onDelete: Cascade)
+  comment comments @relation(fields: [commentId], references: [id], onDelete: Cascade)
   users users? @relation(fields: [userId], references: [id], onDelete: Cascade)
 	@@map("recommend_comments")
 }
