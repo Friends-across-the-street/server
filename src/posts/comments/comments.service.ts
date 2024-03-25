@@ -10,12 +10,14 @@ export class CommentService {
   constructor(private prismaService: PrismaService) {}
 
   async create(args: CreateCommentArgs) {
-    const isExist = await this.prismaService.comments.findFirst({
-      where: { AND: { id: args.parentCommentId, postId: args.postId } },
-    });
+    if (args.parentCommentId) {
+      const isExist = await this.prismaService.comments.findFirst({
+        where: { AND: { id: args.parentCommentId, postId: args.postId } },
+      });
 
-    if (!isExist) {
-      throw new CustomException('부모 댓글의 ID가 존재하지 않습니다', 404);
+      if (!isExist) {
+        throw new CustomException('부모 댓글의 ID가 존재하지 않습니다', 404);
+      }
     }
 
     return await this.prismaService.comments.create({
