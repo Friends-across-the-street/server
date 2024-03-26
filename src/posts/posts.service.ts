@@ -179,7 +179,15 @@ export class PostsService {
 
     const refinedComments = [];
 
-    comments.forEach((comment) => {
+    comments.forEach(async (comment) => {
+      let checkRecommend: boolean = false;
+      const isRecommend = await this.prismaService.recommendComments.findFirst({
+        where: { AND: { commentId: comment.id, userId } },
+      });
+      if (isRecommend) {
+        checkRecommend = true;
+      }
+
       if (comment.isDelete) {
         const removedData: removedCommentsInPost = { id: comment.id };
         refinedComments.push(removedData);
@@ -211,6 +219,7 @@ export class PostsService {
         createdDate: comment.createdDate,
         updatedDate: comment.updatedDate,
         isMine: checkMine,
+        isRecommend: checkRecommend,
       };
 
       refinedComments.push(pushedData);
