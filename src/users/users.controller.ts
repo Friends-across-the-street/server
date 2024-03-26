@@ -30,6 +30,7 @@ import { ReportsService } from 'src/reports/reports.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { MulterUserGuard } from 'src/global/guard/multer-user.guard';
 import { AddAdditionalInfo } from './dto/add-additional-info.dto';
+import { RegisterShortSpecDto } from './dto/register-short-spec.interface';
 
 @ApiTags('USER')
 @Controller('users')
@@ -149,5 +150,33 @@ export class UsersController {
   ) {
     await this.usersService.uploadImage(req.user, file);
     return file.location;
+  }
+
+  @ApiOperation({ summary: '현직자 한줄 소개 등록' })
+  @ApiResponse({ status: 200, description: '한줄 소개 등록 성공' })
+  @ApiResponse({
+    status: 400,
+    description:
+      '정상적인 접근이 아닙니다.(로그인 된 유저의 정보가 현직자가 아니거나 param에 던진 userId가 현직자가 아닌경우)',
+  })
+  @ApiResponse({
+    status: 401,
+    description: '헤더의 Auth 토큰이 존재하지 않습니다',
+  })
+  @ApiResponse({ status: 403, description: '토큰이 일치하지 않습니다.' })
+  @ApiResponse({
+    status: 404,
+    description: '해당 유저가 존재하지 않습니다.',
+  })
+  @ApiBearerAuth('access-token')
+  @ApiParam({ name: 'userId', type: Number, description: '유저 ID' })
+  @Post('/register/spec/:userId')
+  @UseGuards(AuthGuard)
+  async registerShortSpec(
+    @Param('userId') userId: number,
+    @Body() dto: RegisterShortSpecDto,
+    @RequestUser() user: UserDataInAuthGuard,
+  ) {
+    return await this.usersService.registerShortSpec({ userId, ...dto, user });
   }
 }
