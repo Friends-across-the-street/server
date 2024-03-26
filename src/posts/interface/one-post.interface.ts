@@ -56,6 +56,7 @@ export interface commentsInPostForQuery {
   readonly name: string;
   readonly image: string;
   readonly isDelete: boolean;
+  readonly recommendedUserId: number;
 
   readonly companyName: string;
   readonly jobDescription: string;
@@ -90,6 +91,7 @@ export interface refinedCommentsInPost {
   readonly createdDate: Date;
   readonly updatedDate: Date;
   readonly isMine: boolean;
+  readonly isRecommend: boolean;
 }
 
 /** 삭제된 댓글 리턴값 */
