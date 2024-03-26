@@ -100,13 +100,13 @@ export class PostsController {
     status: 404,
     description: '유저가 존재하지 않습니다. or 게시글이 존재하지 않습니다.',
   })
-  @ApiParam({ name: 'id', type: Number, description: '페이지 ID' })
+  @ApiParam({ name: 'postId', type: Number, description: '페이지 ID' })
   @ApiBearerAuth('access-token')
   @ApiTags('POST')
-  @Get('/detail/:id')
+  @Get('/detail/:postId')
   @UseGuards(AuthGuard)
   async getPost(
-    @Param('id') postId: number,
+    @Param('postId') postId: number,
     @RequestUser() user: UserDataInAuthGuard,
   ) {
     return await this.postsService.getDetailOnePost(postId, user);
@@ -128,11 +128,11 @@ export class PostsController {
     status: 404,
     description: '유저가 존재하지 않습니다. or 게시글이 존재하지 않습니다.',
   })
-  @ApiParam({ name: 'id', type: Number, description: '게시글 ID' })
-  @Put('/:id')
+  @ApiParam({ name: 'postId', type: Number, description: '게시글 ID' })
+  @Put('/:postId')
   @UseGuards(AuthGuard)
   async update(
-    @Param('id') postId: number,
+    @Param('postId') postId: number,
     @Body() dto: UpdatePostDto,
     @RequestUser() user: UserDataInAuthGuard,
   ) {
@@ -155,11 +155,11 @@ export class PostsController {
     status: 404,
     description: '유저가 존재하지 않습니다. or 게시글이 존재하지 않습니다.',
   })
-  @ApiParam({ name: 'id', type: Number, description: '게시글 ID' })
-  @Delete('/:id')
+  @ApiParam({ name: 'postId', type: Number, description: '게시글 ID' })
+  @Delete('/:postId')
   @UseGuards(AuthGuard)
   async delete(
-    @Param('id') postId: number,
+    @Param('postId') postId: number,
     @RequestUser() user: UserDataInAuthGuard,
   ) {
     return await this.postsService.delete(postId, user);
