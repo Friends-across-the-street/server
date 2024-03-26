@@ -44,10 +44,11 @@ export class UsersController {
   @ApiResponse({ status: 200, description: '유저 상세 정보 등록 성공' })
   @ApiResponse({ status: 403, description: '토큰이 일치하지 않습니다.' })
   @ApiResponse({ status: 404, description: '유저 정보 없음' })
+  @ApiParam({ name: 'userId', type: Number, description: '유저 ID' })
   @UseGuards(AuthGuard)
-  @Post('/additional/:id')
+  @Post('/additional/:userId')
   async addAdditionalInfo(
-    @Param('id') userId: number,
+    @Param('userId') userId: number,
     @Body() additionalInfo: AddAdditionalInfo,
     user: UserDataInAuthGuard,
   ) {
@@ -76,8 +77,9 @@ export class UsersController {
   @ApiOperation({ summary: '유저 정보 조회' })
   @ApiResponse({ status: 200, description: '정보 조회 성공' })
   @ApiResponse({ status: 404, description: '유저 정보 없음' })
-  @Get('/:id')
-  async findById(@Param('id') userId: number) {
+  @ApiParam({ name: 'userId', type: Number, description: '유저 ID' })
+  @Get('/:userId')
+  async findById(@Param('userId') userId: number) {
     return await this.usersService.findById(userId);
   }
 

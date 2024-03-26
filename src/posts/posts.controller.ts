@@ -100,7 +100,7 @@ export class PostsController {
     status: 404,
     description: '유저가 존재하지 않습니다. or 게시글이 존재하지 않습니다.',
   })
-  @ApiParam({ name: 'postId', type: Number, description: '페이지 ID' })
+  @ApiParam({ name: 'postId', type: Number, description: '게시글 ID' })
   @ApiBearerAuth('access-token')
   @ApiTags('POST')
   @Get('/detail/:postId')
@@ -177,7 +177,7 @@ export class PostsController {
     description: '유저가 존재하지 않습니다. or 게시글이 존재하지 않습니다.',
   })
   @ApiBearerAuth('access-token')
-  @ApiParam({ name: 'postId', type: Number, description: '페이지 ID' })
+  @ApiParam({ name: 'postId', type: Number, description: '게시글 ID' })
   @ApiTags('POST')
   @Post('/report/:postId')
   @UseGuards(AuthGuard)
@@ -201,7 +201,7 @@ export class PostsController {
     description: '유저가 존재하지 않습니다. or 게시글이 존재하지 않습니다.',
   })
   @ApiBearerAuth('access-token')
-  @ApiParam({ name: 'postId', type: Number, description: '페이지 ID' })
+  @ApiParam({ name: 'postId', type: Number, description: '게시글 ID' })
   @ApiTags('POST')
   @Post('/recommend/:postId')
   @UseGuards(AuthGuard)
