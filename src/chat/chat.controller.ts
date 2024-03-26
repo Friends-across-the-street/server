@@ -18,11 +18,11 @@ export class ChatController {
   @ApiOperation({ summary: '채팅 전송' })
   @ApiResponse({ status: 200, description: '채팅 전송 성공' })
   @ApiResponse({ status: 404, description: '상대방을 찾을 수 없음' })
-  @ApiParam({ name: 'id', type: Number, description: '대상 유저 ID' })
+  @ApiParam({ name: 'userId', type: Number, description: '대상 유저 ID' })
   @ApiBearerAuth('access-token')
-  @Post('/:id')
+  @Post('/:userId')
   @UseGuards(AuthGuard)
-  async send(@Param('id') id: number, @Body() dto: SendChatDto) {
+  async send(@Param('userId') id: number, @Body() dto: SendChatDto) {
     return await this.chatService.send(id, dto);
   }
 }
