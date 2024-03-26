@@ -34,11 +34,3 @@ jobs:
       - name: npm install 버전 동기화
         run: |
           npm install
-
-      - name: prsima generate(mysql)
-        run: |
-          npm run generate:mysql
-
-      - name: prsima generate(mongo)
-        run: |
-          npm run generate:mongo
