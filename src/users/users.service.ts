@@ -6,6 +6,7 @@ import { PrismaService } from 'src/prisma.service';
 import { UsersRepository } from './users.repository';
 import { UserDataInAuthGuard } from 'src/global/types/user.type';
 import { AddAdditionalInfoArgs } from './interface/add-additional-info.interface';
+import { RegisterShortSpecArgs } from './interface/register-short-spec.interface';
 
 @Injectable()
 export class UsersService {
@@ -120,5 +121,16 @@ export class UsersService {
     }
 
     return;
+  }
+
+  async registerShortSpec(args: RegisterShortSpecArgs) {
+    const user = await this.prismaService.users.findFirst({
+      where: { id: args.userId },
+      select: { id: true, type: true },
+    });
+    if (args.user.type !== userType.incumbent || args.user.id !== user.id) {
+      throw new CustomException('정상적인 접근이 아닙니다.', 400);
+    }
+    return await this.usersReopsitory.registerShortSpec(args);
   }
 }

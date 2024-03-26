@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { AddAdditionalInfoArgs } from './interface/add-additional-info.interface';
+import { RegisterShortSpecArgs } from './interface/register-short-spec.interface';
 
 @Injectable()
 export class UsersRepository {
@@ -20,6 +21,15 @@ export class UsersRepository {
             name: true,
           },
         },
+      },
+    });
+  }
+
+  async registerShortSpec(args: RegisterShortSpecArgs) {
+    return await this.prismaService.incumbentsAdditional.update({
+      where: { userId: args.userId },
+      data: {
+        shortSpec: args.spec,
       },
     });
   }
