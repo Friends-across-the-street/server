@@ -1,0 +1,272 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/mysql"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator markdown {
+  provider = "prisma-markdown"
+  output   = "../ERD.md"
+  title    = "DongA"
+}
+
+model users{
+  id Int @default(autoincrement()) @id
+  email String  @unique
+  password String
+  name  String
+  age Int
+  gender Gender
+  image String?
+  type userType
+  createdDate DateTime @default(now()) @map("created_date")
+  updatedDate DateTime @default(now()) @updatedAt @map("updated_date")
+
+  // relation
+  incumbent_additional incumbentsAdditional?
+  student_additional studentsAdditional?
+  posts posts[]
+  comments comments[]
+  recommend_posts recommendPosts[] 
+  recommend_comments recommendComments[]
+  reported_posts reportedPosts[]
+  reported_comments reportedComments[]
+  reported_users reportedUsers[]
+}
+
+model incumbentsAdditional {
+  id    Int     @default(autoincrement()) @id
+  userId Int @unique @map("user_id")
+  companyId Int? @map("company_id")
+  schoolId Int? @map("school_id")
+  majorId Int? @map("major_id")
+  bigJobId Int? @map("big_job_id")
+  midJobId Int? @map("mid_job_id")
+  smallJobId Int? @map("small_job_id")
+
+  shortSpec String? @map("short_spec")
+  reportedNum Int @default(0) @map("reported_num")
+  adviceCount Int @default(0) @map("advice_count")
+  estimationCount Float @default(5.0) @map("estimation_count")
+  updatedDate DateTime @default(now()) @updatedAt @map("updated_date")
+  // relation
+  users users @relation(fields: [userId], references: [id], onDelete: Cascade)
+  company company? @relation(fields: [companyId], references: [id])
+  school school? @relation(fields: [schoolId], references: [id])
+  major major? @relation(fields: [majorId], references: [id]) 
+  bigJobKind bigJobKind? @relation(fields: [bigJobId], references: [id])
+  midJobKind midJobKind? @relation(fields: [midJobId], references: [id])
+  smallJobKind smallJobKind? @relation(fields: [smallJobId], references: [id])
+  @@map("incumbents_additional")
+}
+
+model studentsAdditional {
+  id    Int     @default(autoincrement()) @id
+  userId Int @unique @map("user_id")
+  wishCompanyId Int? @map("wish_company_id")
+  schoolId Int? @map("school_id")
+  majorId Int? @map("major_id")
+  wishBigJobId Int? @map("wish_big_job_id")
+  wishMidJobId Int? @map("wish_mid_job_id")
+  wishSmallJobId Int? @map("wish_small_job_id")
+
+  reportedNum Int @default(0) @map("reported_num")
+  totalGrade Float? @map("total_grade")
+  adviceCount Int @default(0) @map("advice_count")
+  estimationCount Float @default(5.0) @map("estimationCount")
+  updatedDate DateTime @default(now()) @updatedAt @map("updated_date")
+  // relation
+  users users @relation(fields: [userId], references: [id], onDelete: Cascade)
+  wishCompany company? @relation(fields: [wishCompanyId], references: [id])
+  school school? @relation(fields: [schoolId], references: [id])
+  major major? @relation(fields: [majorId], references: [id]) 
+  wishBigJobKind bigJobKind? @relation(fields: [wishBigJobId], references: [id])
+  wishMidJobKind midJobKind? @relation(fields: [wishMidJobId], references: [id])
+  wishSmallJobKind smallJobKind? @relation(fields: [wishSmallJobId], references: [id])
+	@@map("students_additional")
+}
+
+model category{
+  id    Int     @default(autoincrement()) @id
+  name String
+  // relation
+  posts posts[]
+}
+
+model posts {
+  id    Int     @default(autoincrement()) @id
+  userId Int? @map("user_id")
+  categoryId Int? @map("category_id")
+  title String
+  content String
+  view Int @default(0)
+  recommend Int @default(0)
+  reported Int @default(0)
+  createdDate DateTime @default(now()) @map("created_date")
+  updatedDate DateTime @default(now()) @updatedAt @map("updated_date")
+  // relation
+  categories category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  users users? @relation(fields: [userId], references: [id], onDelete: SetNull)
+  comments comments[]
+  recommend_posts recommendPosts[]
+  reported_posts reportedPosts[]
+}
+
+model comments {
+  id    Int     @default(autoincrement()) @id
+  postId Int @map("post_id")
+  userId Int? @map("user_id")
+  content String
+  parentCommentId Int? @map("parent_comment_id")
+  recommend Int @default(0)
+  reported Int @default(0)
+  createdDate DateTime @default(now()) @map("created_date")
+  updatedDate DateTime @default(now()) @updatedAt @map("updated_date")
+  isDelete Boolean @default(false) @map("is_delete")
+  // relation
+  users users? @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post posts @relation(fields: [postId], references: [id], onDelete: Cascade)
+  parent  comments? @relation("reply", fields: [parentCommentId], references: [id], onDelete: SetNull)
+  replies comments[] @relation("reply")
+  recommend_comments recommendComments[]
+  reported_comments reportedComments[]
+}
+
+model recommendPosts {
+  id    Int     @default(autoincrement()) @id
+  postId Int @map("post_id")
+  userId Int @map("user_id")
+  createdDate DateTime @default(now()) @map("created_date")
+  // relation
+  users users? @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post posts @relation(fields: [postId], references: [id], onDelete: Cascade)
+	@@map("recommend_posts")
+}
+
+model reportedPosts {
+  id    Int     @default(autoincrement()) @id
+  postId Int @map("post_id")
+  userId Int @map("user_id")
+  reason String
+  createdDate DateTime @default(now()) @map("created_date")
+  // relation
+  users users? @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post posts @relation(fields: [postId], references: [id], onDelete: Cascade)
+	@@map("reported_posts")
+}
+
+model recommendComments {
+  id    Int     @default(autoincrement()) @id
+  commentId Int @map("comment_id")
+  userId Int @map("user_id")
+  createdDate DateTime @default(now()) @map("created_date")
+  // relation
+  comment comments @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  users users? @relation(fields: [userId], references: [id], onDelete: Cascade)
+	@@map("recommend_comments")
+}
+
+model reportedComments {
+  id    Int     @default(autoincrement()) @id
+  commentId Int @map("comment_id")
+  userId Int @map("user_id")
+  reason String
+  createdDate DateTime @default(now()) @map("created_date")
+  // relation
+  comment comments @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  users users? @relation(fields: [userId], references: [id], onDelete: Cascade)
+	@@map("reported_comments")
+}
+
+model reportedUsers {
+  id    Int     @default(autoincrement()) @id
+  targetUserId Int @map("target_user_id")
+  reportingUserId Int @map("reporting_user_id")
+  reason String
+  createdDate DateTime @default(now()) @map("created_date")
+  // relation
+  users users? @relation(fields: [targetUserId], references: [id], onDelete: Cascade)
+	@@map("reported_users")
+}
+
+model company {
+  id    Int     @default(autoincrement()) @id
+  name String
+  address String
+  longitude Float
+  latitude Float
+  scale String
+  group Int
+
+  incumebent incumbentsAdditional[]
+  student studentsAdditional[]
+}
+
+model school {
+  id  Int @default(autoincrement()) @id
+  name String
+  branch String
+
+  major major[]
+  incumebent incumbentsAdditional[]
+  student studentsAdditional[]
+}
+
+model major {
+  id  Int @default(autoincrement()) @id
+  schoolId Int
+  name String
+  dayAndNight String
+
+  school school @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  incumebent incumbentsAdditional[]
+  student studentsAdditional[]
+}
+
+model bigJobKind {
+  id  Int @default(autoincrement()) @id
+  name String
+
+  midJobKind midJobKind[]
+  incumebent incumbentsAdditional[]
+  student studentsAdditional[]
+}
+
+model midJobKind {
+  id  Int @default(autoincrement()) @id
+  bigJobKindId Int
+  name String
+
+  bigJobKind bigJobKind @relation(fields: [bigJobKindId], references: [id], onDelete: Cascade)
+  smallJobKind smallJobKind[]
+  incumebent incumbentsAdditional[]
+  student studentsAdditional[]
+}
+
+model smallJobKind {
+  id  Int @default(autoincrement()) @id
+  midJobKindId Int
+  name String
+
+  midJobKind midJobKind @relation(fields: [midJobKindId], references: [id], onDelete: Cascade)
+  incumebent incumbentsAdditional[]
+  student studentsAdditional[]
+}
+
+enum Gender {
+  male
+  female
+}
+
+enum userType {
+  incumbent
+  student
+  admin
+}
