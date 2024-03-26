@@ -4,7 +4,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ValidationPipe, VersioningType } from '@nestjs/common';
 import * as path from 'path';
 import * as dotenv from 'dotenv';
-import { winstonLogger } from './global/winston.config';
+// import { winstonLogger } from './global/winston.config';
 import { SocketIoAdapter } from './global/adapter/socket.adapter';
 
 async function bootstrap() {
@@ -19,7 +19,7 @@ async function bootstrap() {
     ),
   });
 
-  const app = await NestFactory.create(AppModule, { logger: winstonLogger });
+  const app = await NestFactory.create(AppModule);
   app.enableCors({
     origin: process.env.FRONT_URL,
   });
