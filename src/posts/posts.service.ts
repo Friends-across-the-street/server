@@ -175,7 +175,7 @@ export class PostsService {
     LEFT JOIN school AS sc ON s.school_id = sc.id
     LEFT JOIN major AS m ON s.major_id = m.id
     WHERE post_id = ${postId}
-    ORDER BY (parent_comment_id IS NULL) DESC, parent_comment_id ASC;`;
+    ORDER BY createdDate ASC;`;
 
     const refinedComments = [];
 
