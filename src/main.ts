@@ -21,7 +21,7 @@ async function bootstrap() {
 
   const app = await NestFactory.create(AppModule, { logger: winstonLogger });
   app.enableCors({
-    origin: 'https://xn--9l4bo7egwa5g67k.xn--hk3b17f.xn--3e0b707e/',
+    origin: process.env.FRONT_URL,
   });
   // Versioning
   app.enableVersioning({ type: VersioningType.URI, defaultVersion: '1' });
