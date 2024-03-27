@@ -7,6 +7,7 @@ import { UsersRepository } from './users.repository';
 import { UserDataInAuthGuard } from 'src/global/types/user.type';
 import { AddAdditionalInfoArgs } from './interface/add-additional-info.interface';
 import { RegisterShortSpecArgs } from './interface/register-short-spec.interface';
+import { RemoveShortSpecArgs } from './interface/remove-short-spec.interface';
 
 @Injectable()
 export class UsersService {
@@ -131,6 +132,28 @@ export class UsersService {
     if (args.user.type !== userType.incumbent || args.user.id !== user.id) {
       throw new CustomException('정상적인 접근이 아닙니다.', 400);
     }
-    return await this.usersReopsitory.registerShortSpec(args);
+
+    return await this.prismaService.incumbentsAdditional.update({
+      where: { userId: args.userId },
+      data: {
+        shortSpec: args.spec,
+      },
+    });
+  }
+
+  async removeShortSpec(args: RemoveShortSpecArgs) {
+    const user = await this.prismaService.users.findFirst({
+      where: { id: args.userId },
+      select: { id: true, type: true },
+    });
+    if (args.user.type !== userType.incumbent || args.user.id !== user.id) {
+      throw new CustomException('정상적인 접근이 아닙니다.', 400);
+    }
+    return await this.prismaService.incumbentsAdditional.update({
+      where: { userId: args.userId },
+      data: {
+        shortSpec: null,
+      },
+    });
   }
 }
