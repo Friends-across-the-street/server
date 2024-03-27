@@ -25,15 +25,6 @@ export class UsersRepository {
     });
   }
 
-  async registerShortSpec(args: RegisterShortSpecArgs) {
-    return await this.prismaService.incumbentsAdditional.update({
-      where: { userId: args.userId },
-      data: {
-        shortSpec: args.spec,
-      },
-    });
-  }
-
   async findStudentById(userId: number) {
     return await this.prismaService.studentsAdditional.findFirst({
       where: { userId },
