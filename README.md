@@ -2,7 +2,7 @@
 
 ## Project Architecture
 
-![image](https://github.com/Friends-across-the-street/server/assets/108740187/3d2f0598-8976-42e5-9249-016f72f5ae9c)
+![image](https://github.com/Friends-across-the-street/server/assets/108740187/1d387b22-33a8-442f-94e2-73757f10b9e2)
 
 ## Project ERD
 
