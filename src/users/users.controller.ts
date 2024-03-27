@@ -1,24 +1,22 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
-  Query,
   Request,
   UploadedFile,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { userType } from 'prisma/generated/mysql';
 import {
   ApiBearerAuth,
   ApiBody,
   ApiConsumes,
   ApiOperation,
   ApiParam,
-  ApiQuery,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -154,12 +152,12 @@ export class UsersController {
     return file.location;
   }
 
-  @ApiOperation({ summary: '현직자 한줄 소개 등록' })
-  @ApiResponse({ status: 200, description: '한줄 소개 등록 성공' })
+  @ApiOperation({ summary: '현직자 한줄 소개 등록/수정' })
+  @ApiResponse({ status: 200, description: '한줄 소개 등록/수정 성공' })
   @ApiResponse({
     status: 400,
     description:
-      '정상적인 접근이 아닙니다.(로그인 된 유저의 정보가 현직자가 아니거나 param에 던진 userId가 현직자가 아닌경우)',
+      '정상적인 접근이 아닙니다.(로그인 된 유저의 정보가 현직자가 아니거나 param에 던진 userId가 로그인된 사용자랑 다를경우)',
   })
   @ApiResponse({
     status: 401,
@@ -180,5 +178,32 @@ export class UsersController {
     @RequestUser() user: UserDataInAuthGuard,
   ) {
     return await this.usersService.registerShortSpec({ userId, ...dto, user });
+  }
+
+  @ApiOperation({ summary: '현직자 한줄 소개 삭제' })
+  @ApiResponse({ status: 200, description: '한줄 소개 삭제 성공' })
+  @ApiResponse({
+    status: 400,
+    description:
+      '정상적인 접근이 아닙니다.(로그인 된 유저의 정보가 현직자가 아니거나 param에 던진 userId가 로그인된 사용자랑 다를경우)',
+  })
+  @ApiResponse({
+    status: 401,
+    description: '헤더의 Auth 토큰이 존재하지 않습니다',
+  })
+  @ApiResponse({ status: 403, description: '토큰이 일치하지 않습니다.' })
+  @ApiResponse({
+    status: 404,
+    description: '해당 유저가 존재하지 않습니다.',
+  })
+  @ApiBearerAuth('access-token')
+  @ApiParam({ name: 'userId', type: Number, description: '유저 ID' })
+  @Delete('/remove/spec/:userId')
+  @UseGuards(AuthGuard)
+  async removeShortSpec(
+    @Param('userId') userId: number,
+    @RequestUser() user: UserDataInAuthGuard,
+  ) {
+    return await this.usersService.removeShortSpec({ userId, user });
   }
 }
