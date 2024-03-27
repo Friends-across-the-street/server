@@ -177,53 +177,55 @@ export class PostsService {
     WHERE post_id = ${postId}
     ORDER BY createdDate ASC;`;
 
-    const refinedComments = [];
+    const refinedCommentsPromises = comments.map(
+      async (
+        comment,
+      ): Promise<refinedCommentsInPost | removedCommentsInPost> => {
+        let checkRecommend: boolean = false;
+        const isRecommend =
+          await this.prismaService.recommendComments.findFirst({
+            where: { AND: { commentId: comment.id, userId } },
+          });
+        if (isRecommend) {
+          checkRecommend = true;
+        }
 
-    comments.forEach(async (comment) => {
-      let checkRecommend: boolean = false;
-      const isRecommend = await this.prismaService.recommendComments.findFirst({
-        where: { AND: { commentId: comment.id, userId } },
-      });
-      if (isRecommend) {
-        checkRecommend = true;
-      }
+        if (comment.isDelete) {
+          const removedData: removedCommentsInPost = { id: comment.id };
+          return removedData;
+        }
 
-      if (comment.isDelete) {
-        const removedData: removedCommentsInPost = { id: comment.id };
-        refinedComments.push(removedData);
-        return;
-      }
+        let checkMine: boolean = false;
+        if (comment.commentUserId === userId) {
+          checkMine = true;
+        }
 
-      let checkMine: boolean = false;
-      if (comment.commentUserId === userId) {
-        checkMine = true;
-      }
-
-      const pushedData: refinedCommentsInPost = {
-        id: comment.id,
-        content: comment.content,
-        user: {
-          id: comment.commentUserId,
-          name: comment.name,
-          image: comment.image || null,
-          type: comment.userType,
-          additionalInfo: {
-            companyName: comment.companyName || null,
-            jobDescription: comment.jobDescription || null,
-            major: comment.major || null,
-            school: comment.school || null,
+        return {
+          id: comment.id,
+          content: comment.content,
+          user: {
+            id: comment.commentUserId,
+            name: comment.name,
+            image: comment.image || null,
+            type: comment.userType,
+            additionalInfo: {
+              companyName: comment.companyName || null,
+              jobDescription: comment.jobDescription || null,
+              major: comment.major || null,
+              school: comment.school || null,
+            },
           },
-        },
-        parentCommentId: comment.parentCommentId || null,
-        recommend: comment.recommend,
-        createdDate: comment.createdDate,
-        updatedDate: comment.updatedDate,
-        isMine: checkMine,
-        isRecommend: checkRecommend,
-      };
+          parentCommentId: comment.parentCommentId || null,
+          recommend: comment.recommend,
+          createdDate: comment.createdDate,
+          updatedDate: comment.updatedDate,
+          isMine: checkMine,
+          isRecommend: checkRecommend,
+        };
+      },
+    );
 
-      refinedComments.push(pushedData);
-    });
+    const refinedComments = await Promise.all(refinedCommentsPromises);
 
     return refinedComments;
   }
