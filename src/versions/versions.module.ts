@@ -1,9 +1,8 @@
 import { Module } from '@nestjs/common';
-import { VersionsService } from './versions.service';
 import { VersionsController } from './versions.controller';
 
 @Module({
-  providers: [VersionsService],
-  controllers: [VersionsController]
+  providers: [],
+  controllers: [VersionsController],
 })
 export class VersionsModule {}
