@@ -121,8 +121,7 @@ export class UsersController {
   })
   @ApiResponse({
     status: 403,
-    description:
-      '토큰이 일치하지 않습니다.(Param에 작성된 userId와 현재 갖고있는 토큰의 로그인된 유저 Id가 다를 경우도 포함)',
+    description: '토큰이 일치하지 않습니다.',
   })
   @ApiResponse({
     status: 404,
@@ -142,7 +141,7 @@ export class UsersController {
     },
   })
   @Post('upload/image')
-  @UseGuards(AuthGuard, MulterUserGuard)
+  @UseGuards(AuthGuard)
   @UseInterceptors(FileInterceptor('image'))
   async uploadImage(
     @UploadedFile() file: Express.MulterS3.File,
