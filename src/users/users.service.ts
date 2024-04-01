@@ -67,15 +67,23 @@ export class UsersService {
         additionalData = await this.usersReopsitory.getMyProfileForIncumbent(
           user.id,
         );
-        companyName = additionalData.company.name;
-        smallJobKindName = additionalData.smallJobKind.name;
+        companyName = additionalData.company
+          ? additionalData.company.name
+          : null;
+        smallJobKindName = additionalData.smallJobKind
+          ? additionalData.smallJobKind.name
+          : null;
         break;
       case userType.student:
         additionalData = await this.usersReopsitory.getMyProfileForStudent(
           user.id,
         );
-        companyName = additionalData.wishCompany.name;
-        smallJobKindName = additionalData.wishSmallJobKind.name;
+        companyName = additionalData.wishCompany
+          ? additionalData.wishCompany.name
+          : null;
+        smallJobKindName = additionalData.wishSmallJobKind
+          ? additionalData.wishSmallJobKind.name
+          : null;
         delete additionalData.wishCompany;
         delete additionalData.wishSmallJobKind;
         break;
