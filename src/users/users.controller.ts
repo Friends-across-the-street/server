@@ -168,15 +168,13 @@ export class UsersController {
     description: '해당 유저가 존재하지 않습니다.',
   })
   @ApiBearerAuth('access-token')
-  @ApiParam({ name: 'userId', type: Number, description: '유저 ID' })
   @Post('/register/spec/:userId')
   @UseGuards(AuthGuard)
   async registerShortSpec(
-    @Param('userId') userId: number,
     @Body() dto: RegisterShortSpecDto,
     @RequestUser() user: UserDataInAuthGuard,
   ) {
-    return await this.usersService.registerShortSpec({ userId, ...dto, user });
+    return await this.usersService.registerShortSpec({ ...dto, user });
   }
 
   @ApiOperation({ summary: '현직자 한줄 소개 삭제' })

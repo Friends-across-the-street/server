@@ -133,16 +133,8 @@ export class UsersService {
   }
 
   async registerShortSpec(args: RegisterShortSpecArgs) {
-    const user = await this.prismaService.users.findFirst({
-      where: { id: args.userId },
-      select: { id: true, type: true },
-    });
-    if (args.user.type !== userType.incumbent || args.user.id !== user.id) {
-      throw new CustomException('정상적인 접근이 아닙니다.', 400);
-    }
-
     return await this.prismaService.incumbentsAdditional.update({
-      where: { userId: args.userId },
+      where: { userId: args.user.id },
       data: {
         shortSpec: args.spec,
       },
