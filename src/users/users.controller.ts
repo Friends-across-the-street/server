@@ -168,7 +168,7 @@ export class UsersController {
     description: '해당 유저가 존재하지 않습니다.',
   })
   @ApiBearerAuth('access-token')
-  @Post('/register/spec/:userId')
+  @Post('/spec/register')
   @UseGuards(AuthGuard)
   async registerShortSpec(
     @Body() dto: RegisterShortSpecDto,
@@ -194,13 +194,9 @@ export class UsersController {
     description: '해당 유저가 존재하지 않습니다.',
   })
   @ApiBearerAuth('access-token')
-  @ApiParam({ name: 'userId', type: Number, description: '유저 ID' })
-  @Delete('/remove/spec/:userId')
+  @Delete('/spec/remove')
   @UseGuards(AuthGuard)
-  async removeShortSpec(
-    @Param('userId') userId: number,
-    @RequestUser() user: UserDataInAuthGuard,
-  ) {
-    return await this.usersService.removeShortSpec({ userId, user });
+  async removeShortSpec(@RequestUser() user: UserDataInAuthGuard) {
+    return await this.usersService.removeShortSpec({ user });
   }
 }
