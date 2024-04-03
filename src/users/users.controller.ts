@@ -26,7 +26,6 @@ import { AuthGuard } from 'src/auth/auth.guard';
 import { ReportUserDto } from './dto/report.dto';
 import { ReportsService } from 'src/reports/reports.service';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { MulterUserGuard } from 'src/global/guard/multer-user.guard';
 import { AddAdditionalInfo } from './dto/add-additional-info.dto';
 import { RegisterShortSpecDto } from './dto/register-short-spec.interface';
 
@@ -42,19 +41,13 @@ export class UsersController {
   @ApiResponse({ status: 200, description: '유저 상세 정보 등록 성공' })
   @ApiResponse({ status: 403, description: '토큰이 일치하지 않습니다.' })
   @ApiResponse({ status: 404, description: '유저 정보 없음' })
-  @ApiParam({ name: 'userId', type: Number, description: '유저 ID' })
   @UseGuards(AuthGuard)
-  @Post('/additional/:userId')
+  @Post('/additional')
   async addAdditionalInfo(
-    @Param('userId') userId: number,
     @Body() additionalInfo: AddAdditionalInfo,
-    user: UserDataInAuthGuard,
+    @RequestUser() user: UserDataInAuthGuard,
   ) {
-    return await this.usersService.addAdditionalInfo(
-      userId,
-      additionalInfo,
-      user,
-    );
+    return await this.usersService.addAdditionalInfo(additionalInfo, user);
   }
 
   @ApiOperation({ summary: '내 정보 조회' })

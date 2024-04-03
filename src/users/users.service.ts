@@ -112,23 +112,17 @@ export class UsersService {
   }
 
   async addAdditionalInfo(
-    userId: number,
     args: AddAdditionalInfoArgs,
     user: UserDataInAuthGuard,
   ): Promise<void> {
-    if (user.id !== userId) {
-      throw new CustomException('권한이 존재하지 않습니다.', 403);
-    }
-
     switch (user.type) {
       case userType.incumbent:
-        await this.usersReopsitory.addAdditionalInfoForIncumbent(userId, args);
+        await this.usersReopsitory.addAdditionalInfoForIncumbent(user.id, args);
         break;
       case userType.student:
-        await this.usersReopsitory.addAdditionalInfoForStudent(userId, args);
+        await this.usersReopsitory.addAdditionalInfoForStudent(user.id, args);
         break;
     }
-
     return;
   }
 
