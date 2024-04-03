@@ -37,3 +37,4 @@ lerna-debug.log*
 *.env
 
 /prisma/migrations/
+/data/database-config.constant.js
