@@ -40,11 +40,13 @@
     "@types/winston": "^2.4.4",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
+    "csv-parser": "^3.0.0",
     "dotenv": "^16.3.1",
     "dotenv-cli": "^7.3.0",
     "jsonwebtoken": "^9.0.2",
     "moment-timezone": "^0.5.44",
     "multer-s3": "^3.0.1",
+    "mysql": "^2.18.1",
     "mysql2": "^3.6.2",
     "nest-winston": "^1.9.4",
     "reflect-metadata": "^0.1.13",
@@ -95,5 +97,6 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
-  }
+  },
+  "type": "module"
 }
