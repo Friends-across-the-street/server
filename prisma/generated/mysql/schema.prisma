@@ -76,6 +76,7 @@ model studentsAdditional {
   wishBigJobId Int? @map("wish_big_job_id")
   wishMidJobId Int? @map("wish_mid_job_id")
   wishSmallJobId Int? @map("wish_small_job_id")
+  portfolio String? @map("portfolio")
 
   reportedNum Int @default(0) @map("reported_num")
   totalGrade Float? @map("total_grade")
