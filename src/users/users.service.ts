@@ -8,6 +8,7 @@ import { UserDataInAuthGuard } from 'src/global/types/user.type';
 import { AddAdditionalInfoArgs } from './interface/add-additional-info.interface';
 import { RegisterShortSpecArgs } from './interface/register-short-spec.interface';
 import { RemoveShortSpecArgs } from './interface/remove-short-spec.interface';
+import { RegisterPortfolioArgs } from './interface/register-portfolio.interface copy';
 
 @Injectable()
 export class UsersService {
@@ -126,15 +127,15 @@ export class UsersService {
 
   async registerShortSpec(args: RegisterShortSpecArgs) {
     const user = await this.prismaService.users.findFirst({
-      where: { id: args.userId },
+      where: { id: args.user.id },
       select: { id: true, type: true },
     });
-    if (args.user.type !== userType.incumbent || args.user.id !== user.id) {
+    if (user.type !== userType.incumbent) {
       throw new CustomException('정상적인 접근이 아닙니다.', 400);
     }
 
     return await this.prismaService.incumbentsAdditional.update({
-      where: { userId: args.userId },
+      where: { userId: args.user.id },
       data: {
         shortSpec: args.spec,
       },
@@ -143,16 +144,33 @@ export class UsersService {
 
   async removeShortSpec(args: RemoveShortSpecArgs) {
     const user = await this.prismaService.users.findFirst({
-      where: { id: args.userId },
+      where: { id: args.user.id },
       select: { id: true, type: true },
     });
-    if (args.user.type !== userType.incumbent || args.user.id !== user.id) {
+    if (user.type !== userType.incumbent) {
       throw new CustomException('정상적인 접근이 아닙니다.', 400);
     }
     return await this.prismaService.incumbentsAdditional.update({
-      where: { userId: args.userId },
+      where: { userId: args.user.id },
       data: {
         shortSpec: null,
+      },
+    });
+  }
+
+  async registerPortfolio(args: RegisterPortfolioArgs) {
+    const user = await this.prismaService.users.findFirst({
+      where: { id: args.user.id },
+      select: { id: true, type: true },
+    });
+    if (user.type !== userType.student) {
+      throw new CustomException('정상적인 접근이 아닙니다.', 400);
+    }
+
+    return await this.prismaService.studentsAdditional.update({
+      where: { userId: args.user.id },
+      data: {
+        portfolio: args.file.location,
       },
     });
   }
