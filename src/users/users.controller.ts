@@ -142,7 +142,7 @@ export class UsersController {
     },
   })
   @Post('upload/image')
-  @UseGuards(AuthGuard, MulterUserGuard)
+  @UseGuards(AuthGuard)
   @UseInterceptors(FileInterceptor('image'))
   async uploadImage(
     @UploadedFile() file: Express.MulterS3.File,
@@ -169,15 +169,13 @@ export class UsersController {
     description: '해당 유저가 존재하지 않습니다.',
   })
   @ApiBearerAuth('access-token')
-  @ApiParam({ name: 'userId', type: Number, description: '유저 ID' })
-  @Post('/register/spec/:userId')
+  @Post('/register/spec')
   @UseGuards(AuthGuard)
   async registerShortSpec(
-    @Param('userId') userId: number,
     @Body() dto: RegisterShortSpecDto,
     @RequestUser() user: UserDataInAuthGuard,
   ) {
-    return await this.usersService.registerShortSpec({ userId, ...dto, user });
+    return await this.usersService.registerShortSpec({ ...dto, user });
   }
 
   @ApiOperation({ summary: '현직자 한줄 소개 삭제' })
@@ -197,13 +195,48 @@ export class UsersController {
     description: '해당 유저가 존재하지 않습니다.',
   })
   @ApiBearerAuth('access-token')
-  @ApiParam({ name: 'userId', type: Number, description: '유저 ID' })
-  @Delete('/remove/spec/:userId')
+  @Delete('/remove/spec')
   @UseGuards(AuthGuard)
-  async removeShortSpec(
-    @Param('userId') userId: number,
+  async removeShortSpec(@RequestUser() user: UserDataInAuthGuard) {
+    return await this.usersService.removeShortSpec({ user });
+  }
+
+  @ApiOperation({ summary: '학생 포트폴리오 소개 등록/수정' })
+  @ApiResponse({ status: 200, description: '학생 포트폴리오 등록/수정 성공' })
+  @ApiResponse({
+    status: 400,
+    description:
+      '걸맞지 않는 확장자로 인한 업로드 실패(엔드포인트 잘못 작성도 포함)',
+  })
+  @ApiResponse({
+    status: 401,
+    description: '헤더의 Auth 토큰이 존재하지 않습니다',
+  })
+  @ApiResponse({ status: 403, description: '토큰이 일치하지 않습니다.' })
+  @ApiResponse({
+    status: 404,
+    description: '해당 유저가 존재하지 않습니다.',
+  })
+  @ApiBearerAuth('access-token')
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        image: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
+  @Post('/register/portfolio')
+  @UseGuards(AuthGuard, MulterUserGuard)
+  @UseInterceptors(FileInterceptor('portfolio'))
+  async registerPortfolio(
+    @UploadedFile() file: Express.MulterS3.File,
     @RequestUser() user: UserDataInAuthGuard,
   ) {
-    return await this.usersService.removeShortSpec({ userId, user });
+    return await this.usersService.registerPortfolio({ file, user });
   }
 }
