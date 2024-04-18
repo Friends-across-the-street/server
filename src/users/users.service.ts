@@ -9,6 +9,7 @@ import { AddAdditionalInfoArgs } from './interface/add-additional-info.interface
 import { RegisterShortSpecArgs } from './interface/register-short-spec.interface';
 import { RemoveShortSpecArgs } from './interface/remove-short-spec.interface';
 import { RegisterPortfolioArgs } from './interface/register-portfolio.interface copy';
+import { RemovePortfolioArgs } from './interface/remove-portfolio.interface';
 
 @Injectable()
 export class UsersService {
@@ -171,6 +172,22 @@ export class UsersService {
       where: { userId: args.user.id },
       data: {
         portfolio: args.file.location,
+      },
+    });
+  }
+
+  async removePortfolio(args: RemovePortfolioArgs) {
+    const user = await this.prismaService.users.findFirst({
+      where: { id: args.user.id },
+      select: { id: true, type: true },
+    });
+    if (user.type !== userType.student) {
+      throw new CustomException('정상적인 접근이 아닙니다.', 400);
+    }
+    return await this.prismaService.studentsAdditional.update({
+      where: { userId: args.user.id },
+      data: {
+        portfolio: null,
       },
     });
   }
