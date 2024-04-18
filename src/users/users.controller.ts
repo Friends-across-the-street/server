@@ -231,12 +231,30 @@ export class UsersController {
     },
   })
   @Post('/register/portfolio')
-  @UseGuards(AuthGuard, MulterUserGuard)
+  @UseGuards(AuthGuard)
   @UseInterceptors(FileInterceptor('portfolio'))
   async registerPortfolio(
     @UploadedFile() file: Express.MulterS3.File,
     @RequestUser() user: UserDataInAuthGuard,
   ) {
     return await this.usersService.registerPortfolio({ file, user });
+  }
+
+  @ApiOperation({ summary: '학생 포트폴리오 소개 삭제' })
+  @ApiResponse({ status: 200, description: '학생 포트폴리오 삭제 성공' })
+  @ApiResponse({
+    status: 401,
+    description: '헤더의 Auth 토큰이 존재하지 않습니다',
+  })
+  @ApiResponse({ status: 403, description: '토큰이 일치하지 않습니다.' })
+  @ApiResponse({
+    status: 404,
+    description: '해당 유저가 존재하지 않습니다.',
+  })
+  @ApiBearerAuth('access-token')
+  @UseGuards(AuthGuard)
+  @Delete('/remove/portfolio')
+  async removePortfolio(@RequestUser() user: UserDataInAuthGuard) {
+    return await this.usersService.removePortfolio({ user });
   }
 }
