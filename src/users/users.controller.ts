@@ -230,7 +230,7 @@ export class UsersController {
       },
     },
   })
-  @Post('/register/portfolio')
+  @Post('/upload/portfolio')
   @UseGuards(AuthGuard)
   @UseInterceptors(FileInterceptor('portfolio'))
   async registerPortfolio(
