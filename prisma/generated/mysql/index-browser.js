@@ -145,6 +145,7 @@ exports.Prisma.StudentsAdditionalScalarFieldEnum = {
   wishBigJobId: 'wishBigJobId',
   wishMidJobId: 'wishMidJobId',
   wishSmallJobId: 'wishSmallJobId',
+  portfolio: 'portfolio',
   reportedNum: 'reportedNum',
   totalGrade: 'totalGrade',
   adviceCount: 'adviceCount',

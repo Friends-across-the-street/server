@@ -8,6 +8,8 @@ import { UserDataInAuthGuard } from 'src/global/types/user.type';
 import { AddAdditionalInfoArgs } from './interface/add-additional-info.interface';
 import { RegisterShortSpecArgs } from './interface/register-short-spec.interface';
 import { RemoveShortSpecArgs } from './interface/remove-short-spec.interface';
+import { RegisterPortfolioArgs } from './interface/register-portfolio.interface copy';
+import { RemovePortfolioArgs } from './interface/remove-portfolio.interface';
 
 @Injectable()
 export class UsersService {
@@ -127,6 +129,15 @@ export class UsersService {
   }
 
   async registerShortSpec(args: RegisterShortSpecArgs) {
+
+    const user = await this.prismaService.users.findFirst({
+      where: { id: args.user.id },
+      select: { id: true, type: true },
+    });
+    if (user.type !== userType.incumbent) {
+      throw new CustomException('현직자만 이용 가능합니다.', 400);
+    }
+
     return await this.prismaService.incumbentsAdditional.update({
       where: { userId: args.user.id },
       data: {
@@ -136,10 +147,52 @@ export class UsersService {
   }
 
   async removeShortSpec(args: RemoveShortSpecArgs) {
+
+    const user = await this.prismaService.users.findFirst({
+      where: { id: args.user.id },
+      select: { id: true, type: true },
+    });
+    if (user.type !== userType.incumbent) {
+      throw new CustomException('현직자만 이용 가능합니다.', 400);
+    }
+
     return await this.prismaService.incumbentsAdditional.update({
       where: { userId: args.user.id },
       data: {
         shortSpec: null,
+      },
+    });
+  }
+
+  async registerPortfolio(args: RegisterPortfolioArgs) {
+    const user = await this.prismaService.users.findFirst({
+      where: { id: args.user.id },
+      select: { id: true, type: true },
+    });
+    if (user.type !== userType.student) {
+      throw new CustomException('학생만 이용 가능합니다.', 400);
+    }
+
+    return await this.prismaService.studentsAdditional.update({
+      where: { userId: args.user.id },
+      data: {
+        portfolio: args.file.location,
+      },
+    });
+  }
+
+  async removePortfolio(args: RemovePortfolioArgs) {
+    const user = await this.prismaService.users.findFirst({
+      where: { id: args.user.id },
+      select: { id: true, type: true },
+    });
+    if (user.type !== userType.student) {
+      throw new CustomException('학생만 이용 가능합니다.', 400);
+    }
+    return await this.prismaService.studentsAdditional.update({
+      where: { userId: args.user.id },
+      data: {
+        portfolio: null,
       },
     });
   }

@@ -161,7 +161,7 @@ export class UsersController {
     description: '해당 유저가 존재하지 않습니다.',
   })
   @ApiBearerAuth('access-token')
-  @Post('/spec/register')
+  @Post('/register/spec')
   @UseGuards(AuthGuard)
   async registerShortSpec(
     @Body() dto: RegisterShortSpecDto,
@@ -187,9 +187,67 @@ export class UsersController {
     description: '해당 유저가 존재하지 않습니다.',
   })
   @ApiBearerAuth('access-token')
-  @Delete('/spec/remove')
+
+  @Delete('/remove/spec')
   @UseGuards(AuthGuard)
   async removeShortSpec(@RequestUser() user: UserDataInAuthGuard) {
     return await this.usersService.removeShortSpec({ user });
+  }
+
+  @ApiOperation({ summary: '학생 포트폴리오 소개 등록/수정' })
+  @ApiResponse({ status: 200, description: '학생 포트폴리오 등록/수정 성공' })
+  @ApiResponse({
+    status: 400,
+    description:
+      '걸맞지 않는 확장자로 인한 업로드 실패(엔드포인트 잘못 작성도 포함)',
+  })
+  @ApiResponse({
+    status: 401,
+    description: '헤더의 Auth 토큰이 존재하지 않습니다',
+  })
+  @ApiResponse({ status: 403, description: '토큰이 일치하지 않습니다.' })
+  @ApiResponse({
+    status: 404,
+    description: '해당 유저가 존재하지 않습니다.',
+  })
+  @ApiBearerAuth('access-token')
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        image: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
+  @Post('/upload/portfolio')
+  @UseGuards(AuthGuard)
+  @UseInterceptors(FileInterceptor('portfolio'))
+  async registerPortfolio(
+    @UploadedFile() file: Express.MulterS3.File,
+    @RequestUser() user: UserDataInAuthGuard,
+  ) {
+    return await this.usersService.registerPortfolio({ file, user });
+  }
+
+  @ApiOperation({ summary: '학생 포트폴리오 소개 삭제' })
+  @ApiResponse({ status: 200, description: '학생 포트폴리오 삭제 성공' })
+  @ApiResponse({
+    status: 401,
+    description: '헤더의 Auth 토큰이 존재하지 않습니다',
+  })
+  @ApiResponse({ status: 403, description: '토큰이 일치하지 않습니다.' })
+  @ApiResponse({
+    status: 404,
+    description: '해당 유저가 존재하지 않습니다.',
+  })
+  @ApiBearerAuth('access-token')
+  @UseGuards(AuthGuard)
+  @Delete('/remove/portfolio')
+  async removePortfolio(@RequestUser() user: UserDataInAuthGuard) {
+    return await this.usersService.removePortfolio({ user });
   }
 }
