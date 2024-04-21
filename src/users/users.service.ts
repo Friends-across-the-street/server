@@ -132,7 +132,7 @@ export class UsersService {
       select: { id: true, type: true },
     });
     if (user.type !== userType.incumbent) {
-      throw new CustomException('정상적인 접근이 아닙니다.', 400);
+      throw new CustomException('현직자만 이용 가능합니다.', 400);
     }
 
     return await this.prismaService.incumbentsAdditional.update({
@@ -149,7 +149,7 @@ export class UsersService {
       select: { id: true, type: true },
     });
     if (user.type !== userType.incumbent) {
-      throw new CustomException('정상적인 접근이 아닙니다.', 400);
+      throw new CustomException('현직자만 이용 가능합니다.', 400);
     }
     return await this.prismaService.incumbentsAdditional.update({
       where: { userId: args.user.id },
@@ -165,7 +165,7 @@ export class UsersService {
       select: { id: true, type: true },
     });
     if (user.type !== userType.student) {
-      throw new CustomException('정상적인 접근이 아닙니다.', 400);
+      throw new CustomException('학생만 이용 가능합니다.', 400);
     }
 
     return await this.prismaService.studentsAdditional.update({
@@ -182,7 +182,7 @@ export class UsersService {
       select: { id: true, type: true },
     });
     if (user.type !== userType.student) {
-      throw new CustomException('정상적인 접근이 아닙니다.', 400);
+      throw new CustomException('학생만 이용 가능합니다.', 400);
     }
     return await this.prismaService.studentsAdditional.update({
       where: { userId: args.user.id },
