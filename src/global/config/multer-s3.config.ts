@@ -54,8 +54,8 @@ export const multerS3Config = (configService: ConfigService): MulterOptions => {
         }
 
         const pathParam = req.path.split('/');
-        const uploadType = pathParam[1]; // users / chats
-        const uploadDetailType = pathParam[3]; // image / portfolio
+        const uploadType = pathParam[2]; // users / chats
+        const uploadDetailType = pathParam[4]; // image / portfolio
         let savedPath: string = '';
         let uploadedName: string = '';
         switch (uploadType) {
