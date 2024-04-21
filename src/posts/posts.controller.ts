@@ -64,11 +64,17 @@ export class PostsController {
 
   @ApiOperation({ summary: '게시글 전체 조회(페이지네이션)' })
   @ApiResponse({ status: 200, description: '게시글 조회 성공' })
-  @ApiQuery({ name: 'page', type: Number, description: '페이지 쪽수' })
+  @ApiQuery({
+    name: 'page',
+    type: Number,
+    description: '페이지 쪽수',
+    required: true,
+  })
   @ApiQuery({
     name: 'limit',
     type: Number,
     description: '페이지당 보이는 개수',
+    required: true,
   })
   @ApiQuery({
     name: 'categoryId',
@@ -76,14 +82,21 @@ export class PostsController {
     type: Number,
     description: '카테고리 ID(안 보낼시 전체 게시글 조회)',
   })
+  @ApiQuery({
+    name: 'token',
+    required: false,
+    type: String,
+    description: 'token조회',
+  })
   @ApiTags('POST')
   @Get('/')
   async getAll(
     @Query('page') page: number,
     @Query('limit') limit: number,
     @Query('categoryId') categoryId: number,
+    @Query('token') token: string,
   ) {
-    return await this.postsService.getPage(page, limit, categoryId);
+    return await this.postsService.getPage(page, limit, categoryId, token);
   }
 
   @ApiOperation({ summary: '게시글 상세 조회(단일 조회)' })

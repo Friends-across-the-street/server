@@ -28,7 +28,12 @@ export class PostsService {
     });
   }
 
-  async getPage(page: number, limit: number, categoryId?: number) {
+  async getPage(
+    page: number,
+    limit: number,
+    categoryId?: number,
+    token?: string,
+  ) {
     const result = [];
     let queryStr = `SELECT p.id AS postId, p.title, p.content, p.view, p.recommend, p.created_date AS postCreateDate, p.updated_date AS postUpdateDate, u.id AS userId, u.name AS name, u.image, u.type AS userType, co.name AS companyName, sm.name AS jobDescription, sc.name AS school, m.name AS major
     FROM posts AS p

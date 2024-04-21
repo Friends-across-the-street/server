@@ -69,15 +69,23 @@ export class UsersService {
         additionalData = await this.usersReopsitory.getMyProfileForIncumbent(
           user.id,
         );
-        companyName = additionalData.company.name;
-        smallJobKindName = additionalData.smallJobKind.name;
+        companyName = additionalData.company
+          ? additionalData.company.name
+          : null;
+        smallJobKindName = additionalData.smallJobKind
+          ? additionalData.smallJobKind.name
+          : null;
         break;
       case userType.student:
         additionalData = await this.usersReopsitory.getMyProfileForStudent(
           user.id,
         );
-        companyName = additionalData.wishCompany.name;
-        smallJobKindName = additionalData.wishSmallJobKind.name;
+        companyName = additionalData.wishCompany
+          ? additionalData.wishCompany.name
+          : null;
+        smallJobKindName = additionalData.wishSmallJobKind
+          ? additionalData.wishSmallJobKind.name
+          : null;
         delete additionalData.wishCompany;
         delete additionalData.wishSmallJobKind;
         break;
@@ -106,27 +114,22 @@ export class UsersService {
   }
 
   async addAdditionalInfo(
-    userId: number,
     args: AddAdditionalInfoArgs,
     user: UserDataInAuthGuard,
   ): Promise<void> {
-    if (user.id !== userId) {
-      throw new CustomException('권한이 존재하지 않습니다.', 403);
-    }
-
     switch (user.type) {
       case userType.incumbent:
-        await this.usersReopsitory.addAdditionalInfoForIncumbent(userId, args);
+        await this.usersReopsitory.addAdditionalInfoForIncumbent(user.id, args);
         break;
       case userType.student:
-        await this.usersReopsitory.addAdditionalInfoForStudent(userId, args);
+        await this.usersReopsitory.addAdditionalInfoForStudent(user.id, args);
         break;
     }
-
     return;
   }
 
   async registerShortSpec(args: RegisterShortSpecArgs) {
+
     const user = await this.prismaService.users.findFirst({
       where: { id: args.user.id },
       select: { id: true, type: true },
@@ -144,6 +147,7 @@ export class UsersService {
   }
 
   async removeShortSpec(args: RemoveShortSpecArgs) {
+
     const user = await this.prismaService.users.findFirst({
       where: { id: args.user.id },
       select: { id: true, type: true },
@@ -151,6 +155,7 @@ export class UsersService {
     if (user.type !== userType.incumbent) {
       throw new CustomException('현직자만 이용 가능합니다.', 400);
     }
+
     return await this.prismaService.incumbentsAdditional.update({
       where: { userId: args.user.id },
       data: {

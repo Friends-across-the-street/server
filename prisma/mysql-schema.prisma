@@ -204,7 +204,7 @@ model company {
   longitude Float
   latitude Float
   scale String
-  group Int
+  group Int @map("c_group")
 
   incumebent incumbentsAdditional[]
   student studentsAdditional[]
