@@ -294,7 +294,6 @@ export class PostsService {
         // user 20개
         const randUserId = Math.floor(Math.random() * 20) + 1;
         const randCategoryId = Math.floor(Math.random() * 3) + 1;
-        console.log(randUserId, randCategoryId);
         await this.prismaService.posts.create({
           data: {
             title,
