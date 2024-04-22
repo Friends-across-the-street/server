@@ -1,15 +1,14 @@
-import * as fs from 'fs';
-import * as mysql from 'mysql';
-import * as config from './database-config.constant.js';
-import csv from 'csv-parser';
+const fs = require('fs');
+const mysql = require('mysql');
+const csv = require('csv-parser');
+const config = require('./database-config.constant');
 
-const URL = config.getURL();
-
+const URL = config();
 // MySQL 연결 정보 설정
 const connection = mysql.createConnection(URL);
 
 // CSV 파일 경로
-const csvFilePath = process.cwd() + '/data/unique_company.csv';
+const csvFilePath = process.cwd() + '/data/FINAL_COMPANY_INFO.csv';
 
 // CSV 파일을 MySQL 테이블에 삽입하는 함수
 function insertCsvDataToMysql() {
