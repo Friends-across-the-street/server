@@ -129,6 +129,7 @@ exports.Prisma.IncumbentsAdditionalScalarFieldEnum = {
   bigJobId: 'bigJobId',
   midJobId: 'midJobId',
   smallJobId: 'smallJobId',
+  jobId: 'jobId',
   shortSpec: 'shortSpec',
   reportedNum: 'reportedNum',
   adviceCount: 'adviceCount',
@@ -145,6 +146,7 @@ exports.Prisma.StudentsAdditionalScalarFieldEnum = {
   wishBigJobId: 'wishBigJobId',
   wishMidJobId: 'wishMidJobId',
   wishSmallJobId: 'wishSmallJobId',
+  wishJobId: 'wishJobId',
   portfolio: 'portfolio',
   reportedNum: 'reportedNum',
   totalGrade: 'totalGrade',
@@ -228,8 +230,7 @@ exports.Prisma.CompanyScalarFieldEnum = {
   address: 'address',
   longitude: 'longitude',
   latitude: 'latitude',
-  scale: 'scale',
-  group: 'group'
+  scale: 'scale'
 };
 
 exports.Prisma.SchoolScalarFieldEnum = {
@@ -259,6 +260,12 @@ exports.Prisma.MidJobKindScalarFieldEnum = {
 exports.Prisma.SmallJobKindScalarFieldEnum = {
   id: 'id',
   midJobKindId: 'midJobKindId',
+  name: 'name'
+};
+
+exports.Prisma.JobScalarFieldEnum = {
+  id: 'id',
+  clusteringGroup: 'clusteringGroup',
   name: 'name'
 };
 
@@ -299,7 +306,8 @@ exports.Prisma.ModelName = {
   major: 'major',
   bigJobKind: 'bigJobKind',
   midJobKind: 'midJobKind',
-  smallJobKind: 'smallJobKind'
+  smallJobKind: 'smallJobKind',
+  job: 'job'
 };
 
 /**
