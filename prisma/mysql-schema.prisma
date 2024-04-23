@@ -264,6 +264,11 @@ model smallJobKind {
   @@map("small_job_kind")
 }
 
+model job {
+  id  Int @default(autoincrement()) @id
+  group Int
+}
+
 enum Gender {
   male
   female
