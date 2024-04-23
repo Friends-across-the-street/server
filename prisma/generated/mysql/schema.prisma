@@ -50,6 +50,7 @@ model incumbentsAdditional {
   bigJobId Int? @map("big_job_id")
   midJobId Int? @map("mid_job_id")
   smallJobId Int? @map("small_job_id")
+  jobId Int? @map("job_id")
 
   shortSpec String? @map("short_spec")
   reportedNum Int @default(0) @map("reported_num")
@@ -64,6 +65,7 @@ model incumbentsAdditional {
   bigJobKind bigJobKind? @relation(fields: [bigJobId], references: [id])
   midJobKind midJobKind? @relation(fields: [midJobId], references: [id])
   smallJobKind smallJobKind? @relation(fields: [smallJobId], references: [id])
+  job job? @relation(fields: [jobId], references: [id])
   @@map("incumbents_additional")
 }
 
@@ -76,6 +78,7 @@ model studentsAdditional {
   wishBigJobId Int? @map("wish_big_job_id")
   wishMidJobId Int? @map("wish_mid_job_id")
   wishSmallJobId Int? @map("wish_small_job_id")
+  wishJobId Int? @map("wish_job_id")
   portfolio String? @map("portfolio")
 
   reportedNum Int @default(0) @map("reported_num")
@@ -91,6 +94,7 @@ model studentsAdditional {
   wishBigJobKind bigJobKind? @relation(fields: [wishBigJobId], references: [id])
   wishMidJobKind midJobKind? @relation(fields: [wishMidJobId], references: [id])
   wishSmallJobKind smallJobKind? @relation(fields: [wishSmallJobId], references: [id])
+  wishJob job? @relation(fields: [wishJobId], references: [id])
 	@@map("students_additional")
 }
 
@@ -204,7 +208,6 @@ model company {
   longitude Float
   latitude Float
   scale String
-  group Int @map("c_group")
 
   incumebent incumbentsAdditional[]
   student studentsAdditional[]
@@ -262,6 +265,15 @@ model smallJobKind {
   incumebent incumbentsAdditional[]
   student studentsAdditional[]
   @@map("small_job_kind")
+}
+
+model job {
+  id  Int @default(autoincrement()) @id
+  clusteringGroup Int @map("clustering_group")
+  name String
+
+  incumebent incumbentsAdditional[]
+  student studentsAdditional[]
 }
 
 enum Gender {

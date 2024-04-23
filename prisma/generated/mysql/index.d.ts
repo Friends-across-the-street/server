@@ -98,6 +98,11 @@ export type midJobKind = $Result.DefaultSelection<Prisma.$midJobKindPayload>
  * 
  */
 export type smallJobKind = $Result.DefaultSelection<Prisma.$smallJobKindPayload>
+/**
+ * Model job
+ * 
+ */
+export type job = $Result.DefaultSelection<Prisma.$jobPayload>
 
 /**
  * Enums
@@ -420,6 +425,16 @@ export class PrismaClient<
     * ```
     */
   get smallJobKind(): Prisma.smallJobKindDelegate<ExtArgs>;
+
+  /**
+   * `prisma.job`: Exposes CRUD operations for the **job** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Jobs
+    * const jobs = await prisma.job.findMany()
+    * ```
+    */
+  get job(): Prisma.jobDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -906,7 +921,8 @@ export namespace Prisma {
     major: 'major',
     bigJobKind: 'bigJobKind',
     midJobKind: 'midJobKind',
-    smallJobKind: 'smallJobKind'
+    smallJobKind: 'smallJobKind',
+    job: 'job'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -923,7 +939,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'users' | 'incumbentsAdditional' | 'studentsAdditional' | 'category' | 'posts' | 'comments' | 'recommendPosts' | 'reportedPosts' | 'recommendComments' | 'reportedComments' | 'reportedUsers' | 'company' | 'school' | 'major' | 'bigJobKind' | 'midJobKind' | 'smallJobKind'
+      modelProps: 'users' | 'incumbentsAdditional' | 'studentsAdditional' | 'category' | 'posts' | 'comments' | 'recommendPosts' | 'reportedPosts' | 'recommendComments' | 'reportedComments' | 'reportedUsers' | 'company' | 'school' | 'major' | 'bigJobKind' | 'midJobKind' | 'smallJobKind' | 'job'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -2049,6 +2065,72 @@ export namespace Prisma {
           }
         }
       }
+      job: {
+        payload: Prisma.$jobPayload<ExtArgs>
+        fields: Prisma.jobFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.jobFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$jobPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.jobFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$jobPayload>
+          }
+          findFirst: {
+            args: Prisma.jobFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$jobPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.jobFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$jobPayload>
+          }
+          findMany: {
+            args: Prisma.jobFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$jobPayload>[]
+          }
+          create: {
+            args: Prisma.jobCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$jobPayload>
+          }
+          createMany: {
+            args: Prisma.jobCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.jobDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$jobPayload>
+          }
+          update: {
+            args: Prisma.jobUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$jobPayload>
+          }
+          deleteMany: {
+            args: Prisma.jobDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.jobUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.jobUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$jobPayload>
+          }
+          aggregate: {
+            args: Prisma.JobAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateJob>
+          }
+          groupBy: {
+            args: Prisma.jobGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<JobGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.jobCountArgs<ExtArgs>,
+            result: $Utils.Optional<JobCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2718,6 +2800,50 @@ export namespace Prisma {
    * SmallJobKindCountOutputType without action
    */
   export type SmallJobKindCountOutputTypeCountStudentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: studentsAdditionalWhereInput
+  }
+
+
+
+  /**
+   * Count Type JobCountOutputType
+   */
+
+  export type JobCountOutputType = {
+    incumebent: number
+    student: number
+  }
+
+  export type JobCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    incumebent?: boolean | JobCountOutputTypeCountIncumebentArgs
+    student?: boolean | JobCountOutputTypeCountStudentArgs
+  }
+
+  // Custom InputTypes
+
+  /**
+   * JobCountOutputType without action
+   */
+  export type JobCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JobCountOutputType
+     */
+    select?: JobCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * JobCountOutputType without action
+   */
+  export type JobCountOutputTypeCountIncumebentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: incumbentsAdditionalWhereInput
+  }
+
+
+  /**
+   * JobCountOutputType without action
+   */
+  export type JobCountOutputTypeCountStudentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: studentsAdditionalWhereInput
   }
 
@@ -3980,6 +4106,7 @@ export namespace Prisma {
     bigJobId: number | null
     midJobId: number | null
     smallJobId: number | null
+    jobId: number | null
     reportedNum: number | null
     adviceCount: number | null
     estimationCount: number | null
@@ -3994,6 +4121,7 @@ export namespace Prisma {
     bigJobId: number | null
     midJobId: number | null
     smallJobId: number | null
+    jobId: number | null
     reportedNum: number | null
     adviceCount: number | null
     estimationCount: number | null
@@ -4008,6 +4136,7 @@ export namespace Prisma {
     bigJobId: number | null
     midJobId: number | null
     smallJobId: number | null
+    jobId: number | null
     shortSpec: string | null
     reportedNum: number | null
     adviceCount: number | null
@@ -4024,6 +4153,7 @@ export namespace Prisma {
     bigJobId: number | null
     midJobId: number | null
     smallJobId: number | null
+    jobId: number | null
     shortSpec: string | null
     reportedNum: number | null
     adviceCount: number | null
@@ -4040,6 +4170,7 @@ export namespace Prisma {
     bigJobId: number
     midJobId: number
     smallJobId: number
+    jobId: number
     shortSpec: number
     reportedNum: number
     adviceCount: number
@@ -4058,6 +4189,7 @@ export namespace Prisma {
     bigJobId?: true
     midJobId?: true
     smallJobId?: true
+    jobId?: true
     reportedNum?: true
     adviceCount?: true
     estimationCount?: true
@@ -4072,6 +4204,7 @@ export namespace Prisma {
     bigJobId?: true
     midJobId?: true
     smallJobId?: true
+    jobId?: true
     reportedNum?: true
     adviceCount?: true
     estimationCount?: true
@@ -4086,6 +4219,7 @@ export namespace Prisma {
     bigJobId?: true
     midJobId?: true
     smallJobId?: true
+    jobId?: true
     shortSpec?: true
     reportedNum?: true
     adviceCount?: true
@@ -4102,6 +4236,7 @@ export namespace Prisma {
     bigJobId?: true
     midJobId?: true
     smallJobId?: true
+    jobId?: true
     shortSpec?: true
     reportedNum?: true
     adviceCount?: true
@@ -4118,6 +4253,7 @@ export namespace Prisma {
     bigJobId?: true
     midJobId?: true
     smallJobId?: true
+    jobId?: true
     shortSpec?: true
     reportedNum?: true
     adviceCount?: true
@@ -4221,6 +4357,7 @@ export namespace Prisma {
     bigJobId: number | null
     midJobId: number | null
     smallJobId: number | null
+    jobId: number | null
     shortSpec: string | null
     reportedNum: number
     adviceCount: number
@@ -4256,6 +4393,7 @@ export namespace Prisma {
     bigJobId?: boolean
     midJobId?: boolean
     smallJobId?: boolean
+    jobId?: boolean
     shortSpec?: boolean
     reportedNum?: boolean
     adviceCount?: boolean
@@ -4268,6 +4406,7 @@ export namespace Prisma {
     bigJobKind?: boolean | incumbentsAdditional$bigJobKindArgs<ExtArgs>
     midJobKind?: boolean | incumbentsAdditional$midJobKindArgs<ExtArgs>
     smallJobKind?: boolean | incumbentsAdditional$smallJobKindArgs<ExtArgs>
+    job?: boolean | incumbentsAdditional$jobArgs<ExtArgs>
   }, ExtArgs["result"]["incumbentsAdditional"]>
 
   export type incumbentsAdditionalSelectScalar = {
@@ -4279,6 +4418,7 @@ export namespace Prisma {
     bigJobId?: boolean
     midJobId?: boolean
     smallJobId?: boolean
+    jobId?: boolean
     shortSpec?: boolean
     reportedNum?: boolean
     adviceCount?: boolean
@@ -4294,6 +4434,7 @@ export namespace Prisma {
     bigJobKind?: boolean | incumbentsAdditional$bigJobKindArgs<ExtArgs>
     midJobKind?: boolean | incumbentsAdditional$midJobKindArgs<ExtArgs>
     smallJobKind?: boolean | incumbentsAdditional$smallJobKindArgs<ExtArgs>
+    job?: boolean | incumbentsAdditional$jobArgs<ExtArgs>
   }
 
 
@@ -4307,6 +4448,7 @@ export namespace Prisma {
       bigJobKind: Prisma.$bigJobKindPayload<ExtArgs> | null
       midJobKind: Prisma.$midJobKindPayload<ExtArgs> | null
       smallJobKind: Prisma.$smallJobKindPayload<ExtArgs> | null
+      job: Prisma.$jobPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -4317,6 +4459,7 @@ export namespace Prisma {
       bigJobId: number | null
       midJobId: number | null
       smallJobId: number | null
+      jobId: number | null
       shortSpec: string | null
       reportedNum: number
       adviceCount: number
@@ -4701,6 +4844,8 @@ export namespace Prisma {
 
     smallJobKind<T extends incumbentsAdditional$smallJobKindArgs<ExtArgs> = {}>(args?: Subset<T, incumbentsAdditional$smallJobKindArgs<ExtArgs>>): Prisma__smallJobKindClient<$Result.GetResult<Prisma.$smallJobKindPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
+    job<T extends incumbentsAdditional$jobArgs<ExtArgs> = {}>(args?: Subset<T, incumbentsAdditional$jobArgs<ExtArgs>>): Prisma__jobClient<$Result.GetResult<Prisma.$jobPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4737,6 +4882,7 @@ export namespace Prisma {
     readonly bigJobId: FieldRef<"incumbentsAdditional", 'Int'>
     readonly midJobId: FieldRef<"incumbentsAdditional", 'Int'>
     readonly smallJobId: FieldRef<"incumbentsAdditional", 'Int'>
+    readonly jobId: FieldRef<"incumbentsAdditional", 'Int'>
     readonly shortSpec: FieldRef<"incumbentsAdditional", 'String'>
     readonly reportedNum: FieldRef<"incumbentsAdditional", 'Int'>
     readonly adviceCount: FieldRef<"incumbentsAdditional", 'Int'>
@@ -5150,6 +5296,22 @@ export namespace Prisma {
 
 
   /**
+   * incumbentsAdditional.job
+   */
+  export type incumbentsAdditional$jobArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the job
+     */
+    select?: jobSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: jobInclude<ExtArgs> | null
+    where?: jobWhereInput
+  }
+
+
+  /**
    * incumbentsAdditional without action
    */
   export type incumbentsAdditionalDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5186,6 +5348,7 @@ export namespace Prisma {
     wishBigJobId: number | null
     wishMidJobId: number | null
     wishSmallJobId: number | null
+    wishJobId: number | null
     reportedNum: number | null
     totalGrade: number | null
     adviceCount: number | null
@@ -5201,6 +5364,7 @@ export namespace Prisma {
     wishBigJobId: number | null
     wishMidJobId: number | null
     wishSmallJobId: number | null
+    wishJobId: number | null
     reportedNum: number | null
     totalGrade: number | null
     adviceCount: number | null
@@ -5216,6 +5380,7 @@ export namespace Prisma {
     wishBigJobId: number | null
     wishMidJobId: number | null
     wishSmallJobId: number | null
+    wishJobId: number | null
     portfolio: string | null
     reportedNum: number | null
     totalGrade: number | null
@@ -5233,6 +5398,7 @@ export namespace Prisma {
     wishBigJobId: number | null
     wishMidJobId: number | null
     wishSmallJobId: number | null
+    wishJobId: number | null
     portfolio: string | null
     reportedNum: number | null
     totalGrade: number | null
@@ -5250,6 +5416,7 @@ export namespace Prisma {
     wishBigJobId: number
     wishMidJobId: number
     wishSmallJobId: number
+    wishJobId: number
     portfolio: number
     reportedNum: number
     totalGrade: number
@@ -5269,6 +5436,7 @@ export namespace Prisma {
     wishBigJobId?: true
     wishMidJobId?: true
     wishSmallJobId?: true
+    wishJobId?: true
     reportedNum?: true
     totalGrade?: true
     adviceCount?: true
@@ -5284,6 +5452,7 @@ export namespace Prisma {
     wishBigJobId?: true
     wishMidJobId?: true
     wishSmallJobId?: true
+    wishJobId?: true
     reportedNum?: true
     totalGrade?: true
     adviceCount?: true
@@ -5299,6 +5468,7 @@ export namespace Prisma {
     wishBigJobId?: true
     wishMidJobId?: true
     wishSmallJobId?: true
+    wishJobId?: true
     portfolio?: true
     reportedNum?: true
     totalGrade?: true
@@ -5316,6 +5486,7 @@ export namespace Prisma {
     wishBigJobId?: true
     wishMidJobId?: true
     wishSmallJobId?: true
+    wishJobId?: true
     portfolio?: true
     reportedNum?: true
     totalGrade?: true
@@ -5333,6 +5504,7 @@ export namespace Prisma {
     wishBigJobId?: true
     wishMidJobId?: true
     wishSmallJobId?: true
+    wishJobId?: true
     portfolio?: true
     reportedNum?: true
     totalGrade?: true
@@ -5437,6 +5609,7 @@ export namespace Prisma {
     wishBigJobId: number | null
     wishMidJobId: number | null
     wishSmallJobId: number | null
+    wishJobId: number | null
     portfolio: string | null
     reportedNum: number
     totalGrade: number | null
@@ -5473,6 +5646,7 @@ export namespace Prisma {
     wishBigJobId?: boolean
     wishMidJobId?: boolean
     wishSmallJobId?: boolean
+    wishJobId?: boolean
     portfolio?: boolean
     reportedNum?: boolean
     totalGrade?: boolean
@@ -5486,6 +5660,7 @@ export namespace Prisma {
     wishBigJobKind?: boolean | studentsAdditional$wishBigJobKindArgs<ExtArgs>
     wishMidJobKind?: boolean | studentsAdditional$wishMidJobKindArgs<ExtArgs>
     wishSmallJobKind?: boolean | studentsAdditional$wishSmallJobKindArgs<ExtArgs>
+    wishJob?: boolean | studentsAdditional$wishJobArgs<ExtArgs>
   }, ExtArgs["result"]["studentsAdditional"]>
 
   export type studentsAdditionalSelectScalar = {
@@ -5497,6 +5672,7 @@ export namespace Prisma {
     wishBigJobId?: boolean
     wishMidJobId?: boolean
     wishSmallJobId?: boolean
+    wishJobId?: boolean
     portfolio?: boolean
     reportedNum?: boolean
     totalGrade?: boolean
@@ -5513,6 +5689,7 @@ export namespace Prisma {
     wishBigJobKind?: boolean | studentsAdditional$wishBigJobKindArgs<ExtArgs>
     wishMidJobKind?: boolean | studentsAdditional$wishMidJobKindArgs<ExtArgs>
     wishSmallJobKind?: boolean | studentsAdditional$wishSmallJobKindArgs<ExtArgs>
+    wishJob?: boolean | studentsAdditional$wishJobArgs<ExtArgs>
   }
 
 
@@ -5526,6 +5703,7 @@ export namespace Prisma {
       wishBigJobKind: Prisma.$bigJobKindPayload<ExtArgs> | null
       wishMidJobKind: Prisma.$midJobKindPayload<ExtArgs> | null
       wishSmallJobKind: Prisma.$smallJobKindPayload<ExtArgs> | null
+      wishJob: Prisma.$jobPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -5536,6 +5714,7 @@ export namespace Prisma {
       wishBigJobId: number | null
       wishMidJobId: number | null
       wishSmallJobId: number | null
+      wishJobId: number | null
       portfolio: string | null
       reportedNum: number
       totalGrade: number | null
@@ -5921,6 +6100,8 @@ export namespace Prisma {
 
     wishSmallJobKind<T extends studentsAdditional$wishSmallJobKindArgs<ExtArgs> = {}>(args?: Subset<T, studentsAdditional$wishSmallJobKindArgs<ExtArgs>>): Prisma__smallJobKindClient<$Result.GetResult<Prisma.$smallJobKindPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
+    wishJob<T extends studentsAdditional$wishJobArgs<ExtArgs> = {}>(args?: Subset<T, studentsAdditional$wishJobArgs<ExtArgs>>): Prisma__jobClient<$Result.GetResult<Prisma.$jobPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5957,6 +6138,7 @@ export namespace Prisma {
     readonly wishBigJobId: FieldRef<"studentsAdditional", 'Int'>
     readonly wishMidJobId: FieldRef<"studentsAdditional", 'Int'>
     readonly wishSmallJobId: FieldRef<"studentsAdditional", 'Int'>
+    readonly wishJobId: FieldRef<"studentsAdditional", 'Int'>
     readonly portfolio: FieldRef<"studentsAdditional", 'String'>
     readonly reportedNum: FieldRef<"studentsAdditional", 'Int'>
     readonly totalGrade: FieldRef<"studentsAdditional", 'Float'>
@@ -6367,6 +6549,22 @@ export namespace Prisma {
      */
     include?: smallJobKindInclude<ExtArgs> | null
     where?: smallJobKindWhereInput
+  }
+
+
+  /**
+   * studentsAdditional.wishJob
+   */
+  export type studentsAdditional$wishJobArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the job
+     */
+    select?: jobSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: jobInclude<ExtArgs> | null
+    where?: jobWhereInput
   }
 
 
@@ -14515,14 +14713,12 @@ export namespace Prisma {
     id: number | null
     longitude: number | null
     latitude: number | null
-    group: number | null
   }
 
   export type CompanySumAggregateOutputType = {
     id: number | null
     longitude: number | null
     latitude: number | null
-    group: number | null
   }
 
   export type CompanyMinAggregateOutputType = {
@@ -14532,7 +14728,6 @@ export namespace Prisma {
     longitude: number | null
     latitude: number | null
     scale: string | null
-    group: number | null
   }
 
   export type CompanyMaxAggregateOutputType = {
@@ -14542,7 +14737,6 @@ export namespace Prisma {
     longitude: number | null
     latitude: number | null
     scale: string | null
-    group: number | null
   }
 
   export type CompanyCountAggregateOutputType = {
@@ -14552,7 +14746,6 @@ export namespace Prisma {
     longitude: number
     latitude: number
     scale: number
-    group: number
     _all: number
   }
 
@@ -14561,14 +14754,12 @@ export namespace Prisma {
     id?: true
     longitude?: true
     latitude?: true
-    group?: true
   }
 
   export type CompanySumAggregateInputType = {
     id?: true
     longitude?: true
     latitude?: true
-    group?: true
   }
 
   export type CompanyMinAggregateInputType = {
@@ -14578,7 +14769,6 @@ export namespace Prisma {
     longitude?: true
     latitude?: true
     scale?: true
-    group?: true
   }
 
   export type CompanyMaxAggregateInputType = {
@@ -14588,7 +14778,6 @@ export namespace Prisma {
     longitude?: true
     latitude?: true
     scale?: true
-    group?: true
   }
 
   export type CompanyCountAggregateInputType = {
@@ -14598,7 +14787,6 @@ export namespace Prisma {
     longitude?: true
     latitude?: true
     scale?: true
-    group?: true
     _all?: true
   }
 
@@ -14695,7 +14883,6 @@ export namespace Prisma {
     longitude: number
     latitude: number
     scale: string
-    group: number
     _count: CompanyCountAggregateOutputType | null
     _avg: CompanyAvgAggregateOutputType | null
     _sum: CompanySumAggregateOutputType | null
@@ -14724,7 +14911,6 @@ export namespace Prisma {
     longitude?: boolean
     latitude?: boolean
     scale?: boolean
-    group?: boolean
     incumebent?: boolean | company$incumebentArgs<ExtArgs>
     student?: boolean | company$studentArgs<ExtArgs>
     _count?: boolean | CompanyCountOutputTypeDefaultArgs<ExtArgs>
@@ -14737,7 +14923,6 @@ export namespace Prisma {
     longitude?: boolean
     latitude?: boolean
     scale?: boolean
-    group?: boolean
   }
 
   export type companyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -14760,7 +14945,6 @@ export namespace Prisma {
       longitude: number
       latitude: number
       scale: string
-      group: number
     }, ExtArgs["result"]["company"]>
     composites: {}
   }
@@ -15164,7 +15348,6 @@ export namespace Prisma {
     readonly longitude: FieldRef<"company", 'Float'>
     readonly latitude: FieldRef<"company", 'Float'>
     readonly scale: FieldRef<"company", 'String'>
-    readonly group: FieldRef<"company", 'Int'>
   }
     
 
@@ -20535,6 +20718,989 @@ export namespace Prisma {
 
 
   /**
+   * Model job
+   */
+
+  export type AggregateJob = {
+    _count: JobCountAggregateOutputType | null
+    _avg: JobAvgAggregateOutputType | null
+    _sum: JobSumAggregateOutputType | null
+    _min: JobMinAggregateOutputType | null
+    _max: JobMaxAggregateOutputType | null
+  }
+
+  export type JobAvgAggregateOutputType = {
+    id: number | null
+    clusteringGroup: number | null
+  }
+
+  export type JobSumAggregateOutputType = {
+    id: number | null
+    clusteringGroup: number | null
+  }
+
+  export type JobMinAggregateOutputType = {
+    id: number | null
+    clusteringGroup: number | null
+    name: string | null
+  }
+
+  export type JobMaxAggregateOutputType = {
+    id: number | null
+    clusteringGroup: number | null
+    name: string | null
+  }
+
+  export type JobCountAggregateOutputType = {
+    id: number
+    clusteringGroup: number
+    name: number
+    _all: number
+  }
+
+
+  export type JobAvgAggregateInputType = {
+    id?: true
+    clusteringGroup?: true
+  }
+
+  export type JobSumAggregateInputType = {
+    id?: true
+    clusteringGroup?: true
+  }
+
+  export type JobMinAggregateInputType = {
+    id?: true
+    clusteringGroup?: true
+    name?: true
+  }
+
+  export type JobMaxAggregateInputType = {
+    id?: true
+    clusteringGroup?: true
+    name?: true
+  }
+
+  export type JobCountAggregateInputType = {
+    id?: true
+    clusteringGroup?: true
+    name?: true
+    _all?: true
+  }
+
+  export type JobAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which job to aggregate.
+     */
+    where?: jobWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of jobs to fetch.
+     */
+    orderBy?: jobOrderByWithRelationInput | jobOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: jobWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` jobs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` jobs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned jobs
+    **/
+    _count?: true | JobCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: JobAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: JobSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: JobMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: JobMaxAggregateInputType
+  }
+
+  export type GetJobAggregateType<T extends JobAggregateArgs> = {
+        [P in keyof T & keyof AggregateJob]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateJob[P]>
+      : GetScalarType<T[P], AggregateJob[P]>
+  }
+
+
+
+
+  export type jobGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: jobWhereInput
+    orderBy?: jobOrderByWithAggregationInput | jobOrderByWithAggregationInput[]
+    by: JobScalarFieldEnum[] | JobScalarFieldEnum
+    having?: jobScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: JobCountAggregateInputType | true
+    _avg?: JobAvgAggregateInputType
+    _sum?: JobSumAggregateInputType
+    _min?: JobMinAggregateInputType
+    _max?: JobMaxAggregateInputType
+  }
+
+  export type JobGroupByOutputType = {
+    id: number
+    clusteringGroup: number
+    name: string
+    _count: JobCountAggregateOutputType | null
+    _avg: JobAvgAggregateOutputType | null
+    _sum: JobSumAggregateOutputType | null
+    _min: JobMinAggregateOutputType | null
+    _max: JobMaxAggregateOutputType | null
+  }
+
+  type GetJobGroupByPayload<T extends jobGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<JobGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof JobGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], JobGroupByOutputType[P]>
+            : GetScalarType<T[P], JobGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type jobSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    clusteringGroup?: boolean
+    name?: boolean
+    incumebent?: boolean | job$incumebentArgs<ExtArgs>
+    student?: boolean | job$studentArgs<ExtArgs>
+    _count?: boolean | JobCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["job"]>
+
+  export type jobSelectScalar = {
+    id?: boolean
+    clusteringGroup?: boolean
+    name?: boolean
+  }
+
+  export type jobInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    incumebent?: boolean | job$incumebentArgs<ExtArgs>
+    student?: boolean | job$studentArgs<ExtArgs>
+    _count?: boolean | JobCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+
+  export type $jobPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "job"
+    objects: {
+      incumebent: Prisma.$incumbentsAdditionalPayload<ExtArgs>[]
+      student: Prisma.$studentsAdditionalPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      clusteringGroup: number
+      name: string
+    }, ExtArgs["result"]["job"]>
+    composites: {}
+  }
+
+
+  type jobGetPayload<S extends boolean | null | undefined | jobDefaultArgs> = $Result.GetResult<Prisma.$jobPayload, S>
+
+  type jobCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<jobFindManyArgs, 'select' | 'include' | 'distinct' > & {
+      select?: JobCountAggregateInputType | true
+    }
+
+  export interface jobDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['job'], meta: { name: 'job' } }
+    /**
+     * Find zero or one Job that matches the filter.
+     * @param {jobFindUniqueArgs} args - Arguments to find a Job
+     * @example
+     * // Get one Job
+     * const job = await prisma.job.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends jobFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, jobFindUniqueArgs<ExtArgs>>
+    ): Prisma__jobClient<$Result.GetResult<Prisma.$jobPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one Job that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {jobFindUniqueOrThrowArgs} args - Arguments to find a Job
+     * @example
+     * // Get one Job
+     * const job = await prisma.job.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends jobFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, jobFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__jobClient<$Result.GetResult<Prisma.$jobPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first Job that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {jobFindFirstArgs} args - Arguments to find a Job
+     * @example
+     * // Get one Job
+     * const job = await prisma.job.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends jobFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, jobFindFirstArgs<ExtArgs>>
+    ): Prisma__jobClient<$Result.GetResult<Prisma.$jobPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first Job that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {jobFindFirstOrThrowArgs} args - Arguments to find a Job
+     * @example
+     * // Get one Job
+     * const job = await prisma.job.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends jobFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, jobFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__jobClient<$Result.GetResult<Prisma.$jobPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more Jobs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {jobFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Jobs
+     * const jobs = await prisma.job.findMany()
+     * 
+     * // Get first 10 Jobs
+     * const jobs = await prisma.job.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const jobWithIdOnly = await prisma.job.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends jobFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, jobFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$jobPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a Job.
+     * @param {jobCreateArgs} args - Arguments to create a Job.
+     * @example
+     * // Create one Job
+     * const Job = await prisma.job.create({
+     *   data: {
+     *     // ... data to create a Job
+     *   }
+     * })
+     * 
+    **/
+    create<T extends jobCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, jobCreateArgs<ExtArgs>>
+    ): Prisma__jobClient<$Result.GetResult<Prisma.$jobPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many Jobs.
+     *     @param {jobCreateManyArgs} args - Arguments to create many Jobs.
+     *     @example
+     *     // Create many Jobs
+     *     const job = await prisma.job.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends jobCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, jobCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Job.
+     * @param {jobDeleteArgs} args - Arguments to delete one Job.
+     * @example
+     * // Delete one Job
+     * const Job = await prisma.job.delete({
+     *   where: {
+     *     // ... filter to delete one Job
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends jobDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, jobDeleteArgs<ExtArgs>>
+    ): Prisma__jobClient<$Result.GetResult<Prisma.$jobPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one Job.
+     * @param {jobUpdateArgs} args - Arguments to update one Job.
+     * @example
+     * // Update one Job
+     * const job = await prisma.job.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends jobUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, jobUpdateArgs<ExtArgs>>
+    ): Prisma__jobClient<$Result.GetResult<Prisma.$jobPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more Jobs.
+     * @param {jobDeleteManyArgs} args - Arguments to filter Jobs to delete.
+     * @example
+     * // Delete a few Jobs
+     * const { count } = await prisma.job.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends jobDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, jobDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Jobs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {jobUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Jobs
+     * const job = await prisma.job.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends jobUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, jobUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Job.
+     * @param {jobUpsertArgs} args - Arguments to update or create a Job.
+     * @example
+     * // Update or create a Job
+     * const job = await prisma.job.upsert({
+     *   create: {
+     *     // ... data to create a Job
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Job we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends jobUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, jobUpsertArgs<ExtArgs>>
+    ): Prisma__jobClient<$Result.GetResult<Prisma.$jobPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of Jobs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {jobCountArgs} args - Arguments to filter Jobs to count.
+     * @example
+     * // Count the number of Jobs
+     * const count = await prisma.job.count({
+     *   where: {
+     *     // ... the filter for the Jobs we want to count
+     *   }
+     * })
+    **/
+    count<T extends jobCountArgs>(
+      args?: Subset<T, jobCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], JobCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Job.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JobAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends JobAggregateArgs>(args: Subset<T, JobAggregateArgs>): Prisma.PrismaPromise<GetJobAggregateType<T>>
+
+    /**
+     * Group by Job.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {jobGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends jobGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: jobGroupByArgs['orderBy'] }
+        : { orderBy?: jobGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, jobGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetJobGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the job model
+   */
+  readonly fields: jobFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for job.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__jobClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    incumebent<T extends job$incumebentArgs<ExtArgs> = {}>(args?: Subset<T, job$incumebentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$incumbentsAdditionalPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    student<T extends job$studentArgs<ExtArgs> = {}>(args?: Subset<T, job$studentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$studentsAdditionalPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the job model
+   */ 
+  interface jobFieldRefs {
+    readonly id: FieldRef<"job", 'Int'>
+    readonly clusteringGroup: FieldRef<"job", 'Int'>
+    readonly name: FieldRef<"job", 'String'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * job findUnique
+   */
+  export type jobFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the job
+     */
+    select?: jobSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: jobInclude<ExtArgs> | null
+    /**
+     * Filter, which job to fetch.
+     */
+    where: jobWhereUniqueInput
+  }
+
+
+  /**
+   * job findUniqueOrThrow
+   */
+  export type jobFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the job
+     */
+    select?: jobSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: jobInclude<ExtArgs> | null
+    /**
+     * Filter, which job to fetch.
+     */
+    where: jobWhereUniqueInput
+  }
+
+
+  /**
+   * job findFirst
+   */
+  export type jobFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the job
+     */
+    select?: jobSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: jobInclude<ExtArgs> | null
+    /**
+     * Filter, which job to fetch.
+     */
+    where?: jobWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of jobs to fetch.
+     */
+    orderBy?: jobOrderByWithRelationInput | jobOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for jobs.
+     */
+    cursor?: jobWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` jobs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` jobs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of jobs.
+     */
+    distinct?: JobScalarFieldEnum | JobScalarFieldEnum[]
+  }
+
+
+  /**
+   * job findFirstOrThrow
+   */
+  export type jobFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the job
+     */
+    select?: jobSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: jobInclude<ExtArgs> | null
+    /**
+     * Filter, which job to fetch.
+     */
+    where?: jobWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of jobs to fetch.
+     */
+    orderBy?: jobOrderByWithRelationInput | jobOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for jobs.
+     */
+    cursor?: jobWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` jobs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` jobs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of jobs.
+     */
+    distinct?: JobScalarFieldEnum | JobScalarFieldEnum[]
+  }
+
+
+  /**
+   * job findMany
+   */
+  export type jobFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the job
+     */
+    select?: jobSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: jobInclude<ExtArgs> | null
+    /**
+     * Filter, which jobs to fetch.
+     */
+    where?: jobWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of jobs to fetch.
+     */
+    orderBy?: jobOrderByWithRelationInput | jobOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing jobs.
+     */
+    cursor?: jobWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` jobs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` jobs.
+     */
+    skip?: number
+    distinct?: JobScalarFieldEnum | JobScalarFieldEnum[]
+  }
+
+
+  /**
+   * job create
+   */
+  export type jobCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the job
+     */
+    select?: jobSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: jobInclude<ExtArgs> | null
+    /**
+     * The data needed to create a job.
+     */
+    data: XOR<jobCreateInput, jobUncheckedCreateInput>
+  }
+
+
+  /**
+   * job createMany
+   */
+  export type jobCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many jobs.
+     */
+    data: jobCreateManyInput | jobCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * job update
+   */
+  export type jobUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the job
+     */
+    select?: jobSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: jobInclude<ExtArgs> | null
+    /**
+     * The data needed to update a job.
+     */
+    data: XOR<jobUpdateInput, jobUncheckedUpdateInput>
+    /**
+     * Choose, which job to update.
+     */
+    where: jobWhereUniqueInput
+  }
+
+
+  /**
+   * job updateMany
+   */
+  export type jobUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update jobs.
+     */
+    data: XOR<jobUpdateManyMutationInput, jobUncheckedUpdateManyInput>
+    /**
+     * Filter which jobs to update
+     */
+    where?: jobWhereInput
+  }
+
+
+  /**
+   * job upsert
+   */
+  export type jobUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the job
+     */
+    select?: jobSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: jobInclude<ExtArgs> | null
+    /**
+     * The filter to search for the job to update in case it exists.
+     */
+    where: jobWhereUniqueInput
+    /**
+     * In case the job found by the `where` argument doesn't exist, create a new job with this data.
+     */
+    create: XOR<jobCreateInput, jobUncheckedCreateInput>
+    /**
+     * In case the job was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<jobUpdateInput, jobUncheckedUpdateInput>
+  }
+
+
+  /**
+   * job delete
+   */
+  export type jobDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the job
+     */
+    select?: jobSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: jobInclude<ExtArgs> | null
+    /**
+     * Filter which job to delete.
+     */
+    where: jobWhereUniqueInput
+  }
+
+
+  /**
+   * job deleteMany
+   */
+  export type jobDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which jobs to delete
+     */
+    where?: jobWhereInput
+  }
+
+
+  /**
+   * job.incumebent
+   */
+  export type job$incumebentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the incumbentsAdditional
+     */
+    select?: incumbentsAdditionalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: incumbentsAdditionalInclude<ExtArgs> | null
+    where?: incumbentsAdditionalWhereInput
+    orderBy?: incumbentsAdditionalOrderByWithRelationInput | incumbentsAdditionalOrderByWithRelationInput[]
+    cursor?: incumbentsAdditionalWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: IncumbentsAdditionalScalarFieldEnum | IncumbentsAdditionalScalarFieldEnum[]
+  }
+
+
+  /**
+   * job.student
+   */
+  export type job$studentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the studentsAdditional
+     */
+    select?: studentsAdditionalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: studentsAdditionalInclude<ExtArgs> | null
+    where?: studentsAdditionalWhereInput
+    orderBy?: studentsAdditionalOrderByWithRelationInput | studentsAdditionalOrderByWithRelationInput[]
+    cursor?: studentsAdditionalWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StudentsAdditionalScalarFieldEnum | StudentsAdditionalScalarFieldEnum[]
+  }
+
+
+  /**
+   * job without action
+   */
+  export type jobDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the job
+     */
+    select?: jobSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: jobInclude<ExtArgs> | null
+  }
+
+
+
+  /**
    * Enums
    */
 
@@ -20573,6 +21739,7 @@ export namespace Prisma {
     bigJobId: 'bigJobId',
     midJobId: 'midJobId',
     smallJobId: 'smallJobId',
+    jobId: 'jobId',
     shortSpec: 'shortSpec',
     reportedNum: 'reportedNum',
     adviceCount: 'adviceCount',
@@ -20592,6 +21759,7 @@ export namespace Prisma {
     wishBigJobId: 'wishBigJobId',
     wishMidJobId: 'wishMidJobId',
     wishSmallJobId: 'wishSmallJobId',
+    wishJobId: 'wishJobId',
     portfolio: 'portfolio',
     reportedNum: 'reportedNum',
     totalGrade: 'totalGrade',
@@ -20702,8 +21870,7 @@ export namespace Prisma {
     address: 'address',
     longitude: 'longitude',
     latitude: 'latitude',
-    scale: 'scale',
-    group: 'group'
+    scale: 'scale'
   };
 
   export type CompanyScalarFieldEnum = (typeof CompanyScalarFieldEnum)[keyof typeof CompanyScalarFieldEnum]
@@ -20752,6 +21919,15 @@ export namespace Prisma {
   };
 
   export type SmallJobKindScalarFieldEnum = (typeof SmallJobKindScalarFieldEnum)[keyof typeof SmallJobKindScalarFieldEnum]
+
+
+  export const JobScalarFieldEnum: {
+    id: 'id',
+    clusteringGroup: 'clusteringGroup',
+    name: 'name'
+  };
+
+  export type JobScalarFieldEnum = (typeof JobScalarFieldEnum)[keyof typeof JobScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -20945,6 +22121,7 @@ export namespace Prisma {
     bigJobId?: IntNullableFilter<"incumbentsAdditional"> | number | null
     midJobId?: IntNullableFilter<"incumbentsAdditional"> | number | null
     smallJobId?: IntNullableFilter<"incumbentsAdditional"> | number | null
+    jobId?: IntNullableFilter<"incumbentsAdditional"> | number | null
     shortSpec?: StringNullableFilter<"incumbentsAdditional"> | string | null
     reportedNum?: IntFilter<"incumbentsAdditional"> | number
     adviceCount?: IntFilter<"incumbentsAdditional"> | number
@@ -20957,6 +22134,7 @@ export namespace Prisma {
     bigJobKind?: XOR<BigJobKindNullableRelationFilter, bigJobKindWhereInput> | null
     midJobKind?: XOR<MidJobKindNullableRelationFilter, midJobKindWhereInput> | null
     smallJobKind?: XOR<SmallJobKindNullableRelationFilter, smallJobKindWhereInput> | null
+    job?: XOR<JobNullableRelationFilter, jobWhereInput> | null
   }
 
   export type incumbentsAdditionalOrderByWithRelationInput = {
@@ -20968,6 +22146,7 @@ export namespace Prisma {
     bigJobId?: SortOrderInput | SortOrder
     midJobId?: SortOrderInput | SortOrder
     smallJobId?: SortOrderInput | SortOrder
+    jobId?: SortOrderInput | SortOrder
     shortSpec?: SortOrderInput | SortOrder
     reportedNum?: SortOrder
     adviceCount?: SortOrder
@@ -20980,6 +22159,7 @@ export namespace Prisma {
     bigJobKind?: bigJobKindOrderByWithRelationInput
     midJobKind?: midJobKindOrderByWithRelationInput
     smallJobKind?: smallJobKindOrderByWithRelationInput
+    job?: jobOrderByWithRelationInput
   }
 
   export type incumbentsAdditionalWhereUniqueInput = Prisma.AtLeast<{
@@ -20994,6 +22174,7 @@ export namespace Prisma {
     bigJobId?: IntNullableFilter<"incumbentsAdditional"> | number | null
     midJobId?: IntNullableFilter<"incumbentsAdditional"> | number | null
     smallJobId?: IntNullableFilter<"incumbentsAdditional"> | number | null
+    jobId?: IntNullableFilter<"incumbentsAdditional"> | number | null
     shortSpec?: StringNullableFilter<"incumbentsAdditional"> | string | null
     reportedNum?: IntFilter<"incumbentsAdditional"> | number
     adviceCount?: IntFilter<"incumbentsAdditional"> | number
@@ -21006,6 +22187,7 @@ export namespace Prisma {
     bigJobKind?: XOR<BigJobKindNullableRelationFilter, bigJobKindWhereInput> | null
     midJobKind?: XOR<MidJobKindNullableRelationFilter, midJobKindWhereInput> | null
     smallJobKind?: XOR<SmallJobKindNullableRelationFilter, smallJobKindWhereInput> | null
+    job?: XOR<JobNullableRelationFilter, jobWhereInput> | null
   }, "id" | "userId">
 
   export type incumbentsAdditionalOrderByWithAggregationInput = {
@@ -21017,6 +22199,7 @@ export namespace Prisma {
     bigJobId?: SortOrderInput | SortOrder
     midJobId?: SortOrderInput | SortOrder
     smallJobId?: SortOrderInput | SortOrder
+    jobId?: SortOrderInput | SortOrder
     shortSpec?: SortOrderInput | SortOrder
     reportedNum?: SortOrder
     adviceCount?: SortOrder
@@ -21041,6 +22224,7 @@ export namespace Prisma {
     bigJobId?: IntNullableWithAggregatesFilter<"incumbentsAdditional"> | number | null
     midJobId?: IntNullableWithAggregatesFilter<"incumbentsAdditional"> | number | null
     smallJobId?: IntNullableWithAggregatesFilter<"incumbentsAdditional"> | number | null
+    jobId?: IntNullableWithAggregatesFilter<"incumbentsAdditional"> | number | null
     shortSpec?: StringNullableWithAggregatesFilter<"incumbentsAdditional"> | string | null
     reportedNum?: IntWithAggregatesFilter<"incumbentsAdditional"> | number
     adviceCount?: IntWithAggregatesFilter<"incumbentsAdditional"> | number
@@ -21060,6 +22244,7 @@ export namespace Prisma {
     wishBigJobId?: IntNullableFilter<"studentsAdditional"> | number | null
     wishMidJobId?: IntNullableFilter<"studentsAdditional"> | number | null
     wishSmallJobId?: IntNullableFilter<"studentsAdditional"> | number | null
+    wishJobId?: IntNullableFilter<"studentsAdditional"> | number | null
     portfolio?: StringNullableFilter<"studentsAdditional"> | string | null
     reportedNum?: IntFilter<"studentsAdditional"> | number
     totalGrade?: FloatNullableFilter<"studentsAdditional"> | number | null
@@ -21073,6 +22258,7 @@ export namespace Prisma {
     wishBigJobKind?: XOR<BigJobKindNullableRelationFilter, bigJobKindWhereInput> | null
     wishMidJobKind?: XOR<MidJobKindNullableRelationFilter, midJobKindWhereInput> | null
     wishSmallJobKind?: XOR<SmallJobKindNullableRelationFilter, smallJobKindWhereInput> | null
+    wishJob?: XOR<JobNullableRelationFilter, jobWhereInput> | null
   }
 
   export type studentsAdditionalOrderByWithRelationInput = {
@@ -21084,6 +22270,7 @@ export namespace Prisma {
     wishBigJobId?: SortOrderInput | SortOrder
     wishMidJobId?: SortOrderInput | SortOrder
     wishSmallJobId?: SortOrderInput | SortOrder
+    wishJobId?: SortOrderInput | SortOrder
     portfolio?: SortOrderInput | SortOrder
     reportedNum?: SortOrder
     totalGrade?: SortOrderInput | SortOrder
@@ -21097,6 +22284,7 @@ export namespace Prisma {
     wishBigJobKind?: bigJobKindOrderByWithRelationInput
     wishMidJobKind?: midJobKindOrderByWithRelationInput
     wishSmallJobKind?: smallJobKindOrderByWithRelationInput
+    wishJob?: jobOrderByWithRelationInput
   }
 
   export type studentsAdditionalWhereUniqueInput = Prisma.AtLeast<{
@@ -21111,6 +22299,7 @@ export namespace Prisma {
     wishBigJobId?: IntNullableFilter<"studentsAdditional"> | number | null
     wishMidJobId?: IntNullableFilter<"studentsAdditional"> | number | null
     wishSmallJobId?: IntNullableFilter<"studentsAdditional"> | number | null
+    wishJobId?: IntNullableFilter<"studentsAdditional"> | number | null
     portfolio?: StringNullableFilter<"studentsAdditional"> | string | null
     reportedNum?: IntFilter<"studentsAdditional"> | number
     totalGrade?: FloatNullableFilter<"studentsAdditional"> | number | null
@@ -21124,6 +22313,7 @@ export namespace Prisma {
     wishBigJobKind?: XOR<BigJobKindNullableRelationFilter, bigJobKindWhereInput> | null
     wishMidJobKind?: XOR<MidJobKindNullableRelationFilter, midJobKindWhereInput> | null
     wishSmallJobKind?: XOR<SmallJobKindNullableRelationFilter, smallJobKindWhereInput> | null
+    wishJob?: XOR<JobNullableRelationFilter, jobWhereInput> | null
   }, "id" | "userId">
 
   export type studentsAdditionalOrderByWithAggregationInput = {
@@ -21135,6 +22325,7 @@ export namespace Prisma {
     wishBigJobId?: SortOrderInput | SortOrder
     wishMidJobId?: SortOrderInput | SortOrder
     wishSmallJobId?: SortOrderInput | SortOrder
+    wishJobId?: SortOrderInput | SortOrder
     portfolio?: SortOrderInput | SortOrder
     reportedNum?: SortOrder
     totalGrade?: SortOrderInput | SortOrder
@@ -21160,6 +22351,7 @@ export namespace Prisma {
     wishBigJobId?: IntNullableWithAggregatesFilter<"studentsAdditional"> | number | null
     wishMidJobId?: IntNullableWithAggregatesFilter<"studentsAdditional"> | number | null
     wishSmallJobId?: IntNullableWithAggregatesFilter<"studentsAdditional"> | number | null
+    wishJobId?: IntNullableWithAggregatesFilter<"studentsAdditional"> | number | null
     portfolio?: StringNullableWithAggregatesFilter<"studentsAdditional"> | string | null
     reportedNum?: IntWithAggregatesFilter<"studentsAdditional"> | number
     totalGrade?: FloatNullableWithAggregatesFilter<"studentsAdditional"> | number | null
@@ -21698,7 +22890,6 @@ export namespace Prisma {
     longitude?: FloatFilter<"company"> | number
     latitude?: FloatFilter<"company"> | number
     scale?: StringFilter<"company"> | string
-    group?: IntFilter<"company"> | number
     incumebent?: IncumbentsAdditionalListRelationFilter
     student?: StudentsAdditionalListRelationFilter
   }
@@ -21710,7 +22901,6 @@ export namespace Prisma {
     longitude?: SortOrder
     latitude?: SortOrder
     scale?: SortOrder
-    group?: SortOrder
     incumebent?: incumbentsAdditionalOrderByRelationAggregateInput
     student?: studentsAdditionalOrderByRelationAggregateInput
   }
@@ -21725,7 +22915,6 @@ export namespace Prisma {
     longitude?: FloatFilter<"company"> | number
     latitude?: FloatFilter<"company"> | number
     scale?: StringFilter<"company"> | string
-    group?: IntFilter<"company"> | number
     incumebent?: IncumbentsAdditionalListRelationFilter
     student?: StudentsAdditionalListRelationFilter
   }, "id">
@@ -21737,7 +22926,6 @@ export namespace Prisma {
     longitude?: SortOrder
     latitude?: SortOrder
     scale?: SortOrder
-    group?: SortOrder
     _count?: companyCountOrderByAggregateInput
     _avg?: companyAvgOrderByAggregateInput
     _max?: companyMaxOrderByAggregateInput
@@ -21755,7 +22943,6 @@ export namespace Prisma {
     longitude?: FloatWithAggregatesFilter<"company"> | number
     latitude?: FloatWithAggregatesFilter<"company"> | number
     scale?: StringWithAggregatesFilter<"company"> | string
-    group?: IntWithAggregatesFilter<"company"> | number
   }
 
   export type schoolWhereInput = {
@@ -22026,6 +23213,56 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"smallJobKind"> | string
   }
 
+  export type jobWhereInput = {
+    AND?: jobWhereInput | jobWhereInput[]
+    OR?: jobWhereInput[]
+    NOT?: jobWhereInput | jobWhereInput[]
+    id?: IntFilter<"job"> | number
+    clusteringGroup?: IntFilter<"job"> | number
+    name?: StringFilter<"job"> | string
+    incumebent?: IncumbentsAdditionalListRelationFilter
+    student?: StudentsAdditionalListRelationFilter
+  }
+
+  export type jobOrderByWithRelationInput = {
+    id?: SortOrder
+    clusteringGroup?: SortOrder
+    name?: SortOrder
+    incumebent?: incumbentsAdditionalOrderByRelationAggregateInput
+    student?: studentsAdditionalOrderByRelationAggregateInput
+  }
+
+  export type jobWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: jobWhereInput | jobWhereInput[]
+    OR?: jobWhereInput[]
+    NOT?: jobWhereInput | jobWhereInput[]
+    clusteringGroup?: IntFilter<"job"> | number
+    name?: StringFilter<"job"> | string
+    incumebent?: IncumbentsAdditionalListRelationFilter
+    student?: StudentsAdditionalListRelationFilter
+  }, "id">
+
+  export type jobOrderByWithAggregationInput = {
+    id?: SortOrder
+    clusteringGroup?: SortOrder
+    name?: SortOrder
+    _count?: jobCountOrderByAggregateInput
+    _avg?: jobAvgOrderByAggregateInput
+    _max?: jobMaxOrderByAggregateInput
+    _min?: jobMinOrderByAggregateInput
+    _sum?: jobSumOrderByAggregateInput
+  }
+
+  export type jobScalarWhereWithAggregatesInput = {
+    AND?: jobScalarWhereWithAggregatesInput | jobScalarWhereWithAggregatesInput[]
+    OR?: jobScalarWhereWithAggregatesInput[]
+    NOT?: jobScalarWhereWithAggregatesInput | jobScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"job"> | number
+    clusteringGroup?: IntWithAggregatesFilter<"job"> | number
+    name?: StringWithAggregatesFilter<"job"> | string
+  }
+
   export type usersCreateInput = {
     email: string
     password: string
@@ -22163,6 +23400,7 @@ export namespace Prisma {
     bigJobKind?: bigJobKindCreateNestedOneWithoutIncumebentInput
     midJobKind?: midJobKindCreateNestedOneWithoutIncumebentInput
     smallJobKind?: smallJobKindCreateNestedOneWithoutIncumebentInput
+    job?: jobCreateNestedOneWithoutIncumebentInput
   }
 
   export type incumbentsAdditionalUncheckedCreateInput = {
@@ -22174,6 +23412,7 @@ export namespace Prisma {
     bigJobId?: number | null
     midJobId?: number | null
     smallJobId?: number | null
+    jobId?: number | null
     shortSpec?: string | null
     reportedNum?: number
     adviceCount?: number
@@ -22194,6 +23433,7 @@ export namespace Prisma {
     bigJobKind?: bigJobKindUpdateOneWithoutIncumebentNestedInput
     midJobKind?: midJobKindUpdateOneWithoutIncumebentNestedInput
     smallJobKind?: smallJobKindUpdateOneWithoutIncumebentNestedInput
+    job?: jobUpdateOneWithoutIncumebentNestedInput
   }
 
   export type incumbentsAdditionalUncheckedUpdateInput = {
@@ -22205,6 +23445,7 @@ export namespace Prisma {
     bigJobId?: NullableIntFieldUpdateOperationsInput | number | null
     midJobId?: NullableIntFieldUpdateOperationsInput | number | null
     smallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    jobId?: NullableIntFieldUpdateOperationsInput | number | null
     shortSpec?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -22221,6 +23462,7 @@ export namespace Prisma {
     bigJobId?: number | null
     midJobId?: number | null
     smallJobId?: number | null
+    jobId?: number | null
     shortSpec?: string | null
     reportedNum?: number
     adviceCount?: number
@@ -22245,6 +23487,7 @@ export namespace Prisma {
     bigJobId?: NullableIntFieldUpdateOperationsInput | number | null
     midJobId?: NullableIntFieldUpdateOperationsInput | number | null
     smallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    jobId?: NullableIntFieldUpdateOperationsInput | number | null
     shortSpec?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -22266,6 +23509,7 @@ export namespace Prisma {
     wishBigJobKind?: bigJobKindCreateNestedOneWithoutStudentInput
     wishMidJobKind?: midJobKindCreateNestedOneWithoutStudentInput
     wishSmallJobKind?: smallJobKindCreateNestedOneWithoutStudentInput
+    wishJob?: jobCreateNestedOneWithoutStudentInput
   }
 
   export type studentsAdditionalUncheckedCreateInput = {
@@ -22277,6 +23521,7 @@ export namespace Prisma {
     wishBigJobId?: number | null
     wishMidJobId?: number | null
     wishSmallJobId?: number | null
+    wishJobId?: number | null
     portfolio?: string | null
     reportedNum?: number
     totalGrade?: number | null
@@ -22299,6 +23544,7 @@ export namespace Prisma {
     wishBigJobKind?: bigJobKindUpdateOneWithoutStudentNestedInput
     wishMidJobKind?: midJobKindUpdateOneWithoutStudentNestedInput
     wishSmallJobKind?: smallJobKindUpdateOneWithoutStudentNestedInput
+    wishJob?: jobUpdateOneWithoutStudentNestedInput
   }
 
   export type studentsAdditionalUncheckedUpdateInput = {
@@ -22310,6 +23556,7 @@ export namespace Prisma {
     wishBigJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishMidJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishSmallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    wishJobId?: NullableIntFieldUpdateOperationsInput | number | null
     portfolio?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     totalGrade?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -22327,6 +23574,7 @@ export namespace Prisma {
     wishBigJobId?: number | null
     wishMidJobId?: number | null
     wishSmallJobId?: number | null
+    wishJobId?: number | null
     portfolio?: string | null
     reportedNum?: number
     totalGrade?: number | null
@@ -22353,6 +23601,7 @@ export namespace Prisma {
     wishBigJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishMidJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishSmallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    wishJobId?: NullableIntFieldUpdateOperationsInput | number | null
     portfolio?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     totalGrade?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -22840,7 +24089,6 @@ export namespace Prisma {
     longitude: number
     latitude: number
     scale: string
-    group: number
     incumebent?: incumbentsAdditionalCreateNestedManyWithoutCompanyInput
     student?: studentsAdditionalCreateNestedManyWithoutWishCompanyInput
   }
@@ -22852,7 +24100,6 @@ export namespace Prisma {
     longitude: number
     latitude: number
     scale: string
-    group: number
     incumebent?: incumbentsAdditionalUncheckedCreateNestedManyWithoutCompanyInput
     student?: studentsAdditionalUncheckedCreateNestedManyWithoutWishCompanyInput
   }
@@ -22863,7 +24110,6 @@ export namespace Prisma {
     longitude?: FloatFieldUpdateOperationsInput | number
     latitude?: FloatFieldUpdateOperationsInput | number
     scale?: StringFieldUpdateOperationsInput | string
-    group?: IntFieldUpdateOperationsInput | number
     incumebent?: incumbentsAdditionalUpdateManyWithoutCompanyNestedInput
     student?: studentsAdditionalUpdateManyWithoutWishCompanyNestedInput
   }
@@ -22875,7 +24121,6 @@ export namespace Prisma {
     longitude?: FloatFieldUpdateOperationsInput | number
     latitude?: FloatFieldUpdateOperationsInput | number
     scale?: StringFieldUpdateOperationsInput | string
-    group?: IntFieldUpdateOperationsInput | number
     incumebent?: incumbentsAdditionalUncheckedUpdateManyWithoutCompanyNestedInput
     student?: studentsAdditionalUncheckedUpdateManyWithoutWishCompanyNestedInput
   }
@@ -22887,7 +24132,6 @@ export namespace Prisma {
     longitude: number
     latitude: number
     scale: string
-    group: number
   }
 
   export type companyUpdateManyMutationInput = {
@@ -22896,7 +24140,6 @@ export namespace Prisma {
     longitude?: FloatFieldUpdateOperationsInput | number
     latitude?: FloatFieldUpdateOperationsInput | number
     scale?: StringFieldUpdateOperationsInput | string
-    group?: IntFieldUpdateOperationsInput | number
   }
 
   export type companyUncheckedUpdateManyInput = {
@@ -22906,7 +24149,6 @@ export namespace Prisma {
     longitude?: FloatFieldUpdateOperationsInput | number
     latitude?: FloatFieldUpdateOperationsInput | number
     scale?: StringFieldUpdateOperationsInput | string
-    group?: IntFieldUpdateOperationsInput | number
   }
 
   export type schoolCreateInput = {
@@ -23150,6 +24392,53 @@ export namespace Prisma {
   export type smallJobKindUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     midJobKindId?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type jobCreateInput = {
+    clusteringGroup: number
+    name: string
+    incumebent?: incumbentsAdditionalCreateNestedManyWithoutJobInput
+    student?: studentsAdditionalCreateNestedManyWithoutWishJobInput
+  }
+
+  export type jobUncheckedCreateInput = {
+    id?: number
+    clusteringGroup: number
+    name: string
+    incumebent?: incumbentsAdditionalUncheckedCreateNestedManyWithoutJobInput
+    student?: studentsAdditionalUncheckedCreateNestedManyWithoutWishJobInput
+  }
+
+  export type jobUpdateInput = {
+    clusteringGroup?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    incumebent?: incumbentsAdditionalUpdateManyWithoutJobNestedInput
+    student?: studentsAdditionalUpdateManyWithoutWishJobNestedInput
+  }
+
+  export type jobUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    clusteringGroup?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    incumebent?: incumbentsAdditionalUncheckedUpdateManyWithoutJobNestedInput
+    student?: studentsAdditionalUncheckedUpdateManyWithoutWishJobNestedInput
+  }
+
+  export type jobCreateManyInput = {
+    id?: number
+    clusteringGroup: number
+    name: string
+  }
+
+  export type jobUpdateManyMutationInput = {
+    clusteringGroup?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type jobUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    clusteringGroup?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
   }
 
@@ -23492,6 +24781,11 @@ export namespace Prisma {
     isNot?: smallJobKindWhereInput | null
   }
 
+  export type JobNullableRelationFilter = {
+    is?: jobWhereInput | null
+    isNot?: jobWhereInput | null
+  }
+
   export type incumbentsAdditionalCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -23501,6 +24795,7 @@ export namespace Prisma {
     bigJobId?: SortOrder
     midJobId?: SortOrder
     smallJobId?: SortOrder
+    jobId?: SortOrder
     shortSpec?: SortOrder
     reportedNum?: SortOrder
     adviceCount?: SortOrder
@@ -23517,6 +24812,7 @@ export namespace Prisma {
     bigJobId?: SortOrder
     midJobId?: SortOrder
     smallJobId?: SortOrder
+    jobId?: SortOrder
     reportedNum?: SortOrder
     adviceCount?: SortOrder
     estimationCount?: SortOrder
@@ -23531,6 +24827,7 @@ export namespace Prisma {
     bigJobId?: SortOrder
     midJobId?: SortOrder
     smallJobId?: SortOrder
+    jobId?: SortOrder
     shortSpec?: SortOrder
     reportedNum?: SortOrder
     adviceCount?: SortOrder
@@ -23547,6 +24844,7 @@ export namespace Prisma {
     bigJobId?: SortOrder
     midJobId?: SortOrder
     smallJobId?: SortOrder
+    jobId?: SortOrder
     shortSpec?: SortOrder
     reportedNum?: SortOrder
     adviceCount?: SortOrder
@@ -23563,6 +24861,7 @@ export namespace Prisma {
     bigJobId?: SortOrder
     midJobId?: SortOrder
     smallJobId?: SortOrder
+    jobId?: SortOrder
     reportedNum?: SortOrder
     adviceCount?: SortOrder
     estimationCount?: SortOrder
@@ -23620,6 +24919,7 @@ export namespace Prisma {
     wishBigJobId?: SortOrder
     wishMidJobId?: SortOrder
     wishSmallJobId?: SortOrder
+    wishJobId?: SortOrder
     portfolio?: SortOrder
     reportedNum?: SortOrder
     totalGrade?: SortOrder
@@ -23637,6 +24937,7 @@ export namespace Prisma {
     wishBigJobId?: SortOrder
     wishMidJobId?: SortOrder
     wishSmallJobId?: SortOrder
+    wishJobId?: SortOrder
     reportedNum?: SortOrder
     totalGrade?: SortOrder
     adviceCount?: SortOrder
@@ -23652,6 +24953,7 @@ export namespace Prisma {
     wishBigJobId?: SortOrder
     wishMidJobId?: SortOrder
     wishSmallJobId?: SortOrder
+    wishJobId?: SortOrder
     portfolio?: SortOrder
     reportedNum?: SortOrder
     totalGrade?: SortOrder
@@ -23669,6 +24971,7 @@ export namespace Prisma {
     wishBigJobId?: SortOrder
     wishMidJobId?: SortOrder
     wishSmallJobId?: SortOrder
+    wishJobId?: SortOrder
     portfolio?: SortOrder
     reportedNum?: SortOrder
     totalGrade?: SortOrder
@@ -23686,6 +24989,7 @@ export namespace Prisma {
     wishBigJobId?: SortOrder
     wishMidJobId?: SortOrder
     wishSmallJobId?: SortOrder
+    wishJobId?: SortOrder
     reportedNum?: SortOrder
     totalGrade?: SortOrder
     adviceCount?: SortOrder
@@ -24084,14 +25388,12 @@ export namespace Prisma {
     longitude?: SortOrder
     latitude?: SortOrder
     scale?: SortOrder
-    group?: SortOrder
   }
 
   export type companyAvgOrderByAggregateInput = {
     id?: SortOrder
     longitude?: SortOrder
     latitude?: SortOrder
-    group?: SortOrder
   }
 
   export type companyMaxOrderByAggregateInput = {
@@ -24101,7 +25403,6 @@ export namespace Prisma {
     longitude?: SortOrder
     latitude?: SortOrder
     scale?: SortOrder
-    group?: SortOrder
   }
 
   export type companyMinOrderByAggregateInput = {
@@ -24111,14 +25412,12 @@ export namespace Prisma {
     longitude?: SortOrder
     latitude?: SortOrder
     scale?: SortOrder
-    group?: SortOrder
   }
 
   export type companySumOrderByAggregateInput = {
     id?: SortOrder
     longitude?: SortOrder
     latitude?: SortOrder
-    group?: SortOrder
   }
 
   export type MajorListRelationFilter = {
@@ -24300,6 +25599,34 @@ export namespace Prisma {
   export type smallJobKindSumOrderByAggregateInput = {
     id?: SortOrder
     midJobKindId?: SortOrder
+  }
+
+  export type jobCountOrderByAggregateInput = {
+    id?: SortOrder
+    clusteringGroup?: SortOrder
+    name?: SortOrder
+  }
+
+  export type jobAvgOrderByAggregateInput = {
+    id?: SortOrder
+    clusteringGroup?: SortOrder
+  }
+
+  export type jobMaxOrderByAggregateInput = {
+    id?: SortOrder
+    clusteringGroup?: SortOrder
+    name?: SortOrder
+  }
+
+  export type jobMinOrderByAggregateInput = {
+    id?: SortOrder
+    clusteringGroup?: SortOrder
+    name?: SortOrder
+  }
+
+  export type jobSumOrderByAggregateInput = {
+    id?: SortOrder
+    clusteringGroup?: SortOrder
   }
 
   export type incumbentsAdditionalCreateNestedOneWithoutUsersInput = {
@@ -24730,6 +26057,12 @@ export namespace Prisma {
     connect?: smallJobKindWhereUniqueInput
   }
 
+  export type jobCreateNestedOneWithoutIncumebentInput = {
+    create?: XOR<jobCreateWithoutIncumebentInput, jobUncheckedCreateWithoutIncumebentInput>
+    connectOrCreate?: jobCreateOrConnectWithoutIncumebentInput
+    connect?: jobWhereUniqueInput
+  }
+
   export type FloatFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -24806,6 +26139,16 @@ export namespace Prisma {
     update?: XOR<XOR<smallJobKindUpdateToOneWithWhereWithoutIncumebentInput, smallJobKindUpdateWithoutIncumebentInput>, smallJobKindUncheckedUpdateWithoutIncumebentInput>
   }
 
+  export type jobUpdateOneWithoutIncumebentNestedInput = {
+    create?: XOR<jobCreateWithoutIncumebentInput, jobUncheckedCreateWithoutIncumebentInput>
+    connectOrCreate?: jobCreateOrConnectWithoutIncumebentInput
+    upsert?: jobUpsertWithoutIncumebentInput
+    disconnect?: jobWhereInput | boolean
+    delete?: jobWhereInput | boolean
+    connect?: jobWhereUniqueInput
+    update?: XOR<XOR<jobUpdateToOneWithWhereWithoutIncumebentInput, jobUpdateWithoutIncumebentInput>, jobUncheckedUpdateWithoutIncumebentInput>
+  }
+
   export type NullableIntFieldUpdateOperationsInput = {
     set?: number | null
     increment?: number
@@ -24854,6 +26197,12 @@ export namespace Prisma {
     create?: XOR<smallJobKindCreateWithoutStudentInput, smallJobKindUncheckedCreateWithoutStudentInput>
     connectOrCreate?: smallJobKindCreateOrConnectWithoutStudentInput
     connect?: smallJobKindWhereUniqueInput
+  }
+
+  export type jobCreateNestedOneWithoutStudentInput = {
+    create?: XOR<jobCreateWithoutStudentInput, jobUncheckedCreateWithoutStudentInput>
+    connectOrCreate?: jobCreateOrConnectWithoutStudentInput
+    connect?: jobWhereUniqueInput
   }
 
   export type NullableFloatFieldUpdateOperationsInput = {
@@ -24930,6 +26279,16 @@ export namespace Prisma {
     delete?: smallJobKindWhereInput | boolean
     connect?: smallJobKindWhereUniqueInput
     update?: XOR<XOR<smallJobKindUpdateToOneWithWhereWithoutStudentInput, smallJobKindUpdateWithoutStudentInput>, smallJobKindUncheckedUpdateWithoutStudentInput>
+  }
+
+  export type jobUpdateOneWithoutStudentNestedInput = {
+    create?: XOR<jobCreateWithoutStudentInput, jobUncheckedCreateWithoutStudentInput>
+    connectOrCreate?: jobCreateOrConnectWithoutStudentInput
+    upsert?: jobUpsertWithoutStudentInput
+    disconnect?: jobWhereInput | boolean
+    delete?: jobWhereInput | boolean
+    connect?: jobWhereUniqueInput
+    update?: XOR<XOR<jobUpdateToOneWithWhereWithoutStudentInput, jobUpdateWithoutStudentInput>, jobUncheckedUpdateWithoutStudentInput>
   }
 
   export type postsCreateNestedManyWithoutCategoriesInput = {
@@ -26116,6 +27475,90 @@ export namespace Prisma {
     deleteMany?: studentsAdditionalScalarWhereInput | studentsAdditionalScalarWhereInput[]
   }
 
+  export type incumbentsAdditionalCreateNestedManyWithoutJobInput = {
+    create?: XOR<incumbentsAdditionalCreateWithoutJobInput, incumbentsAdditionalUncheckedCreateWithoutJobInput> | incumbentsAdditionalCreateWithoutJobInput[] | incumbentsAdditionalUncheckedCreateWithoutJobInput[]
+    connectOrCreate?: incumbentsAdditionalCreateOrConnectWithoutJobInput | incumbentsAdditionalCreateOrConnectWithoutJobInput[]
+    createMany?: incumbentsAdditionalCreateManyJobInputEnvelope
+    connect?: incumbentsAdditionalWhereUniqueInput | incumbentsAdditionalWhereUniqueInput[]
+  }
+
+  export type studentsAdditionalCreateNestedManyWithoutWishJobInput = {
+    create?: XOR<studentsAdditionalCreateWithoutWishJobInput, studentsAdditionalUncheckedCreateWithoutWishJobInput> | studentsAdditionalCreateWithoutWishJobInput[] | studentsAdditionalUncheckedCreateWithoutWishJobInput[]
+    connectOrCreate?: studentsAdditionalCreateOrConnectWithoutWishJobInput | studentsAdditionalCreateOrConnectWithoutWishJobInput[]
+    createMany?: studentsAdditionalCreateManyWishJobInputEnvelope
+    connect?: studentsAdditionalWhereUniqueInput | studentsAdditionalWhereUniqueInput[]
+  }
+
+  export type incumbentsAdditionalUncheckedCreateNestedManyWithoutJobInput = {
+    create?: XOR<incumbentsAdditionalCreateWithoutJobInput, incumbentsAdditionalUncheckedCreateWithoutJobInput> | incumbentsAdditionalCreateWithoutJobInput[] | incumbentsAdditionalUncheckedCreateWithoutJobInput[]
+    connectOrCreate?: incumbentsAdditionalCreateOrConnectWithoutJobInput | incumbentsAdditionalCreateOrConnectWithoutJobInput[]
+    createMany?: incumbentsAdditionalCreateManyJobInputEnvelope
+    connect?: incumbentsAdditionalWhereUniqueInput | incumbentsAdditionalWhereUniqueInput[]
+  }
+
+  export type studentsAdditionalUncheckedCreateNestedManyWithoutWishJobInput = {
+    create?: XOR<studentsAdditionalCreateWithoutWishJobInput, studentsAdditionalUncheckedCreateWithoutWishJobInput> | studentsAdditionalCreateWithoutWishJobInput[] | studentsAdditionalUncheckedCreateWithoutWishJobInput[]
+    connectOrCreate?: studentsAdditionalCreateOrConnectWithoutWishJobInput | studentsAdditionalCreateOrConnectWithoutWishJobInput[]
+    createMany?: studentsAdditionalCreateManyWishJobInputEnvelope
+    connect?: studentsAdditionalWhereUniqueInput | studentsAdditionalWhereUniqueInput[]
+  }
+
+  export type incumbentsAdditionalUpdateManyWithoutJobNestedInput = {
+    create?: XOR<incumbentsAdditionalCreateWithoutJobInput, incumbentsAdditionalUncheckedCreateWithoutJobInput> | incumbentsAdditionalCreateWithoutJobInput[] | incumbentsAdditionalUncheckedCreateWithoutJobInput[]
+    connectOrCreate?: incumbentsAdditionalCreateOrConnectWithoutJobInput | incumbentsAdditionalCreateOrConnectWithoutJobInput[]
+    upsert?: incumbentsAdditionalUpsertWithWhereUniqueWithoutJobInput | incumbentsAdditionalUpsertWithWhereUniqueWithoutJobInput[]
+    createMany?: incumbentsAdditionalCreateManyJobInputEnvelope
+    set?: incumbentsAdditionalWhereUniqueInput | incumbentsAdditionalWhereUniqueInput[]
+    disconnect?: incumbentsAdditionalWhereUniqueInput | incumbentsAdditionalWhereUniqueInput[]
+    delete?: incumbentsAdditionalWhereUniqueInput | incumbentsAdditionalWhereUniqueInput[]
+    connect?: incumbentsAdditionalWhereUniqueInput | incumbentsAdditionalWhereUniqueInput[]
+    update?: incumbentsAdditionalUpdateWithWhereUniqueWithoutJobInput | incumbentsAdditionalUpdateWithWhereUniqueWithoutJobInput[]
+    updateMany?: incumbentsAdditionalUpdateManyWithWhereWithoutJobInput | incumbentsAdditionalUpdateManyWithWhereWithoutJobInput[]
+    deleteMany?: incumbentsAdditionalScalarWhereInput | incumbentsAdditionalScalarWhereInput[]
+  }
+
+  export type studentsAdditionalUpdateManyWithoutWishJobNestedInput = {
+    create?: XOR<studentsAdditionalCreateWithoutWishJobInput, studentsAdditionalUncheckedCreateWithoutWishJobInput> | studentsAdditionalCreateWithoutWishJobInput[] | studentsAdditionalUncheckedCreateWithoutWishJobInput[]
+    connectOrCreate?: studentsAdditionalCreateOrConnectWithoutWishJobInput | studentsAdditionalCreateOrConnectWithoutWishJobInput[]
+    upsert?: studentsAdditionalUpsertWithWhereUniqueWithoutWishJobInput | studentsAdditionalUpsertWithWhereUniqueWithoutWishJobInput[]
+    createMany?: studentsAdditionalCreateManyWishJobInputEnvelope
+    set?: studentsAdditionalWhereUniqueInput | studentsAdditionalWhereUniqueInput[]
+    disconnect?: studentsAdditionalWhereUniqueInput | studentsAdditionalWhereUniqueInput[]
+    delete?: studentsAdditionalWhereUniqueInput | studentsAdditionalWhereUniqueInput[]
+    connect?: studentsAdditionalWhereUniqueInput | studentsAdditionalWhereUniqueInput[]
+    update?: studentsAdditionalUpdateWithWhereUniqueWithoutWishJobInput | studentsAdditionalUpdateWithWhereUniqueWithoutWishJobInput[]
+    updateMany?: studentsAdditionalUpdateManyWithWhereWithoutWishJobInput | studentsAdditionalUpdateManyWithWhereWithoutWishJobInput[]
+    deleteMany?: studentsAdditionalScalarWhereInput | studentsAdditionalScalarWhereInput[]
+  }
+
+  export type incumbentsAdditionalUncheckedUpdateManyWithoutJobNestedInput = {
+    create?: XOR<incumbentsAdditionalCreateWithoutJobInput, incumbentsAdditionalUncheckedCreateWithoutJobInput> | incumbentsAdditionalCreateWithoutJobInput[] | incumbentsAdditionalUncheckedCreateWithoutJobInput[]
+    connectOrCreate?: incumbentsAdditionalCreateOrConnectWithoutJobInput | incumbentsAdditionalCreateOrConnectWithoutJobInput[]
+    upsert?: incumbentsAdditionalUpsertWithWhereUniqueWithoutJobInput | incumbentsAdditionalUpsertWithWhereUniqueWithoutJobInput[]
+    createMany?: incumbentsAdditionalCreateManyJobInputEnvelope
+    set?: incumbentsAdditionalWhereUniqueInput | incumbentsAdditionalWhereUniqueInput[]
+    disconnect?: incumbentsAdditionalWhereUniqueInput | incumbentsAdditionalWhereUniqueInput[]
+    delete?: incumbentsAdditionalWhereUniqueInput | incumbentsAdditionalWhereUniqueInput[]
+    connect?: incumbentsAdditionalWhereUniqueInput | incumbentsAdditionalWhereUniqueInput[]
+    update?: incumbentsAdditionalUpdateWithWhereUniqueWithoutJobInput | incumbentsAdditionalUpdateWithWhereUniqueWithoutJobInput[]
+    updateMany?: incumbentsAdditionalUpdateManyWithWhereWithoutJobInput | incumbentsAdditionalUpdateManyWithWhereWithoutJobInput[]
+    deleteMany?: incumbentsAdditionalScalarWhereInput | incumbentsAdditionalScalarWhereInput[]
+  }
+
+  export type studentsAdditionalUncheckedUpdateManyWithoutWishJobNestedInput = {
+    create?: XOR<studentsAdditionalCreateWithoutWishJobInput, studentsAdditionalUncheckedCreateWithoutWishJobInput> | studentsAdditionalCreateWithoutWishJobInput[] | studentsAdditionalUncheckedCreateWithoutWishJobInput[]
+    connectOrCreate?: studentsAdditionalCreateOrConnectWithoutWishJobInput | studentsAdditionalCreateOrConnectWithoutWishJobInput[]
+    upsert?: studentsAdditionalUpsertWithWhereUniqueWithoutWishJobInput | studentsAdditionalUpsertWithWhereUniqueWithoutWishJobInput[]
+    createMany?: studentsAdditionalCreateManyWishJobInputEnvelope
+    set?: studentsAdditionalWhereUniqueInput | studentsAdditionalWhereUniqueInput[]
+    disconnect?: studentsAdditionalWhereUniqueInput | studentsAdditionalWhereUniqueInput[]
+    delete?: studentsAdditionalWhereUniqueInput | studentsAdditionalWhereUniqueInput[]
+    connect?: studentsAdditionalWhereUniqueInput | studentsAdditionalWhereUniqueInput[]
+    update?: studentsAdditionalUpdateWithWhereUniqueWithoutWishJobInput | studentsAdditionalUpdateWithWhereUniqueWithoutWishJobInput[]
+    updateMany?: studentsAdditionalUpdateManyWithWhereWithoutWishJobInput | studentsAdditionalUpdateManyWithWhereWithoutWishJobInput[]
+    deleteMany?: studentsAdditionalScalarWhereInput | studentsAdditionalScalarWhereInput[]
+  }
+
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[]
@@ -26370,6 +27813,7 @@ export namespace Prisma {
     bigJobKind?: bigJobKindCreateNestedOneWithoutIncumebentInput
     midJobKind?: midJobKindCreateNestedOneWithoutIncumebentInput
     smallJobKind?: smallJobKindCreateNestedOneWithoutIncumebentInput
+    job?: jobCreateNestedOneWithoutIncumebentInput
   }
 
   export type incumbentsAdditionalUncheckedCreateWithoutUsersInput = {
@@ -26380,6 +27824,7 @@ export namespace Prisma {
     bigJobId?: number | null
     midJobId?: number | null
     smallJobId?: number | null
+    jobId?: number | null
     shortSpec?: string | null
     reportedNum?: number
     adviceCount?: number
@@ -26405,6 +27850,7 @@ export namespace Prisma {
     wishBigJobKind?: bigJobKindCreateNestedOneWithoutStudentInput
     wishMidJobKind?: midJobKindCreateNestedOneWithoutStudentInput
     wishSmallJobKind?: smallJobKindCreateNestedOneWithoutStudentInput
+    wishJob?: jobCreateNestedOneWithoutStudentInput
   }
 
   export type studentsAdditionalUncheckedCreateWithoutUsersInput = {
@@ -26415,6 +27861,7 @@ export namespace Prisma {
     wishBigJobId?: number | null
     wishMidJobId?: number | null
     wishSmallJobId?: number | null
+    wishJobId?: number | null
     portfolio?: string | null
     reportedNum?: number
     totalGrade?: number | null
@@ -26640,6 +28087,7 @@ export namespace Prisma {
     bigJobKind?: bigJobKindUpdateOneWithoutIncumebentNestedInput
     midJobKind?: midJobKindUpdateOneWithoutIncumebentNestedInput
     smallJobKind?: smallJobKindUpdateOneWithoutIncumebentNestedInput
+    job?: jobUpdateOneWithoutIncumebentNestedInput
   }
 
   export type incumbentsAdditionalUncheckedUpdateWithoutUsersInput = {
@@ -26650,6 +28098,7 @@ export namespace Prisma {
     bigJobId?: NullableIntFieldUpdateOperationsInput | number | null
     midJobId?: NullableIntFieldUpdateOperationsInput | number | null
     smallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    jobId?: NullableIntFieldUpdateOperationsInput | number | null
     shortSpec?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -26681,6 +28130,7 @@ export namespace Prisma {
     wishBigJobKind?: bigJobKindUpdateOneWithoutStudentNestedInput
     wishMidJobKind?: midJobKindUpdateOneWithoutStudentNestedInput
     wishSmallJobKind?: smallJobKindUpdateOneWithoutStudentNestedInput
+    wishJob?: jobUpdateOneWithoutStudentNestedInput
   }
 
   export type studentsAdditionalUncheckedUpdateWithoutUsersInput = {
@@ -26691,6 +28141,7 @@ export namespace Prisma {
     wishBigJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishMidJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishSmallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    wishJobId?: NullableIntFieldUpdateOperationsInput | number | null
     portfolio?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     totalGrade?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -26948,7 +28399,6 @@ export namespace Prisma {
     longitude: number
     latitude: number
     scale: string
-    group: number
     student?: studentsAdditionalCreateNestedManyWithoutWishCompanyInput
   }
 
@@ -26959,7 +28409,6 @@ export namespace Prisma {
     longitude: number
     latitude: number
     scale: string
-    group: number
     student?: studentsAdditionalUncheckedCreateNestedManyWithoutWishCompanyInput
   }
 
@@ -27064,6 +28513,24 @@ export namespace Prisma {
     create: XOR<smallJobKindCreateWithoutIncumebentInput, smallJobKindUncheckedCreateWithoutIncumebentInput>
   }
 
+  export type jobCreateWithoutIncumebentInput = {
+    clusteringGroup: number
+    name: string
+    student?: studentsAdditionalCreateNestedManyWithoutWishJobInput
+  }
+
+  export type jobUncheckedCreateWithoutIncumebentInput = {
+    id?: number
+    clusteringGroup: number
+    name: string
+    student?: studentsAdditionalUncheckedCreateNestedManyWithoutWishJobInput
+  }
+
+  export type jobCreateOrConnectWithoutIncumebentInput = {
+    where: jobWhereUniqueInput
+    create: XOR<jobCreateWithoutIncumebentInput, jobUncheckedCreateWithoutIncumebentInput>
+  }
+
   export type usersUpsertWithoutIncumbent_additionalInput = {
     update: XOR<usersUpdateWithoutIncumbent_additionalInput, usersUncheckedUpdateWithoutIncumbent_additionalInput>
     create: XOR<usersCreateWithoutIncumbent_additionalInput, usersUncheckedCreateWithoutIncumbent_additionalInput>
@@ -27133,7 +28600,6 @@ export namespace Prisma {
     longitude?: FloatFieldUpdateOperationsInput | number
     latitude?: FloatFieldUpdateOperationsInput | number
     scale?: StringFieldUpdateOperationsInput | string
-    group?: IntFieldUpdateOperationsInput | number
     student?: studentsAdditionalUpdateManyWithoutWishCompanyNestedInput
   }
 
@@ -27144,7 +28610,6 @@ export namespace Prisma {
     longitude?: FloatFieldUpdateOperationsInput | number
     latitude?: FloatFieldUpdateOperationsInput | number
     scale?: StringFieldUpdateOperationsInput | string
-    group?: IntFieldUpdateOperationsInput | number
     student?: studentsAdditionalUncheckedUpdateManyWithoutWishCompanyNestedInput
   }
 
@@ -27274,6 +28739,30 @@ export namespace Prisma {
     student?: studentsAdditionalUncheckedUpdateManyWithoutWishSmallJobKindNestedInput
   }
 
+  export type jobUpsertWithoutIncumebentInput = {
+    update: XOR<jobUpdateWithoutIncumebentInput, jobUncheckedUpdateWithoutIncumebentInput>
+    create: XOR<jobCreateWithoutIncumebentInput, jobUncheckedCreateWithoutIncumebentInput>
+    where?: jobWhereInput
+  }
+
+  export type jobUpdateToOneWithWhereWithoutIncumebentInput = {
+    where?: jobWhereInput
+    data: XOR<jobUpdateWithoutIncumebentInput, jobUncheckedUpdateWithoutIncumebentInput>
+  }
+
+  export type jobUpdateWithoutIncumebentInput = {
+    clusteringGroup?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    student?: studentsAdditionalUpdateManyWithoutWishJobNestedInput
+  }
+
+  export type jobUncheckedUpdateWithoutIncumebentInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    clusteringGroup?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    student?: studentsAdditionalUncheckedUpdateManyWithoutWishJobNestedInput
+  }
+
   export type usersCreateWithoutStudent_additionalInput = {
     email: string
     password: string
@@ -27326,7 +28815,6 @@ export namespace Prisma {
     longitude: number
     latitude: number
     scale: string
-    group: number
     incumebent?: incumbentsAdditionalCreateNestedManyWithoutCompanyInput
   }
 
@@ -27337,7 +28825,6 @@ export namespace Prisma {
     longitude: number
     latitude: number
     scale: string
-    group: number
     incumebent?: incumbentsAdditionalUncheckedCreateNestedManyWithoutCompanyInput
   }
 
@@ -27442,6 +28929,24 @@ export namespace Prisma {
     create: XOR<smallJobKindCreateWithoutStudentInput, smallJobKindUncheckedCreateWithoutStudentInput>
   }
 
+  export type jobCreateWithoutStudentInput = {
+    clusteringGroup: number
+    name: string
+    incumebent?: incumbentsAdditionalCreateNestedManyWithoutJobInput
+  }
+
+  export type jobUncheckedCreateWithoutStudentInput = {
+    id?: number
+    clusteringGroup: number
+    name: string
+    incumebent?: incumbentsAdditionalUncheckedCreateNestedManyWithoutJobInput
+  }
+
+  export type jobCreateOrConnectWithoutStudentInput = {
+    where: jobWhereUniqueInput
+    create: XOR<jobCreateWithoutStudentInput, jobUncheckedCreateWithoutStudentInput>
+  }
+
   export type usersUpsertWithoutStudent_additionalInput = {
     update: XOR<usersUpdateWithoutStudent_additionalInput, usersUncheckedUpdateWithoutStudent_additionalInput>
     create: XOR<usersCreateWithoutStudent_additionalInput, usersUncheckedCreateWithoutStudent_additionalInput>
@@ -27511,7 +29016,6 @@ export namespace Prisma {
     longitude?: FloatFieldUpdateOperationsInput | number
     latitude?: FloatFieldUpdateOperationsInput | number
     scale?: StringFieldUpdateOperationsInput | string
-    group?: IntFieldUpdateOperationsInput | number
     incumebent?: incumbentsAdditionalUpdateManyWithoutCompanyNestedInput
   }
 
@@ -27522,7 +29026,6 @@ export namespace Prisma {
     longitude?: FloatFieldUpdateOperationsInput | number
     latitude?: FloatFieldUpdateOperationsInput | number
     scale?: StringFieldUpdateOperationsInput | string
-    group?: IntFieldUpdateOperationsInput | number
     incumebent?: incumbentsAdditionalUncheckedUpdateManyWithoutCompanyNestedInput
   }
 
@@ -27650,6 +29153,30 @@ export namespace Prisma {
     midJobKindId?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     incumebent?: incumbentsAdditionalUncheckedUpdateManyWithoutSmallJobKindNestedInput
+  }
+
+  export type jobUpsertWithoutStudentInput = {
+    update: XOR<jobUpdateWithoutStudentInput, jobUncheckedUpdateWithoutStudentInput>
+    create: XOR<jobCreateWithoutStudentInput, jobUncheckedCreateWithoutStudentInput>
+    where?: jobWhereInput
+  }
+
+  export type jobUpdateToOneWithWhereWithoutStudentInput = {
+    where?: jobWhereInput
+    data: XOR<jobUpdateWithoutStudentInput, jobUncheckedUpdateWithoutStudentInput>
+  }
+
+  export type jobUpdateWithoutStudentInput = {
+    clusteringGroup?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    incumebent?: incumbentsAdditionalUpdateManyWithoutJobNestedInput
+  }
+
+  export type jobUncheckedUpdateWithoutStudentInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    clusteringGroup?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    incumebent?: incumbentsAdditionalUncheckedUpdateManyWithoutJobNestedInput
   }
 
   export type postsCreateWithoutCategoriesInput = {
@@ -29145,6 +30672,7 @@ export namespace Prisma {
     bigJobKind?: bigJobKindCreateNestedOneWithoutIncumebentInput
     midJobKind?: midJobKindCreateNestedOneWithoutIncumebentInput
     smallJobKind?: smallJobKindCreateNestedOneWithoutIncumebentInput
+    job?: jobCreateNestedOneWithoutIncumebentInput
   }
 
   export type incumbentsAdditionalUncheckedCreateWithoutCompanyInput = {
@@ -29155,6 +30683,7 @@ export namespace Prisma {
     bigJobId?: number | null
     midJobId?: number | null
     smallJobId?: number | null
+    jobId?: number | null
     shortSpec?: string | null
     reportedNum?: number
     adviceCount?: number
@@ -29185,6 +30714,7 @@ export namespace Prisma {
     wishBigJobKind?: bigJobKindCreateNestedOneWithoutStudentInput
     wishMidJobKind?: midJobKindCreateNestedOneWithoutStudentInput
     wishSmallJobKind?: smallJobKindCreateNestedOneWithoutStudentInput
+    wishJob?: jobCreateNestedOneWithoutStudentInput
   }
 
   export type studentsAdditionalUncheckedCreateWithoutWishCompanyInput = {
@@ -29195,6 +30725,7 @@ export namespace Prisma {
     wishBigJobId?: number | null
     wishMidJobId?: number | null
     wishSmallJobId?: number | null
+    wishJobId?: number | null
     portfolio?: string | null
     reportedNum?: number
     totalGrade?: number | null
@@ -29241,6 +30772,7 @@ export namespace Prisma {
     bigJobId?: IntNullableFilter<"incumbentsAdditional"> | number | null
     midJobId?: IntNullableFilter<"incumbentsAdditional"> | number | null
     smallJobId?: IntNullableFilter<"incumbentsAdditional"> | number | null
+    jobId?: IntNullableFilter<"incumbentsAdditional"> | number | null
     shortSpec?: StringNullableFilter<"incumbentsAdditional"> | string | null
     reportedNum?: IntFilter<"incumbentsAdditional"> | number
     adviceCount?: IntFilter<"incumbentsAdditional"> | number
@@ -29276,6 +30808,7 @@ export namespace Prisma {
     wishBigJobId?: IntNullableFilter<"studentsAdditional"> | number | null
     wishMidJobId?: IntNullableFilter<"studentsAdditional"> | number | null
     wishSmallJobId?: IntNullableFilter<"studentsAdditional"> | number | null
+    wishJobId?: IntNullableFilter<"studentsAdditional"> | number | null
     portfolio?: StringNullableFilter<"studentsAdditional"> | string | null
     reportedNum?: IntFilter<"studentsAdditional"> | number
     totalGrade?: FloatNullableFilter<"studentsAdditional"> | number | null
@@ -29321,6 +30854,7 @@ export namespace Prisma {
     bigJobKind?: bigJobKindCreateNestedOneWithoutIncumebentInput
     midJobKind?: midJobKindCreateNestedOneWithoutIncumebentInput
     smallJobKind?: smallJobKindCreateNestedOneWithoutIncumebentInput
+    job?: jobCreateNestedOneWithoutIncumebentInput
   }
 
   export type incumbentsAdditionalUncheckedCreateWithoutSchoolInput = {
@@ -29331,6 +30865,7 @@ export namespace Prisma {
     bigJobId?: number | null
     midJobId?: number | null
     smallJobId?: number | null
+    jobId?: number | null
     shortSpec?: string | null
     reportedNum?: number
     adviceCount?: number
@@ -29361,6 +30896,7 @@ export namespace Prisma {
     wishBigJobKind?: bigJobKindCreateNestedOneWithoutStudentInput
     wishMidJobKind?: midJobKindCreateNestedOneWithoutStudentInput
     wishSmallJobKind?: smallJobKindCreateNestedOneWithoutStudentInput
+    wishJob?: jobCreateNestedOneWithoutStudentInput
   }
 
   export type studentsAdditionalUncheckedCreateWithoutSchoolInput = {
@@ -29371,6 +30907,7 @@ export namespace Prisma {
     wishBigJobId?: number | null
     wishMidJobId?: number | null
     wishSmallJobId?: number | null
+    wishJobId?: number | null
     portfolio?: string | null
     reportedNum?: number
     totalGrade?: number | null
@@ -29479,6 +31016,7 @@ export namespace Prisma {
     bigJobKind?: bigJobKindCreateNestedOneWithoutIncumebentInput
     midJobKind?: midJobKindCreateNestedOneWithoutIncumebentInput
     smallJobKind?: smallJobKindCreateNestedOneWithoutIncumebentInput
+    job?: jobCreateNestedOneWithoutIncumebentInput
   }
 
   export type incumbentsAdditionalUncheckedCreateWithoutMajorInput = {
@@ -29489,6 +31027,7 @@ export namespace Prisma {
     bigJobId?: number | null
     midJobId?: number | null
     smallJobId?: number | null
+    jobId?: number | null
     shortSpec?: string | null
     reportedNum?: number
     adviceCount?: number
@@ -29519,6 +31058,7 @@ export namespace Prisma {
     wishBigJobKind?: bigJobKindCreateNestedOneWithoutStudentInput
     wishMidJobKind?: midJobKindCreateNestedOneWithoutStudentInput
     wishSmallJobKind?: smallJobKindCreateNestedOneWithoutStudentInput
+    wishJob?: jobCreateNestedOneWithoutStudentInput
   }
 
   export type studentsAdditionalUncheckedCreateWithoutMajorInput = {
@@ -29529,6 +31069,7 @@ export namespace Prisma {
     wishBigJobId?: number | null
     wishMidJobId?: number | null
     wishSmallJobId?: number | null
+    wishJobId?: number | null
     portfolio?: string | null
     reportedNum?: number
     totalGrade?: number | null
@@ -29642,6 +31183,7 @@ export namespace Prisma {
     major?: majorCreateNestedOneWithoutIncumebentInput
     midJobKind?: midJobKindCreateNestedOneWithoutIncumebentInput
     smallJobKind?: smallJobKindCreateNestedOneWithoutIncumebentInput
+    job?: jobCreateNestedOneWithoutIncumebentInput
   }
 
   export type incumbentsAdditionalUncheckedCreateWithoutBigJobKindInput = {
@@ -29652,6 +31194,7 @@ export namespace Prisma {
     majorId?: number | null
     midJobId?: number | null
     smallJobId?: number | null
+    jobId?: number | null
     shortSpec?: string | null
     reportedNum?: number
     adviceCount?: number
@@ -29682,6 +31225,7 @@ export namespace Prisma {
     major?: majorCreateNestedOneWithoutStudentInput
     wishMidJobKind?: midJobKindCreateNestedOneWithoutStudentInput
     wishSmallJobKind?: smallJobKindCreateNestedOneWithoutStudentInput
+    wishJob?: jobCreateNestedOneWithoutStudentInput
   }
 
   export type studentsAdditionalUncheckedCreateWithoutWishBigJobKindInput = {
@@ -29692,6 +31236,7 @@ export namespace Prisma {
     majorId?: number | null
     wishMidJobId?: number | null
     wishSmallJobId?: number | null
+    wishJobId?: number | null
     portfolio?: string | null
     reportedNum?: number
     totalGrade?: number | null
@@ -29820,6 +31365,7 @@ export namespace Prisma {
     major?: majorCreateNestedOneWithoutIncumebentInput
     bigJobKind?: bigJobKindCreateNestedOneWithoutIncumebentInput
     smallJobKind?: smallJobKindCreateNestedOneWithoutIncumebentInput
+    job?: jobCreateNestedOneWithoutIncumebentInput
   }
 
   export type incumbentsAdditionalUncheckedCreateWithoutMidJobKindInput = {
@@ -29830,6 +31376,7 @@ export namespace Prisma {
     majorId?: number | null
     bigJobId?: number | null
     smallJobId?: number | null
+    jobId?: number | null
     shortSpec?: string | null
     reportedNum?: number
     adviceCount?: number
@@ -29860,6 +31407,7 @@ export namespace Prisma {
     major?: majorCreateNestedOneWithoutStudentInput
     wishBigJobKind?: bigJobKindCreateNestedOneWithoutStudentInput
     wishSmallJobKind?: smallJobKindCreateNestedOneWithoutStudentInput
+    wishJob?: jobCreateNestedOneWithoutStudentInput
   }
 
   export type studentsAdditionalUncheckedCreateWithoutWishMidJobKindInput = {
@@ -29870,6 +31418,7 @@ export namespace Prisma {
     majorId?: number | null
     wishBigJobId?: number | null
     wishSmallJobId?: number | null
+    wishJobId?: number | null
     portfolio?: string | null
     reportedNum?: number
     totalGrade?: number | null
@@ -30001,6 +31550,7 @@ export namespace Prisma {
     major?: majorCreateNestedOneWithoutIncumebentInput
     bigJobKind?: bigJobKindCreateNestedOneWithoutIncumebentInput
     midJobKind?: midJobKindCreateNestedOneWithoutIncumebentInput
+    job?: jobCreateNestedOneWithoutIncumebentInput
   }
 
   export type incumbentsAdditionalUncheckedCreateWithoutSmallJobKindInput = {
@@ -30011,6 +31561,7 @@ export namespace Prisma {
     majorId?: number | null
     bigJobId?: number | null
     midJobId?: number | null
+    jobId?: number | null
     shortSpec?: string | null
     reportedNum?: number
     adviceCount?: number
@@ -30041,6 +31592,7 @@ export namespace Prisma {
     major?: majorCreateNestedOneWithoutStudentInput
     wishBigJobKind?: bigJobKindCreateNestedOneWithoutStudentInput
     wishMidJobKind?: midJobKindCreateNestedOneWithoutStudentInput
+    wishJob?: jobCreateNestedOneWithoutStudentInput
   }
 
   export type studentsAdditionalUncheckedCreateWithoutWishSmallJobKindInput = {
@@ -30051,6 +31603,7 @@ export namespace Prisma {
     majorId?: number | null
     wishBigJobId?: number | null
     wishMidJobId?: number | null
+    wishJobId?: number | null
     portfolio?: string | null
     reportedNum?: number
     totalGrade?: number | null
@@ -30125,6 +31678,122 @@ export namespace Prisma {
   export type studentsAdditionalUpdateManyWithWhereWithoutWishSmallJobKindInput = {
     where: studentsAdditionalScalarWhereInput
     data: XOR<studentsAdditionalUpdateManyMutationInput, studentsAdditionalUncheckedUpdateManyWithoutWishSmallJobKindInput>
+  }
+
+  export type incumbentsAdditionalCreateWithoutJobInput = {
+    shortSpec?: string | null
+    reportedNum?: number
+    adviceCount?: number
+    estimationCount?: number
+    updatedDate?: Date | string
+    users: usersCreateNestedOneWithoutIncumbent_additionalInput
+    company?: companyCreateNestedOneWithoutIncumebentInput
+    school?: schoolCreateNestedOneWithoutIncumebentInput
+    major?: majorCreateNestedOneWithoutIncumebentInput
+    bigJobKind?: bigJobKindCreateNestedOneWithoutIncumebentInput
+    midJobKind?: midJobKindCreateNestedOneWithoutIncumebentInput
+    smallJobKind?: smallJobKindCreateNestedOneWithoutIncumebentInput
+  }
+
+  export type incumbentsAdditionalUncheckedCreateWithoutJobInput = {
+    id?: number
+    userId: number
+    companyId?: number | null
+    schoolId?: number | null
+    majorId?: number | null
+    bigJobId?: number | null
+    midJobId?: number | null
+    smallJobId?: number | null
+    shortSpec?: string | null
+    reportedNum?: number
+    adviceCount?: number
+    estimationCount?: number
+    updatedDate?: Date | string
+  }
+
+  export type incumbentsAdditionalCreateOrConnectWithoutJobInput = {
+    where: incumbentsAdditionalWhereUniqueInput
+    create: XOR<incumbentsAdditionalCreateWithoutJobInput, incumbentsAdditionalUncheckedCreateWithoutJobInput>
+  }
+
+  export type incumbentsAdditionalCreateManyJobInputEnvelope = {
+    data: incumbentsAdditionalCreateManyJobInput | incumbentsAdditionalCreateManyJobInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type studentsAdditionalCreateWithoutWishJobInput = {
+    portfolio?: string | null
+    reportedNum?: number
+    totalGrade?: number | null
+    adviceCount?: number
+    estimationCount?: number
+    updatedDate?: Date | string
+    users: usersCreateNestedOneWithoutStudent_additionalInput
+    wishCompany?: companyCreateNestedOneWithoutStudentInput
+    school?: schoolCreateNestedOneWithoutStudentInput
+    major?: majorCreateNestedOneWithoutStudentInput
+    wishBigJobKind?: bigJobKindCreateNestedOneWithoutStudentInput
+    wishMidJobKind?: midJobKindCreateNestedOneWithoutStudentInput
+    wishSmallJobKind?: smallJobKindCreateNestedOneWithoutStudentInput
+  }
+
+  export type studentsAdditionalUncheckedCreateWithoutWishJobInput = {
+    id?: number
+    userId: number
+    wishCompanyId?: number | null
+    schoolId?: number | null
+    majorId?: number | null
+    wishBigJobId?: number | null
+    wishMidJobId?: number | null
+    wishSmallJobId?: number | null
+    portfolio?: string | null
+    reportedNum?: number
+    totalGrade?: number | null
+    adviceCount?: number
+    estimationCount?: number
+    updatedDate?: Date | string
+  }
+
+  export type studentsAdditionalCreateOrConnectWithoutWishJobInput = {
+    where: studentsAdditionalWhereUniqueInput
+    create: XOR<studentsAdditionalCreateWithoutWishJobInput, studentsAdditionalUncheckedCreateWithoutWishJobInput>
+  }
+
+  export type studentsAdditionalCreateManyWishJobInputEnvelope = {
+    data: studentsAdditionalCreateManyWishJobInput | studentsAdditionalCreateManyWishJobInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type incumbentsAdditionalUpsertWithWhereUniqueWithoutJobInput = {
+    where: incumbentsAdditionalWhereUniqueInput
+    update: XOR<incumbentsAdditionalUpdateWithoutJobInput, incumbentsAdditionalUncheckedUpdateWithoutJobInput>
+    create: XOR<incumbentsAdditionalCreateWithoutJobInput, incumbentsAdditionalUncheckedCreateWithoutJobInput>
+  }
+
+  export type incumbentsAdditionalUpdateWithWhereUniqueWithoutJobInput = {
+    where: incumbentsAdditionalWhereUniqueInput
+    data: XOR<incumbentsAdditionalUpdateWithoutJobInput, incumbentsAdditionalUncheckedUpdateWithoutJobInput>
+  }
+
+  export type incumbentsAdditionalUpdateManyWithWhereWithoutJobInput = {
+    where: incumbentsAdditionalScalarWhereInput
+    data: XOR<incumbentsAdditionalUpdateManyMutationInput, incumbentsAdditionalUncheckedUpdateManyWithoutJobInput>
+  }
+
+  export type studentsAdditionalUpsertWithWhereUniqueWithoutWishJobInput = {
+    where: studentsAdditionalWhereUniqueInput
+    update: XOR<studentsAdditionalUpdateWithoutWishJobInput, studentsAdditionalUncheckedUpdateWithoutWishJobInput>
+    create: XOR<studentsAdditionalCreateWithoutWishJobInput, studentsAdditionalUncheckedCreateWithoutWishJobInput>
+  }
+
+  export type studentsAdditionalUpdateWithWhereUniqueWithoutWishJobInput = {
+    where: studentsAdditionalWhereUniqueInput
+    data: XOR<studentsAdditionalUpdateWithoutWishJobInput, studentsAdditionalUncheckedUpdateWithoutWishJobInput>
+  }
+
+  export type studentsAdditionalUpdateManyWithWhereWithoutWishJobInput = {
+    where: studentsAdditionalScalarWhereInput
+    data: XOR<studentsAdditionalUpdateManyMutationInput, studentsAdditionalUncheckedUpdateManyWithoutWishJobInput>
   }
 
   export type postsCreateManyUsersInput = {
@@ -30627,6 +32296,7 @@ export namespace Prisma {
     bigJobId?: number | null
     midJobId?: number | null
     smallJobId?: number | null
+    jobId?: number | null
     shortSpec?: string | null
     reportedNum?: number
     adviceCount?: number
@@ -30642,6 +32312,7 @@ export namespace Prisma {
     wishBigJobId?: number | null
     wishMidJobId?: number | null
     wishSmallJobId?: number | null
+    wishJobId?: number | null
     portfolio?: string | null
     reportedNum?: number
     totalGrade?: number | null
@@ -30662,6 +32333,7 @@ export namespace Prisma {
     bigJobKind?: bigJobKindUpdateOneWithoutIncumebentNestedInput
     midJobKind?: midJobKindUpdateOneWithoutIncumebentNestedInput
     smallJobKind?: smallJobKindUpdateOneWithoutIncumebentNestedInput
+    job?: jobUpdateOneWithoutIncumebentNestedInput
   }
 
   export type incumbentsAdditionalUncheckedUpdateWithoutCompanyInput = {
@@ -30672,6 +32344,7 @@ export namespace Prisma {
     bigJobId?: NullableIntFieldUpdateOperationsInput | number | null
     midJobId?: NullableIntFieldUpdateOperationsInput | number | null
     smallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    jobId?: NullableIntFieldUpdateOperationsInput | number | null
     shortSpec?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -30687,6 +32360,7 @@ export namespace Prisma {
     bigJobId?: NullableIntFieldUpdateOperationsInput | number | null
     midJobId?: NullableIntFieldUpdateOperationsInput | number | null
     smallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    jobId?: NullableIntFieldUpdateOperationsInput | number | null
     shortSpec?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -30707,6 +32381,7 @@ export namespace Prisma {
     wishBigJobKind?: bigJobKindUpdateOneWithoutStudentNestedInput
     wishMidJobKind?: midJobKindUpdateOneWithoutStudentNestedInput
     wishSmallJobKind?: smallJobKindUpdateOneWithoutStudentNestedInput
+    wishJob?: jobUpdateOneWithoutStudentNestedInput
   }
 
   export type studentsAdditionalUncheckedUpdateWithoutWishCompanyInput = {
@@ -30717,6 +32392,7 @@ export namespace Prisma {
     wishBigJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishMidJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishSmallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    wishJobId?: NullableIntFieldUpdateOperationsInput | number | null
     portfolio?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     totalGrade?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -30733,6 +32409,7 @@ export namespace Prisma {
     wishBigJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishMidJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishSmallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    wishJobId?: NullableIntFieldUpdateOperationsInput | number | null
     portfolio?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     totalGrade?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -30755,6 +32432,7 @@ export namespace Prisma {
     bigJobId?: number | null
     midJobId?: number | null
     smallJobId?: number | null
+    jobId?: number | null
     shortSpec?: string | null
     reportedNum?: number
     adviceCount?: number
@@ -30770,6 +32448,7 @@ export namespace Prisma {
     wishBigJobId?: number | null
     wishMidJobId?: number | null
     wishSmallJobId?: number | null
+    wishJobId?: number | null
     portfolio?: string | null
     reportedNum?: number
     totalGrade?: number | null
@@ -30811,6 +32490,7 @@ export namespace Prisma {
     bigJobKind?: bigJobKindUpdateOneWithoutIncumebentNestedInput
     midJobKind?: midJobKindUpdateOneWithoutIncumebentNestedInput
     smallJobKind?: smallJobKindUpdateOneWithoutIncumebentNestedInput
+    job?: jobUpdateOneWithoutIncumebentNestedInput
   }
 
   export type incumbentsAdditionalUncheckedUpdateWithoutSchoolInput = {
@@ -30821,6 +32501,7 @@ export namespace Prisma {
     bigJobId?: NullableIntFieldUpdateOperationsInput | number | null
     midJobId?: NullableIntFieldUpdateOperationsInput | number | null
     smallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    jobId?: NullableIntFieldUpdateOperationsInput | number | null
     shortSpec?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -30836,6 +32517,7 @@ export namespace Prisma {
     bigJobId?: NullableIntFieldUpdateOperationsInput | number | null
     midJobId?: NullableIntFieldUpdateOperationsInput | number | null
     smallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    jobId?: NullableIntFieldUpdateOperationsInput | number | null
     shortSpec?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -30856,6 +32538,7 @@ export namespace Prisma {
     wishBigJobKind?: bigJobKindUpdateOneWithoutStudentNestedInput
     wishMidJobKind?: midJobKindUpdateOneWithoutStudentNestedInput
     wishSmallJobKind?: smallJobKindUpdateOneWithoutStudentNestedInput
+    wishJob?: jobUpdateOneWithoutStudentNestedInput
   }
 
   export type studentsAdditionalUncheckedUpdateWithoutSchoolInput = {
@@ -30866,6 +32549,7 @@ export namespace Prisma {
     wishBigJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishMidJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishSmallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    wishJobId?: NullableIntFieldUpdateOperationsInput | number | null
     portfolio?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     totalGrade?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -30882,6 +32566,7 @@ export namespace Prisma {
     wishBigJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishMidJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishSmallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    wishJobId?: NullableIntFieldUpdateOperationsInput | number | null
     portfolio?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     totalGrade?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -30898,6 +32583,7 @@ export namespace Prisma {
     bigJobId?: number | null
     midJobId?: number | null
     smallJobId?: number | null
+    jobId?: number | null
     shortSpec?: string | null
     reportedNum?: number
     adviceCount?: number
@@ -30913,6 +32599,7 @@ export namespace Prisma {
     wishBigJobId?: number | null
     wishMidJobId?: number | null
     wishSmallJobId?: number | null
+    wishJobId?: number | null
     portfolio?: string | null
     reportedNum?: number
     totalGrade?: number | null
@@ -30933,6 +32620,7 @@ export namespace Prisma {
     bigJobKind?: bigJobKindUpdateOneWithoutIncumebentNestedInput
     midJobKind?: midJobKindUpdateOneWithoutIncumebentNestedInput
     smallJobKind?: smallJobKindUpdateOneWithoutIncumebentNestedInput
+    job?: jobUpdateOneWithoutIncumebentNestedInput
   }
 
   export type incumbentsAdditionalUncheckedUpdateWithoutMajorInput = {
@@ -30943,6 +32631,7 @@ export namespace Prisma {
     bigJobId?: NullableIntFieldUpdateOperationsInput | number | null
     midJobId?: NullableIntFieldUpdateOperationsInput | number | null
     smallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    jobId?: NullableIntFieldUpdateOperationsInput | number | null
     shortSpec?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -30958,6 +32647,7 @@ export namespace Prisma {
     bigJobId?: NullableIntFieldUpdateOperationsInput | number | null
     midJobId?: NullableIntFieldUpdateOperationsInput | number | null
     smallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    jobId?: NullableIntFieldUpdateOperationsInput | number | null
     shortSpec?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -30978,6 +32668,7 @@ export namespace Prisma {
     wishBigJobKind?: bigJobKindUpdateOneWithoutStudentNestedInput
     wishMidJobKind?: midJobKindUpdateOneWithoutStudentNestedInput
     wishSmallJobKind?: smallJobKindUpdateOneWithoutStudentNestedInput
+    wishJob?: jobUpdateOneWithoutStudentNestedInput
   }
 
   export type studentsAdditionalUncheckedUpdateWithoutMajorInput = {
@@ -30988,6 +32679,7 @@ export namespace Prisma {
     wishBigJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishMidJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishSmallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    wishJobId?: NullableIntFieldUpdateOperationsInput | number | null
     portfolio?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     totalGrade?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -31004,6 +32696,7 @@ export namespace Prisma {
     wishBigJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishMidJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishSmallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    wishJobId?: NullableIntFieldUpdateOperationsInput | number | null
     portfolio?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     totalGrade?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -31025,6 +32718,7 @@ export namespace Prisma {
     majorId?: number | null
     midJobId?: number | null
     smallJobId?: number | null
+    jobId?: number | null
     shortSpec?: string | null
     reportedNum?: number
     adviceCount?: number
@@ -31040,6 +32734,7 @@ export namespace Prisma {
     majorId?: number | null
     wishMidJobId?: number | null
     wishSmallJobId?: number | null
+    wishJobId?: number | null
     portfolio?: string | null
     reportedNum?: number
     totalGrade?: number | null
@@ -31080,6 +32775,7 @@ export namespace Prisma {
     major?: majorUpdateOneWithoutIncumebentNestedInput
     midJobKind?: midJobKindUpdateOneWithoutIncumebentNestedInput
     smallJobKind?: smallJobKindUpdateOneWithoutIncumebentNestedInput
+    job?: jobUpdateOneWithoutIncumebentNestedInput
   }
 
   export type incumbentsAdditionalUncheckedUpdateWithoutBigJobKindInput = {
@@ -31090,6 +32786,7 @@ export namespace Prisma {
     majorId?: NullableIntFieldUpdateOperationsInput | number | null
     midJobId?: NullableIntFieldUpdateOperationsInput | number | null
     smallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    jobId?: NullableIntFieldUpdateOperationsInput | number | null
     shortSpec?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -31105,6 +32802,7 @@ export namespace Prisma {
     majorId?: NullableIntFieldUpdateOperationsInput | number | null
     midJobId?: NullableIntFieldUpdateOperationsInput | number | null
     smallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    jobId?: NullableIntFieldUpdateOperationsInput | number | null
     shortSpec?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -31125,6 +32823,7 @@ export namespace Prisma {
     major?: majorUpdateOneWithoutStudentNestedInput
     wishMidJobKind?: midJobKindUpdateOneWithoutStudentNestedInput
     wishSmallJobKind?: smallJobKindUpdateOneWithoutStudentNestedInput
+    wishJob?: jobUpdateOneWithoutStudentNestedInput
   }
 
   export type studentsAdditionalUncheckedUpdateWithoutWishBigJobKindInput = {
@@ -31135,6 +32834,7 @@ export namespace Prisma {
     majorId?: NullableIntFieldUpdateOperationsInput | number | null
     wishMidJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishSmallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    wishJobId?: NullableIntFieldUpdateOperationsInput | number | null
     portfolio?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     totalGrade?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -31151,6 +32851,7 @@ export namespace Prisma {
     majorId?: NullableIntFieldUpdateOperationsInput | number | null
     wishMidJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishSmallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    wishJobId?: NullableIntFieldUpdateOperationsInput | number | null
     portfolio?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     totalGrade?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -31172,6 +32873,7 @@ export namespace Prisma {
     majorId?: number | null
     bigJobId?: number | null
     smallJobId?: number | null
+    jobId?: number | null
     shortSpec?: string | null
     reportedNum?: number
     adviceCount?: number
@@ -31187,6 +32889,7 @@ export namespace Prisma {
     majorId?: number | null
     wishBigJobId?: number | null
     wishSmallJobId?: number | null
+    wishJobId?: number | null
     portfolio?: string | null
     reportedNum?: number
     totalGrade?: number | null
@@ -31225,6 +32928,7 @@ export namespace Prisma {
     major?: majorUpdateOneWithoutIncumebentNestedInput
     bigJobKind?: bigJobKindUpdateOneWithoutIncumebentNestedInput
     smallJobKind?: smallJobKindUpdateOneWithoutIncumebentNestedInput
+    job?: jobUpdateOneWithoutIncumebentNestedInput
   }
 
   export type incumbentsAdditionalUncheckedUpdateWithoutMidJobKindInput = {
@@ -31235,6 +32939,7 @@ export namespace Prisma {
     majorId?: NullableIntFieldUpdateOperationsInput | number | null
     bigJobId?: NullableIntFieldUpdateOperationsInput | number | null
     smallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    jobId?: NullableIntFieldUpdateOperationsInput | number | null
     shortSpec?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -31250,6 +32955,7 @@ export namespace Prisma {
     majorId?: NullableIntFieldUpdateOperationsInput | number | null
     bigJobId?: NullableIntFieldUpdateOperationsInput | number | null
     smallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    jobId?: NullableIntFieldUpdateOperationsInput | number | null
     shortSpec?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -31270,6 +32976,7 @@ export namespace Prisma {
     major?: majorUpdateOneWithoutStudentNestedInput
     wishBigJobKind?: bigJobKindUpdateOneWithoutStudentNestedInput
     wishSmallJobKind?: smallJobKindUpdateOneWithoutStudentNestedInput
+    wishJob?: jobUpdateOneWithoutStudentNestedInput
   }
 
   export type studentsAdditionalUncheckedUpdateWithoutWishMidJobKindInput = {
@@ -31280,6 +32987,7 @@ export namespace Prisma {
     majorId?: NullableIntFieldUpdateOperationsInput | number | null
     wishBigJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishSmallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    wishJobId?: NullableIntFieldUpdateOperationsInput | number | null
     portfolio?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     totalGrade?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -31296,6 +33004,7 @@ export namespace Prisma {
     majorId?: NullableIntFieldUpdateOperationsInput | number | null
     wishBigJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishSmallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    wishJobId?: NullableIntFieldUpdateOperationsInput | number | null
     portfolio?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     totalGrade?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -31312,6 +33021,7 @@ export namespace Prisma {
     majorId?: number | null
     bigJobId?: number | null
     midJobId?: number | null
+    jobId?: number | null
     shortSpec?: string | null
     reportedNum?: number
     adviceCount?: number
@@ -31327,6 +33037,7 @@ export namespace Prisma {
     majorId?: number | null
     wishBigJobId?: number | null
     wishMidJobId?: number | null
+    wishJobId?: number | null
     portfolio?: string | null
     reportedNum?: number
     totalGrade?: number | null
@@ -31347,6 +33058,7 @@ export namespace Prisma {
     major?: majorUpdateOneWithoutIncumebentNestedInput
     bigJobKind?: bigJobKindUpdateOneWithoutIncumebentNestedInput
     midJobKind?: midJobKindUpdateOneWithoutIncumebentNestedInput
+    job?: jobUpdateOneWithoutIncumebentNestedInput
   }
 
   export type incumbentsAdditionalUncheckedUpdateWithoutSmallJobKindInput = {
@@ -31357,6 +33069,7 @@ export namespace Prisma {
     majorId?: NullableIntFieldUpdateOperationsInput | number | null
     bigJobId?: NullableIntFieldUpdateOperationsInput | number | null
     midJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    jobId?: NullableIntFieldUpdateOperationsInput | number | null
     shortSpec?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -31372,6 +33085,7 @@ export namespace Prisma {
     majorId?: NullableIntFieldUpdateOperationsInput | number | null
     bigJobId?: NullableIntFieldUpdateOperationsInput | number | null
     midJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    jobId?: NullableIntFieldUpdateOperationsInput | number | null
     shortSpec?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -31392,6 +33106,7 @@ export namespace Prisma {
     major?: majorUpdateOneWithoutStudentNestedInput
     wishBigJobKind?: bigJobKindUpdateOneWithoutStudentNestedInput
     wishMidJobKind?: midJobKindUpdateOneWithoutStudentNestedInput
+    wishJob?: jobUpdateOneWithoutStudentNestedInput
   }
 
   export type studentsAdditionalUncheckedUpdateWithoutWishSmallJobKindInput = {
@@ -31402,6 +33117,7 @@ export namespace Prisma {
     majorId?: NullableIntFieldUpdateOperationsInput | number | null
     wishBigJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishMidJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    wishJobId?: NullableIntFieldUpdateOperationsInput | number | null
     portfolio?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     totalGrade?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -31418,6 +33134,137 @@ export namespace Prisma {
     majorId?: NullableIntFieldUpdateOperationsInput | number | null
     wishBigJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishMidJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    wishJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    portfolio?: NullableStringFieldUpdateOperationsInput | string | null
+    reportedNum?: IntFieldUpdateOperationsInput | number
+    totalGrade?: NullableFloatFieldUpdateOperationsInput | number | null
+    adviceCount?: IntFieldUpdateOperationsInput | number
+    estimationCount?: FloatFieldUpdateOperationsInput | number
+    updatedDate?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type incumbentsAdditionalCreateManyJobInput = {
+    id?: number
+    userId: number
+    companyId?: number | null
+    schoolId?: number | null
+    majorId?: number | null
+    bigJobId?: number | null
+    midJobId?: number | null
+    smallJobId?: number | null
+    shortSpec?: string | null
+    reportedNum?: number
+    adviceCount?: number
+    estimationCount?: number
+    updatedDate?: Date | string
+  }
+
+  export type studentsAdditionalCreateManyWishJobInput = {
+    id?: number
+    userId: number
+    wishCompanyId?: number | null
+    schoolId?: number | null
+    majorId?: number | null
+    wishBigJobId?: number | null
+    wishMidJobId?: number | null
+    wishSmallJobId?: number | null
+    portfolio?: string | null
+    reportedNum?: number
+    totalGrade?: number | null
+    adviceCount?: number
+    estimationCount?: number
+    updatedDate?: Date | string
+  }
+
+  export type incumbentsAdditionalUpdateWithoutJobInput = {
+    shortSpec?: NullableStringFieldUpdateOperationsInput | string | null
+    reportedNum?: IntFieldUpdateOperationsInput | number
+    adviceCount?: IntFieldUpdateOperationsInput | number
+    estimationCount?: FloatFieldUpdateOperationsInput | number
+    updatedDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: usersUpdateOneRequiredWithoutIncumbent_additionalNestedInput
+    company?: companyUpdateOneWithoutIncumebentNestedInput
+    school?: schoolUpdateOneWithoutIncumebentNestedInput
+    major?: majorUpdateOneWithoutIncumebentNestedInput
+    bigJobKind?: bigJobKindUpdateOneWithoutIncumebentNestedInput
+    midJobKind?: midJobKindUpdateOneWithoutIncumebentNestedInput
+    smallJobKind?: smallJobKindUpdateOneWithoutIncumebentNestedInput
+  }
+
+  export type incumbentsAdditionalUncheckedUpdateWithoutJobInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    companyId?: NullableIntFieldUpdateOperationsInput | number | null
+    schoolId?: NullableIntFieldUpdateOperationsInput | number | null
+    majorId?: NullableIntFieldUpdateOperationsInput | number | null
+    bigJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    midJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    smallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    shortSpec?: NullableStringFieldUpdateOperationsInput | string | null
+    reportedNum?: IntFieldUpdateOperationsInput | number
+    adviceCount?: IntFieldUpdateOperationsInput | number
+    estimationCount?: FloatFieldUpdateOperationsInput | number
+    updatedDate?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type incumbentsAdditionalUncheckedUpdateManyWithoutJobInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    companyId?: NullableIntFieldUpdateOperationsInput | number | null
+    schoolId?: NullableIntFieldUpdateOperationsInput | number | null
+    majorId?: NullableIntFieldUpdateOperationsInput | number | null
+    bigJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    midJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    smallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    shortSpec?: NullableStringFieldUpdateOperationsInput | string | null
+    reportedNum?: IntFieldUpdateOperationsInput | number
+    adviceCount?: IntFieldUpdateOperationsInput | number
+    estimationCount?: FloatFieldUpdateOperationsInput | number
+    updatedDate?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type studentsAdditionalUpdateWithoutWishJobInput = {
+    portfolio?: NullableStringFieldUpdateOperationsInput | string | null
+    reportedNum?: IntFieldUpdateOperationsInput | number
+    totalGrade?: NullableFloatFieldUpdateOperationsInput | number | null
+    adviceCount?: IntFieldUpdateOperationsInput | number
+    estimationCount?: FloatFieldUpdateOperationsInput | number
+    updatedDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: usersUpdateOneRequiredWithoutStudent_additionalNestedInput
+    wishCompany?: companyUpdateOneWithoutStudentNestedInput
+    school?: schoolUpdateOneWithoutStudentNestedInput
+    major?: majorUpdateOneWithoutStudentNestedInput
+    wishBigJobKind?: bigJobKindUpdateOneWithoutStudentNestedInput
+    wishMidJobKind?: midJobKindUpdateOneWithoutStudentNestedInput
+    wishSmallJobKind?: smallJobKindUpdateOneWithoutStudentNestedInput
+  }
+
+  export type studentsAdditionalUncheckedUpdateWithoutWishJobInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    wishCompanyId?: NullableIntFieldUpdateOperationsInput | number | null
+    schoolId?: NullableIntFieldUpdateOperationsInput | number | null
+    majorId?: NullableIntFieldUpdateOperationsInput | number | null
+    wishBigJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    wishMidJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    wishSmallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    portfolio?: NullableStringFieldUpdateOperationsInput | string | null
+    reportedNum?: IntFieldUpdateOperationsInput | number
+    totalGrade?: NullableFloatFieldUpdateOperationsInput | number | null
+    adviceCount?: IntFieldUpdateOperationsInput | number
+    estimationCount?: FloatFieldUpdateOperationsInput | number
+    updatedDate?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type studentsAdditionalUncheckedUpdateManyWithoutWishJobInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    wishCompanyId?: NullableIntFieldUpdateOperationsInput | number | null
+    schoolId?: NullableIntFieldUpdateOperationsInput | number | null
+    majorId?: NullableIntFieldUpdateOperationsInput | number | null
+    wishBigJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    wishMidJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    wishSmallJobId?: NullableIntFieldUpdateOperationsInput | number | null
     portfolio?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     totalGrade?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -31471,6 +33318,10 @@ export namespace Prisma {
      * @deprecated Use SmallJobKindCountOutputTypeDefaultArgs instead
      */
     export type SmallJobKindCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SmallJobKindCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use JobCountOutputTypeDefaultArgs instead
+     */
+    export type JobCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = JobCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use usersDefaultArgs instead
      */
@@ -31539,6 +33390,10 @@ export namespace Prisma {
      * @deprecated Use smallJobKindDefaultArgs instead
      */
     export type smallJobKindArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = smallJobKindDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use jobDefaultArgs instead
+     */
+    export type jobArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = jobDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany
