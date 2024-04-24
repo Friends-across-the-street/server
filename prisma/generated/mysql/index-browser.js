@@ -230,7 +230,10 @@ exports.Prisma.CompanyScalarFieldEnum = {
   address: 'address',
   longitude: 'longitude',
   latitude: 'latitude',
-  scale: 'scale'
+  scale: 'scale',
+  bigJobKindId: 'bigJobKindId',
+  midJobKindId: 'midJobKindId',
+  smallJobKindId: 'smallJobKindId'
 };
 
 exports.Prisma.SchoolScalarFieldEnum = {

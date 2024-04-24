@@ -62,9 +62,6 @@ model incumbentsAdditional {
   company company? @relation(fields: [companyId], references: [id])
   school school? @relation(fields: [schoolId], references: [id])
   major major? @relation(fields: [majorId], references: [id]) 
-  bigJobKind bigJobKind? @relation(fields: [bigJobId], references: [id])
-  midJobKind midJobKind? @relation(fields: [midJobId], references: [id])
-  smallJobKind smallJobKind? @relation(fields: [smallJobId], references: [id])
   job job? @relation(fields: [jobId], references: [id])
   @@map("incumbents_additional")
 }
@@ -91,9 +88,6 @@ model studentsAdditional {
   wishCompany company? @relation(fields: [wishCompanyId], references: [id])
   school school? @relation(fields: [schoolId], references: [id])
   major major? @relation(fields: [majorId], references: [id]) 
-  wishBigJobKind bigJobKind? @relation(fields: [wishBigJobId], references: [id])
-  wishMidJobKind midJobKind? @relation(fields: [wishMidJobId], references: [id])
-  wishSmallJobKind smallJobKind? @relation(fields: [wishSmallJobId], references: [id])
   wishJob job? @relation(fields: [wishJobId], references: [id])
 	@@map("students_additional")
 }
@@ -208,9 +202,17 @@ model company {
   longitude Float
   latitude Float
   scale String
+  bigJobKindId Int @map("big_job_kind_id")
+  midJobKindId Int @map("mid_job_kind_id")
+  smallJobKindId Int @map("small_job_kind_id")
+
+  bigJobKind bigJobKind @relation(fields: [bigJobKindId], references: [id])
+  midJobKind midJobKind @relation(fields: [midJobKindId], references: [id])
+  smallJobKind smallJobKind @relation(fields: [smallJobKindId], references: [id])
 
   incumebent incumbentsAdditional[]
   student studentsAdditional[]
+
 }
 
 model school {
@@ -238,9 +240,8 @@ model bigJobKind {
   id  Int @default(autoincrement()) @id
   name String
 
+  company company[]
   midJobKind midJobKind[]
-  incumebent incumbentsAdditional[]
-  student studentsAdditional[]
   @@map("big_job_kind")
 }
 
@@ -249,10 +250,9 @@ model midJobKind {
   bigJobKindId Int
   name String
 
-  bigJobKind bigJobKind @relation(fields: [bigJobKindId], references: [id], onDelete: Cascade)
+  company company[]
+  bigJobKind bigJobKind @relation(fields: [bigJobKindId], references: [id])
   smallJobKind smallJobKind[]
-  incumebent incumbentsAdditional[]
-  student studentsAdditional[]
   @@map("mid_job_kind")
 }
 
@@ -261,9 +261,8 @@ model smallJobKind {
   midJobKindId Int
   name String
 
-  midJobKind midJobKind @relation(fields: [midJobKindId], references: [id], onDelete: Cascade)
-  incumebent incumbentsAdditional[]
-  student studentsAdditional[]
+  company company[]
+  midJobKind midJobKind @relation(fields: [midJobKindId], references: [id])
   @@map("small_job_kind")
 }
 
