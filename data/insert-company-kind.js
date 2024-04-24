@@ -8,10 +8,11 @@ const URL = config();
 const connection = mysql.createConnection(URL);
 
 // CSV 파일 경로
-const csvFilePath = process.cwd() + '/data/FINAL_COMPANY_INFO.csv';
+const csvFilePath = process.cwd() + '/data/FINAL_COMPANY_INFO_filter.csv';
 
 const bigJobKind = [];
 const midJobKind = [];
+const smallJobKind = [];
 let bigJobIdx = 0;
 let midJobIdx = 0;
 
@@ -31,7 +32,7 @@ function insertCsvDataToMysql() {
 
       const insertBigJobQuery = 'INSERT INTO big_job_kind (name) VALUES (?)';
       await connection.query(
-        query,
+        insertBigJobQuery,
         [data.big_company_kind],
         (error, results, fields) => {
           if (error) {
@@ -49,7 +50,7 @@ function insertCsvDataToMysql() {
       const insertMidJobQuery =
         'INSERT INTO mid_job_kind (bigJobKindId, name) VALUES (?, ?)';
       await connection.query(
-        query,
+        insertMidJobQuery,
         [bigJobIdx, data.mid_company_kind],
         (error, results, fields) => {
           if (error) {
@@ -59,17 +60,20 @@ function insertCsvDataToMysql() {
       );
     }
 
-    const insertSmallJobQuery =
-      'INSERT INTO small_job_kind (midJobKindId, name) VALUES (?, ?)';
-    await connection.query(
-      query,
-      [midJobIdx, data.small_company_kind],
-      (error, results, fields) => {
-        if (error) {
-          console.error('An error occurred while inserting data:', error);
-        }
-      },
-    );
+    if (!smallJobKind.includes(data.company_kind)) {
+      smallJobKind.push(data.company_kind);
+      const insertSmallJobQuery =
+        'INSERT INTO small_job_kind (midJobKindId, name) VALUES (?, ?)';
+      await connection.query(
+        insertSmallJobQuery,
+        [midJobIdx, data.company_kind],
+        (error, results, fields) => {
+          if (error) {
+            console.error('An error occurred while inserting data:', error);
+          }
+        },
+      );
+    }
   });
 
   // 모든 데이터가 삽입된 후에 실행되는 콜백 함수
