@@ -25,11 +25,14 @@ erDiagram
 "incumbents_additional" {
     Int id PK
     Int user_id FK
-    Int company_id FK
-    Int school_id FK
-    Int major_id FK
-    Int big_job_id FK
-    Int mid_job_id FK
+    Int company_id FK "nullable"
+    Int school_id FK "nullable"
+    Int major_id FK "nullable"
+    Int big_job_id "nullable"
+    Int mid_job_id "nullable"
+    Int small_job_id "nullable"
+    Int job_id FK "nullable"
+    String short_spec "nullable"
     Int reported_num
     Int advice_count
     Float estimation_count
@@ -38,11 +41,14 @@ erDiagram
 "students_additional" {
     Int id PK
     Int user_id FK
-    Int wish_company_id FK
-    Int school_id FK
-    Int major_id FK
-    Int wish_big_job_id FK
-    Int wish_mid_job_id FK
+    Int wish_company_id FK "nullable"
+    Int school_id FK "nullable"
+    Int major_id FK "nullable"
+    Int wish_big_job_id "nullable"
+    Int wish_mid_job_id "nullable"
+    Int wish_small_job_id "nullable"
+    Int wish_job_id FK "nullable"
+    String portfolio "nullable"
     Int reported_num
     Float total_grade "nullable"
     Int advice_count
@@ -117,9 +123,9 @@ erDiagram
     Float longitude
     Float latitude
     String scale
-    String kind
-    Int group
-    String job
+    Int big_job_kind_id FK
+    Int mid_job_kind_id FK
+    Int small_job_kind_id FK
 }
 "school" {
     Int id PK
@@ -130,29 +136,37 @@ erDiagram
     Int id PK
     Int schoolId FK
     String name
-    dayAndNight dayAndNight
+    String dayAndNight
 }
-"bigJobKind" {
+"big_job_kind" {
     Int id PK
     String name
 }
-"midJobKind" {
+"mid_job_kind" {
     Int id PK
     Int bigJobKindId FK
     String name
 }
+"small_job_kind" {
+    Int id PK
+    Int midJobKindId FK
+    String name
+}
+"job" {
+    Int id PK
+    Int clustering_group
+    String name
+}
 "incumbents_additional" |o--|| "users" : users
-"incumbents_additional" }|--|| "company" : company
-"incumbents_additional" }|--|| "school" : school
-"incumbents_additional" }|--|| "major" : major
-"incumbents_additional" }|--|| "bigJobKind" : bigJobKind
-"incumbents_additional" }|--|| "midJobKind" : midJobKind
+"incumbents_additional" }o--|| "company" : company
+"incumbents_additional" }o--|| "school" : school
+"incumbents_additional" }o--|| "major" : major
+"incumbents_additional" }o--|| "job" : job
 "students_additional" |o--|| "users" : users
-"students_additional" }|--|| "company" : wishCompany
-"students_additional" }|--|| "school" : school
-"students_additional" }|--|| "major" : major
-"students_additional" }|--|| "bigJobKind" : bigJobKind
-"students_additional" }|--|| "midJobKind" : midJobKind
+"students_additional" }o--|| "company" : wishCompany
+"students_additional" }o--|| "school" : school
+"students_additional" }o--|| "major" : major
+"students_additional" }o--|| "job" : wishJob
 "posts" }o--|| "category" : categories
 "posts" }o--|| "users" : users
 "comments" }o--|| "users" : users
@@ -167,6 +181,10 @@ erDiagram
 "reported_comments" }|--|| "comments" : comment
 "reported_comments" }|--|| "users" : users
 "reported_users" }|--|| "users" : users
+"company" }|--|| "big_job_kind" : bigJobKind
+"company" }|--|| "mid_job_kind" : midJobKind
+"company" }|--|| "small_job_kind" : smallJobKind
 "major" }|--|| "school" : school
-"midJobKind" }|--|| "bigJobKind" : bigJobKind
+"mid_job_kind" }|--|| "big_job_kind" : bigJobKind
+"small_job_kind" }|--|| "mid_job_kind" : midJobKind
 ```
