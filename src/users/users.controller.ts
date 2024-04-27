@@ -187,7 +187,6 @@ export class UsersController {
     description: '해당 유저가 존재하지 않습니다.',
   })
   @ApiBearerAuth('access-token')
-
   @Delete('/remove/spec')
   @UseGuards(AuthGuard)
   async removeShortSpec(@RequestUser() user: UserDataInAuthGuard) {
@@ -249,5 +248,12 @@ export class UsersController {
   @Delete('/remove/portfolio')
   async removePortfolio(@RequestUser() user: UserDataInAuthGuard) {
     return await this.usersService.removePortfolio({ user });
+  }
+
+  @ApiOperation({ summary: '학교 정보 조회' })
+  @ApiResponse({ status: 200, description: '정보 조회 성공' })
+  @Get('/find-school')
+  async findSchool() {
+    return await this.usersService.findSchool();
   }
 }
