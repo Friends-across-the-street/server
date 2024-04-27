@@ -213,4 +213,16 @@ export class UsersService {
       select: { id: true, name: true },
     });
   }
+
+  async findMajor() {
+    return await this.prismaService.major.findMany({
+      select: { id: true, name: true },
+    });
+  }
+
+  async findJob() {
+    return await this.prismaService.job.findMany({
+      select: { id: true, name: true },
+    });
+  }
 }
