@@ -201,4 +201,16 @@ export class UsersService {
       },
     });
   }
+
+  async findSchool() {
+    return await this.prismaService.school.findMany({
+      select: { id: true, name: true },
+    });
+  }
+
+  async findCompany() {
+    return await this.prismaService.company.findMany({
+      select: { id: true, name: true },
+    });
+  }
 }
