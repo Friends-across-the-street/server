@@ -20,10 +20,11 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "migrate:dev": "dotenv -e ./src/global/config/env/.dev.env -- npx prisma migrate dev --schema=./prisma/schema.prisma",
-    "dbpush:mysql": "dotenv -e ./src/global/config/env/.dev.env -- npx prisma db push --schema=./prisma/mysql-schema.prisma & node data/insert_company.js",
+    "dbpush:mysql": "dotenv -e ./src/global/config/env/.dev.env -- npx prisma db push --schema=./prisma/mysql-schema.prisma",
     "dbpush:mongo": "dotenv -e ./src/global/config/env/.dev.env -- npx prisma db push --schema=./prisma/mongo-schema.prisma",
     "generate:mongo": "npx prisma generate --schema=./prisma/mongo-schema.prisma",
-    "generate:mysql": "npx prisma generate --schema=./prisma/mysql-schema.prisma"
+    "generate:mysql": "npx prisma generate --schema=./prisma/mysql-schema.prisma",
+    "generate:script": "node data/insert-company.js & node data/insert-job.js & node data/insert-univ.js"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.515.0",
