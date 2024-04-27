@@ -263,4 +263,18 @@ export class UsersController {
   async findCompany() {
     return await this.usersService.findCompany();
   }
+
+  @ApiOperation({ summary: '전공 목록 조회' })
+  @ApiResponse({ status: 200, description: '목록 조회 성공' })
+  @Get('/find/major')
+  async findMajor() {
+    return await this.usersService.findMajor();
+  }
+
+  @ApiOperation({ summary: '직업 목록 조회' })
+  @ApiResponse({ status: 200, description: '목록 조회 성공' })
+  @Get('/find/job')
+  async findJob() {
+    return await this.usersService.findJob();
+  }
 }
