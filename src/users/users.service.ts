@@ -62,7 +62,14 @@ export class UsersService {
     let additionalData, companyName, smallJobKindName;
     const userData = await this.prismaService.users.findFirst({
       where: { id: user.id },
-      select: { email: true, name: true, age: true, gender: true, image: true },
+      select: {
+        email: true,
+        name: true,
+        age: true,
+        gender: true,
+        image: true,
+        type: true,
+      },
     });
     switch (user.type) {
       case userType.incumbent:
@@ -129,7 +136,6 @@ export class UsersService {
   }
 
   async registerShortSpec(args: RegisterShortSpecArgs) {
-
     const user = await this.prismaService.users.findFirst({
       where: { id: args.user.id },
       select: { id: true, type: true },
@@ -147,7 +153,6 @@ export class UsersService {
   }
 
   async removeShortSpec(args: RemoveShortSpecArgs) {
-
     const user = await this.prismaService.users.findFirst({
       where: { id: args.user.id },
       select: { id: true, type: true },
