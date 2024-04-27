@@ -130,6 +130,10 @@ exports.Prisma.IncumbentsAdditionalScalarFieldEnum = {
   midJobId: 'midJobId',
   smallJobId: 'smallJobId',
   jobId: 'jobId',
+  schoolBranch: 'schoolBranch',
+  schoolDayAndNight: 'schoolDayAndNight',
+  schoolAffiliate: 'schoolAffiliate',
+  schoolDegree: 'schoolDegree',
   shortSpec: 'shortSpec',
   reportedNum: 'reportedNum',
   adviceCount: 'adviceCount',
@@ -148,6 +152,10 @@ exports.Prisma.StudentsAdditionalScalarFieldEnum = {
   wishSmallJobId: 'wishSmallJobId',
   wishJobId: 'wishJobId',
   portfolio: 'portfolio',
+  schoolBranch: 'schoolBranch',
+  schoolDayAndNight: 'schoolDayAndNight',
+  schoolAffiliate: 'schoolAffiliate',
+  schoolDegree: 'schoolDegree',
   reportedNum: 'reportedNum',
   totalGrade: 'totalGrade',
   adviceCount: 'adviceCount',
@@ -239,14 +247,12 @@ exports.Prisma.CompanyScalarFieldEnum = {
 exports.Prisma.SchoolScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  branch: 'branch'
+  location: 'location'
 };
 
 exports.Prisma.MajorScalarFieldEnum = {
   id: 'id',
-  schoolId: 'schoolId',
-  name: 'name',
-  dayAndNight: 'dayAndNight'
+  name: 'name'
 };
 
 exports.Prisma.BigJobKindScalarFieldEnum = {

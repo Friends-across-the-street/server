@@ -2560,13 +2560,11 @@ export namespace Prisma {
    */
 
   export type SchoolCountOutputType = {
-    major: number
     incumebent: number
     student: number
   }
 
   export type SchoolCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    major?: boolean | SchoolCountOutputTypeCountMajorArgs
     incumebent?: boolean | SchoolCountOutputTypeCountIncumebentArgs
     student?: boolean | SchoolCountOutputTypeCountStudentArgs
   }
@@ -2581,14 +2579,6 @@ export namespace Prisma {
      * Select specific fields to fetch from the SchoolCountOutputType
      */
     select?: SchoolCountOutputTypeSelect<ExtArgs> | null
-  }
-
-
-  /**
-   * SchoolCountOutputType without action
-   */
-  export type SchoolCountOutputTypeCountMajorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: majorWhereInput
   }
 
 
@@ -4107,6 +4097,10 @@ export namespace Prisma {
     midJobId: number | null
     smallJobId: number | null
     jobId: number | null
+    schoolBranch: string | null
+    schoolDayAndNight: string | null
+    schoolAffiliate: string | null
+    schoolDegree: string | null
     shortSpec: string | null
     reportedNum: number | null
     adviceCount: number | null
@@ -4124,6 +4118,10 @@ export namespace Prisma {
     midJobId: number | null
     smallJobId: number | null
     jobId: number | null
+    schoolBranch: string | null
+    schoolDayAndNight: string | null
+    schoolAffiliate: string | null
+    schoolDegree: string | null
     shortSpec: string | null
     reportedNum: number | null
     adviceCount: number | null
@@ -4141,6 +4139,10 @@ export namespace Prisma {
     midJobId: number
     smallJobId: number
     jobId: number
+    schoolBranch: number
+    schoolDayAndNight: number
+    schoolAffiliate: number
+    schoolDegree: number
     shortSpec: number
     reportedNum: number
     adviceCount: number
@@ -4190,6 +4192,10 @@ export namespace Prisma {
     midJobId?: true
     smallJobId?: true
     jobId?: true
+    schoolBranch?: true
+    schoolDayAndNight?: true
+    schoolAffiliate?: true
+    schoolDegree?: true
     shortSpec?: true
     reportedNum?: true
     adviceCount?: true
@@ -4207,6 +4213,10 @@ export namespace Prisma {
     midJobId?: true
     smallJobId?: true
     jobId?: true
+    schoolBranch?: true
+    schoolDayAndNight?: true
+    schoolAffiliate?: true
+    schoolDegree?: true
     shortSpec?: true
     reportedNum?: true
     adviceCount?: true
@@ -4224,6 +4234,10 @@ export namespace Prisma {
     midJobId?: true
     smallJobId?: true
     jobId?: true
+    schoolBranch?: true
+    schoolDayAndNight?: true
+    schoolAffiliate?: true
+    schoolDegree?: true
     shortSpec?: true
     reportedNum?: true
     adviceCount?: true
@@ -4328,6 +4342,10 @@ export namespace Prisma {
     midJobId: number | null
     smallJobId: number | null
     jobId: number | null
+    schoolBranch: string | null
+    schoolDayAndNight: string | null
+    schoolAffiliate: string | null
+    schoolDegree: string | null
     shortSpec: string | null
     reportedNum: number
     adviceCount: number
@@ -4364,6 +4382,10 @@ export namespace Prisma {
     midJobId?: boolean
     smallJobId?: boolean
     jobId?: boolean
+    schoolBranch?: boolean
+    schoolDayAndNight?: boolean
+    schoolAffiliate?: boolean
+    schoolDegree?: boolean
     shortSpec?: boolean
     reportedNum?: boolean
     adviceCount?: boolean
@@ -4386,6 +4408,10 @@ export namespace Prisma {
     midJobId?: boolean
     smallJobId?: boolean
     jobId?: boolean
+    schoolBranch?: boolean
+    schoolDayAndNight?: boolean
+    schoolAffiliate?: boolean
+    schoolDegree?: boolean
     shortSpec?: boolean
     reportedNum?: boolean
     adviceCount?: boolean
@@ -4421,6 +4447,10 @@ export namespace Prisma {
       midJobId: number | null
       smallJobId: number | null
       jobId: number | null
+      schoolBranch: string | null
+      schoolDayAndNight: string | null
+      schoolAffiliate: string | null
+      schoolDegree: string | null
       shortSpec: string | null
       reportedNum: number
       adviceCount: number
@@ -4838,6 +4868,10 @@ export namespace Prisma {
     readonly midJobId: FieldRef<"incumbentsAdditional", 'Int'>
     readonly smallJobId: FieldRef<"incumbentsAdditional", 'Int'>
     readonly jobId: FieldRef<"incumbentsAdditional", 'Int'>
+    readonly schoolBranch: FieldRef<"incumbentsAdditional", 'String'>
+    readonly schoolDayAndNight: FieldRef<"incumbentsAdditional", 'String'>
+    readonly schoolAffiliate: FieldRef<"incumbentsAdditional", 'String'>
+    readonly schoolDegree: FieldRef<"incumbentsAdditional", 'String'>
     readonly shortSpec: FieldRef<"incumbentsAdditional", 'String'>
     readonly reportedNum: FieldRef<"incumbentsAdditional", 'Int'>
     readonly adviceCount: FieldRef<"incumbentsAdditional", 'Int'>
@@ -5289,6 +5323,10 @@ export namespace Prisma {
     wishSmallJobId: number | null
     wishJobId: number | null
     portfolio: string | null
+    schoolBranch: string | null
+    schoolDayAndNight: string | null
+    schoolAffiliate: string | null
+    schoolDegree: string | null
     reportedNum: number | null
     totalGrade: number | null
     adviceCount: number | null
@@ -5307,6 +5345,10 @@ export namespace Prisma {
     wishSmallJobId: number | null
     wishJobId: number | null
     portfolio: string | null
+    schoolBranch: string | null
+    schoolDayAndNight: string | null
+    schoolAffiliate: string | null
+    schoolDegree: string | null
     reportedNum: number | null
     totalGrade: number | null
     adviceCount: number | null
@@ -5325,6 +5367,10 @@ export namespace Prisma {
     wishSmallJobId: number
     wishJobId: number
     portfolio: number
+    schoolBranch: number
+    schoolDayAndNight: number
+    schoolAffiliate: number
+    schoolDegree: number
     reportedNum: number
     totalGrade: number
     adviceCount: number
@@ -5377,6 +5423,10 @@ export namespace Prisma {
     wishSmallJobId?: true
     wishJobId?: true
     portfolio?: true
+    schoolBranch?: true
+    schoolDayAndNight?: true
+    schoolAffiliate?: true
+    schoolDegree?: true
     reportedNum?: true
     totalGrade?: true
     adviceCount?: true
@@ -5395,6 +5445,10 @@ export namespace Prisma {
     wishSmallJobId?: true
     wishJobId?: true
     portfolio?: true
+    schoolBranch?: true
+    schoolDayAndNight?: true
+    schoolAffiliate?: true
+    schoolDegree?: true
     reportedNum?: true
     totalGrade?: true
     adviceCount?: true
@@ -5413,6 +5467,10 @@ export namespace Prisma {
     wishSmallJobId?: true
     wishJobId?: true
     portfolio?: true
+    schoolBranch?: true
+    schoolDayAndNight?: true
+    schoolAffiliate?: true
+    schoolDegree?: true
     reportedNum?: true
     totalGrade?: true
     adviceCount?: true
@@ -5518,6 +5576,10 @@ export namespace Prisma {
     wishSmallJobId: number | null
     wishJobId: number | null
     portfolio: string | null
+    schoolBranch: string | null
+    schoolDayAndNight: string | null
+    schoolAffiliate: string | null
+    schoolDegree: string | null
     reportedNum: number
     totalGrade: number | null
     adviceCount: number
@@ -5555,6 +5617,10 @@ export namespace Prisma {
     wishSmallJobId?: boolean
     wishJobId?: boolean
     portfolio?: boolean
+    schoolBranch?: boolean
+    schoolDayAndNight?: boolean
+    schoolAffiliate?: boolean
+    schoolDegree?: boolean
     reportedNum?: boolean
     totalGrade?: boolean
     adviceCount?: boolean
@@ -5578,6 +5644,10 @@ export namespace Prisma {
     wishSmallJobId?: boolean
     wishJobId?: boolean
     portfolio?: boolean
+    schoolBranch?: boolean
+    schoolDayAndNight?: boolean
+    schoolAffiliate?: boolean
+    schoolDegree?: boolean
     reportedNum?: boolean
     totalGrade?: boolean
     adviceCount?: boolean
@@ -5614,6 +5684,10 @@ export namespace Prisma {
       wishSmallJobId: number | null
       wishJobId: number | null
       portfolio: string | null
+      schoolBranch: string | null
+      schoolDayAndNight: string | null
+      schoolAffiliate: string | null
+      schoolDegree: string | null
       reportedNum: number
       totalGrade: number | null
       adviceCount: number
@@ -6032,6 +6106,10 @@ export namespace Prisma {
     readonly wishSmallJobId: FieldRef<"studentsAdditional", 'Int'>
     readonly wishJobId: FieldRef<"studentsAdditional", 'Int'>
     readonly portfolio: FieldRef<"studentsAdditional", 'String'>
+    readonly schoolBranch: FieldRef<"studentsAdditional", 'String'>
+    readonly schoolDayAndNight: FieldRef<"studentsAdditional", 'String'>
+    readonly schoolAffiliate: FieldRef<"studentsAdditional", 'String'>
+    readonly schoolDegree: FieldRef<"studentsAdditional", 'String'>
     readonly reportedNum: FieldRef<"studentsAdditional", 'Int'>
     readonly totalGrade: FieldRef<"studentsAdditional", 'Float'>
     readonly adviceCount: FieldRef<"studentsAdditional", 'Int'>
@@ -15644,19 +15722,19 @@ export namespace Prisma {
   export type SchoolMinAggregateOutputType = {
     id: number | null
     name: string | null
-    branch: string | null
+    location: string | null
   }
 
   export type SchoolMaxAggregateOutputType = {
     id: number | null
     name: string | null
-    branch: string | null
+    location: string | null
   }
 
   export type SchoolCountAggregateOutputType = {
     id: number
     name: number
-    branch: number
+    location: number
     _all: number
   }
 
@@ -15672,19 +15750,19 @@ export namespace Prisma {
   export type SchoolMinAggregateInputType = {
     id?: true
     name?: true
-    branch?: true
+    location?: true
   }
 
   export type SchoolMaxAggregateInputType = {
     id?: true
     name?: true
-    branch?: true
+    location?: true
   }
 
   export type SchoolCountAggregateInputType = {
     id?: true
     name?: true
-    branch?: true
+    location?: true
     _all?: true
   }
 
@@ -15777,7 +15855,7 @@ export namespace Prisma {
   export type SchoolGroupByOutputType = {
     id: number
     name: string
-    branch: string
+    location: string
     _count: SchoolCountAggregateOutputType | null
     _avg: SchoolAvgAggregateOutputType | null
     _sum: SchoolSumAggregateOutputType | null
@@ -15802,8 +15880,7 @@ export namespace Prisma {
   export type schoolSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    branch?: boolean
-    major?: boolean | school$majorArgs<ExtArgs>
+    location?: boolean
     incumebent?: boolean | school$incumebentArgs<ExtArgs>
     student?: boolean | school$studentArgs<ExtArgs>
     _count?: boolean | SchoolCountOutputTypeDefaultArgs<ExtArgs>
@@ -15812,11 +15889,10 @@ export namespace Prisma {
   export type schoolSelectScalar = {
     id?: boolean
     name?: boolean
-    branch?: boolean
+    location?: boolean
   }
 
   export type schoolInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    major?: boolean | school$majorArgs<ExtArgs>
     incumebent?: boolean | school$incumebentArgs<ExtArgs>
     student?: boolean | school$studentArgs<ExtArgs>
     _count?: boolean | SchoolCountOutputTypeDefaultArgs<ExtArgs>
@@ -15826,14 +15902,13 @@ export namespace Prisma {
   export type $schoolPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "school"
     objects: {
-      major: Prisma.$majorPayload<ExtArgs>[]
       incumebent: Prisma.$incumbentsAdditionalPayload<ExtArgs>[]
       student: Prisma.$studentsAdditionalPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
-      branch: string
+      location: string
     }, ExtArgs["result"]["school"]>
     composites: {}
   }
@@ -16199,8 +16274,6 @@ export namespace Prisma {
   export interface Prisma__schoolClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
-    major<T extends school$majorArgs<ExtArgs> = {}>(args?: Subset<T, school$majorArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$majorPayload<ExtArgs>, T, 'findMany'> | Null>;
-
     incumebent<T extends school$incumebentArgs<ExtArgs> = {}>(args?: Subset<T, school$incumebentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$incumbentsAdditionalPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     student<T extends school$studentArgs<ExtArgs> = {}>(args?: Subset<T, school$studentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$studentsAdditionalPayload<ExtArgs>, T, 'findMany'> | Null>;
@@ -16235,7 +16308,7 @@ export namespace Prisma {
   interface schoolFieldRefs {
     readonly id: FieldRef<"school", 'Int'>
     readonly name: FieldRef<"school", 'String'>
-    readonly branch: FieldRef<"school", 'String'>
+    readonly location: FieldRef<"school", 'String'>
   }
     
 
@@ -16548,27 +16621,6 @@ export namespace Prisma {
 
 
   /**
-   * school.major
-   */
-  export type school$majorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the major
-     */
-    select?: majorSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: majorInclude<ExtArgs> | null
-    where?: majorWhereInput
-    orderBy?: majorOrderByWithRelationInput | majorOrderByWithRelationInput[]
-    cursor?: majorWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: MajorScalarFieldEnum | MajorScalarFieldEnum[]
-  }
-
-
-  /**
    * school.incumebent
    */
   export type school$incumebentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -16640,66 +16692,50 @@ export namespace Prisma {
 
   export type MajorAvgAggregateOutputType = {
     id: number | null
-    schoolId: number | null
   }
 
   export type MajorSumAggregateOutputType = {
     id: number | null
-    schoolId: number | null
   }
 
   export type MajorMinAggregateOutputType = {
     id: number | null
-    schoolId: number | null
     name: string | null
-    dayAndNight: string | null
   }
 
   export type MajorMaxAggregateOutputType = {
     id: number | null
-    schoolId: number | null
     name: string | null
-    dayAndNight: string | null
   }
 
   export type MajorCountAggregateOutputType = {
     id: number
-    schoolId: number
     name: number
-    dayAndNight: number
     _all: number
   }
 
 
   export type MajorAvgAggregateInputType = {
     id?: true
-    schoolId?: true
   }
 
   export type MajorSumAggregateInputType = {
     id?: true
-    schoolId?: true
   }
 
   export type MajorMinAggregateInputType = {
     id?: true
-    schoolId?: true
     name?: true
-    dayAndNight?: true
   }
 
   export type MajorMaxAggregateInputType = {
     id?: true
-    schoolId?: true
     name?: true
-    dayAndNight?: true
   }
 
   export type MajorCountAggregateInputType = {
     id?: true
-    schoolId?: true
     name?: true
-    dayAndNight?: true
     _all?: true
   }
 
@@ -16791,9 +16827,7 @@ export namespace Prisma {
 
   export type MajorGroupByOutputType = {
     id: number
-    schoolId: number
     name: string
-    dayAndNight: string
     _count: MajorCountAggregateOutputType | null
     _avg: MajorAvgAggregateOutputType | null
     _sum: MajorSumAggregateOutputType | null
@@ -16817,10 +16851,7 @@ export namespace Prisma {
 
   export type majorSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    schoolId?: boolean
     name?: boolean
-    dayAndNight?: boolean
-    school?: boolean | schoolDefaultArgs<ExtArgs>
     incumebent?: boolean | major$incumebentArgs<ExtArgs>
     student?: boolean | major$studentArgs<ExtArgs>
     _count?: boolean | MajorCountOutputTypeDefaultArgs<ExtArgs>
@@ -16828,13 +16859,10 @@ export namespace Prisma {
 
   export type majorSelectScalar = {
     id?: boolean
-    schoolId?: boolean
     name?: boolean
-    dayAndNight?: boolean
   }
 
   export type majorInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    school?: boolean | schoolDefaultArgs<ExtArgs>
     incumebent?: boolean | major$incumebentArgs<ExtArgs>
     student?: boolean | major$studentArgs<ExtArgs>
     _count?: boolean | MajorCountOutputTypeDefaultArgs<ExtArgs>
@@ -16844,15 +16872,12 @@ export namespace Prisma {
   export type $majorPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "major"
     objects: {
-      school: Prisma.$schoolPayload<ExtArgs>
       incumebent: Prisma.$incumbentsAdditionalPayload<ExtArgs>[]
       student: Prisma.$studentsAdditionalPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      schoolId: number
       name: string
-      dayAndNight: string
     }, ExtArgs["result"]["major"]>
     composites: {}
   }
@@ -17218,8 +17243,6 @@ export namespace Prisma {
   export interface Prisma__majorClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
-    school<T extends schoolDefaultArgs<ExtArgs> = {}>(args?: Subset<T, schoolDefaultArgs<ExtArgs>>): Prisma__schoolClient<$Result.GetResult<Prisma.$schoolPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
-
     incumebent<T extends major$incumebentArgs<ExtArgs> = {}>(args?: Subset<T, major$incumebentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$incumbentsAdditionalPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     student<T extends major$studentArgs<ExtArgs> = {}>(args?: Subset<T, major$studentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$studentsAdditionalPayload<ExtArgs>, T, 'findMany'> | Null>;
@@ -17253,9 +17276,7 @@ export namespace Prisma {
    */ 
   interface majorFieldRefs {
     readonly id: FieldRef<"major", 'Int'>
-    readonly schoolId: FieldRef<"major", 'Int'>
     readonly name: FieldRef<"major", 'String'>
-    readonly dayAndNight: FieldRef<"major", 'String'>
   }
     
 
@@ -21566,6 +21587,10 @@ export namespace Prisma {
     midJobId: 'midJobId',
     smallJobId: 'smallJobId',
     jobId: 'jobId',
+    schoolBranch: 'schoolBranch',
+    schoolDayAndNight: 'schoolDayAndNight',
+    schoolAffiliate: 'schoolAffiliate',
+    schoolDegree: 'schoolDegree',
     shortSpec: 'shortSpec',
     reportedNum: 'reportedNum',
     adviceCount: 'adviceCount',
@@ -21587,6 +21612,10 @@ export namespace Prisma {
     wishSmallJobId: 'wishSmallJobId',
     wishJobId: 'wishJobId',
     portfolio: 'portfolio',
+    schoolBranch: 'schoolBranch',
+    schoolDayAndNight: 'schoolDayAndNight',
+    schoolAffiliate: 'schoolAffiliate',
+    schoolDegree: 'schoolDegree',
     reportedNum: 'reportedNum',
     totalGrade: 'totalGrade',
     adviceCount: 'adviceCount',
@@ -21708,7 +21737,7 @@ export namespace Prisma {
   export const SchoolScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    branch: 'branch'
+    location: 'location'
   };
 
   export type SchoolScalarFieldEnum = (typeof SchoolScalarFieldEnum)[keyof typeof SchoolScalarFieldEnum]
@@ -21716,9 +21745,7 @@ export namespace Prisma {
 
   export const MajorScalarFieldEnum: {
     id: 'id',
-    schoolId: 'schoolId',
-    name: 'name',
-    dayAndNight: 'dayAndNight'
+    name: 'name'
   };
 
   export type MajorScalarFieldEnum = (typeof MajorScalarFieldEnum)[keyof typeof MajorScalarFieldEnum]
@@ -21951,6 +21978,10 @@ export namespace Prisma {
     midJobId?: IntNullableFilter<"incumbentsAdditional"> | number | null
     smallJobId?: IntNullableFilter<"incumbentsAdditional"> | number | null
     jobId?: IntNullableFilter<"incumbentsAdditional"> | number | null
+    schoolBranch?: StringNullableFilter<"incumbentsAdditional"> | string | null
+    schoolDayAndNight?: StringNullableFilter<"incumbentsAdditional"> | string | null
+    schoolAffiliate?: StringNullableFilter<"incumbentsAdditional"> | string | null
+    schoolDegree?: StringNullableFilter<"incumbentsAdditional"> | string | null
     shortSpec?: StringNullableFilter<"incumbentsAdditional"> | string | null
     reportedNum?: IntFilter<"incumbentsAdditional"> | number
     adviceCount?: IntFilter<"incumbentsAdditional"> | number
@@ -21973,6 +22004,10 @@ export namespace Prisma {
     midJobId?: SortOrderInput | SortOrder
     smallJobId?: SortOrderInput | SortOrder
     jobId?: SortOrderInput | SortOrder
+    schoolBranch?: SortOrderInput | SortOrder
+    schoolDayAndNight?: SortOrderInput | SortOrder
+    schoolAffiliate?: SortOrderInput | SortOrder
+    schoolDegree?: SortOrderInput | SortOrder
     shortSpec?: SortOrderInput | SortOrder
     reportedNum?: SortOrder
     adviceCount?: SortOrder
@@ -21998,6 +22033,10 @@ export namespace Prisma {
     midJobId?: IntNullableFilter<"incumbentsAdditional"> | number | null
     smallJobId?: IntNullableFilter<"incumbentsAdditional"> | number | null
     jobId?: IntNullableFilter<"incumbentsAdditional"> | number | null
+    schoolBranch?: StringNullableFilter<"incumbentsAdditional"> | string | null
+    schoolDayAndNight?: StringNullableFilter<"incumbentsAdditional"> | string | null
+    schoolAffiliate?: StringNullableFilter<"incumbentsAdditional"> | string | null
+    schoolDegree?: StringNullableFilter<"incumbentsAdditional"> | string | null
     shortSpec?: StringNullableFilter<"incumbentsAdditional"> | string | null
     reportedNum?: IntFilter<"incumbentsAdditional"> | number
     adviceCount?: IntFilter<"incumbentsAdditional"> | number
@@ -22020,6 +22059,10 @@ export namespace Prisma {
     midJobId?: SortOrderInput | SortOrder
     smallJobId?: SortOrderInput | SortOrder
     jobId?: SortOrderInput | SortOrder
+    schoolBranch?: SortOrderInput | SortOrder
+    schoolDayAndNight?: SortOrderInput | SortOrder
+    schoolAffiliate?: SortOrderInput | SortOrder
+    schoolDegree?: SortOrderInput | SortOrder
     shortSpec?: SortOrderInput | SortOrder
     reportedNum?: SortOrder
     adviceCount?: SortOrder
@@ -22045,6 +22088,10 @@ export namespace Prisma {
     midJobId?: IntNullableWithAggregatesFilter<"incumbentsAdditional"> | number | null
     smallJobId?: IntNullableWithAggregatesFilter<"incumbentsAdditional"> | number | null
     jobId?: IntNullableWithAggregatesFilter<"incumbentsAdditional"> | number | null
+    schoolBranch?: StringNullableWithAggregatesFilter<"incumbentsAdditional"> | string | null
+    schoolDayAndNight?: StringNullableWithAggregatesFilter<"incumbentsAdditional"> | string | null
+    schoolAffiliate?: StringNullableWithAggregatesFilter<"incumbentsAdditional"> | string | null
+    schoolDegree?: StringNullableWithAggregatesFilter<"incumbentsAdditional"> | string | null
     shortSpec?: StringNullableWithAggregatesFilter<"incumbentsAdditional"> | string | null
     reportedNum?: IntWithAggregatesFilter<"incumbentsAdditional"> | number
     adviceCount?: IntWithAggregatesFilter<"incumbentsAdditional"> | number
@@ -22066,6 +22113,10 @@ export namespace Prisma {
     wishSmallJobId?: IntNullableFilter<"studentsAdditional"> | number | null
     wishJobId?: IntNullableFilter<"studentsAdditional"> | number | null
     portfolio?: StringNullableFilter<"studentsAdditional"> | string | null
+    schoolBranch?: StringNullableFilter<"studentsAdditional"> | string | null
+    schoolDayAndNight?: StringNullableFilter<"studentsAdditional"> | string | null
+    schoolAffiliate?: StringNullableFilter<"studentsAdditional"> | string | null
+    schoolDegree?: StringNullableFilter<"studentsAdditional"> | string | null
     reportedNum?: IntFilter<"studentsAdditional"> | number
     totalGrade?: FloatNullableFilter<"studentsAdditional"> | number | null
     adviceCount?: IntFilter<"studentsAdditional"> | number
@@ -22089,6 +22140,10 @@ export namespace Prisma {
     wishSmallJobId?: SortOrderInput | SortOrder
     wishJobId?: SortOrderInput | SortOrder
     portfolio?: SortOrderInput | SortOrder
+    schoolBranch?: SortOrderInput | SortOrder
+    schoolDayAndNight?: SortOrderInput | SortOrder
+    schoolAffiliate?: SortOrderInput | SortOrder
+    schoolDegree?: SortOrderInput | SortOrder
     reportedNum?: SortOrder
     totalGrade?: SortOrderInput | SortOrder
     adviceCount?: SortOrder
@@ -22115,6 +22170,10 @@ export namespace Prisma {
     wishSmallJobId?: IntNullableFilter<"studentsAdditional"> | number | null
     wishJobId?: IntNullableFilter<"studentsAdditional"> | number | null
     portfolio?: StringNullableFilter<"studentsAdditional"> | string | null
+    schoolBranch?: StringNullableFilter<"studentsAdditional"> | string | null
+    schoolDayAndNight?: StringNullableFilter<"studentsAdditional"> | string | null
+    schoolAffiliate?: StringNullableFilter<"studentsAdditional"> | string | null
+    schoolDegree?: StringNullableFilter<"studentsAdditional"> | string | null
     reportedNum?: IntFilter<"studentsAdditional"> | number
     totalGrade?: FloatNullableFilter<"studentsAdditional"> | number | null
     adviceCount?: IntFilter<"studentsAdditional"> | number
@@ -22138,6 +22197,10 @@ export namespace Prisma {
     wishSmallJobId?: SortOrderInput | SortOrder
     wishJobId?: SortOrderInput | SortOrder
     portfolio?: SortOrderInput | SortOrder
+    schoolBranch?: SortOrderInput | SortOrder
+    schoolDayAndNight?: SortOrderInput | SortOrder
+    schoolAffiliate?: SortOrderInput | SortOrder
+    schoolDegree?: SortOrderInput | SortOrder
     reportedNum?: SortOrder
     totalGrade?: SortOrderInput | SortOrder
     adviceCount?: SortOrder
@@ -22164,6 +22227,10 @@ export namespace Prisma {
     wishSmallJobId?: IntNullableWithAggregatesFilter<"studentsAdditional"> | number | null
     wishJobId?: IntNullableWithAggregatesFilter<"studentsAdditional"> | number | null
     portfolio?: StringNullableWithAggregatesFilter<"studentsAdditional"> | string | null
+    schoolBranch?: StringNullableWithAggregatesFilter<"studentsAdditional"> | string | null
+    schoolDayAndNight?: StringNullableWithAggregatesFilter<"studentsAdditional"> | string | null
+    schoolAffiliate?: StringNullableWithAggregatesFilter<"studentsAdditional"> | string | null
+    schoolDegree?: StringNullableWithAggregatesFilter<"studentsAdditional"> | string | null
     reportedNum?: IntWithAggregatesFilter<"studentsAdditional"> | number
     totalGrade?: FloatNullableWithAggregatesFilter<"studentsAdditional"> | number | null
     adviceCount?: IntWithAggregatesFilter<"studentsAdditional"> | number
@@ -22786,8 +22853,7 @@ export namespace Prisma {
     NOT?: schoolWhereInput | schoolWhereInput[]
     id?: IntFilter<"school"> | number
     name?: StringFilter<"school"> | string
-    branch?: StringFilter<"school"> | string
-    major?: MajorListRelationFilter
+    location?: StringFilter<"school"> | string
     incumebent?: IncumbentsAdditionalListRelationFilter
     student?: StudentsAdditionalListRelationFilter
   }
@@ -22795,8 +22861,7 @@ export namespace Prisma {
   export type schoolOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
-    branch?: SortOrder
-    major?: majorOrderByRelationAggregateInput
+    location?: SortOrder
     incumebent?: incumbentsAdditionalOrderByRelationAggregateInput
     student?: studentsAdditionalOrderByRelationAggregateInput
   }
@@ -22807,8 +22872,7 @@ export namespace Prisma {
     OR?: schoolWhereInput[]
     NOT?: schoolWhereInput | schoolWhereInput[]
     name?: StringFilter<"school"> | string
-    branch?: StringFilter<"school"> | string
-    major?: MajorListRelationFilter
+    location?: StringFilter<"school"> | string
     incumebent?: IncumbentsAdditionalListRelationFilter
     student?: StudentsAdditionalListRelationFilter
   }, "id">
@@ -22816,7 +22880,7 @@ export namespace Prisma {
   export type schoolOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
-    branch?: SortOrder
+    location?: SortOrder
     _count?: schoolCountOrderByAggregateInput
     _avg?: schoolAvgOrderByAggregateInput
     _max?: schoolMaxOrderByAggregateInput
@@ -22830,7 +22894,7 @@ export namespace Prisma {
     NOT?: schoolScalarWhereWithAggregatesInput | schoolScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"school"> | number
     name?: StringWithAggregatesFilter<"school"> | string
-    branch?: StringWithAggregatesFilter<"school"> | string
+    location?: StringWithAggregatesFilter<"school"> | string
   }
 
   export type majorWhereInput = {
@@ -22838,20 +22902,14 @@ export namespace Prisma {
     OR?: majorWhereInput[]
     NOT?: majorWhereInput | majorWhereInput[]
     id?: IntFilter<"major"> | number
-    schoolId?: IntFilter<"major"> | number
     name?: StringFilter<"major"> | string
-    dayAndNight?: StringFilter<"major"> | string
-    school?: XOR<SchoolRelationFilter, schoolWhereInput>
     incumebent?: IncumbentsAdditionalListRelationFilter
     student?: StudentsAdditionalListRelationFilter
   }
 
   export type majorOrderByWithRelationInput = {
     id?: SortOrder
-    schoolId?: SortOrder
     name?: SortOrder
-    dayAndNight?: SortOrder
-    school?: schoolOrderByWithRelationInput
     incumebent?: incumbentsAdditionalOrderByRelationAggregateInput
     student?: studentsAdditionalOrderByRelationAggregateInput
   }
@@ -22861,19 +22919,14 @@ export namespace Prisma {
     AND?: majorWhereInput | majorWhereInput[]
     OR?: majorWhereInput[]
     NOT?: majorWhereInput | majorWhereInput[]
-    schoolId?: IntFilter<"major"> | number
     name?: StringFilter<"major"> | string
-    dayAndNight?: StringFilter<"major"> | string
-    school?: XOR<SchoolRelationFilter, schoolWhereInput>
     incumebent?: IncumbentsAdditionalListRelationFilter
     student?: StudentsAdditionalListRelationFilter
   }, "id">
 
   export type majorOrderByWithAggregationInput = {
     id?: SortOrder
-    schoolId?: SortOrder
     name?: SortOrder
-    dayAndNight?: SortOrder
     _count?: majorCountOrderByAggregateInput
     _avg?: majorAvgOrderByAggregateInput
     _max?: majorMaxOrderByAggregateInput
@@ -22886,9 +22939,7 @@ export namespace Prisma {
     OR?: majorScalarWhereWithAggregatesInput[]
     NOT?: majorScalarWhereWithAggregatesInput | majorScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"major"> | number
-    schoolId?: IntWithAggregatesFilter<"major"> | number
     name?: StringWithAggregatesFilter<"major"> | string
-    dayAndNight?: StringWithAggregatesFilter<"major"> | string
   }
 
   export type bigJobKindWhereInput = {
@@ -23217,6 +23268,10 @@ export namespace Prisma {
     bigJobId?: number | null
     midJobId?: number | null
     smallJobId?: number | null
+    schoolBranch?: string | null
+    schoolDayAndNight?: string | null
+    schoolAffiliate?: string | null
+    schoolDegree?: string | null
     shortSpec?: string | null
     reportedNum?: number
     adviceCount?: number
@@ -23239,6 +23294,10 @@ export namespace Prisma {
     midJobId?: number | null
     smallJobId?: number | null
     jobId?: number | null
+    schoolBranch?: string | null
+    schoolDayAndNight?: string | null
+    schoolAffiliate?: string | null
+    schoolDegree?: string | null
     shortSpec?: string | null
     reportedNum?: number
     adviceCount?: number
@@ -23250,6 +23309,10 @@ export namespace Prisma {
     bigJobId?: NullableIntFieldUpdateOperationsInput | number | null
     midJobId?: NullableIntFieldUpdateOperationsInput | number | null
     smallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    schoolBranch?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDayAndNight?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolAffiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDegree?: NullableStringFieldUpdateOperationsInput | string | null
     shortSpec?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -23272,6 +23335,10 @@ export namespace Prisma {
     midJobId?: NullableIntFieldUpdateOperationsInput | number | null
     smallJobId?: NullableIntFieldUpdateOperationsInput | number | null
     jobId?: NullableIntFieldUpdateOperationsInput | number | null
+    schoolBranch?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDayAndNight?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolAffiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDegree?: NullableStringFieldUpdateOperationsInput | string | null
     shortSpec?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -23289,6 +23356,10 @@ export namespace Prisma {
     midJobId?: number | null
     smallJobId?: number | null
     jobId?: number | null
+    schoolBranch?: string | null
+    schoolDayAndNight?: string | null
+    schoolAffiliate?: string | null
+    schoolDegree?: string | null
     shortSpec?: string | null
     reportedNum?: number
     adviceCount?: number
@@ -23300,6 +23371,10 @@ export namespace Prisma {
     bigJobId?: NullableIntFieldUpdateOperationsInput | number | null
     midJobId?: NullableIntFieldUpdateOperationsInput | number | null
     smallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    schoolBranch?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDayAndNight?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolAffiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDegree?: NullableStringFieldUpdateOperationsInput | string | null
     shortSpec?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -23317,6 +23392,10 @@ export namespace Prisma {
     midJobId?: NullableIntFieldUpdateOperationsInput | number | null
     smallJobId?: NullableIntFieldUpdateOperationsInput | number | null
     jobId?: NullableIntFieldUpdateOperationsInput | number | null
+    schoolBranch?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDayAndNight?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolAffiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDegree?: NullableStringFieldUpdateOperationsInput | string | null
     shortSpec?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -23329,6 +23408,10 @@ export namespace Prisma {
     wishMidJobId?: number | null
     wishSmallJobId?: number | null
     portfolio?: string | null
+    schoolBranch?: string | null
+    schoolDayAndNight?: string | null
+    schoolAffiliate?: string | null
+    schoolDegree?: string | null
     reportedNum?: number
     totalGrade?: number | null
     adviceCount?: number
@@ -23352,6 +23435,10 @@ export namespace Prisma {
     wishSmallJobId?: number | null
     wishJobId?: number | null
     portfolio?: string | null
+    schoolBranch?: string | null
+    schoolDayAndNight?: string | null
+    schoolAffiliate?: string | null
+    schoolDegree?: string | null
     reportedNum?: number
     totalGrade?: number | null
     adviceCount?: number
@@ -23364,6 +23451,10 @@ export namespace Prisma {
     wishMidJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishSmallJobId?: NullableIntFieldUpdateOperationsInput | number | null
     portfolio?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolBranch?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDayAndNight?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolAffiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDegree?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     totalGrade?: NullableFloatFieldUpdateOperationsInput | number | null
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -23387,6 +23478,10 @@ export namespace Prisma {
     wishSmallJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishJobId?: NullableIntFieldUpdateOperationsInput | number | null
     portfolio?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolBranch?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDayAndNight?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolAffiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDegree?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     totalGrade?: NullableFloatFieldUpdateOperationsInput | number | null
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -23405,6 +23500,10 @@ export namespace Prisma {
     wishSmallJobId?: number | null
     wishJobId?: number | null
     portfolio?: string | null
+    schoolBranch?: string | null
+    schoolDayAndNight?: string | null
+    schoolAffiliate?: string | null
+    schoolDegree?: string | null
     reportedNum?: number
     totalGrade?: number | null
     adviceCount?: number
@@ -23417,6 +23516,10 @@ export namespace Prisma {
     wishMidJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishSmallJobId?: NullableIntFieldUpdateOperationsInput | number | null
     portfolio?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolBranch?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDayAndNight?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolAffiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDegree?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     totalGrade?: NullableFloatFieldUpdateOperationsInput | number | null
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -23435,6 +23538,10 @@ export namespace Prisma {
     wishSmallJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishJobId?: NullableIntFieldUpdateOperationsInput | number | null
     portfolio?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolBranch?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDayAndNight?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolAffiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDegree?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     totalGrade?: NullableFloatFieldUpdateOperationsInput | number | null
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -24003,8 +24110,7 @@ export namespace Prisma {
 
   export type schoolCreateInput = {
     name: string
-    branch: string
-    major?: majorCreateNestedManyWithoutSchoolInput
+    location: string
     incumebent?: incumbentsAdditionalCreateNestedManyWithoutSchoolInput
     student?: studentsAdditionalCreateNestedManyWithoutSchoolInput
   }
@@ -24012,16 +24118,14 @@ export namespace Prisma {
   export type schoolUncheckedCreateInput = {
     id?: number
     name: string
-    branch: string
-    major?: majorUncheckedCreateNestedManyWithoutSchoolInput
+    location: string
     incumebent?: incumbentsAdditionalUncheckedCreateNestedManyWithoutSchoolInput
     student?: studentsAdditionalUncheckedCreateNestedManyWithoutSchoolInput
   }
 
   export type schoolUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
-    branch?: StringFieldUpdateOperationsInput | string
-    major?: majorUpdateManyWithoutSchoolNestedInput
+    location?: StringFieldUpdateOperationsInput | string
     incumebent?: incumbentsAdditionalUpdateManyWithoutSchoolNestedInput
     student?: studentsAdditionalUpdateManyWithoutSchoolNestedInput
   }
@@ -24029,8 +24133,7 @@ export namespace Prisma {
   export type schoolUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    branch?: StringFieldUpdateOperationsInput | string
-    major?: majorUncheckedUpdateManyWithoutSchoolNestedInput
+    location?: StringFieldUpdateOperationsInput | string
     incumebent?: incumbentsAdditionalUncheckedUpdateManyWithoutSchoolNestedInput
     student?: studentsAdditionalUncheckedUpdateManyWithoutSchoolNestedInput
   }
@@ -24038,71 +24141,58 @@ export namespace Prisma {
   export type schoolCreateManyInput = {
     id?: number
     name: string
-    branch: string
+    location: string
   }
 
   export type schoolUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
-    branch?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
   }
 
   export type schoolUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    branch?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
   }
 
   export type majorCreateInput = {
     name: string
-    dayAndNight: string
-    school: schoolCreateNestedOneWithoutMajorInput
     incumebent?: incumbentsAdditionalCreateNestedManyWithoutMajorInput
     student?: studentsAdditionalCreateNestedManyWithoutMajorInput
   }
 
   export type majorUncheckedCreateInput = {
     id?: number
-    schoolId: number
     name: string
-    dayAndNight: string
     incumebent?: incumbentsAdditionalUncheckedCreateNestedManyWithoutMajorInput
     student?: studentsAdditionalUncheckedCreateNestedManyWithoutMajorInput
   }
 
   export type majorUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
-    dayAndNight?: StringFieldUpdateOperationsInput | string
-    school?: schoolUpdateOneRequiredWithoutMajorNestedInput
     incumebent?: incumbentsAdditionalUpdateManyWithoutMajorNestedInput
     student?: studentsAdditionalUpdateManyWithoutMajorNestedInput
   }
 
   export type majorUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    schoolId?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    dayAndNight?: StringFieldUpdateOperationsInput | string
     incumebent?: incumbentsAdditionalUncheckedUpdateManyWithoutMajorNestedInput
     student?: studentsAdditionalUncheckedUpdateManyWithoutMajorNestedInput
   }
 
   export type majorCreateManyInput = {
     id?: number
-    schoolId: number
     name: string
-    dayAndNight: string
   }
 
   export type majorUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
-    dayAndNight?: StringFieldUpdateOperationsInput | string
   }
 
   export type majorUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    schoolId?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    dayAndNight?: StringFieldUpdateOperationsInput | string
   }
 
   export type bigJobKindCreateInput = {
@@ -24619,6 +24709,10 @@ export namespace Prisma {
     midJobId?: SortOrder
     smallJobId?: SortOrder
     jobId?: SortOrder
+    schoolBranch?: SortOrder
+    schoolDayAndNight?: SortOrder
+    schoolAffiliate?: SortOrder
+    schoolDegree?: SortOrder
     shortSpec?: SortOrder
     reportedNum?: SortOrder
     adviceCount?: SortOrder
@@ -24651,6 +24745,10 @@ export namespace Prisma {
     midJobId?: SortOrder
     smallJobId?: SortOrder
     jobId?: SortOrder
+    schoolBranch?: SortOrder
+    schoolDayAndNight?: SortOrder
+    schoolAffiliate?: SortOrder
+    schoolDegree?: SortOrder
     shortSpec?: SortOrder
     reportedNum?: SortOrder
     adviceCount?: SortOrder
@@ -24668,6 +24766,10 @@ export namespace Prisma {
     midJobId?: SortOrder
     smallJobId?: SortOrder
     jobId?: SortOrder
+    schoolBranch?: SortOrder
+    schoolDayAndNight?: SortOrder
+    schoolAffiliate?: SortOrder
+    schoolDegree?: SortOrder
     shortSpec?: SortOrder
     reportedNum?: SortOrder
     adviceCount?: SortOrder
@@ -24744,6 +24846,10 @@ export namespace Prisma {
     wishSmallJobId?: SortOrder
     wishJobId?: SortOrder
     portfolio?: SortOrder
+    schoolBranch?: SortOrder
+    schoolDayAndNight?: SortOrder
+    schoolAffiliate?: SortOrder
+    schoolDegree?: SortOrder
     reportedNum?: SortOrder
     totalGrade?: SortOrder
     adviceCount?: SortOrder
@@ -24778,6 +24884,10 @@ export namespace Prisma {
     wishSmallJobId?: SortOrder
     wishJobId?: SortOrder
     portfolio?: SortOrder
+    schoolBranch?: SortOrder
+    schoolDayAndNight?: SortOrder
+    schoolAffiliate?: SortOrder
+    schoolDegree?: SortOrder
     reportedNum?: SortOrder
     totalGrade?: SortOrder
     adviceCount?: SortOrder
@@ -24796,6 +24906,10 @@ export namespace Prisma {
     wishSmallJobId?: SortOrder
     wishJobId?: SortOrder
     portfolio?: SortOrder
+    schoolBranch?: SortOrder
+    schoolDayAndNight?: SortOrder
+    schoolAffiliate?: SortOrder
+    schoolDegree?: SortOrder
     reportedNum?: SortOrder
     totalGrade?: SortOrder
     adviceCount?: SortOrder
@@ -25273,20 +25387,10 @@ export namespace Prisma {
     smallJobKindId?: SortOrder
   }
 
-  export type MajorListRelationFilter = {
-    every?: majorWhereInput
-    some?: majorWhereInput
-    none?: majorWhereInput
-  }
-
-  export type majorOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type schoolCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    branch?: SortOrder
+    location?: SortOrder
   }
 
   export type schoolAvgOrderByAggregateInput = {
@@ -25296,53 +25400,40 @@ export namespace Prisma {
   export type schoolMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    branch?: SortOrder
+    location?: SortOrder
   }
 
   export type schoolMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    branch?: SortOrder
+    location?: SortOrder
   }
 
   export type schoolSumOrderByAggregateInput = {
     id?: SortOrder
   }
 
-  export type SchoolRelationFilter = {
-    is?: schoolWhereInput
-    isNot?: schoolWhereInput
-  }
-
   export type majorCountOrderByAggregateInput = {
     id?: SortOrder
-    schoolId?: SortOrder
     name?: SortOrder
-    dayAndNight?: SortOrder
   }
 
   export type majorAvgOrderByAggregateInput = {
     id?: SortOrder
-    schoolId?: SortOrder
   }
 
   export type majorMaxOrderByAggregateInput = {
     id?: SortOrder
-    schoolId?: SortOrder
     name?: SortOrder
-    dayAndNight?: SortOrder
   }
 
   export type majorMinOrderByAggregateInput = {
     id?: SortOrder
-    schoolId?: SortOrder
     name?: SortOrder
-    dayAndNight?: SortOrder
   }
 
   export type majorSumOrderByAggregateInput = {
     id?: SortOrder
-    schoolId?: SortOrder
   }
 
   export type CompanyListRelationFilter = {
@@ -26686,13 +26777,6 @@ export namespace Prisma {
     deleteMany?: studentsAdditionalScalarWhereInput | studentsAdditionalScalarWhereInput[]
   }
 
-  export type majorCreateNestedManyWithoutSchoolInput = {
-    create?: XOR<majorCreateWithoutSchoolInput, majorUncheckedCreateWithoutSchoolInput> | majorCreateWithoutSchoolInput[] | majorUncheckedCreateWithoutSchoolInput[]
-    connectOrCreate?: majorCreateOrConnectWithoutSchoolInput | majorCreateOrConnectWithoutSchoolInput[]
-    createMany?: majorCreateManySchoolInputEnvelope
-    connect?: majorWhereUniqueInput | majorWhereUniqueInput[]
-  }
-
   export type incumbentsAdditionalCreateNestedManyWithoutSchoolInput = {
     create?: XOR<incumbentsAdditionalCreateWithoutSchoolInput, incumbentsAdditionalUncheckedCreateWithoutSchoolInput> | incumbentsAdditionalCreateWithoutSchoolInput[] | incumbentsAdditionalUncheckedCreateWithoutSchoolInput[]
     connectOrCreate?: incumbentsAdditionalCreateOrConnectWithoutSchoolInput | incumbentsAdditionalCreateOrConnectWithoutSchoolInput[]
@@ -26707,13 +26791,6 @@ export namespace Prisma {
     connect?: studentsAdditionalWhereUniqueInput | studentsAdditionalWhereUniqueInput[]
   }
 
-  export type majorUncheckedCreateNestedManyWithoutSchoolInput = {
-    create?: XOR<majorCreateWithoutSchoolInput, majorUncheckedCreateWithoutSchoolInput> | majorCreateWithoutSchoolInput[] | majorUncheckedCreateWithoutSchoolInput[]
-    connectOrCreate?: majorCreateOrConnectWithoutSchoolInput | majorCreateOrConnectWithoutSchoolInput[]
-    createMany?: majorCreateManySchoolInputEnvelope
-    connect?: majorWhereUniqueInput | majorWhereUniqueInput[]
-  }
-
   export type incumbentsAdditionalUncheckedCreateNestedManyWithoutSchoolInput = {
     create?: XOR<incumbentsAdditionalCreateWithoutSchoolInput, incumbentsAdditionalUncheckedCreateWithoutSchoolInput> | incumbentsAdditionalCreateWithoutSchoolInput[] | incumbentsAdditionalUncheckedCreateWithoutSchoolInput[]
     connectOrCreate?: incumbentsAdditionalCreateOrConnectWithoutSchoolInput | incumbentsAdditionalCreateOrConnectWithoutSchoolInput[]
@@ -26726,20 +26803,6 @@ export namespace Prisma {
     connectOrCreate?: studentsAdditionalCreateOrConnectWithoutSchoolInput | studentsAdditionalCreateOrConnectWithoutSchoolInput[]
     createMany?: studentsAdditionalCreateManySchoolInputEnvelope
     connect?: studentsAdditionalWhereUniqueInput | studentsAdditionalWhereUniqueInput[]
-  }
-
-  export type majorUpdateManyWithoutSchoolNestedInput = {
-    create?: XOR<majorCreateWithoutSchoolInput, majorUncheckedCreateWithoutSchoolInput> | majorCreateWithoutSchoolInput[] | majorUncheckedCreateWithoutSchoolInput[]
-    connectOrCreate?: majorCreateOrConnectWithoutSchoolInput | majorCreateOrConnectWithoutSchoolInput[]
-    upsert?: majorUpsertWithWhereUniqueWithoutSchoolInput | majorUpsertWithWhereUniqueWithoutSchoolInput[]
-    createMany?: majorCreateManySchoolInputEnvelope
-    set?: majorWhereUniqueInput | majorWhereUniqueInput[]
-    disconnect?: majorWhereUniqueInput | majorWhereUniqueInput[]
-    delete?: majorWhereUniqueInput | majorWhereUniqueInput[]
-    connect?: majorWhereUniqueInput | majorWhereUniqueInput[]
-    update?: majorUpdateWithWhereUniqueWithoutSchoolInput | majorUpdateWithWhereUniqueWithoutSchoolInput[]
-    updateMany?: majorUpdateManyWithWhereWithoutSchoolInput | majorUpdateManyWithWhereWithoutSchoolInput[]
-    deleteMany?: majorScalarWhereInput | majorScalarWhereInput[]
   }
 
   export type incumbentsAdditionalUpdateManyWithoutSchoolNestedInput = {
@@ -26770,20 +26833,6 @@ export namespace Prisma {
     deleteMany?: studentsAdditionalScalarWhereInput | studentsAdditionalScalarWhereInput[]
   }
 
-  export type majorUncheckedUpdateManyWithoutSchoolNestedInput = {
-    create?: XOR<majorCreateWithoutSchoolInput, majorUncheckedCreateWithoutSchoolInput> | majorCreateWithoutSchoolInput[] | majorUncheckedCreateWithoutSchoolInput[]
-    connectOrCreate?: majorCreateOrConnectWithoutSchoolInput | majorCreateOrConnectWithoutSchoolInput[]
-    upsert?: majorUpsertWithWhereUniqueWithoutSchoolInput | majorUpsertWithWhereUniqueWithoutSchoolInput[]
-    createMany?: majorCreateManySchoolInputEnvelope
-    set?: majorWhereUniqueInput | majorWhereUniqueInput[]
-    disconnect?: majorWhereUniqueInput | majorWhereUniqueInput[]
-    delete?: majorWhereUniqueInput | majorWhereUniqueInput[]
-    connect?: majorWhereUniqueInput | majorWhereUniqueInput[]
-    update?: majorUpdateWithWhereUniqueWithoutSchoolInput | majorUpdateWithWhereUniqueWithoutSchoolInput[]
-    updateMany?: majorUpdateManyWithWhereWithoutSchoolInput | majorUpdateManyWithWhereWithoutSchoolInput[]
-    deleteMany?: majorScalarWhereInput | majorScalarWhereInput[]
-  }
-
   export type incumbentsAdditionalUncheckedUpdateManyWithoutSchoolNestedInput = {
     create?: XOR<incumbentsAdditionalCreateWithoutSchoolInput, incumbentsAdditionalUncheckedCreateWithoutSchoolInput> | incumbentsAdditionalCreateWithoutSchoolInput[] | incumbentsAdditionalUncheckedCreateWithoutSchoolInput[]
     connectOrCreate?: incumbentsAdditionalCreateOrConnectWithoutSchoolInput | incumbentsAdditionalCreateOrConnectWithoutSchoolInput[]
@@ -26812,12 +26861,6 @@ export namespace Prisma {
     deleteMany?: studentsAdditionalScalarWhereInput | studentsAdditionalScalarWhereInput[]
   }
 
-  export type schoolCreateNestedOneWithoutMajorInput = {
-    create?: XOR<schoolCreateWithoutMajorInput, schoolUncheckedCreateWithoutMajorInput>
-    connectOrCreate?: schoolCreateOrConnectWithoutMajorInput
-    connect?: schoolWhereUniqueInput
-  }
-
   export type incumbentsAdditionalCreateNestedManyWithoutMajorInput = {
     create?: XOR<incumbentsAdditionalCreateWithoutMajorInput, incumbentsAdditionalUncheckedCreateWithoutMajorInput> | incumbentsAdditionalCreateWithoutMajorInput[] | incumbentsAdditionalUncheckedCreateWithoutMajorInput[]
     connectOrCreate?: incumbentsAdditionalCreateOrConnectWithoutMajorInput | incumbentsAdditionalCreateOrConnectWithoutMajorInput[]
@@ -26844,14 +26887,6 @@ export namespace Prisma {
     connectOrCreate?: studentsAdditionalCreateOrConnectWithoutMajorInput | studentsAdditionalCreateOrConnectWithoutMajorInput[]
     createMany?: studentsAdditionalCreateManyMajorInputEnvelope
     connect?: studentsAdditionalWhereUniqueInput | studentsAdditionalWhereUniqueInput[]
-  }
-
-  export type schoolUpdateOneRequiredWithoutMajorNestedInput = {
-    create?: XOR<schoolCreateWithoutMajorInput, schoolUncheckedCreateWithoutMajorInput>
-    connectOrCreate?: schoolCreateOrConnectWithoutMajorInput
-    upsert?: schoolUpsertWithoutMajorInput
-    connect?: schoolWhereUniqueInput
-    update?: XOR<XOR<schoolUpdateToOneWithWhereWithoutMajorInput, schoolUpdateWithoutMajorInput>, schoolUncheckedUpdateWithoutMajorInput>
   }
 
   export type incumbentsAdditionalUpdateManyWithoutMajorNestedInput = {
@@ -27478,6 +27513,10 @@ export namespace Prisma {
     bigJobId?: number | null
     midJobId?: number | null
     smallJobId?: number | null
+    schoolBranch?: string | null
+    schoolDayAndNight?: string | null
+    schoolAffiliate?: string | null
+    schoolDegree?: string | null
     shortSpec?: string | null
     reportedNum?: number
     adviceCount?: number
@@ -27498,6 +27537,10 @@ export namespace Prisma {
     midJobId?: number | null
     smallJobId?: number | null
     jobId?: number | null
+    schoolBranch?: string | null
+    schoolDayAndNight?: string | null
+    schoolAffiliate?: string | null
+    schoolDegree?: string | null
     shortSpec?: string | null
     reportedNum?: number
     adviceCount?: number
@@ -27515,6 +27558,10 @@ export namespace Prisma {
     wishMidJobId?: number | null
     wishSmallJobId?: number | null
     portfolio?: string | null
+    schoolBranch?: string | null
+    schoolDayAndNight?: string | null
+    schoolAffiliate?: string | null
+    schoolDegree?: string | null
     reportedNum?: number
     totalGrade?: number | null
     adviceCount?: number
@@ -27536,6 +27583,10 @@ export namespace Prisma {
     wishSmallJobId?: number | null
     wishJobId?: number | null
     portfolio?: string | null
+    schoolBranch?: string | null
+    schoolDayAndNight?: string | null
+    schoolAffiliate?: string | null
+    schoolDegree?: string | null
     reportedNum?: number
     totalGrade?: number | null
     adviceCount?: number
@@ -27752,6 +27803,10 @@ export namespace Prisma {
     bigJobId?: NullableIntFieldUpdateOperationsInput | number | null
     midJobId?: NullableIntFieldUpdateOperationsInput | number | null
     smallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    schoolBranch?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDayAndNight?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolAffiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDegree?: NullableStringFieldUpdateOperationsInput | string | null
     shortSpec?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -27772,6 +27827,10 @@ export namespace Prisma {
     midJobId?: NullableIntFieldUpdateOperationsInput | number | null
     smallJobId?: NullableIntFieldUpdateOperationsInput | number | null
     jobId?: NullableIntFieldUpdateOperationsInput | number | null
+    schoolBranch?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDayAndNight?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolAffiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDegree?: NullableStringFieldUpdateOperationsInput | string | null
     shortSpec?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -27795,6 +27854,10 @@ export namespace Prisma {
     wishMidJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishSmallJobId?: NullableIntFieldUpdateOperationsInput | number | null
     portfolio?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolBranch?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDayAndNight?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolAffiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDegree?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     totalGrade?: NullableFloatFieldUpdateOperationsInput | number | null
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -27816,6 +27879,10 @@ export namespace Prisma {
     wishSmallJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishJobId?: NullableIntFieldUpdateOperationsInput | number | null
     portfolio?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolBranch?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDayAndNight?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolAffiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDegree?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     totalGrade?: NullableFloatFieldUpdateOperationsInput | number | null
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -28098,16 +28165,14 @@ export namespace Prisma {
 
   export type schoolCreateWithoutIncumebentInput = {
     name: string
-    branch: string
-    major?: majorCreateNestedManyWithoutSchoolInput
+    location: string
     student?: studentsAdditionalCreateNestedManyWithoutSchoolInput
   }
 
   export type schoolUncheckedCreateWithoutIncumebentInput = {
     id?: number
     name: string
-    branch: string
-    major?: majorUncheckedCreateNestedManyWithoutSchoolInput
+    location: string
     student?: studentsAdditionalUncheckedCreateNestedManyWithoutSchoolInput
   }
 
@@ -28118,16 +28183,12 @@ export namespace Prisma {
 
   export type majorCreateWithoutIncumebentInput = {
     name: string
-    dayAndNight: string
-    school: schoolCreateNestedOneWithoutMajorInput
     student?: studentsAdditionalCreateNestedManyWithoutMajorInput
   }
 
   export type majorUncheckedCreateWithoutIncumebentInput = {
     id?: number
-    schoolId: number
     name: string
-    dayAndNight: string
     student?: studentsAdditionalUncheckedCreateNestedManyWithoutMajorInput
   }
 
@@ -28255,16 +28316,14 @@ export namespace Prisma {
 
   export type schoolUpdateWithoutIncumebentInput = {
     name?: StringFieldUpdateOperationsInput | string
-    branch?: StringFieldUpdateOperationsInput | string
-    major?: majorUpdateManyWithoutSchoolNestedInput
+    location?: StringFieldUpdateOperationsInput | string
     student?: studentsAdditionalUpdateManyWithoutSchoolNestedInput
   }
 
   export type schoolUncheckedUpdateWithoutIncumebentInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    branch?: StringFieldUpdateOperationsInput | string
-    major?: majorUncheckedUpdateManyWithoutSchoolNestedInput
+    location?: StringFieldUpdateOperationsInput | string
     student?: studentsAdditionalUncheckedUpdateManyWithoutSchoolNestedInput
   }
 
@@ -28281,16 +28340,12 @@ export namespace Prisma {
 
   export type majorUpdateWithoutIncumebentInput = {
     name?: StringFieldUpdateOperationsInput | string
-    dayAndNight?: StringFieldUpdateOperationsInput | string
-    school?: schoolUpdateOneRequiredWithoutMajorNestedInput
     student?: studentsAdditionalUpdateManyWithoutMajorNestedInput
   }
 
   export type majorUncheckedUpdateWithoutIncumebentInput = {
     id?: IntFieldUpdateOperationsInput | number
-    schoolId?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    dayAndNight?: StringFieldUpdateOperationsInput | string
     student?: studentsAdditionalUncheckedUpdateManyWithoutMajorNestedInput
   }
 
@@ -28396,16 +28451,14 @@ export namespace Prisma {
 
   export type schoolCreateWithoutStudentInput = {
     name: string
-    branch: string
-    major?: majorCreateNestedManyWithoutSchoolInput
+    location: string
     incumebent?: incumbentsAdditionalCreateNestedManyWithoutSchoolInput
   }
 
   export type schoolUncheckedCreateWithoutStudentInput = {
     id?: number
     name: string
-    branch: string
-    major?: majorUncheckedCreateNestedManyWithoutSchoolInput
+    location: string
     incumebent?: incumbentsAdditionalUncheckedCreateNestedManyWithoutSchoolInput
   }
 
@@ -28416,16 +28469,12 @@ export namespace Prisma {
 
   export type majorCreateWithoutStudentInput = {
     name: string
-    dayAndNight: string
-    school: schoolCreateNestedOneWithoutMajorInput
     incumebent?: incumbentsAdditionalCreateNestedManyWithoutMajorInput
   }
 
   export type majorUncheckedCreateWithoutStudentInput = {
     id?: number
-    schoolId: number
     name: string
-    dayAndNight: string
     incumebent?: incumbentsAdditionalUncheckedCreateNestedManyWithoutMajorInput
   }
 
@@ -28553,16 +28602,14 @@ export namespace Prisma {
 
   export type schoolUpdateWithoutStudentInput = {
     name?: StringFieldUpdateOperationsInput | string
-    branch?: StringFieldUpdateOperationsInput | string
-    major?: majorUpdateManyWithoutSchoolNestedInput
+    location?: StringFieldUpdateOperationsInput | string
     incumebent?: incumbentsAdditionalUpdateManyWithoutSchoolNestedInput
   }
 
   export type schoolUncheckedUpdateWithoutStudentInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    branch?: StringFieldUpdateOperationsInput | string
-    major?: majorUncheckedUpdateManyWithoutSchoolNestedInput
+    location?: StringFieldUpdateOperationsInput | string
     incumebent?: incumbentsAdditionalUncheckedUpdateManyWithoutSchoolNestedInput
   }
 
@@ -28579,16 +28626,12 @@ export namespace Prisma {
 
   export type majorUpdateWithoutStudentInput = {
     name?: StringFieldUpdateOperationsInput | string
-    dayAndNight?: StringFieldUpdateOperationsInput | string
-    school?: schoolUpdateOneRequiredWithoutMajorNestedInput
     incumebent?: incumbentsAdditionalUpdateManyWithoutMajorNestedInput
   }
 
   export type majorUncheckedUpdateWithoutStudentInput = {
     id?: IntFieldUpdateOperationsInput | number
-    schoolId?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    dayAndNight?: StringFieldUpdateOperationsInput | string
     incumebent?: incumbentsAdditionalUncheckedUpdateManyWithoutMajorNestedInput
   }
 
@@ -30151,6 +30194,10 @@ export namespace Prisma {
     bigJobId?: number | null
     midJobId?: number | null
     smallJobId?: number | null
+    schoolBranch?: string | null
+    schoolDayAndNight?: string | null
+    schoolAffiliate?: string | null
+    schoolDegree?: string | null
     shortSpec?: string | null
     reportedNum?: number
     adviceCount?: number
@@ -30171,6 +30218,10 @@ export namespace Prisma {
     midJobId?: number | null
     smallJobId?: number | null
     jobId?: number | null
+    schoolBranch?: string | null
+    schoolDayAndNight?: string | null
+    schoolAffiliate?: string | null
+    schoolDegree?: string | null
     shortSpec?: string | null
     reportedNum?: number
     adviceCount?: number
@@ -30193,6 +30244,10 @@ export namespace Prisma {
     wishMidJobId?: number | null
     wishSmallJobId?: number | null
     portfolio?: string | null
+    schoolBranch?: string | null
+    schoolDayAndNight?: string | null
+    schoolAffiliate?: string | null
+    schoolDegree?: string | null
     reportedNum?: number
     totalGrade?: number | null
     adviceCount?: number
@@ -30214,6 +30269,10 @@ export namespace Prisma {
     wishSmallJobId?: number | null
     wishJobId?: number | null
     portfolio?: string | null
+    schoolBranch?: string | null
+    schoolDayAndNight?: string | null
+    schoolAffiliate?: string | null
+    schoolDegree?: string | null
     reportedNum?: number
     totalGrade?: number | null
     adviceCount?: number
@@ -30328,6 +30387,10 @@ export namespace Prisma {
     midJobId?: IntNullableFilter<"incumbentsAdditional"> | number | null
     smallJobId?: IntNullableFilter<"incumbentsAdditional"> | number | null
     jobId?: IntNullableFilter<"incumbentsAdditional"> | number | null
+    schoolBranch?: StringNullableFilter<"incumbentsAdditional"> | string | null
+    schoolDayAndNight?: StringNullableFilter<"incumbentsAdditional"> | string | null
+    schoolAffiliate?: StringNullableFilter<"incumbentsAdditional"> | string | null
+    schoolDegree?: StringNullableFilter<"incumbentsAdditional"> | string | null
     shortSpec?: StringNullableFilter<"incumbentsAdditional"> | string | null
     reportedNum?: IntFilter<"incumbentsAdditional"> | number
     adviceCount?: IntFilter<"incumbentsAdditional"> | number
@@ -30365,6 +30428,10 @@ export namespace Prisma {
     wishSmallJobId?: IntNullableFilter<"studentsAdditional"> | number | null
     wishJobId?: IntNullableFilter<"studentsAdditional"> | number | null
     portfolio?: StringNullableFilter<"studentsAdditional"> | string | null
+    schoolBranch?: StringNullableFilter<"studentsAdditional"> | string | null
+    schoolDayAndNight?: StringNullableFilter<"studentsAdditional"> | string | null
+    schoolAffiliate?: StringNullableFilter<"studentsAdditional"> | string | null
+    schoolDegree?: StringNullableFilter<"studentsAdditional"> | string | null
     reportedNum?: IntFilter<"studentsAdditional"> | number
     totalGrade?: FloatNullableFilter<"studentsAdditional"> | number | null
     adviceCount?: IntFilter<"studentsAdditional"> | number
@@ -30372,35 +30439,14 @@ export namespace Prisma {
     updatedDate?: DateTimeFilter<"studentsAdditional"> | Date | string
   }
 
-  export type majorCreateWithoutSchoolInput = {
-    name: string
-    dayAndNight: string
-    incumebent?: incumbentsAdditionalCreateNestedManyWithoutMajorInput
-    student?: studentsAdditionalCreateNestedManyWithoutMajorInput
-  }
-
-  export type majorUncheckedCreateWithoutSchoolInput = {
-    id?: number
-    name: string
-    dayAndNight: string
-    incumebent?: incumbentsAdditionalUncheckedCreateNestedManyWithoutMajorInput
-    student?: studentsAdditionalUncheckedCreateNestedManyWithoutMajorInput
-  }
-
-  export type majorCreateOrConnectWithoutSchoolInput = {
-    where: majorWhereUniqueInput
-    create: XOR<majorCreateWithoutSchoolInput, majorUncheckedCreateWithoutSchoolInput>
-  }
-
-  export type majorCreateManySchoolInputEnvelope = {
-    data: majorCreateManySchoolInput | majorCreateManySchoolInput[]
-    skipDuplicates?: boolean
-  }
-
   export type incumbentsAdditionalCreateWithoutSchoolInput = {
     bigJobId?: number | null
     midJobId?: number | null
     smallJobId?: number | null
+    schoolBranch?: string | null
+    schoolDayAndNight?: string | null
+    schoolAffiliate?: string | null
+    schoolDegree?: string | null
     shortSpec?: string | null
     reportedNum?: number
     adviceCount?: number
@@ -30421,6 +30467,10 @@ export namespace Prisma {
     midJobId?: number | null
     smallJobId?: number | null
     jobId?: number | null
+    schoolBranch?: string | null
+    schoolDayAndNight?: string | null
+    schoolAffiliate?: string | null
+    schoolDegree?: string | null
     shortSpec?: string | null
     reportedNum?: number
     adviceCount?: number
@@ -30443,6 +30493,10 @@ export namespace Prisma {
     wishMidJobId?: number | null
     wishSmallJobId?: number | null
     portfolio?: string | null
+    schoolBranch?: string | null
+    schoolDayAndNight?: string | null
+    schoolAffiliate?: string | null
+    schoolDegree?: string | null
     reportedNum?: number
     totalGrade?: number | null
     adviceCount?: number
@@ -30464,6 +30518,10 @@ export namespace Prisma {
     wishSmallJobId?: number | null
     wishJobId?: number | null
     portfolio?: string | null
+    schoolBranch?: string | null
+    schoolDayAndNight?: string | null
+    schoolAffiliate?: string | null
+    schoolDegree?: string | null
     reportedNum?: number
     totalGrade?: number | null
     adviceCount?: number
@@ -30479,32 +30537,6 @@ export namespace Prisma {
   export type studentsAdditionalCreateManySchoolInputEnvelope = {
     data: studentsAdditionalCreateManySchoolInput | studentsAdditionalCreateManySchoolInput[]
     skipDuplicates?: boolean
-  }
-
-  export type majorUpsertWithWhereUniqueWithoutSchoolInput = {
-    where: majorWhereUniqueInput
-    update: XOR<majorUpdateWithoutSchoolInput, majorUncheckedUpdateWithoutSchoolInput>
-    create: XOR<majorCreateWithoutSchoolInput, majorUncheckedCreateWithoutSchoolInput>
-  }
-
-  export type majorUpdateWithWhereUniqueWithoutSchoolInput = {
-    where: majorWhereUniqueInput
-    data: XOR<majorUpdateWithoutSchoolInput, majorUncheckedUpdateWithoutSchoolInput>
-  }
-
-  export type majorUpdateManyWithWhereWithoutSchoolInput = {
-    where: majorScalarWhereInput
-    data: XOR<majorUpdateManyMutationInput, majorUncheckedUpdateManyWithoutSchoolInput>
-  }
-
-  export type majorScalarWhereInput = {
-    AND?: majorScalarWhereInput | majorScalarWhereInput[]
-    OR?: majorScalarWhereInput[]
-    NOT?: majorScalarWhereInput | majorScalarWhereInput[]
-    id?: IntFilter<"major"> | number
-    schoolId?: IntFilter<"major"> | number
-    name?: StringFilter<"major"> | string
-    dayAndNight?: StringFilter<"major"> | string
   }
 
   export type incumbentsAdditionalUpsertWithWhereUniqueWithoutSchoolInput = {
@@ -30539,30 +30571,14 @@ export namespace Prisma {
     data: XOR<studentsAdditionalUpdateManyMutationInput, studentsAdditionalUncheckedUpdateManyWithoutSchoolInput>
   }
 
-  export type schoolCreateWithoutMajorInput = {
-    name: string
-    branch: string
-    incumebent?: incumbentsAdditionalCreateNestedManyWithoutSchoolInput
-    student?: studentsAdditionalCreateNestedManyWithoutSchoolInput
-  }
-
-  export type schoolUncheckedCreateWithoutMajorInput = {
-    id?: number
-    name: string
-    branch: string
-    incumebent?: incumbentsAdditionalUncheckedCreateNestedManyWithoutSchoolInput
-    student?: studentsAdditionalUncheckedCreateNestedManyWithoutSchoolInput
-  }
-
-  export type schoolCreateOrConnectWithoutMajorInput = {
-    where: schoolWhereUniqueInput
-    create: XOR<schoolCreateWithoutMajorInput, schoolUncheckedCreateWithoutMajorInput>
-  }
-
   export type incumbentsAdditionalCreateWithoutMajorInput = {
     bigJobId?: number | null
     midJobId?: number | null
     smallJobId?: number | null
+    schoolBranch?: string | null
+    schoolDayAndNight?: string | null
+    schoolAffiliate?: string | null
+    schoolDegree?: string | null
     shortSpec?: string | null
     reportedNum?: number
     adviceCount?: number
@@ -30583,6 +30599,10 @@ export namespace Prisma {
     midJobId?: number | null
     smallJobId?: number | null
     jobId?: number | null
+    schoolBranch?: string | null
+    schoolDayAndNight?: string | null
+    schoolAffiliate?: string | null
+    schoolDegree?: string | null
     shortSpec?: string | null
     reportedNum?: number
     adviceCount?: number
@@ -30605,6 +30625,10 @@ export namespace Prisma {
     wishMidJobId?: number | null
     wishSmallJobId?: number | null
     portfolio?: string | null
+    schoolBranch?: string | null
+    schoolDayAndNight?: string | null
+    schoolAffiliate?: string | null
+    schoolDegree?: string | null
     reportedNum?: number
     totalGrade?: number | null
     adviceCount?: number
@@ -30626,6 +30650,10 @@ export namespace Prisma {
     wishSmallJobId?: number | null
     wishJobId?: number | null
     portfolio?: string | null
+    schoolBranch?: string | null
+    schoolDayAndNight?: string | null
+    schoolAffiliate?: string | null
+    schoolDegree?: string | null
     reportedNum?: number
     totalGrade?: number | null
     adviceCount?: number
@@ -30641,32 +30669,6 @@ export namespace Prisma {
   export type studentsAdditionalCreateManyMajorInputEnvelope = {
     data: studentsAdditionalCreateManyMajorInput | studentsAdditionalCreateManyMajorInput[]
     skipDuplicates?: boolean
-  }
-
-  export type schoolUpsertWithoutMajorInput = {
-    update: XOR<schoolUpdateWithoutMajorInput, schoolUncheckedUpdateWithoutMajorInput>
-    create: XOR<schoolCreateWithoutMajorInput, schoolUncheckedCreateWithoutMajorInput>
-    where?: schoolWhereInput
-  }
-
-  export type schoolUpdateToOneWithWhereWithoutMajorInput = {
-    where?: schoolWhereInput
-    data: XOR<schoolUpdateWithoutMajorInput, schoolUncheckedUpdateWithoutMajorInput>
-  }
-
-  export type schoolUpdateWithoutMajorInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    branch?: StringFieldUpdateOperationsInput | string
-    incumebent?: incumbentsAdditionalUpdateManyWithoutSchoolNestedInput
-    student?: studentsAdditionalUpdateManyWithoutSchoolNestedInput
-  }
-
-  export type schoolUncheckedUpdateWithoutMajorInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    branch?: StringFieldUpdateOperationsInput | string
-    incumebent?: incumbentsAdditionalUncheckedUpdateManyWithoutSchoolNestedInput
-    student?: studentsAdditionalUncheckedUpdateManyWithoutSchoolNestedInput
   }
 
   export type incumbentsAdditionalUpsertWithWhereUniqueWithoutMajorInput = {
@@ -31047,6 +31049,10 @@ export namespace Prisma {
     bigJobId?: number | null
     midJobId?: number | null
     smallJobId?: number | null
+    schoolBranch?: string | null
+    schoolDayAndNight?: string | null
+    schoolAffiliate?: string | null
+    schoolDegree?: string | null
     shortSpec?: string | null
     reportedNum?: number
     adviceCount?: number
@@ -31067,6 +31073,10 @@ export namespace Prisma {
     bigJobId?: number | null
     midJobId?: number | null
     smallJobId?: number | null
+    schoolBranch?: string | null
+    schoolDayAndNight?: string | null
+    schoolAffiliate?: string | null
+    schoolDegree?: string | null
     shortSpec?: string | null
     reportedNum?: number
     adviceCount?: number
@@ -31089,6 +31099,10 @@ export namespace Prisma {
     wishMidJobId?: number | null
     wishSmallJobId?: number | null
     portfolio?: string | null
+    schoolBranch?: string | null
+    schoolDayAndNight?: string | null
+    schoolAffiliate?: string | null
+    schoolDegree?: string | null
     reportedNum?: number
     totalGrade?: number | null
     adviceCount?: number
@@ -31110,6 +31124,10 @@ export namespace Prisma {
     wishMidJobId?: number | null
     wishSmallJobId?: number | null
     portfolio?: string | null
+    schoolBranch?: string | null
+    schoolDayAndNight?: string | null
+    schoolAffiliate?: string | null
+    schoolDegree?: string | null
     reportedNum?: number
     totalGrade?: number | null
     adviceCount?: number
@@ -31660,6 +31678,10 @@ export namespace Prisma {
     midJobId?: number | null
     smallJobId?: number | null
     jobId?: number | null
+    schoolBranch?: string | null
+    schoolDayAndNight?: string | null
+    schoolAffiliate?: string | null
+    schoolDegree?: string | null
     shortSpec?: string | null
     reportedNum?: number
     adviceCount?: number
@@ -31677,6 +31699,10 @@ export namespace Prisma {
     wishSmallJobId?: number | null
     wishJobId?: number | null
     portfolio?: string | null
+    schoolBranch?: string | null
+    schoolDayAndNight?: string | null
+    schoolAffiliate?: string | null
+    schoolDegree?: string | null
     reportedNum?: number
     totalGrade?: number | null
     adviceCount?: number
@@ -31688,6 +31714,10 @@ export namespace Prisma {
     bigJobId?: NullableIntFieldUpdateOperationsInput | number | null
     midJobId?: NullableIntFieldUpdateOperationsInput | number | null
     smallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    schoolBranch?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDayAndNight?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolAffiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDegree?: NullableStringFieldUpdateOperationsInput | string | null
     shortSpec?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -31708,6 +31738,10 @@ export namespace Prisma {
     midJobId?: NullableIntFieldUpdateOperationsInput | number | null
     smallJobId?: NullableIntFieldUpdateOperationsInput | number | null
     jobId?: NullableIntFieldUpdateOperationsInput | number | null
+    schoolBranch?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDayAndNight?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolAffiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDegree?: NullableStringFieldUpdateOperationsInput | string | null
     shortSpec?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -31724,6 +31758,10 @@ export namespace Prisma {
     midJobId?: NullableIntFieldUpdateOperationsInput | number | null
     smallJobId?: NullableIntFieldUpdateOperationsInput | number | null
     jobId?: NullableIntFieldUpdateOperationsInput | number | null
+    schoolBranch?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDayAndNight?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolAffiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDegree?: NullableStringFieldUpdateOperationsInput | string | null
     shortSpec?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -31736,6 +31774,10 @@ export namespace Prisma {
     wishMidJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishSmallJobId?: NullableIntFieldUpdateOperationsInput | number | null
     portfolio?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolBranch?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDayAndNight?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolAffiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDegree?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     totalGrade?: NullableFloatFieldUpdateOperationsInput | number | null
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -31757,6 +31799,10 @@ export namespace Prisma {
     wishSmallJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishJobId?: NullableIntFieldUpdateOperationsInput | number | null
     portfolio?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolBranch?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDayAndNight?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolAffiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDegree?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     totalGrade?: NullableFloatFieldUpdateOperationsInput | number | null
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -31774,17 +31820,15 @@ export namespace Prisma {
     wishSmallJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishJobId?: NullableIntFieldUpdateOperationsInput | number | null
     portfolio?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolBranch?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDayAndNight?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolAffiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDegree?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     totalGrade?: NullableFloatFieldUpdateOperationsInput | number | null
     adviceCount?: IntFieldUpdateOperationsInput | number
     estimationCount?: FloatFieldUpdateOperationsInput | number
     updatedDate?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type majorCreateManySchoolInput = {
-    id?: number
-    name: string
-    dayAndNight: string
   }
 
   export type incumbentsAdditionalCreateManySchoolInput = {
@@ -31796,6 +31840,10 @@ export namespace Prisma {
     midJobId?: number | null
     smallJobId?: number | null
     jobId?: number | null
+    schoolBranch?: string | null
+    schoolDayAndNight?: string | null
+    schoolAffiliate?: string | null
+    schoolDegree?: string | null
     shortSpec?: string | null
     reportedNum?: number
     adviceCount?: number
@@ -31813,6 +31861,10 @@ export namespace Prisma {
     wishSmallJobId?: number | null
     wishJobId?: number | null
     portfolio?: string | null
+    schoolBranch?: string | null
+    schoolDayAndNight?: string | null
+    schoolAffiliate?: string | null
+    schoolDegree?: string | null
     reportedNum?: number
     totalGrade?: number | null
     adviceCount?: number
@@ -31820,31 +31872,14 @@ export namespace Prisma {
     updatedDate?: Date | string
   }
 
-  export type majorUpdateWithoutSchoolInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    dayAndNight?: StringFieldUpdateOperationsInput | string
-    incumebent?: incumbentsAdditionalUpdateManyWithoutMajorNestedInput
-    student?: studentsAdditionalUpdateManyWithoutMajorNestedInput
-  }
-
-  export type majorUncheckedUpdateWithoutSchoolInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    dayAndNight?: StringFieldUpdateOperationsInput | string
-    incumebent?: incumbentsAdditionalUncheckedUpdateManyWithoutMajorNestedInput
-    student?: studentsAdditionalUncheckedUpdateManyWithoutMajorNestedInput
-  }
-
-  export type majorUncheckedUpdateManyWithoutSchoolInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    dayAndNight?: StringFieldUpdateOperationsInput | string
-  }
-
   export type incumbentsAdditionalUpdateWithoutSchoolInput = {
     bigJobId?: NullableIntFieldUpdateOperationsInput | number | null
     midJobId?: NullableIntFieldUpdateOperationsInput | number | null
     smallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    schoolBranch?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDayAndNight?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolAffiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDegree?: NullableStringFieldUpdateOperationsInput | string | null
     shortSpec?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -31865,6 +31900,10 @@ export namespace Prisma {
     midJobId?: NullableIntFieldUpdateOperationsInput | number | null
     smallJobId?: NullableIntFieldUpdateOperationsInput | number | null
     jobId?: NullableIntFieldUpdateOperationsInput | number | null
+    schoolBranch?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDayAndNight?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolAffiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDegree?: NullableStringFieldUpdateOperationsInput | string | null
     shortSpec?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -31881,6 +31920,10 @@ export namespace Prisma {
     midJobId?: NullableIntFieldUpdateOperationsInput | number | null
     smallJobId?: NullableIntFieldUpdateOperationsInput | number | null
     jobId?: NullableIntFieldUpdateOperationsInput | number | null
+    schoolBranch?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDayAndNight?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolAffiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDegree?: NullableStringFieldUpdateOperationsInput | string | null
     shortSpec?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -31893,6 +31936,10 @@ export namespace Prisma {
     wishMidJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishSmallJobId?: NullableIntFieldUpdateOperationsInput | number | null
     portfolio?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolBranch?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDayAndNight?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolAffiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDegree?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     totalGrade?: NullableFloatFieldUpdateOperationsInput | number | null
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -31914,6 +31961,10 @@ export namespace Prisma {
     wishSmallJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishJobId?: NullableIntFieldUpdateOperationsInput | number | null
     portfolio?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolBranch?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDayAndNight?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolAffiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDegree?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     totalGrade?: NullableFloatFieldUpdateOperationsInput | number | null
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -31931,6 +31982,10 @@ export namespace Prisma {
     wishSmallJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishJobId?: NullableIntFieldUpdateOperationsInput | number | null
     portfolio?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolBranch?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDayAndNight?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolAffiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDegree?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     totalGrade?: NullableFloatFieldUpdateOperationsInput | number | null
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -31947,6 +32002,10 @@ export namespace Prisma {
     midJobId?: number | null
     smallJobId?: number | null
     jobId?: number | null
+    schoolBranch?: string | null
+    schoolDayAndNight?: string | null
+    schoolAffiliate?: string | null
+    schoolDegree?: string | null
     shortSpec?: string | null
     reportedNum?: number
     adviceCount?: number
@@ -31964,6 +32023,10 @@ export namespace Prisma {
     wishSmallJobId?: number | null
     wishJobId?: number | null
     portfolio?: string | null
+    schoolBranch?: string | null
+    schoolDayAndNight?: string | null
+    schoolAffiliate?: string | null
+    schoolDegree?: string | null
     reportedNum?: number
     totalGrade?: number | null
     adviceCount?: number
@@ -31975,6 +32038,10 @@ export namespace Prisma {
     bigJobId?: NullableIntFieldUpdateOperationsInput | number | null
     midJobId?: NullableIntFieldUpdateOperationsInput | number | null
     smallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    schoolBranch?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDayAndNight?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolAffiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDegree?: NullableStringFieldUpdateOperationsInput | string | null
     shortSpec?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -31995,6 +32062,10 @@ export namespace Prisma {
     midJobId?: NullableIntFieldUpdateOperationsInput | number | null
     smallJobId?: NullableIntFieldUpdateOperationsInput | number | null
     jobId?: NullableIntFieldUpdateOperationsInput | number | null
+    schoolBranch?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDayAndNight?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolAffiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDegree?: NullableStringFieldUpdateOperationsInput | string | null
     shortSpec?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -32011,6 +32082,10 @@ export namespace Prisma {
     midJobId?: NullableIntFieldUpdateOperationsInput | number | null
     smallJobId?: NullableIntFieldUpdateOperationsInput | number | null
     jobId?: NullableIntFieldUpdateOperationsInput | number | null
+    schoolBranch?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDayAndNight?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolAffiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDegree?: NullableStringFieldUpdateOperationsInput | string | null
     shortSpec?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -32023,6 +32098,10 @@ export namespace Prisma {
     wishMidJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishSmallJobId?: NullableIntFieldUpdateOperationsInput | number | null
     portfolio?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolBranch?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDayAndNight?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolAffiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDegree?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     totalGrade?: NullableFloatFieldUpdateOperationsInput | number | null
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -32044,6 +32123,10 @@ export namespace Prisma {
     wishSmallJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishJobId?: NullableIntFieldUpdateOperationsInput | number | null
     portfolio?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolBranch?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDayAndNight?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolAffiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDegree?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     totalGrade?: NullableFloatFieldUpdateOperationsInput | number | null
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -32061,6 +32144,10 @@ export namespace Prisma {
     wishSmallJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishJobId?: NullableIntFieldUpdateOperationsInput | number | null
     portfolio?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolBranch?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDayAndNight?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolAffiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDegree?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     totalGrade?: NullableFloatFieldUpdateOperationsInput | number | null
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -32262,6 +32349,10 @@ export namespace Prisma {
     bigJobId?: number | null
     midJobId?: number | null
     smallJobId?: number | null
+    schoolBranch?: string | null
+    schoolDayAndNight?: string | null
+    schoolAffiliate?: string | null
+    schoolDegree?: string | null
     shortSpec?: string | null
     reportedNum?: number
     adviceCount?: number
@@ -32279,6 +32370,10 @@ export namespace Prisma {
     wishMidJobId?: number | null
     wishSmallJobId?: number | null
     portfolio?: string | null
+    schoolBranch?: string | null
+    schoolDayAndNight?: string | null
+    schoolAffiliate?: string | null
+    schoolDegree?: string | null
     reportedNum?: number
     totalGrade?: number | null
     adviceCount?: number
@@ -32290,6 +32385,10 @@ export namespace Prisma {
     bigJobId?: NullableIntFieldUpdateOperationsInput | number | null
     midJobId?: NullableIntFieldUpdateOperationsInput | number | null
     smallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    schoolBranch?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDayAndNight?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolAffiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDegree?: NullableStringFieldUpdateOperationsInput | string | null
     shortSpec?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -32310,6 +32409,10 @@ export namespace Prisma {
     bigJobId?: NullableIntFieldUpdateOperationsInput | number | null
     midJobId?: NullableIntFieldUpdateOperationsInput | number | null
     smallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    schoolBranch?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDayAndNight?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolAffiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDegree?: NullableStringFieldUpdateOperationsInput | string | null
     shortSpec?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -32326,6 +32429,10 @@ export namespace Prisma {
     bigJobId?: NullableIntFieldUpdateOperationsInput | number | null
     midJobId?: NullableIntFieldUpdateOperationsInput | number | null
     smallJobId?: NullableIntFieldUpdateOperationsInput | number | null
+    schoolBranch?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDayAndNight?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolAffiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDegree?: NullableStringFieldUpdateOperationsInput | string | null
     shortSpec?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -32338,6 +32445,10 @@ export namespace Prisma {
     wishMidJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishSmallJobId?: NullableIntFieldUpdateOperationsInput | number | null
     portfolio?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolBranch?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDayAndNight?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolAffiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDegree?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     totalGrade?: NullableFloatFieldUpdateOperationsInput | number | null
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -32359,6 +32470,10 @@ export namespace Prisma {
     wishMidJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishSmallJobId?: NullableIntFieldUpdateOperationsInput | number | null
     portfolio?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolBranch?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDayAndNight?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolAffiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDegree?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     totalGrade?: NullableFloatFieldUpdateOperationsInput | number | null
     adviceCount?: IntFieldUpdateOperationsInput | number
@@ -32376,6 +32491,10 @@ export namespace Prisma {
     wishMidJobId?: NullableIntFieldUpdateOperationsInput | number | null
     wishSmallJobId?: NullableIntFieldUpdateOperationsInput | number | null
     portfolio?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolBranch?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDayAndNight?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolAffiliate?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolDegree?: NullableStringFieldUpdateOperationsInput | string | null
     reportedNum?: IntFieldUpdateOperationsInput | number
     totalGrade?: NullableFloatFieldUpdateOperationsInput | number | null
     adviceCount?: IntFieldUpdateOperationsInput | number
