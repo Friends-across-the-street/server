@@ -48,7 +48,7 @@ function insertCsvDataToMysql() {
       midJobIdx++;
 
       const insertMidJobQuery =
-        'INSERT INTO mid_job_kind (bigJobKindId, name) VALUES (?, ?)';
+        'INSERT INTO mid_job_kind (big_job_kind_id, name) VALUES (?, ?)';
       await connection.query(
         insertMidJobQuery,
         [bigJobIdx, data.mid_company_kind],
@@ -63,7 +63,7 @@ function insertCsvDataToMysql() {
     if (!smallJobKind.includes(data.company_kind)) {
       smallJobKind.push(data.company_kind);
       const insertSmallJobQuery =
-        'INSERT INTO small_job_kind (midJobKindId, name) VALUES (?, ?)';
+        'INSERT INTO small_job_kind (mid_job_kind_id, name) VALUES (?, ?)';
       await connection.query(
         insertSmallJobQuery,
         [midJobIdx, data.company_kind],
