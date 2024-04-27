@@ -250,10 +250,17 @@ export class UsersController {
     return await this.usersService.removePortfolio({ user });
   }
 
-  @ApiOperation({ summary: '학교 정보 조회' })
-  @ApiResponse({ status: 200, description: '정보 조회 성공' })
-  @Get('/find-school')
+  @ApiOperation({ summary: '학교 목록 조회' })
+  @ApiResponse({ status: 200, description: '목록 조회 성공' })
+  @Get('/find/school')
   async findSchool() {
     return await this.usersService.findSchool();
+  }
+
+  @ApiOperation({ summary: '회사 목록 조회' })
+  @ApiResponse({ status: 200, description: '목록 조회 성공' })
+  @Get('/find/company')
+  async findCompany() {
+    return await this.usersService.findCompany();
   }
 }
