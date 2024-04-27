@@ -5,4 +5,5 @@ export interface AddAdditionalInfoArgs {
   bigJobKindId: number;
   midJobKindId: number;
   smallJobKindId: number;
+  jobId: number;
 }

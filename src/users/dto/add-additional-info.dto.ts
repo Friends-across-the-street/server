@@ -26,4 +26,8 @@ export class AddAdditionalInfo implements AddAdditionalInfoArgs {
   @IsNumber()
   @ApiProperty({ description: '직업 소분류 ID', type: Number })
   smallJobKindId: number;
+
+  @IsNumber()
+  @ApiProperty({ description: '직업 id', type: Number })
+  jobId: number;
 }
