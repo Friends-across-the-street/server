@@ -210,7 +210,13 @@ export class UsersService {
 
   async findCompany() {
     return await this.prismaService.company.findMany({
-      select: { id: true, name: true },
+      select: {
+        id: true,
+        name: true,
+        bigJobKindId: true,
+        midJobKindId: true,
+        smallJobKindId: true,
+      },
     });
   }
 
