@@ -16,7 +16,7 @@ export class UsersRepository {
             name: true,
           },
         },
-        smallJobKind: {
+        job: {
           select: {
             name: true,
           },
@@ -50,9 +50,9 @@ export class UsersRepository {
         adviceCount: true,
         estimationCount: true,
         company: { select: { name: true } },
-        school: { select: { name: true, branch: true } },
-        major: { select: { name: true, dayAndNight: true } },
-        smallJobKind: { select: { name: true } },
+        school: { select: { name: true } },
+        major: { select: { name: true } },
+        job: { select: { name: true } },
       },
     });
   }
@@ -64,9 +64,9 @@ export class UsersRepository {
         totalGrade: true,
         estimationCount: true,
         wishCompany: { select: { name: true } },
-        school: { select: { name: true, branch: true } },
-        major: { select: { name: true, dayAndNight: true } },
-        wishSmallJobKind: { select: { name: true } },
+        school: { select: { name: true } },
+        major: { select: { name: true } },
+        wishJob: { select: { name: true } },
       },
     });
   }
@@ -75,7 +75,7 @@ export class UsersRepository {
     userId: number,
     args: AddAdditionalInfoArgs,
   ) {
-    return await this.prismaService.incumbentsAdditional.update({
+    return await this.prismaService.incumbentsAdditional.updateMany({
       where: { userId },
       data: {
         schoolId: args.schoolId,
@@ -84,6 +84,7 @@ export class UsersRepository {
         bigJobId: args.bigJobKindId,
         midJobId: args.midJobKindId,
         smallJobId: args.smallJobKindId,
+        jobId: args.jobId,
       },
     });
   }
@@ -92,7 +93,7 @@ export class UsersRepository {
     userId: number,
     args: AddAdditionalInfoArgs,
   ) {
-    return await this.prismaService.studentsAdditional.update({
+    return await this.prismaService.studentsAdditional.updateMany({
       where: { userId },
       data: {
         schoolId: args.schoolId,
@@ -101,6 +102,7 @@ export class UsersRepository {
         wishBigJobId: args.bigJobKindId,
         wishMidJobId: args.midJobKindId,
         wishSmallJobId: args.smallJobKindId,
+        wishJobId: args.jobId,
       },
     });
   }
