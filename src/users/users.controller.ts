@@ -277,4 +277,11 @@ export class UsersController {
   async findJob() {
     return await this.usersService.findJob();
   }
+
+  @ApiOperation({ summary: '추천인 조회' })
+  @ApiResponse({ status: 200, description: '목록 조회 성공' })
+  @Get('/recommend')
+  async recommend() {
+    return await this.usersService.recommend();
+  }
 }
