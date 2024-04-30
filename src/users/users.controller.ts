@@ -28,6 +28,7 @@ import { ReportsService } from 'src/reports/reports.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AddAdditionalInfo } from './dto/add-additional-info.dto';
 import { RegisterShortSpecDto } from './dto/register-short-spec.interface';
+import { RecommenderUser } from './dto/recommender-user.dto';
 
 @ApiTags('USER')
 @Controller('users')
@@ -281,7 +282,7 @@ export class UsersController {
   @ApiOperation({ summary: '추천인 조회' })
   @ApiResponse({ status: 200, description: '목록 조회 성공' })
   @Get('/recommend')
-  async recommend() {
+  async recommend(@Body() recommenderUser: RecommenderUser) {
     return await this.usersService.recommend();
   }
 }
