@@ -6,4 +6,8 @@ export interface AddAdditionalInfoArgs {
   midJobKindId: number;
   smallJobKindId: number;
   jobId: number;
+  schoolAffiliate: string;
+  schoolBranch: string;
+  schoolDayAndNight: string;
+  schoolDegree: string;
 }
