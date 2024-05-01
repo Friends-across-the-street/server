@@ -1,29 +1,9 @@
-import { UserType } from '../../../prisma/generated/mongodb';
-import {
-  IsBoolean,
-  IsEnum,
-  IsNotEmpty,
-  IsNumber,
-  IsString,
-} from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
 
 export class SendChatDto {
-  @IsNumber()
-  @IsNotEmpty()
-  senderId: number;
-
-  @IsNumber()
-  @IsNotEmpty()
-  receiverId: number;
-
-  @IsEnum(UserType)
-  @IsNotEmpty()
-  senderType: UserType;
-
   @IsString()
   @IsNotEmpty()
+  @ApiProperty({ description: '메세지 내용' })
   message: string;
-
-  @IsBoolean()
-  read: boolean = false;
 }
