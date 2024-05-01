@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   Post,
+  Query,
   Request,
   UploadedFile,
   UseGuards,
@@ -17,6 +18,7 @@ import {
   ApiConsumes,
   ApiOperation,
   ApiParam,
+  ApiQuery,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -281,8 +283,26 @@ export class UsersController {
 
   @ApiOperation({ summary: '추천인 조회' })
   @ApiResponse({ status: 200, description: '목록 조회 성공' })
-  @Get('/recommend')
-  async recommend(@Body() recommenderUser: RecommenderUser) {
-    return await this.usersService.recommend();
+  @ApiQuery({
+    name: 'show',
+    type: Number,
+    description: '추천 받을 개수(적어도 50000?)',
+    required: true,
+  })
+  @ApiQuery({
+    name: 'page',
+    required: true,
+    type: Number,
+    description: '페이지 number',
+  })
+  @ApiBearerAuth('access-token')
+  @UseGuards(AuthGuard)
+  @Post('/find/recommend')
+  async recommend(
+    @Query('show') show: number,
+    @Query('page') page: number,
+    @RequestUser() user: UserDataInAuthGuard,
+  ) {
+    return await this.usersService.recommend(show, page, user);
   }
 }
