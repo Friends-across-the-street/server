@@ -45,4 +45,14 @@ export class ChatController {
   ) {
     return await this.chatService.getChat(receiveId, user);
   }
+
+  @ApiOperation({ summary: '채팅룸 확인' })
+  @ApiResponse({ status: 200, description: '채팅룸 확인 성공' })
+  @ApiResponse({ status: 404, description: '상대방을 찾을 수 없음' })
+  @ApiBearerAuth('access-token')
+  @Get('/room')
+  @UseGuards(AuthGuard)
+  async getRoom(@RequestUser() user: UserDataInAuthGuard) {
+    return await this.chatService.getRoom(user);
+  }
 }
