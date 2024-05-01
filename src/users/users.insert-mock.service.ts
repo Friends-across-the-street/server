@@ -303,6 +303,12 @@ export class UsersInsertMockService {
   // }
 
   async createUsersMockData() {
+    const schoolData = {
+      schoolAffiliate: '공학계열',
+      schoolBranch: '본교',
+      schoolDayAndNight: '주간',
+      schoolDegree: '학사',
+    };
     const incheonAdditionalInfo: AddAdditionalInfoArgs[] = [
       {
         schoolId: 1,
@@ -312,6 +318,7 @@ export class UsersInsertMockService {
         midJobKindId: 6,
         smallJobKindId: 11,
         jobId: 1,
+        ...schoolData,
       },
       {
         schoolId: 1,
@@ -321,6 +328,7 @@ export class UsersInsertMockService {
         midJobKindId: 7,
         smallJobKindId: 13,
         jobId: 5,
+        ...schoolData,
       },
       {
         schoolId: 1,
@@ -330,6 +338,7 @@ export class UsersInsertMockService {
         midJobKindId: 7,
         smallJobKindId: 14,
         jobId: 81,
+        ...schoolData,
       },
     ];
 
@@ -342,6 +351,7 @@ export class UsersInsertMockService {
         midJobKindId: 6,
         smallJobKindId: 11,
         jobId: 23,
+        ...schoolData,
       },
       {
         schoolId: 2,
@@ -351,6 +361,7 @@ export class UsersInsertMockService {
         midJobKindId: 2,
         smallJobKindId: 3,
         jobId: 26,
+        ...schoolData,
       },
       {
         schoolId: 3,
@@ -360,6 +371,7 @@ export class UsersInsertMockService {
         midJobKindId: 7,
         smallJobKindId: 14,
         jobId: 47,
+        ...schoolData,
       },
     ];
 
@@ -372,6 +384,7 @@ export class UsersInsertMockService {
         midJobKindId: 5,
         smallJobKindId: 12,
         jobId: 49,
+        ...schoolData,
       },
       {
         schoolId: 4,
@@ -381,6 +394,7 @@ export class UsersInsertMockService {
         midJobKindId: 4,
         smallJobKindId: 5,
         jobId: 78,
+        ...schoolData,
       },
       {
         schoolId: 4,
@@ -390,6 +404,7 @@ export class UsersInsertMockService {
         midJobKindId: 4,
         smallJobKindId: 2,
         jobId: 12,
+        ...schoolData,
       },
       {
         schoolId: 4,
@@ -399,6 +414,7 @@ export class UsersInsertMockService {
         midJobKindId: 2,
         smallJobKindId: 3,
         jobId: 42,
+        ...schoolData,
       },
     ];
 
