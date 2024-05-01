@@ -120,10 +120,7 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
-exports.UserType = exports.$Enums.UserType = {
-  incumbent: 'incumbent',
-  student: 'student'
-};
+
 
 exports.Prisma.ModelName = {
   chat: 'chat'
