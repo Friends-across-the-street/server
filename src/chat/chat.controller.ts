@@ -20,12 +20,16 @@ export class ChatController {
   @ApiOperation({ summary: '채팅 전송' })
   @ApiResponse({ status: 200, description: '채팅 전송 성공' })
   @ApiResponse({ status: 404, description: '상대방을 찾을 수 없음' })
-  @ApiParam({ name: 'userId', type: Number, description: '대상 유저 ID' })
+  @ApiParam({
+    name: 'receiverId',
+    type: Number,
+    description: '보낼 대상 유저 ID',
+  })
   @ApiBearerAuth('access-token')
-  @Post('/:receiveId')
+  @Post('/:receiverId')
   @UseGuards(AuthGuard)
   async send(
-    @Param('receiveId') id: number,
+    @Param('receiverId') id: number,
     @Body() dto: SendChatDto,
     @RequestUser() user: UserDataInAuthGuard,
   ) {
@@ -37,13 +41,13 @@ export class ChatController {
   @ApiResponse({ status: 404, description: '상대방을 찾을 수 없음' })
   @ApiParam({ name: 'userId', type: Number, description: '대상 유저 ID' })
   @ApiBearerAuth('access-token')
-  @Get('/room/:receiveId')
+  @Get('/room/:userId')
   @UseGuards(AuthGuard)
   async getChat(
-    @Param('receiveId') receiveId: number,
+    @Param('userId') userId: number,
     @RequestUser() user: UserDataInAuthGuard,
   ) {
-    return await this.chatService.getChat(receiveId, user);
+    return await this.chatService.getChat(userId, user);
   }
 
   @ApiOperation({ summary: '채팅룸 확인' })
