@@ -20,23 +20,6 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 export type chat = $Result.DefaultSelection<Prisma.$chatPayload>
 
 /**
- * Enums
- */
-export namespace $Enums {
-  export const UserType: {
-  incumbent: 'incumbent',
-  student: 'student'
-};
-
-export type UserType = (typeof UserType)[keyof typeof UserType]
-
-}
-
-export type UserType = $Enums.UserType
-
-export const UserType: typeof $Enums.UserType
-
-/**
  * ##  Prisma Client ʲˢ
  * 
  * Type-safe database client for TypeScript & Node.js
@@ -863,7 +846,7 @@ export namespace Prisma {
     id: string | null
     senderId: number | null
     receiverId: number | null
-    senderType: $Enums.UserType | null
+    senderType: string | null
     message: string | null
     read: boolean | null
     createdDate: Date | null
@@ -874,7 +857,7 @@ export namespace Prisma {
     id: string | null
     senderId: number | null
     receiverId: number | null
-    senderType: $Enums.UserType | null
+    senderType: string | null
     message: string | null
     read: boolean | null
     createdDate: Date | null
@@ -1028,7 +1011,7 @@ export namespace Prisma {
     id: string
     senderId: number
     receiverId: number
-    senderType: $Enums.UserType
+    senderType: string
     message: string
     read: boolean
     createdDate: Date
@@ -1084,7 +1067,7 @@ export namespace Prisma {
       id: string
       senderId: number
       receiverId: number
-      senderType: $Enums.UserType
+      senderType: string
       message: string
       read: boolean
       createdDate: Date
@@ -1513,7 +1496,7 @@ export namespace Prisma {
     readonly id: FieldRef<"chat", 'String'>
     readonly senderId: FieldRef<"chat", 'Int'>
     readonly receiverId: FieldRef<"chat", 'Int'>
-    readonly senderType: FieldRef<"chat", 'UserType'>
+    readonly senderType: FieldRef<"chat", 'String'>
     readonly message: FieldRef<"chat", 'String'>
     readonly read: FieldRef<"chat", 'Boolean'>
     readonly createdDate: FieldRef<"chat", 'DateTime'>
@@ -1902,20 +1885,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'UserType'
-   */
-  export type EnumUserTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserType'>
-    
-
-
-  /**
-   * Reference to a field of type 'UserType[]'
-   */
-  export type ListEnumUserTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserType[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
@@ -1960,7 +1929,7 @@ export namespace Prisma {
     id?: StringFilter<"chat"> | string
     senderId?: IntFilter<"chat"> | number
     receiverId?: IntFilter<"chat"> | number
-    senderType?: EnumUserTypeFilter<"chat"> | $Enums.UserType
+    senderType?: StringFilter<"chat"> | string
     message?: StringFilter<"chat"> | string
     read?: BoolFilter<"chat"> | boolean
     createdDate?: DateTimeFilter<"chat"> | Date | string
@@ -1985,7 +1954,7 @@ export namespace Prisma {
     NOT?: chatWhereInput | chatWhereInput[]
     senderId?: IntFilter<"chat"> | number
     receiverId?: IntFilter<"chat"> | number
-    senderType?: EnumUserTypeFilter<"chat"> | $Enums.UserType
+    senderType?: StringFilter<"chat"> | string
     message?: StringFilter<"chat"> | string
     read?: BoolFilter<"chat"> | boolean
     createdDate?: DateTimeFilter<"chat"> | Date | string
@@ -2015,7 +1984,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"chat"> | string
     senderId?: IntWithAggregatesFilter<"chat"> | number
     receiverId?: IntWithAggregatesFilter<"chat"> | number
-    senderType?: EnumUserTypeWithAggregatesFilter<"chat"> | $Enums.UserType
+    senderType?: StringWithAggregatesFilter<"chat"> | string
     message?: StringWithAggregatesFilter<"chat"> | string
     read?: BoolWithAggregatesFilter<"chat"> | boolean
     createdDate?: DateTimeWithAggregatesFilter<"chat"> | Date | string
@@ -2026,9 +1995,9 @@ export namespace Prisma {
     id?: string
     senderId: number
     receiverId: number
-    senderType: $Enums.UserType
+    senderType: string
     message: string
-    read: boolean
+    read?: boolean
     createdDate?: Date | string
     updatedDate?: Date | string
   }
@@ -2037,9 +2006,9 @@ export namespace Prisma {
     id?: string
     senderId: number
     receiverId: number
-    senderType: $Enums.UserType
+    senderType: string
     message: string
-    read: boolean
+    read?: boolean
     createdDate?: Date | string
     updatedDate?: Date | string
   }
@@ -2047,7 +2016,7 @@ export namespace Prisma {
   export type chatUpdateInput = {
     senderId?: IntFieldUpdateOperationsInput | number
     receiverId?: IntFieldUpdateOperationsInput | number
-    senderType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
+    senderType?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     read?: BoolFieldUpdateOperationsInput | boolean
     createdDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -2057,7 +2026,7 @@ export namespace Prisma {
   export type chatUncheckedUpdateInput = {
     senderId?: IntFieldUpdateOperationsInput | number
     receiverId?: IntFieldUpdateOperationsInput | number
-    senderType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
+    senderType?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     read?: BoolFieldUpdateOperationsInput | boolean
     createdDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -2068,9 +2037,9 @@ export namespace Prisma {
     id?: string
     senderId: number
     receiverId: number
-    senderType: $Enums.UserType
+    senderType: string
     message: string
-    read: boolean
+    read?: boolean
     createdDate?: Date | string
     updatedDate?: Date | string
   }
@@ -2078,7 +2047,7 @@ export namespace Prisma {
   export type chatUpdateManyMutationInput = {
     senderId?: IntFieldUpdateOperationsInput | number
     receiverId?: IntFieldUpdateOperationsInput | number
-    senderType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
+    senderType?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     read?: BoolFieldUpdateOperationsInput | boolean
     createdDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -2088,7 +2057,7 @@ export namespace Prisma {
   export type chatUncheckedUpdateManyInput = {
     senderId?: IntFieldUpdateOperationsInput | number
     receiverId?: IntFieldUpdateOperationsInput | number
-    senderType?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
+    senderType?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     read?: BoolFieldUpdateOperationsInput | boolean
     createdDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -2119,13 +2088,6 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
-  }
-
-  export type EnumUserTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.UserType | EnumUserTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.UserType[] | ListEnumUserTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.UserType[] | ListEnumUserTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumUserTypeFilter<$PrismaModel> | $Enums.UserType
   }
 
   export type BoolFilter<$PrismaModel = never> = {
@@ -2221,16 +2183,6 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type EnumUserTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.UserType | EnumUserTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.UserType[] | ListEnumUserTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.UserType[] | ListEnumUserTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumUserTypeWithAggregatesFilter<$PrismaModel> | $Enums.UserType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumUserTypeFilter<$PrismaModel>
-    _max?: NestedEnumUserTypeFilter<$PrismaModel>
-  }
-
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
@@ -2259,10 +2211,6 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
-  }
-
-  export type EnumUserTypeFieldUpdateOperationsInput = {
-    set?: $Enums.UserType
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -2300,13 +2248,6 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
-  }
-
-  export type NestedEnumUserTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.UserType | EnumUserTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.UserType[] | ListEnumUserTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.UserType[] | ListEnumUserTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumUserTypeFilter<$PrismaModel> | $Enums.UserType
   }
 
   export type NestedBoolFilter<$PrismaModel = never> = {
@@ -2367,16 +2308,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
-  export type NestedEnumUserTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.UserType | EnumUserTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.UserType[] | ListEnumUserTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.UserType[] | ListEnumUserTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumUserTypeWithAggregatesFilter<$PrismaModel> | $Enums.UserType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumUserTypeFilter<$PrismaModel>
-    _max?: NestedEnumUserTypeFilter<$PrismaModel>
   }
 
   export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
