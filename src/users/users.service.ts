@@ -10,12 +10,10 @@ import { RegisterShortSpecArgs } from './interface/register-short-spec.interface
 import { RemoveShortSpecArgs } from './interface/remove-short-spec.interface';
 import { RegisterPortfolioArgs } from './interface/register-portfolio.interface';
 import { RemovePortfolioArgs } from './interface/remove-portfolio.interface';
-import { RecommenderUser } from './dto/recommender-user.dto';
 import { HttpService } from '@nestjs/axios';
 import { ApplyAdditionalInfoArgs } from './interface/apply-additional-info.interface';
 import { AxiosRequestConfig } from 'axios';
 import { firstValueFrom } from 'rxjs';
-import { UserType } from '@prisma/client';
 
 @Injectable()
 export class UsersService {
@@ -266,11 +264,10 @@ export class UsersService {
     data: ApplyAdditionalInfoArgs,
     user: UserDataInAuthGuard,
   ) {
-    const userType =
-      user.type === UserType.incumbent ? 'consultant' : 'student';
+    const type = user.type === userType.incumbent ? 'consultant' : 'student';
     return await firstValueFrom(
       this.httpService.post(
-        `/?page=${page}&show=${show}&user_type=${userType}`,
+        `/?page=${page}&show=${show}&user_type=${type}`,
         data,
         this.axiosConfig,
       ),
@@ -288,7 +285,7 @@ export class UsersService {
       univ_main_branch,
       major;
 
-    if (user.type === UserType.incumbent) {
+    if (user.type === userType.incumbent) {
       addedInfoUser = await this.usersReopsitory.findAllInfoForIncumbent(
         user.id,
       );
