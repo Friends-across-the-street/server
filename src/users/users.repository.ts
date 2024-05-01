@@ -85,6 +85,10 @@ export class UsersRepository {
         midJobId: args.midJobKindId,
         smallJobId: args.smallJobKindId,
         jobId: args.jobId,
+        schoolAffiliate: args.schoolAffiliate,
+        schoolBranch: args.schoolBranch,
+        schoolDayAndNight: args.schoolDayAndNight,
+        schoolDegree: args.schoolDegree,
       },
     });
   }
@@ -103,6 +107,132 @@ export class UsersRepository {
         wishMidJobId: args.midJobKindId,
         wishSmallJobId: args.smallJobKindId,
         wishJobId: args.jobId,
+        schoolAffiliate: args.schoolAffiliate,
+        schoolBranch: args.schoolBranch,
+        schoolDayAndNight: args.schoolDayAndNight,
+        schoolDegree: args.schoolDegree,
+      },
+    });
+  }
+
+  async findAllInfoForStudent(userId: number) {
+    return this.prismaService.users.findFirst({
+      where: { id: userId },
+      select: {
+        id: true,
+        name: true,
+        gender: true,
+        type: true,
+        student_additional: {
+          select: {
+            schoolAffiliate: true,
+            schoolDayAndNight: true,
+            schoolBranch: true,
+            schoolDegree: true,
+            wishCompany: {
+              select: {
+                name: true,
+                address: true,
+                longitude: true,
+                latitude: true,
+                scale: true,
+                bigJobKind: {
+                  select: {
+                    name: true,
+                  },
+                },
+                midJobKind: {
+                  select: {
+                    name: true,
+                  },
+                },
+                smallJobKind: {
+                  select: {
+                    name: true,
+                  },
+                },
+              },
+            },
+            wishJob: {
+              select: {
+                name: true,
+                clusteringGroup: true,
+              },
+            },
+            school: {
+              select: {
+                name: true,
+                location: true,
+              },
+            },
+            major: {
+              select: {
+                name: true,
+              },
+            },
+          },
+        },
+      },
+    });
+  }
+
+  async findAllInfoForIncumbent(userId: number) {
+    return this.prismaService.users.findFirst({
+      where: { id: userId },
+      select: {
+        id: true,
+        name: true,
+        gender: true,
+        type: true,
+        incumbent_additional: {
+          select: {
+            schoolAffiliate: true,
+            schoolDayAndNight: true,
+            schoolBranch: true,
+            schoolDegree: true,
+            company: {
+              select: {
+                name: true,
+                address: true,
+                longitude: true,
+                latitude: true,
+                scale: true,
+                bigJobKind: {
+                  select: {
+                    name: true,
+                  },
+                },
+                midJobKind: {
+                  select: {
+                    name: true,
+                  },
+                },
+                smallJobKind: {
+                  select: {
+                    name: true,
+                  },
+                },
+              },
+            },
+            job: {
+              select: {
+                name: true,
+                clusteringGroup: true,
+              },
+            },
+            school: {
+              select: {
+                name: true,
+                location: true,
+              },
+            },
+            major: {
+              select: {
+                name: true,
+              },
+            },
+          },
+        },
       },
     });
   }
