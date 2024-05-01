@@ -253,9 +253,13 @@ export class UsersService {
   };
 
   private async applyAdditionalInfo(args: ApplyAdditionalInfoArgs) {
-    return await firstValueFrom(
-      this.httpService.post('/update', args, this.axiosConfig),
-    );
+    try {
+      return await firstValueFrom(
+        this.httpService.post('/update', args, this.axiosConfig),
+      );
+    } catch (e) {
+      throw new CustomException('AI서버에 동기화 실패', 400);
+    }
   }
 
   private async findRecommender(
@@ -265,13 +269,17 @@ export class UsersService {
     user: UserDataInAuthGuard,
   ) {
     const type = user.type === userType.incumbent ? 'consultant' : 'student';
-    return await firstValueFrom(
-      this.httpService.post(
-        `/?page=${page}&show=${show}&user_type=${type}`,
-        data,
-        this.axiosConfig,
-      ),
-    );
+    try {
+      return await firstValueFrom(
+        this.httpService.post(
+          `/?page=${page}&show=${show}&user_type=${type}`,
+          data,
+          this.axiosConfig,
+        ),
+      );
+    } catch (e) {
+      throw new CustomException('추천인 조회 실패', 400);
+    }
   }
 
   private async refinedForAI(user: UserDataInAuthGuard) {
@@ -311,7 +319,7 @@ export class UsersService {
 
     const refinedData: ApplyAdditionalInfoArgs = {
       index: addedInfoUser.id + 100000,
-      sex: addedInfoUser.gender,
+      sex: addedInfoUser.gender === 'female' ? 1 : 0,
       name: addedInfoUser.name,
       company_name: company.name,
       company_address: company.address,
