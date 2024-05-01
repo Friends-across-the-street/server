@@ -9,6 +9,7 @@ import { MulterModule } from '@nestjs/platform-express';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { multerS3Config } from 'src/global/config/multer-s3.config';
 import { UsersInsertMockService } from './users.insert-mock.service';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { UsersInsertMockService } from './users.insert-mock.service';
       useFactory: (configService: ConfigService) =>
         multerS3Config(configService),
     }),
+    HttpModule,
   ],
   controllers: [UsersController],
   providers: [
