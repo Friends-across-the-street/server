@@ -42,6 +42,7 @@ export class UsersController {
 
   @ApiOperation({ summary: '유저 상세 정보 등록' })
   @ApiResponse({ status: 200, description: '유저 상세 정보 등록 성공' })
+  @ApiResponse({ status: 400, description: 'AI서버에 데이터 동기화 실패' })
   @ApiResponse({ status: 403, description: '토큰이 일치하지 않습니다.' })
   @ApiResponse({ status: 404, description: '유저 정보 없음' })
   @UseGuards(AuthGuard)
@@ -283,6 +284,7 @@ export class UsersController {
 
   @ApiOperation({ summary: '추천인 조회' })
   @ApiResponse({ status: 200, description: '목록 조회 성공' })
+  @ApiResponse({ status: 400, description: '추천인 조회 실패' })
   @ApiQuery({
     name: 'show',
     type: Number,
