@@ -64,7 +64,7 @@ export class UsersService {
   }
 
   async getMyProfile(user: UserDataInAuthGuard) {
-    let additionalData, companyName, smallJobKindName;
+    let additionalData, companyName, smallJobKindName, job, school, major;
     const userData = await this.prismaService.users.findFirst({
       where: { id: user.id },
       select: {
@@ -87,6 +87,9 @@ export class UsersService {
         smallJobKindName = additionalData.smallJobKind
           ? additionalData.smallJobKind.name
           : null;
+        job = additionalData.job ? additionalData.job.name : null;
+        major = additionalData.major ? additionalData.major.name : null;
+        school = additionalData.school ? additionalData.school.name : null;
         break;
       case userType.student:
         additionalData = await this.usersReopsitory.getMyProfileForStudent(
@@ -98,6 +101,10 @@ export class UsersService {
         smallJobKindName = additionalData.wishSmallJobKind
           ? additionalData.wishSmallJobKind.name
           : null;
+        job = additionalData.wishJob ? additionalData.wishJob.name : null;
+        major = additionalData.major ? additionalData.major.name : null;
+        school = additionalData.school ? additionalData.school.name : null;
+        delete additionalData.wishJob;
         delete additionalData.wishCompany;
         delete additionalData.wishSmallJobKind;
         break;
@@ -109,6 +116,9 @@ export class UsersService {
         ...additionalData,
         company: companyName,
         smallJobKind: smallJobKindName,
+        job,
+        major,
+        school,
       },
     };
   }
