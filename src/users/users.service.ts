@@ -255,6 +255,7 @@ export class UsersService {
   async recommend(show: number, page: number, user: UserDataInAuthGuard) {
     const userData = await this.refinedForAI(user);
     const recommender = await this.findRecommender(page, show, userData, user);
+    // console.log(recommender);
     return recommender.data;
   }
 
@@ -284,7 +285,10 @@ export class UsersService {
         this.httpService.post(
           `/?page=${page}&show=${show}&user_type=${type}`,
           data,
-          this.axiosConfig,
+          {
+            ...this.axiosConfig,
+            headers: { 'Content-Type': 'application/json' },
+          },
         ),
       );
     } catch (e) {
