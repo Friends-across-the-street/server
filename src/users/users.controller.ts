@@ -45,6 +45,7 @@ export class UsersController {
   @ApiResponse({ status: 400, description: 'AI서버에 데이터 동기화 실패' })
   @ApiResponse({ status: 403, description: '토큰이 일치하지 않습니다.' })
   @ApiResponse({ status: 404, description: '유저 정보 없음' })
+  @ApiBearerAuth('access-token')
   @UseGuards(AuthGuard)
   @Post('/additional')
   async addAdditionalInfo(
