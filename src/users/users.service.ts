@@ -14,7 +14,7 @@ import { HttpService } from '@nestjs/axios';
 import { ApplyAdditionalInfoArgs } from './interface/apply-additional-info.interface';
 import { AxiosRequestConfig } from 'axios';
 import { firstValueFrom } from 'rxjs';
-import { Cron } from '@nestjs/schedule';
+import { Cron, CronExpression } from '@nestjs/schedule';
 
 @Injectable()
 export class UsersService {
@@ -359,8 +359,8 @@ export class UsersService {
     return refinedData;
   }
 
-  @Cron('0 0 0 * * *')
-  private async job() {
+  @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT, { timeZone: 'Asia/Seoul' })
+  private async totalUpdateForAI() {
     try {
       return await firstValueFrom(
         this.httpService.get('/total_update', this.axiosConfig),
