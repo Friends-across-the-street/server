@@ -14,6 +14,7 @@ import { HttpService } from '@nestjs/axios';
 import { ApplyAdditionalInfoArgs } from './interface/apply-additional-info.interface';
 import { AxiosRequestConfig } from 'axios';
 import { firstValueFrom } from 'rxjs';
+import { Cron } from '@nestjs/schedule';
 
 @Injectable()
 export class UsersService {
@@ -356,5 +357,16 @@ export class UsersService {
     };
 
     return refinedData;
+  }
+
+  @Cron('0 0 0 * * *')
+  private async job() {
+    try {
+      return await firstValueFrom(
+        this.httpService.get('/total_update', this.axiosConfig),
+      );
+    } catch (e) {
+      throw new CustomException('AI 모델 업데이트 실패', 400);
+    }
   }
 }
