@@ -359,7 +359,7 @@ export class UsersService {
     return refinedData;
   }
 
-  @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT, { timeZone: 'Asia/Seoul' })
+  @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
   private async totalUpdateForAI() {
     try {
       return await firstValueFrom(
