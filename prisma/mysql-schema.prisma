@@ -112,7 +112,7 @@ model posts {
   userId Int? @map("user_id")
   categoryId Int? @map("category_id")
   title String
-  content String
+  content String @db.Text()
   view Int @default(0)
   recommend Int @default(0)
   reported Int @default(0)

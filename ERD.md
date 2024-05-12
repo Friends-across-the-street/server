@@ -28,6 +28,10 @@ erDiagram
     Int mid_job_id "nullable"
     Int small_job_id "nullable"
     Int job_id FK "nullable"
+    String school_branch "nullable"
+    String school_day_and_night "nullable"
+    String school_affiliate "nullable"
+    String school_degree "nullable"
     String short_spec "nullable"
     Int reported_num
     Int advice_count
@@ -45,6 +49,10 @@ erDiagram
     Int wish_small_job_id "nullable"
     Int wish_job_id FK "nullable"
     String portfolio "nullable"
+    String school_branch "nullable"
+    String school_day_and_night "nullable"
+    String school_affiliate "nullable"
+    String school_degree "nullable"
     Int reported_num
     Float total_grade "nullable"
     Int advice_count
@@ -126,13 +134,11 @@ erDiagram
 "school" {
     Int id PK
     String name
-    String branch
+    String location
 }
 "major" {
     Int id PK
-    Int schoolId FK
     String name
-    String dayAndNight
 }
 "big_job_kind" {
     Int id PK
@@ -140,12 +146,12 @@ erDiagram
 }
 "mid_job_kind" {
     Int id PK
-    Int bigJobKindId FK
+    Int big_job_kind_id FK
     String name
 }
 "small_job_kind" {
     Int id PK
-    Int midJobKindId FK
+    Int mid_job_kind_id FK
     String name
 }
 "job" {
@@ -180,7 +186,6 @@ erDiagram
 "company" }|--|| "big_job_kind" : bigJobKind
 "company" }|--|| "mid_job_kind" : midJobKind
 "company" }|--|| "small_job_kind" : smallJobKind
-"major" }|--|| "school" : school
 "mid_job_kind" }|--|| "big_job_kind" : bigJobKind
 "small_job_kind" }|--|| "mid_job_kind" : midJobKind
 ```
@@ -211,6 +216,10 @@ erDiagram
   - `mid_job_id`: 
   - `small_job_id`: 
   - `job_id`: 
+  - `school_branch`: 
+  - `school_day_and_night`: 
+  - `school_affiliate`: 
+  - `school_degree`: 
   - `short_spec`: 
   - `reported_num`: 
   - `advice_count`: 
@@ -230,6 +239,10 @@ erDiagram
   - `wish_small_job_id`: 
   - `wish_job_id`: 
   - `portfolio`: 
+  - `school_branch`: 
+  - `school_day_and_night`: 
+  - `school_affiliate`: 
+  - `school_degree`: 
   - `reported_num`: 
   - `total_grade`: 
   - `advice_count`: 
@@ -331,15 +344,13 @@ erDiagram
 **Properties**
   - `id`: 
   - `name`: 
-  - `branch`: 
+  - `location`: 
 
 ### `major`
 
 **Properties**
   - `id`: 
-  - `schoolId`: 
   - `name`: 
-  - `dayAndNight`: 
 
 ### `big_job_kind`
 
@@ -351,14 +362,14 @@ erDiagram
 
 **Properties**
   - `id`: 
-  - `bigJobKindId`: 
+  - `big_job_kind_id`: 
   - `name`: 
 
 ### `small_job_kind`
 
 **Properties**
   - `id`: 
-  - `midJobKindId`: 
+  - `mid_job_kind_id`: 
   - `name`: 
 
 ### `job`
