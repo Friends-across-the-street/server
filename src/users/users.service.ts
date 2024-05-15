@@ -15,6 +15,7 @@ import { ApplyAdditionalInfoArgs } from './interface/apply-additional-info.inter
 import { AxiosRequestConfig } from 'axios';
 import { firstValueFrom } from 'rxjs';
 import { Cron, CronExpression } from '@nestjs/schedule';
+import { RecommendRate } from './interface/recommend-rate.interface';
 
 @Injectable()
 export class UsersService {
@@ -253,10 +254,20 @@ export class UsersService {
     });
   }
 
-  async recommend(show: number, page: number, user: UserDataInAuthGuard) {
+  async recommend(
+    show: number,
+    page: number,
+    user: UserDataInAuthGuard,
+    recommendRate: RecommendRate,
+  ) {
     const userData = await this.refinedForAI(user);
-    const recommender = await this.findRecommender(page, show, userData, user);
-    // console.log(recommender);
+    const recommender = await this.findRecommender(
+      page,
+      show,
+      userData,
+      user,
+      recommendRate,
+    );
     return recommender.data;
   }
 
@@ -279,12 +290,13 @@ export class UsersService {
     show: number,
     data: ApplyAdditionalInfoArgs,
     user: UserDataInAuthGuard,
+    recommendRate: RecommendRate,
   ) {
     const type = user.type === userType.incumbent ? 'consultant' : 'student';
     try {
       return await firstValueFrom(
         this.httpService.post(
-          `/?page=${page}&show=${show}&user_type=${type}`,
+          `/?page=${page}&show=${show}&user_type=${type}&univ_rate=${recommendRate.univRate}&company_rate=${recommendRate.companyRate}&=job_rate=${recommendRate.jobRate}`,
           data,
           {
             ...this.axiosConfig,
