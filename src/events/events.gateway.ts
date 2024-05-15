@@ -65,7 +65,10 @@ export class EventsGateway
     if (receiverSocketId) {
       this.server
         .to(receiverSocketId)
-        .emit('chatToServer', refinedMessage.text);
+        .emit('chatToServer', {
+          message: refinedMessage.text,
+          senderId: refinedMessage.senderId,
+        });
     } else {
       throw new CustomException('채팅 상대가 온라인이 아닙니다.', 404);
     }
