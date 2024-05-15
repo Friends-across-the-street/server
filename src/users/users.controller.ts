@@ -30,7 +30,7 @@ import { ReportsService } from 'src/reports/reports.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AddAdditionalInfo } from './dto/add-additional-info.dto';
 import { RegisterShortSpecDto } from './dto/register-short-spec.interface';
-import { RecommenderUser } from './dto/recommender-user.dto';
+import { Rate } from './interface/recommend-rate.interface';
 
 @ApiTags('USER')
 @Controller('users')
@@ -298,14 +298,39 @@ export class UsersController {
     type: Number,
     description: '페이지 number',
   })
+  @ApiQuery({
+    name: 'univ_rate',
+    required: true,
+    type: Number,
+    description: '대학 반영 비율',
+  })
+  @ApiQuery({
+    name: 'company_rate',
+    required: true,
+    type: Number,
+    description: '회사 반영 비율',
+  })
+  @ApiQuery({
+    name: 'job_rate',
+    required: true,
+    type: Number,
+    description: '직업 반영 비율',
+  })
   @ApiBearerAuth('access-token')
   @UseGuards(AuthGuard)
   @Post('/find/recommend')
   async recommend(
     @Query('show') show: number,
     @Query('page') page: number,
+    @Query('univ_rate') univRate: Rate,
+    @Query('company_rate') companyRate: Rate,
+    @Query('job_rate') jobRate: Rate,
     @RequestUser() user: UserDataInAuthGuard,
   ) {
-    return await this.usersService.recommend(show, page, user);
+    return await this.usersService.recommend(show, page, user, {
+      univRate,
+      companyRate,
+      jobRate,
+    });
   }
 }
