@@ -47,7 +47,7 @@ export class UsersService {
       case userType.incumbent:
         additionalData = await this.usersReopsitory.findIncumbentById(userId);
         companyName = additionalData.company.name;
-        smallJobKindName = additionalData.smallJobKind.name;
+        smallJobKindName = additionalData.job.name;
         break;
       case userType.student:
         additionalData = await this.usersReopsitory.findStudentById(userId);
