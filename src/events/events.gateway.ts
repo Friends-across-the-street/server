@@ -38,6 +38,20 @@ export class EventsGateway
     if (!onlineMap[namespace]) {
       onlineMap[namespace] = {};
     }
+
+    let isExist = false;
+    let checkKey;
+    Object.entries(onlineMap['/']).forEach(([key, value]) => {
+      if (value === onlineUserId) {
+        checkKey = key;
+        isExist = true;
+      }
+    });
+    if (isExist) {
+      Object.keys(onlineMap).forEach((namespace) => {
+        delete onlineMap[namespace][checkKey];
+      });
+    }
     onlineMap[namespace][socket.id] = onlineUserId;
     console.log(onlineMap);
   }
