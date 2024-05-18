@@ -17,7 +17,7 @@ import { CustomException } from 'src/global/exception/custom.exception';
 interface ChatMessage {
   senderId: number;
   receiverId: number;
-  text: string;
+  message: string;
 }
 
 @WebSocketGateway()
@@ -78,7 +78,7 @@ export class EventsGateway
 
     if (receiverSocketId) {
       this.server.to(receiverSocketId).emit('chatToServer', {
-        message: refinedMessage.text,
+        message: refinedMessage.message,
         senderId: refinedMessage.senderId,
       });
     } else {
