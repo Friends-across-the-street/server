@@ -31,6 +31,7 @@ export class UsersRepository {
             name: true,
           },
         },
+        shortSpec: true,
       },
     });
   }
@@ -59,6 +60,7 @@ export class UsersRepository {
             name: true,
           },
         },
+        portfolio: true,
       },
     });
   }
@@ -73,6 +75,7 @@ export class UsersRepository {
         school: { select: { name: true } },
         major: { select: { name: true } },
         job: { select: { name: true } },
+        shortSpec: true,
       },
     });
   }
@@ -87,6 +90,7 @@ export class UsersRepository {
         school: { select: { name: true } },
         major: { select: { name: true } },
         wishJob: { select: { name: true } },
+        portfolio: true,
       },
     });
   }

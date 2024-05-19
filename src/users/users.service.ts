@@ -42,7 +42,13 @@ export class UsersService {
       throw new CustomException('유저가 존재하지 않음', 404);
     }
 
-    let additionalData, companyName, smallJobKindName, schoolName, majorName;
+    let additionalData,
+      companyName,
+      smallJobKindName,
+      schoolName,
+      majorName,
+      spec,
+      portfolio;
     switch (user.type) {
       case userType.incumbent:
         additionalData = await this.usersReopsitory.findIncumbentById(userId);
@@ -50,6 +56,7 @@ export class UsersService {
         smallJobKindName = additionalData.job.name;
         schoolName = additionalData.school.name;
         majorName = additionalData.major.name;
+        spec = additionalData.shortSpec;
         break;
       case userType.student:
         additionalData = await this.usersReopsitory.findStudentById(userId);
@@ -57,6 +64,7 @@ export class UsersService {
         smallJobKindName = additionalData.wishJob.name;
         schoolName = additionalData.school.name;
         majorName = additionalData.major.name;
+        portfolio = additionalData.portfolio;
         break;
     }
 
@@ -67,6 +75,8 @@ export class UsersService {
         job: smallJobKindName ?? null,
         school: schoolName ?? null,
         major: majorName ?? null,
+        spec: spec ?? null,
+        portfolio: portfolio ?? null,
       },
     };
   }
@@ -85,6 +95,7 @@ export class UsersService {
         type: true,
       },
     });
+    let portfolio, spec;
     switch (user.type) {
       case userType.incumbent:
         additionalData = await this.usersReopsitory.getMyProfileForIncumbent(
@@ -99,6 +110,7 @@ export class UsersService {
         job = additionalData.job ? additionalData.job.name : null;
         major = additionalData.major ? additionalData.major.name : null;
         school = additionalData.school ? additionalData.school.name : null;
+        spec = additionalData.shortSpec;
         break;
       case userType.student:
         additionalData = await this.usersReopsitory.getMyProfileForStudent(
@@ -113,6 +125,7 @@ export class UsersService {
         job = additionalData.wishJob ? additionalData.wishJob.name : null;
         major = additionalData.major ? additionalData.major.name : null;
         school = additionalData.school ? additionalData.school.name : null;
+        portfolio = additionalData.portfolio;
         delete additionalData.wishJob;
         delete additionalData.wishCompany;
         delete additionalData.wishSmallJobKind;
@@ -128,6 +141,8 @@ export class UsersService {
         job,
         major,
         school,
+        portfolio: portfolio ?? null,
+        spec: spec ?? null,
       },
     };
   }
