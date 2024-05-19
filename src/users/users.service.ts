@@ -58,10 +58,12 @@ export class UsersService {
 
     return {
       ...user,
-      company: companyName ?? null,
-      smallJobKind: smallJobKindName ?? null,
-      school: schoolName ?? null,
-      major: majorName ?? null,
+      additionalInfo: {
+        company: companyName ?? null,
+        smallJobKind: smallJobKindName ?? null,
+        school: schoolName ?? null,
+        major: majorName ?? null,
+      },
     };
   }
 
