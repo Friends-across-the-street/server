@@ -64,7 +64,7 @@ export class UsersService {
       ...user,
       additionalInfo: {
         company: companyName ?? null,
-        smallJobKind: smallJobKindName ?? null,
+        job: smallJobKindName ?? null,
         school: schoolName ?? null,
         major: majorName ?? null,
       },
