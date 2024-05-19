@@ -220,7 +220,7 @@ export class UsersController {
     schema: {
       type: 'object',
       properties: {
-        image: {
+        portfolio: {
           type: 'string',
           format: 'binary',
         },
