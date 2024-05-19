@@ -21,6 +21,16 @@ export class UsersRepository {
             name: true,
           },
         },
+        school: {
+          select: {
+            name: true,
+          },
+        },
+        major: {
+          select: {
+            name: true,
+          },
+        },
       },
     });
   }
@@ -35,6 +45,16 @@ export class UsersRepository {
           },
         },
         major: {
+          select: {
+            name: true,
+          },
+        },
+        wishCompany: {
+          select: {
+            name: true,
+          },
+        },
+        wishJob: {
           select: {
             name: true,
           },
